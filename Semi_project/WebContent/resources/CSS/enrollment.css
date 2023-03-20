@@ -1,0 +1,77 @@
+
+#enrollment-wrapper {
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+form{
+
+    padding: 20px;
+    width: 400px;
+
+}
+
+label{
+    color: gray;
+    font-size: 10px;
+}
+
+#form-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+#info>input{
+    border-radius: 5px;
+    border: solid 2px lightgray;
+    width: 400px;
+    height: 25px;
+}
+
+#info{
+    width: 600px;
+}
+
+#checkId{
+    background-color:  skyblue;
+    border: none;
+    border-radius: 5px;
+}
+
+#enrollbutton{
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+#enrollbutton>div>input{
+    background-color:  skyblue;
+    border: lightgray;
+    border-radius: 5px;
+}
+
+#ad{
+    width: 350px;
+    height: 150px;
+    border: solid 2px lightgray;
+    border-radius: 5px;
+}
+
+#agree2 b{
+    font-size: larger;
+}
+
+#enrollimg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}

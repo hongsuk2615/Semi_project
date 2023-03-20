@@ -14,25 +14,41 @@
 }
 
 #navbar {
-    padding: 10px;
+    padding: 2px;
     width: 600px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
+}
+#navbar > div {
+    padding: 20px 0px;
+    height: 90px
+}
+#navbar > div:hover{
+    border-bottom: 5px solid rgb(57, 189, 235);
 }
 
 #header-right {
     display: flex;
+    justify-content: center;
     align-items: center;
     width: 155px;
 }
 
 #header-right>button {
-    width: 78px;
     height: 40px;
+    margin: 2px;
+    border-color: #737373;
+    border-radius: 5px;
 }
 
-#enrollment-btn {}
+#login-btn{
+    width: 67px;
+    background-color: rgb(57, 189, 235);
+}
+#enrollment-btn {
+    width: 78px;
+}
 
 #home-logo {
     height: 100%;

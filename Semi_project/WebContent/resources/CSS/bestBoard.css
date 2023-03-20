@@ -1,0 +1,58 @@
+#board-detail ul {
+    margin: 0;
+    padding: 0;
+}
+
+#board-detail {
+    width: 100%;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#board-detail >*{
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+
+}
+
+#board-detail li {
+    
+    list-style-type: none;
+    border-top: 1px solid black;
+    
+}
+
+#board-detail li {
+    list-style-type: none;
+   
+}
+
+#board-detail-comment{
+    display: flex;
+    justify-content: end;
+   
+}
+
+#board-detail-search {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#createContent > div {
+    width: 100%;
+    border: 1px solid black;
+}
+
+#createContent-check {
+    display: flex;
+    justify-content: space-between;
+}
+
+#board-detail-bottom {
+    display: flex;
+    justify-content: space-between;
+}

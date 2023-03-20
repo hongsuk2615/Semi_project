@@ -1,0 +1,143 @@
+#book-header {
+    height: 120px;
+    width: 100%;
+    background-color: white;
+    /* position: fixed; */
+    top: 0;
+}
+
+#book-header-content {
+    width: 1180px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#home-logo,
+#book-logo {
+    height: 120px;
+    width: 120px;
+}
+
+#home-logo>img {
+    width: 100%;
+    height: 100%;
+}
+
+#book-logo {
+    width: 600px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    text-align: center;
+}
+
+#book-header-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+}
+
+#book-header-navbar {
+    display: flex;
+    background-color:  rgb(57, 189, 235);
+    align-items: end;
+}
+
+#book-home-btn ,
+#book-sell-btn {
+    border: none;
+    background: none;
+    /* display: flex; */
+}
+
+#book-home-btn-img ,
+#book-sell-btn-img {
+    width: 30px;
+    height: 30px;
+}
+
+#book-home-btn-img:hover ,
+#book-sell-btn-img:hover ,
+#search-btn:hover ,
+#book-page-btn1,
+#book-page-btn2,
+#book-page-btn3,
+#book-page-btn4 {
+   cursor: pointer;   
+}
+
+#book-btn {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#glass {
+    width: 30px;
+    height: 30px;
+}
+
+#search-btn {
+    background: rgb(57, 189, 235);
+    color: white;
+    height: 30px;
+    border: none;
+}
+
+#book-body {
+    width: 1180px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#book-navbar {
+    width: 100%;
+    height: 50px;
+    background-color:  rgb(57, 189, 235);
+    align-items: center; /* 세로 정렬 */
+    justify-content:center;
+    display: flex;
+}
+
+#book-home {
+    width: 200px;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between; /* 가로 정렬 */
+}
+
+#book-body-content1 , 
+#book-body-content2 {
+    width: 1180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#book-search , 
+#book-search-input {
+    height: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#book-text {
+    text-align: center;
+}
+
+#book-footer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
