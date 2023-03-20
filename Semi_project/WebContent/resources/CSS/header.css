@@ -1,0 +1,45 @@
+#header {
+    height: 120px;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    top: 0;
+}
+
+#header-content {
+    width: 1180px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar {
+    padding: 10px;
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-right {
+    display: flex;
+    align-items: center;
+    width: 155px;
+}
+
+#header-right>button {
+    width: 78px;
+    height: 40px;
+}
+
+#enrollment-btn {}
+
+#home-logo {
+    height: 100%;
+    width: 120px;
+}
+
+#home-logo>img {
+    width: 100%;
+    height: 100%;
+}
