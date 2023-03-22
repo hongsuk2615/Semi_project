@@ -19,7 +19,7 @@
             </div>
             <div id="navbar">
                 <div>게시판</div>
-                <div>친구목록</div>
+                <div id="friendlist">친구목록</div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
                 <% if(loginUser != null && loginUser.getAuthority()==0) { %>
@@ -39,6 +39,10 @@
     </div>
 
     <script>
+    
+    document.getElementById("friendlist").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/friend.me";
+    })
     
 	    document.getElementById("home-logo").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>";

@@ -38,8 +38,8 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
+		String userId = request.getParameter("login-id");
+		String userPwd = request.getParameter("login-pwd");
 		System.out.println(userId);
 		System.out.println(userPwd);
 		Member loginUser = new MemberService().loginMember(userId, userPwd);

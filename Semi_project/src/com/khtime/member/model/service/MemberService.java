@@ -18,6 +18,17 @@ public class MemberService {
 		return m;
 	}
 	
+	public String searchId(String userName, String userEmail) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String userId = new MemberDao().searchId(conn, userName, userEmail);
+		
+		JDBCTemplate.close(conn);
+		System.out.println(userId);
+		return userId;
+	}
+	
+	
 	
 	
 }
