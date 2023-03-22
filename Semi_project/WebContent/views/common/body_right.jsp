@@ -43,7 +43,7 @@
                 <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
                     <button id="logoutbtn">로그아웃</button>
-                    <button>마이페이지</button>
+                    <button id="mypagebtn">마이페이지</button>
                 </div>
             
             
@@ -335,15 +335,20 @@
             $("#datepicker1").datepicker();
             });
         </script>
+        
+        <!-- 페이지이동스크립트 -->
         <script>
         
-
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
 	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/study.me";
+	    })
+	    
+	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
         </script>
 
