@@ -29,7 +29,7 @@
                     <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
-                    <input type="submit" value="로그인">
+                    <input type="submit" value="로그인이아니에요">
                     <input type="button" value="회원가입">
                 </div>
             </form>
