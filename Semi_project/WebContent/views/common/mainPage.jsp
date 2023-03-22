@@ -14,7 +14,7 @@
 </head>
 <style>
     * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
+         /* border: 1px solid rgba(128, 128, 128, 0.568);  */
     }
 
     div {
