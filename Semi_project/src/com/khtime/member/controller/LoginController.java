@@ -40,18 +40,23 @@ public class LoginController extends HttpServlet {
 
 		String userId = request.getParameter("id");
 		String userPwd = request.getParameter("pwd");
-		
+		System.out.println(userId);
+		System.out.println(userPwd);
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
 		if(loginUser == null) {
 			
 			
+			System.out.println("로그인실패");
 			response.sendRedirect(request.getContextPath());
+
 		}else {
 			request.getSession().setAttribute("loginUser", loginUser);
+			System.out.println("로그인완료");
+			response.sendRedirect(request.getContextPath());
 		}
 		
-		response.sendRedirect(request.getContextPath());
+		
 	}
 
 }

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ page import="com.khtime.member.vo.Member"%>
-<% Member loginUser = session.getAttribute("loginUser");%>  --%>
-<% String loginUser = "admin";%>
+<%@ page import="com.khtime.member.model.vo.Member"%>
+<% Member loginUser = (Member)session.getAttribute("loginUser");%>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +22,8 @@
                 <div>친구목록</div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
-                <% if(loginUser != null && loginUser.equals("admin")) { %>
-                <div id="management">관리자</div>
+                <% if(loginUser != null && loginUser.getAuthority()==0) { %>
+                <div id="management">관리</div>
                 <% } %>
             </div>
             <div id="header-right">
@@ -52,7 +51,7 @@
         document.getElementById("enrollment-btn").addEventListener("click",function(){
             location.href = "<%= request.getContextPath() %>/enroll.me";
         })
-        <% } else if(loginUser.equals("admin")) { %>
+        <% } else if(loginUser.getAuthority() == 0) { %>
             
             document.getElementById("management").addEventListener("click",function(){
                 location.href = "<%= request.getContextPath() %>/management.do";
