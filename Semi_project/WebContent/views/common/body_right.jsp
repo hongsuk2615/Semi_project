@@ -37,9 +37,9 @@
             	<div id="loginuser-profileimg">
                     <img src="/Semi_project/resources/IMG/user.png" alt="로그인유저프사">
                 </div>
-                <div id="loginuser-nickname">꿀꾸루</div>
-                <div id="loginuser-name">홍길동</div>
-                <div id="loginuser-id">hong</div>
+                <div id="loginuser-nickname"><%=loginUser.getNickName() %></div>
+                <div id="loginuser-name"><%=loginUser.getUserName() %></div>
+                <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
                     <button>로그아웃</button>
                     <button>마이페이지</button>
@@ -286,16 +286,6 @@
                 close();
             });
         </script>
-
-
-
-
-
-
-
-
-
-
 
         <!-- 새 디데이 달력 스크립트 -->
         <script>
