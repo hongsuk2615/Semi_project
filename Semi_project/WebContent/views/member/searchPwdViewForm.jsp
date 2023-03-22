@@ -31,14 +31,15 @@
     
     document.getElementById("login-form-btn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/login.me";
-    })
+    }) // 로그인버튼 -> 로그인폼 이동
     
     document.getElementById("searchPwd-form-btn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/searchPwd.me";
-    })
+    }) // 비밀번호찾기 폼으로 이동 
 
 
     
     </script>
+    <script type="text/javascript" src="resources/JS/homelogo.js"></script>
 </body>
 </html>

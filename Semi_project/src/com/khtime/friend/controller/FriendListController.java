@@ -1,27 +1,24 @@
-package com.khtime.member.controller;
+package com.khtime.friend.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.member.model.service.MemberService;
-import com.khtime.member.model.vo.Member;
-
 /**
- * Servlet implementation class loginController
+ * Servlet implementation class FreindListController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/freind.me")
+public class FriendListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public FriendListController() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -29,29 +26,16 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("views/member/loginForm.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("views/friend/friendList.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("pwd");
-		
-		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		
-		if(loginUser == null) {
-			
-			
-			response.sendRedirect(request.getContextPath());
-		}else {
-			request.getSession().setAttribute("loginUser", loginUser);
-		}
-		
-		response.sendRedirect(request.getContextPath());
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
