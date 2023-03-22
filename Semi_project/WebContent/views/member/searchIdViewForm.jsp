@@ -14,7 +14,7 @@
     
     <div id="searchId-wrap">
         <div id="searchId-form">
-            <form action="">
+            <form action="<%= request.getContextPath() %>/login.me">
                 <div id="home-logo">
                     <img src="resources/IMG/로고이미지.png" alt="로고이미지">
                 </div>
@@ -24,7 +24,7 @@
 
            
            <button id="login-form-btn">로그인</button> <br>
-            <div id="searchPwd"> <div>비밀번호 찾기</div></div>
+            <div id="searchPwd"> <div><button type="button" id="goto-searchPwd">비밀번호 찾기</button></div></div>
         </form>
            <div id="searchId-footer">
             <div>
@@ -36,5 +36,14 @@
        
 </div>
     </div>
+    
+     <script>
+    
+	    document.getElementById("goto-searchPwd").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath()%>/searchPwd.me";
+	    })
+	    
+     </script>
+     <script type="text/javascript" src="resources/JS/homelogo.js"></script>
 </body>
 </html>
