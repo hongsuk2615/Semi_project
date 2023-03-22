@@ -26,29 +26,14 @@
     <div id="wrapper">
 
         <!-- 네비영역 헤더-->
-        <div id="header">
-            <div id="header-content">
-                <div id="home-logo">
-                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
-                </div>
-                <div id="navbar">
-                    <div>게시판</div>
-                    <div>친구목록</div>
-                    <div>중고책방</div>
-                    <div>To Do List</div>
-                    <div>관리</div>
-                </div>
-                <div id="header-right">
-                    <button id="login-btn">로그인</button>
-                    <button id="enrollment-btn">회원가입</button>
-                </div>
-            </div>
-        </div>
-
+      	<%@ include file="../common/header.jsp" %>
+      	
+      
         <!-- 마이페이지 전체래퍼-->
+        <div id="body">
         <div id="body-wrapper">
             <div id="mypage-wrap">
-                <div id="myinfo" style="height:290px; width: 500px;">
+                <div id="myinfo" style="height:250px; width: 500px;">
                     <strong>내 정보</strong>
                     <div style="position: relative; left: 45%; ">
                         <button class="openBtn">비밀번호변경</button>
@@ -89,6 +74,7 @@
                     <button style="position: relative;  top:115px; left: 480px;" class="openBtn2">회원탈퇴</button>
                 </div>
             </div>
+        </div>
         </div>
 
         <div id="footer">

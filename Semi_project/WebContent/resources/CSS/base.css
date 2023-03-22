@@ -6,7 +6,7 @@ body {
     margin: 0px;
 }
 div {
-    /* display: flex; */
+    display: inline-block;
     box-sizing: border-box;
 }
 
@@ -18,4 +18,5 @@ a {
 #wrapper {
     width: 100%;
     min-width: 1180px;
+    background-color: #f1f4f9;
 }
