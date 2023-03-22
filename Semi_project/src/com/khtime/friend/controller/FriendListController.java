@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FreindListController
  */
-@WebServlet("/freind.me")
+@WebServlet("/friend.me")
 public class FriendListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
