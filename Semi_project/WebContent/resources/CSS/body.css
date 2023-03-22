@@ -1,0 +1,229 @@
+#body {
+    width: 1180px;
+    margin: auto;
+    margin-top: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#body td {
+    border-top: 1px solid rgb(151, 150, 150);
+}
+
+#main-banner {
+    width: 100%;
+    background-image: url(../IMG/mainbanner1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 230px;
+}
+
+#body-wrapper {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#body-left {
+    width: 800px;
+}
+
+#body-left table {
+    border: 1px solid rgb(151, 150, 150);
+    background-color: rgb(227, 241, 255);
+}
+#books-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#books-wrapper>div{
+    width : 195px;
+    padding: 5px;
+    height: 300px;
+}
+
+#books-wrapper>div>div{
+    border: 1px solid black;
+}
+.book-img{
+    width: 100%;
+    height: 210px;
+}
+.book-img>img{
+    width: 100%;
+    height: 100%;
+}
+.book-text{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
+}
+.book-text > div {
+    width: 100%;
+}
+
+
+
+#board-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+#board-wrapper>table {
+    margin: 5px;
+    width: 48%;
+}
+
+#board-wrapper th {
+    text-align: left;
+    background-color: rgb(57, 189, 235);
+    color: aliceblue;
+}
+
+#body-right {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+#body-right table {
+    border: 1px solid rgb(151, 150, 150);
+    background-color: rgb(255, 227, 227);
+}
+
+#body-right img {
+    margin-right: 10px;
+}
+
+#body-right input:focus {
+    outline: none;
+}
+
+#body-right>div {
+    margin: 7px 0px;
+}
+
+
+#search {
+    border: 1px solid rgb(151, 150, 150);
+    background-color: white;
+    width: 100%;
+    display: flex;
+}
+
+#search>input {
+    height: 40px;
+    width: 310px;
+    border: none;
+    text-align: center;
+}
+
+#login {
+    width: 100%;
+    background-color: rgb(210, 216, 221);
+}
+
+#id-wrapper,
+#pwd-wrapper,
+#btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+#login input[type="text"],
+#login input[type="password"] {
+    border-radius: 5px;
+    margin: 2px 0px;
+    width: 250px;
+    height: 40px;
+}
+
+#loginuser-profile{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    padding: 10px;
+}
+#loginuser-profile img{
+    width: 130px;
+    height: 130px;
+    margin: 0;
+}
+#loginuser-profile>div {
+    width: 100%;
+    text-align: center;
+}
+
+#user-list,
+#additional-functions {
+    display: flex;
+    flex-direction: column;
+}
+
+#user-list>div {
+    height: 40px;
+    border: 1px solid rgb(151, 150, 150);
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+#user-list img, #additional-functions img{
+    margin-left: 20px;
+}
+
+#user-list,
+#user-list>div {
+    background-color: white;
+    width: 100%;
+}
+
+#additional-functions,
+#additional-functions div {
+    background-color: white;
+    width: 100%;
+}
+
+#additional-functions>div {  
+    height: 40px;
+    border: 1px solid rgb(151, 150, 150);
+    display: flex;
+    align-items: center;
+}
+
+
+#hot-board {
+    width: 100%;
+}
+
+#hot-board>table,
+#best-board>table {
+    width: 100%;
+}
+
+#hot-board th {
+    text-align: left;
+    background-color: rgb(233, 68, 46);
+    color: aliceblue;
+}
+
+#best-board {
+    width: 100%;
+}
+
+#best-board th {
+    text-align: left;
+    background-color: rgb(233, 68, 46);
+    color: aliceblue;
+}

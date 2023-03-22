@@ -1,0 +1,80 @@
+#content{
+    display: flex;
+    justify-content: center;
+}
+
+#content1{
+    width: 300px;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+#content2{
+    margin: 10px;
+}
+
+#messagecheck{
+    width: 100%;
+    border-radius: 15px;
+    overflow: scroll;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    overflow-x: hidden;
+}
+
+#messagecheck2{
+    width: 100%;
+    overflow: scroll;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    overflow-x: hidden;
+}
+
+#date{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    border : 1px solid lightgray;
+}
+
+#messagesend{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+#newfix{
+    display: flex;
+    align-items: center;
+}
+
+#sentmessage{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    
+}
+
+#messagebox3{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+#text{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+#text2{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}

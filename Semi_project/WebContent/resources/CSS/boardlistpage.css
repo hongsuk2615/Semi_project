@@ -1,0 +1,53 @@
+#content{
+    border: 1px solid black;
+    width: 900px;
+    height: 600px;
+}
+#body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#boardmake{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    height: 500px;
+    border-radius: 15px;
+    border: 2px solid lightgray;
+}
+
+#keyword>div{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border: 1px solid lightgray; 
+}
+
+#searchresult{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 30px;
+    color: red;
+    border: 1px solid lightgray; 
+}
+
+#boardmake input{
+    width: 500px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid lightgray;
+    text-align: center;
+
+}
+
+#content{
+    display: flex;
+    justify-content: center;
+}
+
+
+
