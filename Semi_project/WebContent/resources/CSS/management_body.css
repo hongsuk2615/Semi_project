@@ -1,0 +1,11 @@
+#board-wrapper td{
+    text-align: center;
+}
+#board-wrapper th {
+    background-color: rgb(90, 87, 87);
+    height: 30px;
+    padding-left: 10px;
+}
+#board-wrapper table{
+    background-color: rgb(228, 238, 238);
+}

@@ -22,8 +22,7 @@
                 <div>유저관리</div>
             </div>
             <div id="header-right">
-                <button id="login-btn">로그아웃</button>
-                <button id="enrollment-btn">회원가입</button>
+                <button id="logout-btn">로그아웃</button>
             </div>
         </div>
     </div>
