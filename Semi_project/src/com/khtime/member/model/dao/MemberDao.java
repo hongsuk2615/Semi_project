@@ -34,7 +34,7 @@ public class MemberDao {
 		   Member m = null;
 		   PreparedStatement pstmt = null;
 		   ResultSet rset = null;
-		   String sql = prop.getProperty("selectMember");
+		   String sql = prop.getProperty("loginMember");
 		   
 		   try {
 			pstmt = conn.prepareStatement(sql);
@@ -53,12 +53,13 @@ public class MemberDao {
 								rset.getString("USER_NAME"),
 								rset.getString("NICK_NAME"),
 								rset.getString("EMAIL"),
-								rset.getDate("DATE"),
+								rset.getDate("ENROLL_DATE"),
 								rset.getInt("AUTHORITY"),
 								rset.getInt("REPORT_COUNT"),
 								rset.getString("IS_BANNED"),
 								rset.getString("IS_WHITELIST")
 						);
+				System.out.println(m);
 						
 			}
 		} catch (SQLException e) {
