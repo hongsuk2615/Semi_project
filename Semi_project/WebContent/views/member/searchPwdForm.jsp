@@ -34,10 +34,9 @@
     
     document.getElementById("submit-email").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/searchPwd.me";
-    }) // 이메일 전송 -> 비밀번호찾기서블릿 이동
+    })
 
     
     </script>
-    <script type="text/javascript" src="resources/JS/homelogo.js"></script>
 </body>
 </html>

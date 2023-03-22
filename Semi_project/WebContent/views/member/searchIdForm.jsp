@@ -31,6 +31,5 @@
        
 </div>
     </div>
-    <script type="text/javascript" src="resources/JS/homelogo.js"></script>
 </body>
 </html>

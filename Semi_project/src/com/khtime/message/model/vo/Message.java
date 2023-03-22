@@ -1,15 +1,24 @@
 package com.khtime.message.model.vo;
 
-import java.util.Date;
+import oracle.sql.DATE;
 
 public class Message {
 	private int sender;
 	private int receiver;
 	private String content;
-	private Date date;
+	private DATE date;
 	
 	public Message() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Message(int sender, int receiver, String content, DATE date) {
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.content = content;
+		this.date = date;
 	}
 
 	public int getSender() {
@@ -36,11 +45,11 @@ public class Message {
 		this.content = content;
 	}
 
-	public Date getDate() {
+	public DATE getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(DATE date) {
 		this.date = date;
 	}
 

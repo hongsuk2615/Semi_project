@@ -12,6 +12,18 @@ public class UserProFileImg {
 	
 	public UserProFileImg() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserProFileImg(int refUserId, String originName, String changeName, String filePath, DATE uploadDate,
+			String status) {
+		super();
+		this.refUserId = refUserId;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.status = status;
 	}
 
 	public int getRefUserId() {

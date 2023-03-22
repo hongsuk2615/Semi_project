@@ -40,7 +40,23 @@
 
 <body>
     <div id="wrapper">
-          <%@ include file="../common/header.jsp" %>
+        <div id="header">
+            <div id="header-content">
+                <div id="home-logo">
+                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
+                </div>
+                <div id="navbar">
+                    <div>게시판</div>
+                    <div>친구목록</div>
+                    <div>중고책방</div>
+                    <div>To Do List</div>
+                    <div>관리</div>
+                </div>
+                <div id="header-right">
+                    <button id="messagebox">로그아웃</button>
+                </div>
+            </div>
+        </div>
         <div id="body">
             <div id="content">
                 <div id="content1">

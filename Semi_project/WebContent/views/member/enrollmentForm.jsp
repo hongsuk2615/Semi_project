@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/enrollment.css">
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Document</title>
     <style>
          * {
@@ -54,14 +56,14 @@
             </div>
             <br>
             <div id="form-wrapper">
-                <form action="insert.me">
+                <form action="enroll.me" method="post">
                     <div id="enrollimg">
                         이미지나 사진을 등록해주세요.<br><br>
                         <div>
                             <img id="titleImg" width="150" height="150">
                         </div><br>
-                        <div>
-                            <button type="submit" style="background-color: skyblue; border: none;">등록하기</button>
+                        <div id="file-area" style="dispaly: none;">
+                           <input type="file" id="file1" name="file1" onchange="loadImg(this, 1);" required> 
                         </div>
                     </div><br>
                     강사/학생<br>
@@ -153,6 +155,67 @@
                     <br>
                     <input type="text" id="ad" name="ad">
                     <br><br>
+                    	<script>
+				$(function() {
+					$("#titleImg").click(function() {
+						$("#file1").click();
+					})
+
+					/* $("#contentImg1").click(function(){
+						$("#file2").click();
+					})
+					$("#contentImg2").click(function(){
+						$("#file3").click();
+					})
+					$("#contentImg3").click(function(){
+						$("#file4").click();
+					}) */
+
+				})
+				function loadImg(inputFile, num) {
+					// inputFile : 현재 변화가 생긴 input type="file" 요소
+					// num : 몇번째 input 요소인지 확인 후 해당영역에 미리보기하기위한 변수
+					console.log(inputFile.files[0]);
+					/*
+						파일 선택시 length = 1, 파일선택 취소시 배열안의 내용이 비어있게됨
+						length 값을 가지고 파일의 존재유무를 알수가 있다.
+						files속성은 업로드된 파일의 정보들을  "배열"형식으로 여러개 묶어서 반환, length 그 배열의 크기를 의미
+					 */
+					if(inputFile.files.length != 0){
+						//선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 그 영역에 맞는 곳에 미리보기 추가
+						//파일을 읽어들일 FileReader 객체 생성
+						let reader = new FileReader();
+						
+						// 파일을 읽어들이는 메서드 -> 어느파일을 읽을지 매개변수에 제시해줘야함.
+						// 0번째 인덱스에 담긴 파일정보를 제시
+						// -> 해당파일을 읽어들이는 순간 해당파일만의 고유한 url부여됨.
+						// -> 해당 url을 src 속성값으로 제시
+						reader.readAsDataURL(inputFile.files[0]);
+						
+						// 파일 읽기가 완료되었을때 실행할 함수 정의
+						reader.onload = function(e){// e.target.result에 고유한 url부여됨.
+							//각 영역에 맞춰서 이미지 미리보기 기능 제시.
+							let url = e.target.result;
+						
+							switch(num){
+							case 1: $("#titleImg").attr("src",url);break;
+
+							}
+							
+							
+							
+						}
+						
+						
+						
+					}else{
+						// 선택된 파일이 없을 경우 미리보기도 함께 사라지게끔 작업.
+						switch(num){
+						case 1: $("#titleImg").removeAttr("src"); break;
+						}
+					}
+				}
+			</script>
                     <div id="enrollbutton">
                         <div><input type="submit" value="회원가입" onclick="return validate();"></div>
                         <div><input type="reset" value="취소"></div>

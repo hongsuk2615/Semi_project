@@ -1,6 +1,6 @@
 package com.khtime.board.model.vo;
 
-import java.util.Date;
+import oracle.sql.DATE;
 
 public class Board {
 	private int boardNo;
@@ -13,11 +13,29 @@ public class Board {
 	private int reportCount;
 	private int recommendCount;
 	private int scrapCount;
-	private Date enrollDate;
+	private DATE enrollDate;
 	private String status;
 	
 	public Board() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Board(int boardNo, String title, String content, int categoryNo, int writer, String isQuestion,
+			String isAnonimous, int reportCount, int recommendCount, int scrapCount, DATE enrollDate, String status) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.categoryNo = categoryNo;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.reportCount = reportCount;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.enrollDate = enrollDate;
+		this.status = status;
 	}
 
 	public int getBoardNo() {
@@ -100,11 +118,11 @@ public class Board {
 		this.scrapCount = scrapCount;
 	}
 
-	public Date getEnrollDate() {
+	public DATE getEnrollDate() {
 		return enrollDate;
 	}
 
-	public void setEnrollDate(Date enrollDate) {
+	public void setEnrollDate(DATE enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 

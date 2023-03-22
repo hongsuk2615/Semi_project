@@ -37,36 +37,17 @@
 
 #header-right>button {
     height: 40px;
-    border: 1px solid #d6d6d6;
+    margin: 2px;
+    border-color: #737373;
     border-radius: 5px;
 }
 
 #login-btn{
-    margin: 2px;
     width: 67px;
     background-color: rgb(57, 189, 235);
 }
 #enrollment-btn {
-    margin: 2px;
     width: 78px;
-}
-#message-btn{
-    margin-right: 5px;
-    height: 100%;
-    width: 40px;
-    background-color: transparent;
-    background-image: url(../IMG/쪽지함.png);  
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-#mypage-btn{
-    margin-left: 5px;
-    height: 100%;
-    width: 40px;
-    background-color: transparent;
-    background-image: url(../IMG/마이페이지.png);
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 #home-logo {

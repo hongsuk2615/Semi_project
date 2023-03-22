@@ -16,6 +16,24 @@ public class Book {
 	
 	public Book() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Book(int bookNo, int seller, String bookName, int price, String author, String publisher, String isNoted,
+			int conditon, String isDirect, String location, String isSoldout, String status) {
+		super();
+		this.bookNo = bookNo;
+		this.seller = seller;
+		this.bookName = bookName;
+		this.price = price;
+		this.author = author;
+		this.publisher = publisher;
+		this.isNoted = isNoted;
+		this.conditon = conditon;
+		this.isDirect = isDirect;
+		this.location = location;
+		this.isSoldout = isSoldout;
+		this.status = status;
 	}
 
 	public int getBookNo() {
