@@ -24,7 +24,7 @@
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
                 <% if(loginUser != null && loginUser.equals("admin")) { %>
-                <div id="management">관리</div>
+                <div id="management">관리자</div>
                 <% } %>
             </div>
             <div id="header-right">
