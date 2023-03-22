@@ -458,7 +458,7 @@
         </div>
         <script>
             document.querySelector("#board-1 th").addEventListener("click", function () {
-                location.href = "";
+                location.href = "<%=request.getContextPath()%>/usermanagement.do";
             });
             document.querySelector("#board-2 th").addEventListener("click", function () {
                 location.href = "";
