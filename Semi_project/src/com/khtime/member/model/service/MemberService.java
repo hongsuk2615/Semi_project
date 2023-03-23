@@ -12,7 +12,19 @@ import com.khtime.member.model.dao.MemberDao;
 import com.khtime.member.model.vo.Member;
 import com.khtime.member.model.vo.UserProFileImg;
 
+
+
 public class MemberService {
+	
+	public Member loginMember(String userId, String userPwd) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Member m = new MemberDao().loginMember(conn, userId, userPwd);
+		
+		JDBCTemplate.close(conn);
+		
+		return m;
+	}
 	
 	public int insertMember(Member m) {
 		// 반환형 int : 처리된 행의 개수
@@ -41,9 +53,9 @@ public class MemberService {
 		return result;
 	}
 	
-	public int insertThumbnailMember( ArrayList<UserProFileImg> list) {
+	public int insertUserProFileImg( int userNo, UserProFileImg upf) {
 		Connection conn = getConnection();		
-		int result1 = new MemberDao().insertUserProFileImgMember(conn, list);
+		int result1 = new MemberDao().insertUserProFileImg(conn, userNo, upf);
 		if(result1 > 0 ) {
 			commit(conn);			
 		}else {			
@@ -52,4 +64,15 @@ public class MemberService {
 		close(conn);
 		return result1;
 	}
+	
+	public int selectMember(String userId) {
+		Connection conn = getConnection();	
+		
+		int userNo = new MemberDao().selectMember(conn,userId);
+		
+		close(conn);
+		
+		return userNo;
+	}
+	
 }

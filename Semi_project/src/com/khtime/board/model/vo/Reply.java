@@ -1,5 +1,7 @@
 package com.khtime.board.model.vo;
 
+import java.util.Date;
+
 import oracle.sql.DATE;
 
 public class Reply {
@@ -7,26 +9,14 @@ public class Reply {
 	private int boardNo;
 	private int writer;
 	private String content;
-	private DATE enrollDate;
+	private Date enrollDate;
 	private String isAnonimous;
 	private int pReplyNo;
 	
 	public Reply() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Reply(int replyNo, int boardNo, int writer, String content, DATE enrollDate, String isAnonimous,
-			int pReplyNo) {
-		super();
-		this.replyNo = replyNo;
-		this.boardNo = boardNo;
-		this.writer = writer;
-		this.content = content;
-		this.enrollDate = enrollDate;
-		this.isAnonimous = isAnonimous;
-		this.pReplyNo = pReplyNo;
-	}
 
 	public int getReplyNo() {
 		return replyNo;
@@ -60,11 +50,11 @@ public class Reply {
 		this.content = content;
 	}
 
-	public DATE getEnrollDate() {
+	public Date getEnrollDate() {
 		return enrollDate;
 	}
 
-	public void setEnrollDate(DATE enrollDate) {
+	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 

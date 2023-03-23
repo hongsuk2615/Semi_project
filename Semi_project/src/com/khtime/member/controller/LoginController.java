@@ -1,11 +1,15 @@
 package com.khtime.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.khtime.member.model.service.MemberService;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class loginController
@@ -34,7 +38,25 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		response.sendRedirect(request.getContextPath());
+		String userId = request.getParameter("id");
+		String userPwd = request.getParameter("pwd");
+		System.out.println(userId);
+		System.out.println(userPwd);
+		Member loginUser = new MemberService().loginMember(userId, userPwd);
+		
+		if(loginUser == null) {
+			
+			
+			System.out.println("로그인실패");
+			response.sendRedirect(request.getContextPath());
+
+		}else {
+			request.getSession().setAttribute("loginUser", loginUser);
+			System.out.println("로그인완료");
+			response.sendRedirect(request.getContextPath());
+		}
+		
+		
 	}
 
 }

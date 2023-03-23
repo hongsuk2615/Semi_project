@@ -7,15 +7,8 @@ public class Friend {
 	
 	public Friend() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Friend(int user1, int user2, String isAgree) {
-		super();
-		this.user1 = user1;
-		this.user2 = user2;
-		this.isAgree = isAgree;
-	}
 
 	public int getUser1() {
 		return user1;

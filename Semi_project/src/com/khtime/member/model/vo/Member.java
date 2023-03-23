@@ -44,7 +44,7 @@ public class Member {
 	
 	
 
-	public Member(String userId, String userPwd, String userClass, String userName, String nickName, String email) {
+	public Member(String userId, String userPwd, String userClass, String userName, String nickName, String email, int authority) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -52,6 +52,7 @@ public class Member {
 		this.userName = userName;
 		this.nickName = nickName;
 		this.email = email;
+		this.authority = authority;
 	}
 
 	public int getUserNo() {

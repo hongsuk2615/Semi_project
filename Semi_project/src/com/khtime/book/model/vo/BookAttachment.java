@@ -1,6 +1,6 @@
 package com.khtime.book.model.vo;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class BookAttachment {
 	private int fileNo;
@@ -8,27 +8,14 @@ public class BookAttachment {
 	private String originName;
 	private String changeName;
 	private String filePath;
-	private DATE uploadDate;
+	private Date uploadDate;
 	private int fileLevel;
 	private String status;
 	
 	public BookAttachment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public BookAttachment(int fileNo, int bookNo, String originName, String changeName, String filePath,
-			DATE uploadDate, int fileLevel, String status) {
-		super();
-		this.fileNo = fileNo;
-		this.bookNo = bookNo;
-		this.originName = originName;
-		this.changeName = changeName;
-		this.filePath = filePath;
-		this.uploadDate = uploadDate;
-		this.fileLevel = fileLevel;
-		this.status = status;
-	}
 
 	public int getFileNo() {
 		return fileNo;
@@ -70,11 +57,11 @@ public class BookAttachment {
 		this.filePath = filePath;
 	}
 
-	public DATE getUploadDate() {
+	public Date getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(DATE uploadDate) {
+	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

@@ -1,6 +1,6 @@
 package com.khtime.board.model.vo;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class BoardAttachment {
 	private int fileNo;
@@ -8,28 +8,14 @@ public class BoardAttachment {
 	private String originName;
 	private String changeName;
 	private String filePath;
-	private DATE uploadDate;
+	private Date uploadDate;
 	private int fileLevel;
 	private String status;
 	
 	public BoardAttachment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public BoardAttachment(int fileNo, int refBno, String originName, String changeName, String filePath,
-			DATE uploadDate, int fileLevel, String status) {
-		super();
-		this.fileNo = fileNo;
-		this.refBno = refBno;
-		this.originName = originName;
-		this.changeName = changeName;
-		this.filePath = filePath;
-		this.uploadDate = uploadDate;
-		this.fileLevel = fileLevel;
-		this.status = status;
-	}
-
+	
 	public int getFileNo() {
 		return fileNo;
 	}
@@ -70,11 +56,11 @@ public class BoardAttachment {
 		this.filePath = filePath;
 	}
 
-	public DATE getUploadDate() {
+	public Date getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(DATE uploadDate) {
+	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

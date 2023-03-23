@@ -20,37 +20,76 @@ import com.khtime.member.model.vo.UserProFileImg;
 import com.khtime.member.model.dao.MemberDao;
 
 public class MemberDao {
-
-		private Properties prop = new Properties();
-
-		public MemberDao() {
-
-			String fileName = MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath();
-
-			try {
-				prop.loadFromXML(new FileInputStream(fileName));
-			} catch (InvalidPropertiesFormatException e) {
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
+	private Properties prop = new Properties();
+	   
+	   
+	   public MemberDao() {
+	      try {
+	         prop.loadFromXML(new FileInputStream( MemberDao.class.getResource("/sql/member/member-mapper.xml").getPath()   ));
+	      } catch (InvalidPropertiesFormatException e) {
+	         e.printStackTrace();
+	      } catch (FileNotFoundException e) {
+	         e.printStackTrace();
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	      
+	   }
+	   
+	   public Member loginMember(Connection conn, String userId, String userPwd) {
+		   Member m = null;
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String sql = prop.getProperty("loginMember");
+		   
+		   try {
+			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(
+								rset.getInt("USER_NO"),
+								rset.getString("USER_ID"),
+								rset.getString("USER_PWD"),
+								rset.getString("USER_CLASS"),
+								rset.getString("USER_NAME"),
+								rset.getString("NICK_NAME"),
+								rset.getString("EMAIL"),
+								rset.getDate("ENROLL_DATE"),
+								rset.getInt("AUTHORITY"),
+								rset.getInt("REPORT_COUNT"),
+								rset.getString("IS_BANNED"),
+								rset.getString("IS_WHITELIST"), 
+								rset.getString("STATUS")
+						);
+				System.out.println(m);
+						
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		} return m;
+	   }
+	   
 		public int insertMember(Connection conn, Member m) {
 			int result = 0; // 처리된 행의 개수
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertMember");
 			try {
-				pstmt = conn.prepareStatement(sql);
+				pstmt = conn.prepareStatement(sql);	
 				pstmt.setString(1, m.getUserId());
 				pstmt.setString(2, m.getUserPwd());
 				pstmt.setString(3, m.getUserClass());
 				pstmt.setString(4, m.getUserName());
 				pstmt.setString(5, m.getNickName());
-				pstmt.setString(5, m.getEmail());
+				pstmt.setString(6, m.getEmail());
+				pstmt.setInt(7, m.getAuthority());
 			
 
 				result = pstmt.executeUpdate();
@@ -84,15 +123,16 @@ public class MemberDao {
 			return result;
 		}
 		
-		public int insertUserProFileImgMember(Connection conn , ArrayList<UserProFileImg> list) {
+		public int insertUserProFileImg(Connection conn , int userNo, UserProFileImg upf) {
 			int result = 0;
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("insertUserProFileImgMember");
+			String sql = prop.getProperty("insertUserProFileImg");
 			try {
 				pstmt = conn.prepareStatement(sql);
-//				pstmt.setString(1, list.getBoardTitle());
-//				pstmt.setString(2, list.getBoardContent());
-//				pstmt.setInt(3, Integer.parseInt(list.getBoardWriter()));
+				pstmt.setInt(1, userNo);
+				pstmt.setString(2,upf.getOriginName() );
+				pstmt.setString(3, upf.getChangeName());
+				pstmt.setString(4, upf.getFilePath());
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -101,6 +141,32 @@ public class MemberDao {
 			}
 			return result;
 		}
-
-
+		
+		public int selectMember(Connection conn, String userId) {
+			int userNo = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					userNo = rset.getInt("USER_NO");
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return userNo;
+		}
 }
