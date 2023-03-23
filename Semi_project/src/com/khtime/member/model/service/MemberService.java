@@ -26,6 +26,7 @@ public class MemberService {
 		return m;
 	}
 	
+
 	public int insertMember(Member m) {
 		// 반환형 int : 처리된 행의 개수
 		Connection conn = JDBCTemplate.getConnection();
@@ -43,6 +44,19 @@ public class MemberService {
 		//컨트롤러에게 결과값 반환
 		return result;
 	}
+
+	public String searchId(String userName, String userEmail) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String userId = new MemberDao().searchId(conn, userName, userEmail);
+		
+		JDBCTemplate.close(conn);
+		System.out.println(userId);
+		return userId;
+	}
+	
+	
+
 	
 	public boolean isId(String userId) {
 		Connection conn = JDBCTemplate.getConnection();

@@ -1,0 +1,53 @@
+#body-wrapper {
+
+    height: 900px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+#content-wrapper {
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    width: 40%;
+}
+
+#content {
+    width: 82%;
+}
+
+#blueBtn {
+    padding: 14px 0;
+    background-color: #51a9fe;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 24px;
+    height: 52px;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #51a9fe;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+}

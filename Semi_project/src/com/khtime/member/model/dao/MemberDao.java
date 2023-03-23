@@ -169,4 +169,29 @@ public class MemberDao {
 			}
 			return userNo;
 		}
+
+	   public String searchId(Connection conn, String userName, String userEmail) {
+		   String userId = "";
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String sql = prop.getProperty("searchId");
+		   
+		   try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString("USER_ID");			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		} return userId;
+	   }
 }

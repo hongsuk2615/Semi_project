@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,17 +19,19 @@
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
-            <form action="">
+            <form action="<%= request.getContextPath() %>/login.me" method="post">
                 <div id="id-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/idimg.png" alt="idimg" width="40" height="40">
-                    <input type="text" id="login-id" placeholder="아이디를 입력하세요">
+                    <input type="text" name="login-id" placeholder="아이디를 입력하세요">
                 </div>
                 <div id="pwd-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/pwdimg.png" alt="pwdimg" width="40" height="40">
-                    <input type="password" id="login-pwd" placeholder="비밀번호를 입력하세요">
+                    <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
-                    <input type="submit" value="로그인">
+
+                    <input type="submit" value="로그인이안되네요">
+
                     <input type="button" value="회원가입">
                 </div>
             </form>
@@ -41,8 +44,8 @@
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
                 <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
-                    <button>로그아웃</button>
-                    <button>마이페이지</button>
+                    <button id="logoutbtn">로그아웃</button>
+                    <button id="mypagebtn">마이페이지</button>
                 </div>
             
             
@@ -334,11 +337,20 @@
             $("#datepicker1").datepicker();
             });
         </script>
+        
+        <!-- 페이지이동스크립트 -->
         <script>
         
-
+        document.getElementById("logoutbtn").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath()%>/logout.me";
+	    })
+	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/study.me";
+	    })
+	    
+	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
         </script>
 
