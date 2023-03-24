@@ -17,7 +17,5 @@
 		 WHERE REPORT_COUNT > 0
 		   AND STATUS = 'Y'
 	</entry>
-	
 
-	
 </properties>
