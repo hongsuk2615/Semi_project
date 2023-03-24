@@ -107,80 +107,11 @@
                         <table id="board-2">
                             <thead>
                                 <tr>
-                                    <th colspan="5">게시물 신고 내역</th>
+                                    <th colspan="7">게시물 신고 내역</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                    <td>신고횟수</td>
-                                    <td>0</td>
-                                    <td>추천횟수</td>
-                                    <td>0</td>
-                                </tr>
+                               
                             </tbody>
                         </table>
                         <table id="board-3">
@@ -245,80 +176,11 @@
                         <table id="board-4">
                             <thead>
                                 <tr>
-                                    <th colspan="5">신고유저관리</th>
+                                    <th colspan="7">신고유저관리</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>유저아이디1</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디2</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디3</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디4</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디5</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디1</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디2</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디3</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디4</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디5</td>
-                                    <td>신고 횟수</td>
-                                    <td>100</td>
-                                    <td>추천수</td>
-                                    <td>20</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         <table id="board-5">
@@ -456,7 +318,96 @@
             </div>
 
         </div>
-        <script>
+        
+        
+        <script> // 신고유저조회 비동기요청
+        $(function(){
+	    	function getReportedUsers(){
+				$.ajax({
+					url : '<%=request.getContextPath()%>/manageReportUser.get',
+					type : 'get',
+					success : function(result){ 
+						console.log(result);
+						if(result.length == 0 ){
+							$('#board-4 tbody').append('<tr>'+
+															'<td>' + '조회된 유저가 없습니다.' + '</td>'+
+													   '</tr>');
+						} else {
+							for(let i = 0; i < 10 ; i++){
+								if(result[i] != null){
+									$('#board-4 tbody').append('<tr>'+
+																	'<td>' + result[i].userId + '</td>'+
+																	'<td>' + '신고횟수' + '</td>'+
+																	'<td>' + result[i].reportCount + '</td>'+
+																	'<td>' + '추천횟수' + '</td>'+
+																	'<td>' + result[i].nickName + '</td>'+
+																	'<td>' + '화이트리스트여부' + '</td>'+
+																	'<td>' + result[i].isWhitelist + '</td>'+
+															  '</tr>');
+								}else {
+									$('#board-4 tbody').append('<tr>'+
+																	'<td colspan="7">' + '-'+ '</td>'+
+	
+															  '</tr>');
+								}
+							}	
+					  }			
+				},
+				error : function(){
+					console.log("ajax통신 실패");
+				}				
+			});			
+		}
+			getReportedUsers();
+	 });
+        
+      </script>
+      
+      <script> // 게시판신고조회 비동기요청
+        $(function(){
+	    	function getReportedBoards(){
+				$.ajax({
+					url : '<%=request.getContextPath()%>/manageReportBoard.get',
+					type : 'get',
+					success : function(result){ 
+						console.log(result);
+						if(result.length == 0 ){
+							$('#board-2 tbody').append('<tr>'+
+															'<td>' + '신고된 게시판이 없습니다.' + '</td>'+
+													   '</tr>');
+						} else {
+							for(let i = 0; i < 10 ; i++){
+								if(result[i] != null){
+									$('#board-2 tbody').append('<tr>'+
+																	'<td>' + result[i].title + '</td>'+
+																	'<td>' + '신고횟수' + '</td>'+
+																	'<td>' + result[i].reportCount + '</td>'+
+																	'<td>' + '추천횟수' + '</td>'+
+																	'<td>' + result[i].recommendCount + '</td>'+
+																	'<td>' + '스크랩횟수' + '</td>'+
+																	'<td>' + result[i].scrapCount + '</td>'+
+															  '</tr>');
+								}else {
+									$('#board-2 tbody').append('<tr>'+
+																	'<td colspan="7">' + '-'+ '</td>'+
+	
+															  '</tr>');
+								}
+							}	
+					  }			
+				},
+				error : function(){
+					console.log("ajax통신 실패");
+				}				
+			});			
+		}
+	    	getReportedBoards();
+	 });
+        
+      </script>
+      
+      <script>
+      
             document.querySelector("#board-1 th").addEventListener("click", function () {
                 location.href = "<%=request.getContextPath()%>/usermanagement.do";
             });
@@ -600,7 +551,18 @@
             document.getElementById("unban-approve-btn").addEventListener("click", function () {
                 location.href = ""
             });
+    	  
+     
+      
+      
         </script>
+      
+      
+      
+      
+      
+      
+      
     </body>
 
     </html>
