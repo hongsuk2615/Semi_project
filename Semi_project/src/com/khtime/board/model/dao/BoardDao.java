@@ -1,6 +1,6 @@
 package com.khtime.board.model.dao;
 
-import static com.khtime.common.JDBCTemplate.close;
+import java.io.FileInputStream;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,32 +31,7 @@ public class BoardDao {
 	   }
 	   
 	   
-	   public int selectListCount(Connection conn) {
-		      
-		      int listCount = 0;
-		      
-		      PreparedStatement pstmt = null;
-		      
-		      ResultSet rset = null;
-		      
-		      String sql = prop.getProperty("selectListCount");
-		      
-		      try {
-		         pstmt = conn.prepareStatement(sql);
-		         rset = pstmt.executeQuery();
-		         
-		         if(rset.next()) {
-		            listCount = rset.getInt("COUNT");
-		         }
-		         
-		      } catch (SQLException e) {
-		         e.printStackTrace();
-		      } finally {
-		         close(rset);
-		         close(pstmt);
-		      }
-		      return listCount;
-		   }
+	   
 	   
 	   
 	   
