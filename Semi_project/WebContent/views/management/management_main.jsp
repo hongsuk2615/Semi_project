@@ -51,56 +51,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>유저아이디1</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디2</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디3</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디4</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디5</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디1</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디2</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디3</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디4</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
-                                <tr>
-                                    <td>유저아이디5</td>
-                                    <td>유저이름</td>
-                                    <td> 학생/강사 구분</td>
-                                </tr>
+                               
                             </tbody>
 
                         </table>
@@ -190,42 +141,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목6</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목6</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         <table id="board-6">
@@ -235,42 +151,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목6</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목1</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목2</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목3</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목4</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목5</td>
-                                </tr>
-                                <tr>
-                                    <td>게시물 제목6</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
 
@@ -320,33 +201,30 @@
         </div>
         
         
-        <script> // 신고유저조회 비동기요청
+        
+        <script> // 회원가입 요청조회 비동기요청
         $(function(){
-	    	function getReportedUsers(){
+	    	function getEnrollmentReqs(){
 				$.ajax({
-					url : '<%=request.getContextPath()%>/manageReportUser.get',
+					url : '<%=request.getContextPath()%>/manageEnrollmentReqs.get',
 					type : 'get',
 					success : function(result){ 
 						console.log(result);
 						if(result.length == 0 ){
-							$('#board-4 tbody').append('<tr>'+
-															'<td>' + '조회된 유저가 없습니다.' + '</td>'+
+							$('#board-1 tbody').append('<tr>'+
+															'<td>' + '요청된 회원가입이없습니다.' + '</td>'+
 													   '</tr>');
 						} else {
 							for(let i = 0; i < 10 ; i++){
 								if(result[i] != null){
-									$('#board-4 tbody').append('<tr>'+
+									$('#board-1 tbody').append('<tr>'+
 																	'<td>' + result[i].userId + '</td>'+
-																	'<td>' + '신고횟수' + '</td>'+
-																	'<td>' + result[i].reportCount + '</td>'+
-																	'<td>' + '추천횟수' + '</td>'+
-																	'<td>' + result[i].nickName + '</td>'+
-																	'<td>' + '화이트리스트여부' + '</td>'+
-																	'<td>' + result[i].isWhitelist + '</td>'+
+																	'<td>' + result[i].userName + '</td>' +													
+																	'<td>' + (result[i].authority == '1' ?  '강사':'학생') + '</td>'+
 															  '</tr>');
 								}else {
-									$('#board-4 tbody').append('<tr>'+
-																	'<td colspan="7">' + '-'+ '</td>'+
+									$('#board-1 tbody').append('<tr>'+
+																	'<td colspan="3">' + '-'+ '</td>'+
 	
 															  '</tr>');
 								}
@@ -358,10 +236,14 @@
 				}				
 			});			
 		}
-			getReportedUsers();
+	    	getEnrollmentReqs();
 	 });
         
       </script>
+        
+        
+        
+        
       
       <script> // 게시판신고조회 비동기요청
         $(function(){
@@ -405,6 +287,135 @@
 	 });
         
       </script>
+
+
+<script> // 게시판생성요청조회 비동기요청
+    $(function(){
+        function getBoardReq(){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/manageBoardReq.get',
+                type : 'get',
+                success : function(result){ 
+                    console.log(result);
+                    if(result.length == 0 ){
+                        $('#board-3 tbody').append('<tr>'+
+                                                        '<td>' + '생성 요청된 게시판이 없습니다.' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 10 ; i++){
+                            if(result[i] != null){
+                                $('#board-3 tbody').append('<tr>'+
+                                                                '<td>' + result[i].categoryName + '</td>'+
+                                                                '<td>' + '신고횟수' + '</td>'+
+                                                                '<td>' + result[i].reqUser + '</td>'+
+                                                                '<td>' + '추천횟수' + '</td>'+
+                                                                '<td>' + result[i].recommendCount + '</td>'+
+                                                                '<td>' + '스크랩횟수' + '</td>'+
+                                                                '<td>' + result[i].scrapCount + '</td>'+
+                                                          '</tr>');
+                            }else {
+                                $('#board-3 tbody').append('<tr>'+
+                                                                '<td colspan="3">' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+        getBoardReq();
+ });
+    
+  </script>
+
+
+<script> // 신고유저조회 비동기요청
+    $(function(){
+        function getReportedUsers(){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/manageReportUser.get',
+                type : 'get',
+                success : function(result){ 
+                    console.log(result);
+                    if(result.length == 0 ){
+                        $('#board-4 tbody').append('<tr>'+
+                                                        '<td>' + '조회된 유저가 없습니다.' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 10 ; i++){
+                            if(result[i] != null){
+                                $('#board-4 tbody').append('<tr>'+
+                                                                '<td>' + result[i].userId + '</td>'+
+                                                                '<td>' + '신고횟수' + '</td>'+
+                                                                '<td>' + result[i].reportCount + '</td>'+
+                                                                '<td>' + '추천횟수' + '</td>'+
+                                                                '<td>' + result[i].nickName + '</td>'+
+                                                                '<td>' + '화이트리스트여부' + '</td>'+
+                                                                '<td>' + result[i].isWhitelist + '</td>'+
+                                                          '</tr>');
+                            }else {
+                                $('#board-4 tbody').append('<tr>'+
+                                                                '<td colspan="7">' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+        getReportedUsers();
+ });
+    
+  </script>
+
+<script> // 게시판 비동기요청
+    $(function(){
+        function getBoardReq(cName, num){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
+                type : 'get',
+                success : function(result){ 
+                    console.log(result);
+                    if(result.length == 0 ){
+                        $('#board-'+num+' tbody').append('<tr>'+
+                                                        '<td>' + '조회된 게시물이 없습니다' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 10 ; i++){
+                            if(result[i] != null){
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + result[i].title + '</td>'+
+                                                          '</tr>');
+                            }else {
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+        getBoardReq('건의사항',5);
+        getBoardReq('공지사항',6);
+ });
+    
+  </script>
+
+
+
       
       <script>
       

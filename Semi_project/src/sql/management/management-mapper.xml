@@ -17,5 +17,29 @@
 		 WHERE REPORT_COUNT > 0
 		   AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="getEnrollmentReqs">
+		SELECT *
+		  FROM MEMBER
+		 WHERE AVAILABLE = 'N'
+	
+	</entry>
+	
+	<entry key="getBoards">
+		SELECT *
+		  FROM BOARD
+		  JOIN CATEGORY USING(CATEGORY_NO)
+		 WHERE CATEGORY_NAME = ?
+		   AND STATUS = 'Y'
+	
+	</entry>
+	
+	<entry key="getBoardMakeReq">
+		SELECT *
+		  FROM CATEGORY
+		  JOIN MEMBER ON(REQ_USER = USER_NO)
+	
+	
+	</entry>
 
 </properties>
