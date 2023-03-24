@@ -115,26 +115,7 @@
         <div id="management-modal">
             <div id="modal-content">
                 <div id="modal-body">
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">내용주제1</div>
-                        <div class="modal-body-right">내용</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">내용주제1</div>
-                        <div class="modal-body-right">내용</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">내용주제1</div>
-                        <div class="modal-body-right">내용</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">내용주제1</div>
-                        <div class="modal-body-right">내용</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">내용주제1</div>
-                        <div class="modal-body-right">내용</div>
-                    </div>
+                    
 
                 </div>
 
@@ -160,7 +141,6 @@
 					url : '<%=request.getContextPath()%>/manageEnrollmentReqs.get',
 					type : 'get',
 					success : function(result){ 
-						console.log(result);
 						if(result.length == 0 ){
 							$('#board-1 tbody').append('<tr>'+
 															'<td>' + '요청된 회원가입이없습니다.' + '</td>'+
@@ -180,7 +160,8 @@
 															  '</tr>');
 								}
 							}	
-					  }			
+					  }	
+                      enrollModalEvent();	
 				},
 				error : function(){
 					console.log("ajax통신 실패");
@@ -188,6 +169,7 @@
 			});			
 		}
 	    	getEnrollmentReqs();
+            
 	 });
         
       </script>
@@ -203,7 +185,6 @@
 					url : '<%=request.getContextPath()%>/manageReportBoard.get',
 					type : 'get',
 					success : function(result){ 
-						console.log(result);
 						if(result.length == 0 ){
 							$('#board-2 tbody').append('<tr>'+
 															'<td>' + '신고된 게시판이 없습니다.' + '</td>'+
@@ -287,7 +268,6 @@
                 url : '<%=request.getContextPath()%>/manageReportUser.get',
                 type : 'get',
                 success : function(result){ 
-                    console.log(result);
                     if(result.length == 0 ){
                         $('#board-4 tbody').append('<tr>'+
                                                         '<td>' + '조회된 유저가 없습니다.' + '</td>'+
@@ -300,7 +280,7 @@
                                                                 '<td>' + '신고횟수' + '</td>'+
                                                                 '<td>' + result[i].reportCount + '</td>'+
                                                                 '<td>' + '추천횟수' + '</td>'+
-                                                                '<td>' + result[i].nickName + '</td>'+
+                                                                '<td>' + result[i].recommendCount + '</td>'+
                                                                 '<td>' + '화이트리스트여부' + '</td>'+
                                                                 '<td>' + result[i].isWhitelist + '</td>'+
                                                           '</tr>');
@@ -330,7 +310,6 @@
                 url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
                 type : 'get',
                 success : function(result){ 
-                    console.log(result);
                     if(result.length == 0 ){
                         $('#board-'+num+' tbody').append('<tr>'+
                                                         '<td>' + '조회된 게시물이 없습니다' + '</td>'+
@@ -384,41 +363,54 @@
             document.querySelector("#board-6 th").addEventListener("click", function () {
                 location.href = "";
             });
-            $("#board-1 tbody>tr").each(function (index, item) {
+            function enrollModalEvent(){
+            $("#board-1 tbody>tr").each(function (index, item) { //회원가입 승인요청 모달창
                 item.onclick = function () {
-                    document.getElementById("management-modal").style.visibility = "visible";
-                    document.getElementById("modal-body").innerHTML = 
-                    `<div class="modal-body-wrapper">
-                        <div class="modal-body-left">아이디</div>
-                        <div class="modal-body-right">hong</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">이름</div>
-                        <div class="modal-body-right">홍길동</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">분반</div>
-                        <div class="modal-body-right">UI/UX</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">학생/강사 구분</div>
-                        <div class="modal-body-right">학생</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">White List 여부</div>
-                        <div class="modal-body-right">N</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">받은 추천 횟수</div>
-                        <div class="modal-body-right">100</div>
-                    </div>
-                    <div class="modal-body-wrapper">
-                        <div class="modal-body-left">신고 받은 횟수</div>
-                        <div class="modal-body-right">5</div>
-                    </div>`;
-                    document.getElementById("ban-deny-btn").innerHTML = "승인";
-                    document.getElementById("unban-approve-btn").innerHTML = "거부";
+                    
+                     if(item.children.length > 1){
+                        document.getElementById("management-modal").style.visibility = "visible";
+                         let userId = item.children[0].innerHTML;
+                     
+                    console.log(userId);
+                    
+                    $.ajax({
+                            url : '<%=request.getContextPath()%>/manageEnrollmentReqs.get',
+                            data : {userId},
+                            type : 'post',
+                            success : function(result){ 
+                                console.log(result);
+                                document.getElementById("modal-body").innerHTML = 
+                                    `<div class="modal-body-wrapper">
+                                        <div class="modal-body-left">아이디</div>
+                                        <div class="modal-body-right">\${result.userId}</div>
+                                    </div>
+                                    <div class="modal-body-wrapper">
+                                        <div class="modal-body-left">이름</div>
+                                        <div class="modal-body-right">\${result.userName}</div>
+                                    </div>
+                                    <div class="modal-body-wrapper">
+                                        <div class="modal-body-left">닉네임</div>
+                                        <div class="modal-body-right">\${result.nickName}</div>
+                                    </div>
+                                    <div class="modal-body-wrapper">
+                                        <div class="modal-body-left">분반</div>
+                                        <div class="modal-body-right">\${result.userClass}</div>
+                                    </div>
+                                    <div class="modal-body-wrapper">
+                                        <div class="modal-body-left">학생/강사 구분</div>
+                                        <div class="modal-body-right">\${result.authority==1 ? '강사' : '학생'}</div>
+                                    </div>
+                                    `;
+                                document.getElementById("ban-deny-btn").innerHTML = "승인";
+                                document.getElementById("unban-approve-btn").innerHTML = "거부";
+                        },
+                        error : function(){
+                            console.log("ajax통신 실패");
+                        }				
+                    });
+                    
                 }
+            }
             });
 
 
@@ -511,7 +503,7 @@
             });
     	  
      
-      
+        }
       
         </script>
       

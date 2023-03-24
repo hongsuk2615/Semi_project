@@ -61,6 +61,17 @@ public class ManagementService {
 		return list;
 	}
 	
+	public Member getNoneApprovedUser(String userId){
+		
+		Connection conn = getConnection();
+		Member m = new ManagementDao().getNoneApprovedUser(conn, userId);
+		
+		close(conn);
+		
+		return m;
+		
+		
+	}
 	
 	
 	
