@@ -147,7 +147,7 @@ public class ManagementDao {
 	}
 	
 	public ArrayList<HashMap<String,Member>> getBoardMakeReq(Connection conn){
-		ArrayList<Map<String,Member>> list = new ArrayList<Map<String,Member>>();
+		ArrayList<HashMap<String,Member>> list = new ArrayList<HashMap<String,Member>>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getBoardMakeReq");
 		ResultSet rset = null;
@@ -157,7 +157,8 @@ public class ManagementDao {
 			while(rset.next()) {
 				HashMap<String,Member> req = new HashMap<String, Member>();
 				Member m = new Member();
-			
+				m.setUserId(rset.getString("USER_ID"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
 				req.put(rset.getString("CATEGORY_NAME"), m);
 				list.add(req);
 			}

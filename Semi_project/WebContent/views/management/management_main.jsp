@@ -72,56 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>요청 게시판제목1</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목2</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목3</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목4</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목5</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목1</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목2</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목3</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목4</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
-                                <tr>
-                                    <td>요청 게시판제목5</td>
-                                    <td>요청유저 아이디</td>
-                                    <td>강사/학생여부</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         <table id="board-4">
@@ -305,13 +256,9 @@
                         for(let i = 0; i < 10 ; i++){
                             if(result[i] != null){
                                 $('#board-3 tbody').append('<tr>'+
-                                                                '<td>' + result[i].categoryName + '</td>'+
-                                                                '<td>' + '신고횟수' + '</td>'+
-                                                                '<td>' + result[i].reqUser + '</td>'+
-                                                                '<td>' + '추천횟수' + '</td>'+
-                                                                '<td>' + result[i].recommendCount + '</td>'+
-                                                                '<td>' + '스크랩횟수' + '</td>'+
-                                                                '<td>' + result[i].scrapCount + '</td>'+
+                                                                '<td>' + Object.keys(result[i])[0] + '</td>'+
+                                                                '<td>' + result[i][Object.keys(result[i])[0]].userId + '</td>'+
+                                                                '<td>' + (result[i][Object.keys(result[i])[0]].authority ==  1 ? "강사":"학생") + '</td>'+     
                                                           '</tr>');
                             }else {
                                 $('#board-3 tbody').append('<tr>'+
