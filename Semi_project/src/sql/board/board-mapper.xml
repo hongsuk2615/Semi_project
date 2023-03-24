@@ -2,12 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-
 	<entry key="selectListCount">
-	
-	</entry>
-
-	
+      SELECT COUNT(*) AS COUNT
+      FROM BOARD
+      WHERE STATUS = 'Y'
+        AND CATEGORY_NO = 1
+   </entry>
 	
 	
 	
