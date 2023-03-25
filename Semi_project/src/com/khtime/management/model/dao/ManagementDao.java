@@ -51,6 +51,7 @@ public class ManagementDao {
 				reportedUser.setUserName(rset.getString("USER_NAME"));
 				reportedUser.setNickName(rset.getString("NICK_NAME"));
 				reportedUser.setAuthority(rset.getInt("AUTHORITY"));
+				reportedUser.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
 				reportedUser.setReportCount(rset.getInt("REPORT_COUNT"));
 				reportedUser.setIsWhitelist(rset.getString("IS_WHITELIST"));
 				list.add(reportedUser);
@@ -147,7 +148,7 @@ public class ManagementDao {
 	}
 	
 	public ArrayList<HashMap<String,Member>> getBoardMakeReq(Connection conn){
-		ArrayList<Map<String,Member>> list = new ArrayList<Map<String,Member>>();
+		ArrayList<HashMap<String,Member>> list = new ArrayList<HashMap<String,Member>>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getBoardMakeReq");
 		ResultSet rset = null;
@@ -157,7 +158,8 @@ public class ManagementDao {
 			while(rset.next()) {
 				HashMap<String,Member> req = new HashMap<String, Member>();
 				Member m = new Member();
-			
+				m.setUserId(rset.getString("USER_ID"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
 				req.put(rset.getString("CATEGORY_NAME"), m);
 				list.add(req);
 			}
@@ -169,6 +171,35 @@ public class ManagementDao {
 		}
 
 		return list;
+		
+	}
+	
+	public Member getNoneApprovedUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getNoneApprovedUser");
+		ResultSet rset = null;
+		Member m = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setNickName(rset.getString("NICK_NAME"));
+				m.setUserClass(rset.getString("USER_CLASS"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
 		
 	}
 

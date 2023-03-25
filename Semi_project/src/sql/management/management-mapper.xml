@@ -37,7 +37,14 @@
 	<entry key="getBoardMakeReq">
 		SELECT *
 		  FROM CATEGORY
-		  JOIN MEMBER ON(REQ_USER = USER_NO)
+		  JOIN MEMBER ON(REQ_USER = USER_NO)		
+	</entry>
+	
+	<entry key="getNoneApprovedUser">
+		SELECT *
+		  FROM MEMBER
+		 WHERE AVAILABLE = 'N'
+		   AND USER_ID = ?
 	
 	
 	</entry>
