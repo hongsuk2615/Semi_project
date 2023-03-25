@@ -3,6 +3,7 @@
 <%@ page import="com.khtime.board.model.vo.*, java.util.ArrayList" %>
 <%
 	Board b = (Board) request.getAttribute("b");
+    ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,34 +60,37 @@
                                     </div>
                                 </div>
                             </div>
+                            <% if(boardList.isEmpty()) { %>
+                           	글이 없습니다,,
+                           <% }else{ %>
                            
                             <ul>
-                                <li>제목1 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
+                                <li><%= b.getTitle() %> <br>
+                                    <%= b.getContent() %> <br>
+                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
                                     <div id="board-detail-comment">
                                         <div>첨부파일</div>
-                                        <div>공감</div>
+                                        <div><%= b.getRecommendCount() %></div>
                                         <div>댓글</div>
                                     </div>
                                 </li>
 
-                                <li>제목2 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
+                                <li><%= b.getTitle() %> <br>
+                                    <%= b.getContent() %> <br>
+                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
                                     <div id="board-detail-comment">
                                         <div>첨부파일</div>
-                                        <div>공감</div>
+                                        <div><%= b.getRecommendCount() %></div>
                                         <div>댓글</div>
                                     </div>
                                 </li>
                                 
-                                <li>제목3 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
+                                <li><%= b.getTitle() %> <br>
+                                    <%= b.getContent() %> <br>
+                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
                                     <div id="board-detail-comment">
                                         <div>첨부파일</div>
-                                        <div>공감</div>
+                                        <div><%= b.getRecommendCount() %></div>
                                         <div>댓글</div>
                                     </div>
                                 </li>

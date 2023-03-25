@@ -19,6 +19,52 @@ public class Board {
 	public Board() {
 		super();
 	}
+	
+	public Board(int boardNo, String title, String content, int writer, String isQuestion, String isAnonimous,
+			int recommendCount, Date enrollDate) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.enrollDate = enrollDate;
+		
+	}
+
+
+
+	public Board(String title, String content, int writer, String isQuestion, String isAnonimous, int recommendCount,
+			int scrapCount,Date enrollDate) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.enrollDate = enrollDate;
+	}
+	
+	
+
+
+	public Board(String title, String content, int writer, String isQuestion, String isAnonimous, int reportCount,
+			int recommendCount, int scrapCount, Date enrollDate) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.reportCount = reportCount;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.enrollDate = enrollDate;
+	}
 
 	public int getBoardNo() {
 		return boardNo;
