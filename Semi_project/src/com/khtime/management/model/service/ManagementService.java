@@ -1,7 +1,6 @@
 package com.khtime.management.model.service;
 
-import static com.khtime.common.JDBCTemplate.close;
-import static com.khtime.common.JDBCTemplate.getConnection;
+import static com.khtime.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -73,6 +72,48 @@ public class ManagementService {
 		
 	}
 	
+	public HashMap<String, Member> getBoardMakeReq(String categoryName){
+		Connection conn = getConnection();
+		HashMap<String, Member> map = new ManagementDao().getBoardMakeReq(conn, categoryName);
+		
+		close(conn);
+		
+		return map;
+	}
+	
+	public Member getReportedUser(String reportedUserId) {
+		Connection conn = getConnection();
+		Member reportedUser = new ManagementDao().getReportedUser(conn, reportedUserId);
+		close(conn);
+		
+		return reportedUser;
+	}
+	
+	public int approveEnroll(String userId) {
+		Connection conn = getConnection();
+		int result = 0 ;
+		result = new ManagementDao().approveEnroll(conn, userId);
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int denyEnroll(String userId) {
+		Connection conn = getConnection();
+		int result = 0 ;
+		result = new ManagementDao().denyEnroll(conn, userId);
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 	
 

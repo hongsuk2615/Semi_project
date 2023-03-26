@@ -1,29 +1,25 @@
 package com.khtime.management.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.khtime.management.model.service.ManagementService;
-import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class GetReportUserAjaxController
+ * Servlet implementation class EnrollManagementController
  */
-@WebServlet("/manageReportUser.get")
-public class GetReportUserAjaxController extends HttpServlet {
+@WebServlet("/approveEnroll.do")
+public class EnrollManagementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetReportUserAjaxController() {
+    public EnrollManagementController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +28,25 @@ public class GetReportUserAjaxController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Member> list = new ManagementService().getReportedUsers();
-		response.setContentType("application/json; charset = UTF-8");
-		Gson gson = new Gson();
-		gson.toJson(list,response.getWriter());
+		String userId = request.getParameter("userId");
+		String approve = request.getParameter("approve");
+		int result = 0;
+		if(approve.equals("Y")) {
+			result = new ManagementService().approveEnroll(userId);
+			request.getSession().setAttribute("alertMsg", "승인완료");
+		}else {
+			result = new ManagementService().denyEnroll(userId);
+			request.getSession().setAttribute("alertMsg", "거부완료");
+		}
+		response.sendRedirect(request.getContextPath()+"/management.do");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String reportedUserId = request.getParameter("reportedUser");
-		Member reportedUser = new ManagementService().getReportedUser(reportedUserId);
-		response.setContentType("application/json; charset = UTF-8");
-		Gson gson = new Gson();
-		gson.toJson(reportedUser,response.getWriter());
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
