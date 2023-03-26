@@ -202,5 +202,102 @@ public class ManagementDao {
 		return m;
 		
 	}
+	
+	public HashMap<String, Member> getBoardMakeReq(Connection conn, String categoryName){
+		HashMap<String, Member> map = new HashMap<String, Member>();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getBoardMakeReqDetail");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, categoryName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setUserClass(rset.getString("USER_CLASS"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
+				String reason = rset.getString("REASON");
+				map.put(reason,m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return map;
+	}
+	
+	public Member getReportedUser(Connection conn, String reportedUserId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getReportedUser");
+		ResultSet rset = null;
+		Member reportedUser = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reportedUserId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				reportedUser = new Member();
+				reportedUser.setUserId(rset.getString("USER_ID"));
+				reportedUser.setUserName(rset.getString("USER_NAME"));
+				reportedUser.setNickName(rset.getString("NICK_NAME"));
+				reportedUser.setUserClass(rset.getString("USER_CLASS"));
+				reportedUser.setEmail(rset.getString("EMAIL"));
+				reportedUser.setIsWhitelist(rset.getString("IS_WHITELIST"));
+				reportedUser.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
+				reportedUser.setReportCount(rset.getInt("REPORT_COUNT"));
+				reportedUser.setDate(rset.getDate("ENROLL_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reportedUser;
+	}
+	
+	public int approveEnroll(Connection conn, String userId) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("approveEnroll");		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
+		
+	}
+	
+	
+	public int denyEnroll(Connection conn, String userId) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("denyEnroll");		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;	
+		
+	}
 
 }

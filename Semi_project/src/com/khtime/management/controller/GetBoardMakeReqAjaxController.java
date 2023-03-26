@@ -43,8 +43,11 @@ public class GetBoardMakeReqAjaxController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String categoryName = request.getParameter("categoryName");
+		HashMap<String,Member> map = new ManagementService().getBoardMakeReq(categoryName);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(map,response.getWriter());
 	}
 
 }

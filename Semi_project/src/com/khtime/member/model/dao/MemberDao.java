@@ -9,15 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
-
 
 import com.khtime.common.JDBCTemplate;
 import com.khtime.member.model.vo.Member;
 import com.khtime.member.model.vo.UserProFileImg;
-import com.khtime.member.model.dao.MemberDao;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -62,6 +59,7 @@ public class MemberDao {
 								rset.getDate("ENROLL_DATE"),
 								rset.getInt("AUTHORITY"),
 								rset.getInt("REPORT_COUNT"),
+								rset.getInt("RECOMMEND_COUNT"),
 								rset.getString("IS_BANNED"),
 								rset.getString("IS_WHITELIST"), 
 								rset.getString("STATUS")
@@ -135,7 +133,6 @@ public class MemberDao {
 				pstmt.setString(4, upf.getFilePath());
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {
-				e.printStackTrace();
 			} finally {
 				close(pstmt);
 			}

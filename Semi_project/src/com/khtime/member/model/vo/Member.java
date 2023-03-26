@@ -23,6 +23,8 @@ public class Member {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	public Member(int userNo, String userId, String userPwd, String userClass, String userName, String nickName,
 			String email, Date date, int authority, int recommendCount, int reportCount, String isBanned, String isWhitelist,
@@ -56,6 +58,8 @@ public class Member {
 		this.email = email;
 		this.authority = authority;
 	}
+	
+	
 
 	public int getUserNo() {
 		return userNo;

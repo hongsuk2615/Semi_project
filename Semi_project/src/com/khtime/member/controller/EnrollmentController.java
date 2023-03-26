@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.khtime.common.model.vo.MyFileRenamePolicy;
-import com.khtime.common.model.vo.AEScryptor;
 import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
 import com.khtime.member.model.vo.UserProFileImg;
