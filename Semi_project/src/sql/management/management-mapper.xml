@@ -72,5 +72,17 @@
 		DELETE MEMBER
 		 WHERE USER_ID = ?	
 	</entry>
+	
+	<entry key="banUser">
+		UPDATE MEMBER
+		   SET IS_BANNED = 'Y'
+		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="whitelistUser">
+		UPDATE MEMBER
+		   SET IS_WHITELIST = 'Y'
+		 WHERE USER_ID = ?
+	</entry>
 
 </properties>

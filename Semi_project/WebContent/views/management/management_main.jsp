@@ -538,10 +538,17 @@
                             error : function(){
                             console.log("ajax통신 실패");
                             }				
+                        });
+                        document.getElementById("ban-deny-btn").innerHTML = "정지";
+                        document.getElementById("ban-deny-btn").addEventListener('click',function(){
+                            location.href="<%=request.getContextPath()%>/banUser.do?userId="+reportedUser;
+                        });
+                        document.getElementById("unban-approve-btn").innerHTML = "화이트리스트";
+                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
+                            location.href="<%=request.getContextPath()%>/whiteList.do?userId="+reportedUser;
                         });         
                     }                    
-                    document.getElementById("ban-deny-btn").innerHTML = "정지";
-                    document.getElementById("unban-approve-btn").innerHTML = "정지해제";
+ 
                 }
             });
 

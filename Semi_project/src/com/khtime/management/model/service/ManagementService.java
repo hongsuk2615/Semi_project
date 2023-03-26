@@ -115,6 +115,34 @@ public class ManagementService {
 		return result;
 	}
 	
+	public int banUser(String userId) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new ManagementDao().banUser(conn,userId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;	
+	}
+	
+	public int whitelistUser(String userId) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new ManagementDao().whitelistUser(conn,userId);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;	
+	}
+	
 	
 
 	

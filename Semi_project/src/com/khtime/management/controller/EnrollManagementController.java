@@ -33,10 +33,18 @@ public class EnrollManagementController extends HttpServlet {
 		int result = 0;
 		if(approve.equals("Y")) {
 			result = new ManagementService().approveEnroll(userId);
-			request.getSession().setAttribute("alertMsg", "승인완료");
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "승인완료");
+			}else {
+				request.getSession().setAttribute("alertMsg", "승인실패");
+			}
 		}else {
 			result = new ManagementService().denyEnroll(userId);
-			request.getSession().setAttribute("alertMsg", "거부완료");
+			if(result > 0) {
+				request.getSession().setAttribute("alertMsg", "거부완료");
+			}else {
+				request.getSession().setAttribute("alertMsg", "거부실패");
+			}
 		}
 		response.sendRedirect(request.getContextPath()+"/management.do");
 	}

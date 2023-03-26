@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.management.model.service.ManagementService;
+
 /**
- * Servlet implementation class UserManagementController
+ * Servlet implementation class UserBanManagementController
  */
-@WebServlet("/usermanagement.do")
-public class UserManagementController extends HttpServlet {
+@WebServlet("/banUser.do")
+public class UserBanManagementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserManagementController() {
+    public UserBanManagementController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,14 @@ public class UserManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/management/management_user.jsp").forward(request, response);
+		String userId = request.getParameter("userId");
+		int result = new ManagementService().banUser(userId);
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "계정정지성공");
+		}else {
+			request.getSession().setAttribute("alertMsg", "계정정지실패");
+		}
+		response.sendRedirect(request.getContextPath()+"/management.do");
 	}
 
 	/**
