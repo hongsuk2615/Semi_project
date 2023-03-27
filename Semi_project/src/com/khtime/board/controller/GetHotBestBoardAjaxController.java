@@ -1,4 +1,4 @@
-package com.khtime.board.model.controller;
+package com.khtime.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
