@@ -184,7 +184,7 @@
                                                                 '<td>' + result[i].title + '</td>'+
                                                           '</tr>');
                                 $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
                                 })
                             }else {
                                 $('#board-'+num+' tbody').append('<tr>'+
