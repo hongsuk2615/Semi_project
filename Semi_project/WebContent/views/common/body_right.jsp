@@ -30,7 +30,7 @@
                 </div>
                 <div id="btn-wrapper">
 
-                    <input type="submit" value="로그인이안되네요">
+                    <input type="submit" value="로그인">
 
                     <input type="button" value="회원가입">
                 </div>
