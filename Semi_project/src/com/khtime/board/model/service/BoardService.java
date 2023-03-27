@@ -33,9 +33,6 @@ public class BoardService {
 	}
 	
 	
-	
-	
-	
 	public Board selectContent(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -56,6 +53,27 @@ public class BoardService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+
+		return result;
+	}
+	
+	
+	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<Board> bestList = new BoardDao().selectBoard(conn, rcCount, pi);
+
+		JDBCTemplate.close(conn);
+
+		return bestList;
+	}
+
+	public int bestListCount(int rcCount) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().bestListCount(conn, rcCount);
+
+		JDBCTemplate.close(conn);
 
 		return result;
 	}

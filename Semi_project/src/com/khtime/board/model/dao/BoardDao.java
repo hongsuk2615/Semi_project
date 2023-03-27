@@ -171,4 +171,89 @@ public class BoardDao {
 			return result;
 		}
 	   
+	   
+	   
+	   
+	   public ArrayList<Board> bestList(Connection conn, int rcCount, PageInfo pi) {
+		    
+		   ArrayList <Board> boardList= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("bestList");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+				int endRow = startRow + pi.getBoardLimit() - 1;
+				
+				pstmt.setInt(1, rcCount);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					Board b = new Board(
+								rset.getInt("BOARD_NO"),
+								rset.getString("TITLE"),
+								rset.getString("CONTENT"),
+								rset.getInt("CATEGORY_NO"),
+								rset.getString("WRITER"),
+								rset.getString("IS_QUESTION"),
+								rset.getString("IS_ANONIMOUS"),
+								rset.getInt("RECOMMEND_COUNT"),
+								rset.getDate("ENROLL_DATE"),
+								rset.getInt("REPLY_COUNT")
+							);
+					
+					boardList.add(b);
+				}		
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return boardList;
+		}
+	   
+	   public int bestListCount(Connection conn, int rcCount) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("bestListCount");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rcCount);
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result = rset.getInt("COUNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 }

@@ -86,58 +86,148 @@
         </div>
         <% } %>
         <div id="hot-board">
-            <table id="board-5">
-                <tr>
-                    <th>HOT 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+            <table id="board-7">
+            	<thead>
+	                <tr>
+	                    <th>HOT 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
         <div id="best-board">
-            <table id="board-6">
-                <tr>
-                    <th>BEST 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+            <table id="board-8">
+                <thead>
+	                <tr>
+	                    <th>BEST 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
     </div>
-  
-		<!-- [디데이 설정] 모달창 -->
+  		<script>
+  		$("#board-7 th").click(function(){
+  	        location.href = "<%= request.getContextPath() %>/best.bo";
+  		    })
+  		    
+  		    $("#board-8 th").click(function(){
+  	        location.href = "<%= request.getContextPath() %>/best.bo";
+  		    })
+  		
+  		</script>
+
+		<% if(loginUser != null){ %>
+        <!-- [디데이 수정] 모달창 스크립트-->
+        <script>
+            const open2 = () => {
+                document.querySelector(".modal2").classList.remove("hidden");
+            }
+            const close2 = () => {
+                console.log('cdlose')
+                document.querySelector(".modal2").classList.add("hidden");
+            }
+            document.querySelector(".openBtn2").addEventListener("click", open2);
+            document.querySelector(".closeBtn3").addEventListener("click", close2);
+            document.querySelector(".deleteBtn").addEventListener("click", close2);
+            document.querySelector(".closeBtn4").addEventListener("click", function(){
+                close1();
+                close2();
+            });
+            document.querySelector(".bg2").addEventListener("click", function(){
+                close1();
+                close2();
+                close();
+            });
+        </script>
+
+        <!-- 새 디데이 달력 스크립트 -->
+        <script>
+        $(function () {
+        $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+        });
+        </script>
+        <script>
+        $.datepicker.setDefaults({
+        dateFormat: 'yy-mm-dd',
+        prevText: '이전 달',
+        nextText: '다음 달',
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년'
+        });
+        $(function() {
+        $("#datepicker").datepicker();
+        });
+        </script>
+
+        <!-- 디데이 수정 달력 스크립트 -->
+        <script>
+            $(function () {
+            $("#datepicker1").datepicker({ dateFormat: "yy-mm-dd" });
+            });
+            </script>
+            <script>
+            $.datepicker.setDefaults({
+            dateFormat: 'yy-mm-dd',
+            prevText: '이전 달',
+            nextText: '다음 달',
+            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            showMonthAfterYear: true,
+            yearSuffix: '년'
+            });
+            $(function() {
+            $("#datepicker1").datepicker();
+            });
+        </script>
+        
+        		<!-- [디데이 설정] 모달창 -->
         <div class="modal hidden">
             <div class="bg"></div>
             <div class="modalBox">
@@ -268,96 +358,35 @@
 				</div>
             </div>
         </div>
-
-        <!-- [디데이 수정] 모달창 스크립트-->
-        <script>
-            const open2 = () => {
-                document.querySelector(".modal2").classList.remove("hidden");
-            }
-            const close2 = () => {
-                console.log('cdlose')
-                document.querySelector(".modal2").classList.add("hidden");
-            }
-            document.querySelector(".openBtn2").addEventListener("click", open2);
-            document.querySelector(".closeBtn3").addEventListener("click", close2);
-            document.querySelector(".deleteBtn").addEventListener("click", close2);
-            document.querySelector(".closeBtn4").addEventListener("click", function(){
-                close1();
-                close2();
-            });
-            document.querySelector(".bg2").addEventListener("click", function(){
-                close1();
-                close2();
-                close();
-            });
-        </script>
-
-        <!-- 새 디데이 달력 스크립트 -->
-        <script>
-        $(function () {
-        $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-        });
-        </script>
-        <script>
-        $.datepicker.setDefaults({
-        dateFormat: 'yy-mm-dd',
-        prevText: '이전 달',
-        nextText: '다음 달',
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        showMonthAfterYear: true,
-        yearSuffix: '년'
-        });
-        $(function() {
-        $("#datepicker").datepicker();
-        });
-        </script>
-
-        <!-- 디데이 수정 달력 스크립트 -->
-        <script>
-            $(function () {
-            $("#datepicker1").datepicker({ dateFormat: "yy-mm-dd" });
-            });
-            </script>
-            <script>
-            $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd',
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            showMonthAfterYear: true,
-            yearSuffix: '년'
-            });
-            $(function() {
-            $("#datepicker1").datepicker();
-            });
-        </script>
-        
         <!-- 페이지이동스크립트 -->
         <script>
-        
+        <% if(loginUser != null){%>
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
+	    <%} else {%>
+	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myPage.me";
+	    })
+	    <% } %>
 	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/study.me";
 	    })
 	    
-	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/myPage.me";
+	    
+	    $("#board-7 th").click(function(){
+        location.href = "<%= request.getContextPath() %>/best.bo";
 	    })
-	    function search(){
-        	location.href = "<%=request.getContextPath()%>/boDetailSearch.do?keyword="+document.getElementById('search-input').value();
-        }
+	    
+	    $("#board-8 th").click(function(){
+        location.href = "<%= request.getContextPath() %>/best.bo";
+	    })
+	    
         </script>
+        <% } %>
+        
+        
 
 </body>
 </html>

@@ -113,23 +113,7 @@
         
    </entry>
 	
-	<entry key="searchContent">
-		SELECT 
-				TITLE,
-				CONTENT,
-				M.NICK_NAME AS WRITER,
-				IS_QUESTION,
-				IS_ANONIMOUS,
-				B.RECOMMEND_COUNT,
-				B.SCRAP_COUNT,
-				REPLY_COUNT,
-				B.CATEGORY_NO,
-				B.ENROLL_DATE
-		  FROM BOARD B
-		  JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-		 WHERE BOARD_NO = ?
-		   AND B.STATUS = 'Y'
-	</entry>
+	
 	
 	<entry key="keywordListCount">
 		SELECT COUNT(*) AS COUNT
@@ -138,6 +122,47 @@
                   OR CONTENT LIKE ?
 		   AND STATUS = 'Y'
 	</entry>
+	
+	
+	
+	
+	<entry key="bestList">
+		SELECT * 	
+		FROM(
+				SELECT ROWNUM RNUM , A.*
+				FROM (
+					SELECT DISTINCT
+					      BOARD_NO,
+					      TITLE,
+					      CONTENT,
+					      B.CATEGORY_NO,
+					      M.NICK_NAME AS WRITER,
+					      IS_QUESTION,
+                          IS_ANONIMOUS,
+					      B.RECOMMEND_COUNT,
+					      B.ENROLL_DATE,
+					      REPLY_COUNT
+					                          
+					FROM BOARD B
+					JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+					WHERE B.RECOMMENT_COUNT > ?
+					  AND B.STATUS = 'Y'
+					ORDER BY B.RECOMMENT_COUNT DESC
+				) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+        
+	</entry>
+	
+
+	<entry key="bestListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM BOARD
+		 WHERE RECOMMENT_COUNT > ?
+		   AND STATUS = 'Y'
+		   
+	</entry>
+	
 	
 	
 	

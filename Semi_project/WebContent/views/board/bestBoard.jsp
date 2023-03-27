@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>    
+    <% 
+   ArrayList <Board> bestList  = (ArrayList<Board>) request.getAttribute("bestList"); 
+	String keyword = (String) request.getAttribute("keyword");
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
+   int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
+   
+%>   
 <!DOCTYPE html>
 <html lang="en">
 <head>

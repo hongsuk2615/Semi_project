@@ -60,8 +60,10 @@
             document.getElementById("management").addEventListener("click",function(){
                 location.href = "<%= request.getContextPath() %>/management.do";
             })
-        <% } %>
-
+        <% }else{ %>
+	        document.getElementById("mypage-btn").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/myPage.me";
+		<% } %>
          document.getElementById("todolist").addEventListener("click",function(){
             location.href = "<%= request.getContextPath() %>/todolist.me";
         })
@@ -70,9 +72,7 @@
             location.href = "<%= request.getContextPath() %>/bookstore.do";
         })
 	
-        document.getElementById("mypage-btn").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/myPage.me";
-    })
+    
     </script>
 </body>
 </html>

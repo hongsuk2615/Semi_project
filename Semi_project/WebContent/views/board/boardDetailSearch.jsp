@@ -53,23 +53,10 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> <%= keyword %>검색 결과</div>
+                            <div> <%= keyword %>&nbsp;로 검색한 결과</div>
                             <div id="createContent">
                                <form action="<%=request.getContextPath()%>/insert.bo" method="post">
-       
-       <div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-            <div>
-            <textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
-            <div id="createContent-check">
-                <div>첨부파일</div>
-                <div>
-                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
-                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-                    <div><button id="create-content-btn">글 작성</button></div>
-                </div>
-            </div>
-            </form>
-                            
+            					</form>
                             </div>
                            <% if(searchList==null) { %>
                               글이 없습니다,,
