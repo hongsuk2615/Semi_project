@@ -1,16 +1,19 @@
+<%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../resources/CSS/header.css">
-    <link rel="stylesheet" href="../../resources/CSS/base.css">
-    <link rel="stylesheet" href="../../resources/CSS/body.css">
-    <link rel="stylesheet" href="../../resources/CSS/footer.css">
-    <link rel="stylesheet" href="../../resources/CSS/boardDetail.css">
+    <link rel="stylesheet" href="resources/CSS/header.css">
+    <link rel="stylesheet" href="resources/CSS/base.css">
+    <link rel="stylesheet" href="resources/CSS/body.css">
+    <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/boardDetail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -44,208 +47,53 @@
                     <div id="board-wrapper">
                         <div id="board-detail">
                             <div> 자유게시판</div>
-                            <div id="createContent"> 글 작성 > 글 제목
-                                <div>내용</div>
-                                <div id="createContent-check">
-                                    <div>첨부파일</div>
-                                    <div>체크 및 글작성
-                                        <div>질문 ㅇ</div>
-                                        <div>익명 ㅇ</div>
-                                        <div>글작성버튼</div>
-                                    </div>
-                                </div>
+                            <div id="createContent">
+                            	<form action="<%=request.getContextPath()%>/insert.bo" method="post">
+    	<input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
+    	<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
+            <div>
+            <textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
+            <div id="createContent-check">
+                <div>첨부파일</div>
+                <div>
+                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
+                    <div><button id="create-content-btn">글 작성</button></div>
+                </div>
+            </div>
+            </form>
+                            
                             </div>
-                           
+                           <% if(boardList==null) { %>
+                           	글이 없습니다,,
+                           <% }else{ %>
                             <ul>
-                                <li>제목1 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
+                           
+                            	<% for(Board b : boardList) { %>
+                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
+                                <%= b.getTitle() %><br>
+                                    <%= b.getContent() %> <br>
+                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
                                     <div id="board-detail-comment">
                                         <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
+                                        <div><%= b.getRecommendCount() %></div>
+                                        <div><%= b.getReplyCount() %></div>
                                     </div>
                                 </li>
-
-                                <li>제목2 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                
-                                <li>제목3 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                
-                                
-                                <li>제목4 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                
-                                
-                                <li>제목5 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                
-                                
-                                <li>제목6 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목7 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목8 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목9 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목10 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목11 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목12 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목13 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목14 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목15 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목16 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목17 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목18 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목19 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                                <li>제목20 <br>
-                                    내용1 <br>
-                                    작성일자 &nbsp; 작성자<br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div>공감</div>
-                                        <div>댓글</div>
-                                    </div>
-                                </li>
-                            </ul>
+                               
+                              	  <% } %>
+                                 <% } %>
+                                  </ul>
+						<script>
+									$(function(){
+										$("#board-detail li").click(function(){
+											let bNo = $(this).children().eq(0).text();
+											location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+											
+										});
+									});
+								</script>
+                            
                             
                     </div>
                     <div id="board-detail-search">
@@ -271,6 +119,27 @@
 
         </div>
     </div>
+    <script>
+   <%--  document.getElementById("createContent").addEventListener("click",function(){
+    	this.innerHTML = `
+    	<form action="<%=request.getContextPath()%>/insert.bo" method="post">
+    	<input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
+    	<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
+            <div>
+            <textarea id="content" name="content" placeholder="기본 설명 내용"><input type="text" ></textarea></div>
+            <div id="createContent-check">
+                <div>첨부파일</div>
+                <div>
+                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
+                    <div><button id="create-content-btn">글 작성</button></div>
+                </div>
+            </div>
+            </form>
+            `;
+    }) --%>
+    
+    </script>
 
 
 

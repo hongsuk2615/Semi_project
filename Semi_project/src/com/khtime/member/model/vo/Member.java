@@ -12,23 +12,18 @@ public class Member {
 	private String email;
 	private Date date;
 	private int authority;
-	private int recommendCount;
 	private int reportCount;
 	private String isBanned;
 	private String isWhitelist;
 	private String status;
 
 	public Member() {
-
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 
 	public Member(int userNo, String userId, String userPwd, String userClass, String userName, String nickName,
-			String email, Date date, int authority, int recommendCount, int reportCount, String isBanned, String isWhitelist,
-			String status) {
+			String email, Date date, int authority, int reportCount, String isBanned, String isWhitelist) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -39,27 +34,11 @@ public class Member {
 		this.email = email;
 		this.date = date;
 		this.authority = authority;
-		this.recommendCount = recommendCount;
 		this.reportCount = reportCount;
 		this.isBanned = isBanned;
 		this.isWhitelist = isWhitelist;
-		this.status = status;
 	}
-	
-	
 
-	public Member(String userId, String userPwd, String userClass, String userName, String nickName, String email, int authority) {
-		super();
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.userClass = userClass;
-		this.userName = userName;
-		this.nickName = nickName;
-		this.email = email;
-		this.authority = authority;
-	}
-	
-	
 
 	public int getUserNo() {
 		return userNo;
@@ -131,16 +110,6 @@ public class Member {
 
 	public void setAuthority(int authority) {
 		this.authority = authority;
-	}
-	
-	
-
-	public int getRecommendCount() {
-		return recommendCount;
-	}
-
-	public void setRecommendCount(int recommendCount) {
-		this.recommendCount = recommendCount;
 	}
 
 	public int getReportCount() {
