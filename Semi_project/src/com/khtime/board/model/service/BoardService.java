@@ -82,7 +82,7 @@ public class BoardService {
 		close(conn);
 
 		return result;
-
+	}
 	public ArrayList<Board> getHotBestBoardlist(int recommendCount) {
 		Connection conn = getConnection();
 		ArrayList<Board> list = new BoardDao().getHotBestBoardlist(conn, recommendCount);

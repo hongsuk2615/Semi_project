@@ -97,7 +97,7 @@
                      WRITER,
                      IS_QUESTION,
                      IS_ANONIMOUS,
-                     RECOMMEND_COUNT,
+                     B.RECOMMEND_COUNT,
                      B.ENROLL_DATE,
                      REPLY_COUNT
                                          
