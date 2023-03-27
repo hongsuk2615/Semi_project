@@ -56,7 +56,7 @@
         })
 
         document.getElementById("enrollment-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/boardDetail.bo?cNo=1&currentPage=1";
+            location.href = "<%= request.getContextPath() %>/enroll.me";
         })
         <% } else if(loginUser.getAuthority() == 0) { %>
             
