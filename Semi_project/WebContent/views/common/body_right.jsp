@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
+      <link rel="stylesheet" href="resources/CSS/header.css">
+    <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/mypage.css">
+    <link rel="stylesheet" href="resources/CSS/base.css">
     <title>Document</title>
 </head>
 <body>
@@ -29,9 +33,7 @@
                     <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
-
                     <input type="submit" value="로그인">
-
                     <input type="button" value="회원가입">
                 </div>
             </form>

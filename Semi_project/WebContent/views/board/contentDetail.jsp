@@ -1,17 +1,22 @@
+<%@ page import="com.khtime.board.model.vo.Board, java.util.ArrayList, com.khtime.board.model.vo.Reply" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	Board b  = (Board) request.getAttribute("b"); 
+	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
+%>     
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../resources/CSS/header.css">
-    <link rel="stylesheet" href="../../resources/CSS/base.css">
-    <link rel="stylesheet" href="../../resources/CSS/body.css">
-    <link rel="stylesheet" href="../../resources/CSS/footer.css">
-    <link rel="stylesheet" href="../../resources/CSS/boardDetail.css">
-    <link rel="stylesheet" href="../../resources/CSS/contentDetail.css">
+    <link rel="stylesheet" href="resources/CSS/header.css">
+    <link rel="stylesheet" href="resources/CSS/base.css">
+    <link rel="stylesheet" href="resources/CSS/body.css">
+    <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/boardDetail.css">
+    <link rel="stylesheet" href="resources/CSS/contentDetail.css">
     <title>Document</title>
     <style>
         * {
@@ -53,10 +58,15 @@
                                         </div>
                                         <div id="content-writer">
                                             <div>
+                                              <% if(b.getIsAnonimous().equals("N")) { %>
+                                                <%= b.getWriter() %>
+                                                <% }else { %>
                                                 익명
+                                                <% } %> 
+                                              
                                             </div>
                                             <div>
-                                                작성일자
+                                                <%= b.getEnrollDate() %>
                                             </div>
                                         </div>
                                         </div>
@@ -65,15 +75,15 @@
                                     </div>
                                 </div>
                                 <div>
-                                    제목
+                                    <%= b.getTitle() %>
                                 </div>
                                 <div>
-                                    내용
+                                   <%= b.getContent() %>
                                 </div>
                                 <div>
-                                    <div>공감</div>
-                                    <div>댓글</div>
-                                    <div>스크랩</div>
+                                    <div><%= b.getRecommendCount() %></div>
+                                    <div><%= b.getReplyCount() %></div>
+                                    <div><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
                                     <button>공감</button>
@@ -84,22 +94,36 @@
 
 
                             <!-- 댓글 -->
+                             <% if(replyList.isEmpty()) { %>
+                           	글이 없습니다,,
+                           <% }else{ %>
                             <ul>
-                                <li>
+                           
+                            	<% for(Reply r : replyList) { %>
+                            	 <li>
                                     <div id="content-detail-comments">
                                         <div id="comments-left">
-                                            프로필사진 &nbsp; 작성자 
+                                            프로필사진 &nbsp; 
+                                            <% if(r.getIsAnonimous().equals("N")) { %>
+                                                <%= r.getWriter() %>
+                                                <% }else { %>
+                                                익명
+                                                <% } %> 
                                         </div>
                                         <div id="comments-right">
                                             대댓글 공감 쪽지 신고
                                         </div>
                                     </div>
-
-                                    내용1 <br>
-                                    작성일자 <br>
+										<%= r.getContent() %>
+                                     <br>
+                                    <%= r.getEnrollDate() %> <br>
                                 </li>
-                            </ul>      
-                    
+                               
+                               
+                              	  <% } %>
+                                 <% } %>
+                                  </ul>
+                            
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
@@ -134,11 +158,11 @@
 
         </div>
     </div>
-<script>
-    window.onload = function(){
-	document.getElementById("test1").innerHTML("ddddd");
-	}
-</script>
+		<script>
+		    window.onload = function(){
+			document.getElementById("test1").innerHTML("ddddd");
+			}
+		</script>
 
 
 </body>
