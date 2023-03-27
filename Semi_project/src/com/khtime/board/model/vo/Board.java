@@ -15,9 +15,41 @@ public class Board {
 	private int scrapCount;
 	private Date enrollDate;
 	private String status;
-	
+	private int replyCount;
+
+
 	public Board() {
 		super();
+	}
+
+	public Board(int boardNo, String title, String content, String writer, String isQuestion, String isAnonimous,
+			int recommendCount, Date enrollDate, int replyCount) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.enrollDate = enrollDate;
+		this.replyCount = replyCount;
+	}
+
+
+
+	public Board(String title, String content, String writer, String isQuestion, String isAnonimous, int recommendCount,
+			int scrapCount, int replyCount, Date enrollDate) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.replyCount = replyCount;
+		this.enrollDate = enrollDate;
 	}
 
 	public int getBoardNo() {
@@ -115,6 +147,15 @@ public class Board {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 
 	@Override
 	public String toString() {

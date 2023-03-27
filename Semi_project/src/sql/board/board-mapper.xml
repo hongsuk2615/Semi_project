@@ -3,13 +3,78 @@
 <properties>
 
 
-	<entry key="selectListCount">
-	
+	<entry key="selectBoard">
+		SELECT * 	
+		FROM(
+				SELECT ROWNUM RNUM , A.*
+				FROM (
+					SELECT DISTINCT
+					      BOARD_NO,
+					      TITLE,
+					      CONTENT,
+					      M.NICK_NAME AS WRITER,
+					      IS_QUESTION,
+                          IS_ANONIMOUS,
+					      B.RECOMMEND_COUNT,
+					      B.ENROLL_DATE,
+					      REPLY_COUNT
+					                          
+					FROM BOARD B
+					JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+					WHERE CATEGORY_NO = ?
+					  AND B.STATUS = 'Y'
+					ORDER BY ENROLL_DATE DESC
+				) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+        
 	</entry>
 
+
+	<entry key="boardListCount">
+		SELECT COUNT(*) AS COUNT
+		  FROM BOARD
+		 WHERE CATEGORY_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+
+
+	<entry key="selectContent">
+		SELECT 
+				TITLE,
+				CONTENT,
+				M.USER_NAME AS WRITER,
+				IS_QUESTION,
+				IS_ANONIMOUS,
+				B.RECOMMEND_COUNT,
+				SCRAP_COUNT,
+				REPLY_COUNT,
+				B.ENROLL_DATE
+		  FROM BOARD B
+		  JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		 WHERE BOARD_NO = ?
+		   AND B.STATUS = 'Y'
+	</entry>
 	
+	<entry key="test">
+	  (SELECT COUNT(*)
+                          FROM REPLY R
+                          WHERE R.BOARD_NO = B.BOARD_NO)  
+	</entry>
 	
-	
-	
+	<entry key="insertBoard">
+		INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER, IS_QUESTION, IS_ANONIMOUS)
+		VALUES(SEQ_BONO.NEXTVAL
+			  ,?
+			  ,?
+			  ,?
+			  ,(SELECT USER_NO
+			  	  FROM MEMBER
+			  	  JOIN BOARD ON (WRITER = USER_NO)
+			  	 WHERE USER_ID = ?)
+			  ,?
+			  ,?
+			  )
+	</entry>
 	
 </properties>

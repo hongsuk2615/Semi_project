@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.member.model.vo.Member"%>
-<% 
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	String alertMsg = (String)session.getAttribute("alertMsg");
-
-%>  
+<% Member loginUser = (Member)session.getAttribute("loginUser");%>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +12,6 @@
     <title>Document</title>
 </head>
 <body>
-	<% if(alertMsg != null && !alertMsg.equals("")){ %>
-			<script>
-				alert(<%=alertMsg%>);
-			</script>
-	<% } %>
-	<%session.setAttribute("alertMsg", ""); %>		
     <div id="header">
         <div id="header-content">
             <div id="home-logo">
@@ -50,20 +40,23 @@
 
     <script>
     
-    document.getElementById("friendlist").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/friend.me";
-    })
+	    document.getElementById("friendlist").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/friend.me";
+	    }) 
     
 	    document.getElementById("home-logo").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>";
 	    })
+	    
         <% if(loginUser == null) {%> 
         document.getElementById("login-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/login.me";
+          
+          location.href = "<%= request.getContextPath() %>/login.me"; 
+         
         })
 
         document.getElementById("enrollment-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/enroll.me";
+            location.href = "<%= request.getContextPath() %>/boardDetail.bo?cNo=1&currentPage=1";
         })
         <% } else if(loginUser.getAuthority() == 0) { %>
             
@@ -82,7 +75,7 @@
 	
         document.getElementById("mypage-btn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
-    })
+   		 })
     </script>
 </body>
 </html>

@@ -9,44 +9,6 @@
 		   AND USER_PWD = ?
 		   AND STATUS = 'Y'
 	</entry>
-	<entry key = "insertMember">
-		INSERT INTO MEMBER(USER_NO,
-						   USER_ID,
-						   USER_PWD,
-						   USER_CLASS,
-						   USER_NAME,
-						   NICK_NAME,
-						   EMAIL,
-						   AUTHORITY)
-					VALUES (SEQ_UNO.NEXTVAL,
-							?,
-							?,
-							?,
-							?,
-							?,
-							?,
-							?)
-	
-	</entry>
-	
-	<entry key="insertUserProFileImg">
-		INSERT INTO USER_PROFILE_IMG(REF_USERID,
-									 ORIGIN_NAME,
-									 CHANGE_NAME,
-									 FILE_PATH)
-							VALUES(?,
-								   ?,
-								   ?,
-								   ?)		 
-	
-	</entry>
-	
-	<entry key="selectMember">
-			SELECT USER_NO
-			FROM MEMBER
-			WHERE USER_ID = ?
-		
-	</entry>
 	
 	<entry key="searchId">
 		SELECT USER_ID
@@ -56,17 +18,19 @@
 		   AND STATUS = 'Y'
 	</entry>
 	
-
-	<entry key = "isId">
-		SELECT *
+	<entry key="memberCheck">
+		SELECT * 
 		  FROM MEMBER
 		 WHERE USER_ID = ?
-	</entry>
-
-	<entry key="">
-	
+		   AND EMAIL = ?
+		   AND STATUS = 'Y'
 	</entry>
 	
-
+	<entry key="updatePwd">
+		UPDATE MEMBER SET
+			USER_PWD = ?
+			WHERE USER_ID = ?
+	</entry>
+	
 	
 </properties>

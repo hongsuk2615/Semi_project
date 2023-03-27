@@ -12,6 +12,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
+import com.khtime.common.JDBCTemplate;
+import com.khtime.common.model.vo.PageInfo;
 
 public class BoardDao {
 	
@@ -52,4 +54,137 @@ public class BoardDao {
 		}
 		 return list;  
 	   }
+	   public ArrayList<Board> selectBoard(Connection conn, int cNo, PageInfo pi) {
+		    
+		   ArrayList <Board> boardList= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectBoard");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+				int endRow = startRow + pi.getBoardLimit() - 1;
+				
+				pstmt.setInt(1, cNo);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					Board b = new Board(
+								rset.getInt("BOARD_NO"),
+								rset.getString("TITLE"),
+								rset.getString("CONTENT"),
+								rset.getString("WRITER"),
+								rset.getString("IS_QUESTION"),
+								rset.getString("IS_ANONIMOUS"),
+								rset.getInt("RECOMMEND_COUNT"),
+								rset.getDate("ENROLL_DATE"),
+								rset.getInt("REPLY_COUNT")
+							);
+					
+					boardList.add(b);
+				}		
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return boardList;
+		}
+	   
+	   public int boardListCount(Connection conn, int cNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("boardListCount");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, cNo);
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result = rset.getInt("COUNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   
+	   public Board selectContent(Connection conn, int bNo) {
+		   
+			Board b = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectContent");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bNo);
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					b = new Board(
+							rset.getString("TITLE"),
+							rset.getString("CONTENT"),
+							rset.getString("WRITER"),
+							rset.getString("IS_QUESTION"),
+							rset.getString("IS_ANONIMOUS"),
+							rset.getInt("RECOMMEND_COUNT"),
+							rset.getInt("SCRAP_COUNT"),
+							rset.getInt("REPLY_COUNT"),
+							rset.getDate("ENROLL_DATE")
+							);
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return b;
+		}
+	   
+	   public int insertBoard(Connection conn, Board b) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("insertBoard");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, b.getTitle());
+				pstmt.setString(2, b.getContent());
+				pstmt.setInt(3, b.getCategoryNo());
+				pstmt.setString(4, b.getWriter());
+				pstmt.setString(5, b.getIsQuestion());
+				pstmt.setString(6, b.getIsAnonimous());
+				
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 }
