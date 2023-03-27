@@ -1,6 +1,6 @@
 package com.khtime.management.model.dao;
 
-import static com.khtime.common.JDBCTemplate.close;
+import static com.khtime.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -78,7 +78,7 @@ public class ManagementDao {
 				reportedBoard.setBoardNo(rset.getInt("BOARD_NO"));
 				reportedBoard.setTitle(rset.getString("TITLE"));
 				reportedBoard.setCategoryNo(rset.getInt("CATEGORY_NO"));
-				reportedBoard.setWriter(rset.getInt("WRITER"));
+				reportedBoard.setWriter(rset.getString("USER_NAME"));
 				reportedBoard.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
 				reportedBoard.setScrapCount(rset.getInt("SCRAP_COUNT"));
 				reportedBoard.setReportCount(rset.getInt("REPORT_COUNT"));
@@ -337,6 +337,44 @@ public class ManagementDao {
 		
 		return result;
 		
+	}
+	
+	public int approveMakeBoard(Connection conn,String cName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("approveMakeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int denyMakeBoard(Connection conn,String cName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("denyMakeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

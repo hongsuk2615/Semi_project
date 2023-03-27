@@ -12,10 +12,17 @@
 	</entry>
 	
 	<entry key="getReportedBoards">
-		SELECT *
-		  FROM BOARD
-		 WHERE REPORT_COUNT > 0
-		   AND STATUS = 'Y'
+		SELECT BOARD_NO
+			 , TITLE
+			 , CATEGORY_NO
+			 , USER_NAME
+			 , B.RECOMMEND_COUNT
+			 , SCRAP_COUNT
+			 , B.REPORT_COUNT
+		  FROM BOARD B
+		  JOIN MEMBER ON (WRITER = USER_NO)
+		 WHERE B.REPORT_COUNT > 0
+		   AND B.STATUS = 'Y'
 	</entry>
 	
 	<entry key="getEnrollmentReqs">
@@ -36,8 +43,9 @@
 	
 	<entry key="getBoardMakeReq">
 		SELECT *
-		  FROM CATEGORY
-		  JOIN MEMBER ON(REQ_USER = USER_NO)		
+		  FROM CATEGORY C
+		  JOIN MEMBER ON(REQ_USER = USER_NO)
+		 WHERE C.AVAILABLE = 'N'		
 	</entry>
 	
 	<entry key="getNoneApprovedUser">
@@ -48,11 +56,15 @@
 	</entry>
 	
 	<entry key="getBoardMakeReqDetail">
-		SELECT *
-		  FROM CATEGORY
-		  JOIN BOARD_REQ ON (BOARD_NAME = CATEGORY_NAME)
-		  JOIN MEMBER ON (REQ_USER = USER_NO)
-		 WHERE CATEGORY_NAME = ?	
+		SELECT R.USER_ID
+			 , M.USER_NAME
+			 , M.USER_CLASS
+			 , M.AUTHORITY
+			 , R.REASON
+		  FROM CATEGORY C
+		  JOIN BOARD_REQ R ON (BOARD_NAME = CATEGORY_NAME)
+		  JOIN MEMBER M ON (REQ_USER = USER_NO)
+		 WHERE CATEGORY_NAME = ?
 	
 	</entry>
 	
@@ -83,6 +95,19 @@
 		UPDATE MEMBER
 		   SET IS_WHITELIST = 'Y'
 		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="approveMakeBoard">
+		UPDATE CATEGORY
+		   SET AVAILABLE = 'Y'
+		 WHERE CATEGORY_NAME = ?
+	
+	</entry>
+	
+	<entry key="denyMakeBoard">
+		DELETE CATEGORY
+		 WHERE CATEGORY_NAME = ?
+	
 	</entry>
 
 </properties>
