@@ -84,7 +84,7 @@
         </div>
         <% } %>
         <div id="hot-board">
-            <table id="board-5">
+            <table id="board-7">
                 <tr>
                     <th>HOT 게시판</th>
                 </tr>
@@ -109,7 +109,7 @@
             </table>
         </div>
         <div id="best-board">
-            <table id="board-6">
+            <table id="board-8">
                 <tr>
                     <th>BEST 게시판</th>
                 </tr>

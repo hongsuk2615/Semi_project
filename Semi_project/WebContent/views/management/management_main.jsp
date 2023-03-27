@@ -447,6 +447,7 @@
                             success : function(result){ 
                                 console.log(result);
                                 let reqUser = result[(Object.keys(result)[0])];
+                                console.log('유저: ' + reqUser);
                                 document.getElementById("modal-body").innerHTML = 
                                 `<div class="modal-body-wrapper">
                                     <div class="modal-body-left">요청한 아이디</div>

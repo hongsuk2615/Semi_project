@@ -7,7 +7,7 @@ public class Board {
 	private String title;
 	private String content;
 	private int categoryNo;
-	private int writer;
+	private String writer;
 	private String isQuestion;
 	private String isAnonimous;
 	private int reportCount;
@@ -52,11 +52,11 @@ public class Board {
 		this.categoryNo = categoryNo;
 	}
 
-	public int getWriter() {
+	public String getWriter() {
 		return writer;
 	}
 
-	public void setWriter(int writer) {
+	public void setWriter(String writer) {
 		this.writer = writer;
 	}
 

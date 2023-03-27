@@ -78,7 +78,7 @@ public class ManagementDao {
 				reportedBoard.setBoardNo(rset.getInt("BOARD_NO"));
 				reportedBoard.setTitle(rset.getString("TITLE"));
 				reportedBoard.setCategoryNo(rset.getInt("CATEGORY_NO"));
-				reportedBoard.setWriter(rset.getInt("WRITER"));
+				reportedBoard.setWriter(rset.getString("USER_NAME"));
 				reportedBoard.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
 				reportedBoard.setScrapCount(rset.getInt("SCRAP_COUNT"));
 				reportedBoard.setReportCount(rset.getInt("REPORT_COUNT"));

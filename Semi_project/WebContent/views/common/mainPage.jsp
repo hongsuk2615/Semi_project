@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -48,143 +49,65 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <table id="board-1">
-                            <tr>
-                                <th id="test1"></th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
 
                         </table>
                         <table id="board-2">
-                            <tr>
-                                <th>질문답변게시판</th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                         <table id="board-3">
-                            <tr>
-                                <th>프로젝트 및 스터디 모집 게시판</th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                         <table id="board-4">
-                            <tr>
-                                <th>수료생 게시판</th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                         <table id="board-5">
-                            <tr>
-                                <th>건의사항 게시판</th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                         <table id="board-6">
-                            <tr>
-                                <th>공지사항 게시판</th>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목1</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목2</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목3</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목4</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목5</td>
-                            </tr>
-                            <tr>
-                                <td>게시물 제목6</td>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>아무거나</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
                         </table>
                         
                     </div>
@@ -240,11 +163,51 @@
         </div>
     </div>
 <script>
-	
+	$(function(){
+        function getBoardlist(cName, num){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
+                type : 'get',
+                success : function(result){
+                        $('#board-'+num+' thead th').html(cName+' 게시판');
+                        $('#board-'+num+' thead').click(function(){
+                            location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo="+(num-1);
+                        })
+                    if(result.length == 0 ){
+                        $('#board-'+num+' tbody').append('<tr>'+
+                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 6 ; i++){
+                            if(result[i] != null){
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + result[i].title + '</td>'+
+                                                          '</tr>');
+                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                })
+                            }else {
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td style="text-align:center">' + '-'+ '</td>'+
 
-	window.onload = function(){
-	document.getElementById("test1").innerHTML="Dd";
-	}
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+        getBoardlist('질문답변',2);
+        getBoardlist('프로젝트 및 스터디 모집',3);
+        getBoardlist('수료생',4);
+        getBoardlist('건의사항',5);
+        getBoardlist('공지사항',6);
+ });
+
+	
 </script>
 
 
