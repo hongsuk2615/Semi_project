@@ -1,7 +1,14 @@
+
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); %>    
+<% 
+   ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
+   PageInfo pi = (PageInfo)request.getAttribute("pi");
+   String cName = (String) request.getAttribute("cName");
+   int cNo = (int) request.getAttribute("cNo");
+   int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,24 +53,30 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> 자유게시판</div>
-                            <div id="createContent"> 글 작성 > 글 제목
-                                <div>내용</div>
-                                <div id="createContent-check">
-                                    <div>첨부파일</div>
-                                    <div>체크 및 글작성
-                                        <div>질문 ㅇ</div>
-                                        <div>익명 ㅇ</div>
-                                        <div>글작성버튼</div>
-                                    </div>
-                                </div>
+                            <div> <%= cName %>게시판</div>
+                            <div id="createContent">
+                               <form action="<%=request.getContextPath()%>/insert.bo" method="post">
+       <input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
+       <div><input type="text" id="title" name="title" placeholder="글 제목"></div>
+            <div>
+            <textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
+            <div id="createContent-check">
+                <div>첨부파일</div>
+                <div>
+                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
+                    <div><button id="create-content-btn">글 작성</button></div>
+                </div>
+            </div>
+            </form>
+                            
                             </div>
-                           <% if(boardList.isEmpty()) { %>
-                           	글이 없습니다,,
+                           <% if(boardList==null) { %>
+                              글이 없습니다,,
                            <% }else{ %>
                             <ul>
                            
-                            	<% for(Board b : boardList) { %>
+                               <% for(Board b : boardList) { %>
                                 <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
                                 <%= b.getTitle() %><br>
                                     <%= b.getContent() %> <br>
@@ -75,18 +88,18 @@
                                     </div>
                                 </li>
                                
-                              	  <% } %>
+                                   <% } %>
                                  <% } %>
                                   </ul>
-						<script>
-									$(function(){
-										$("#board-detail li").click(function(){
-											let bNo = $(this).children().eq(0).text();
-											location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
-											
-										});
-									});
-								</script>
+                  <script>
+                           $(function(){
+                              $("#board-detail li").click(function(){
+                                 let bNo = $(this).children().eq(0).text();
+                                 location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+                                 
+                              });
+                           });
+                        </script>
                             
                             
                     </div>
@@ -94,8 +107,18 @@
                        
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
-                        <div>이전</div>
-                        <div>다음</div>
+                        
+      <div align="center" class="paging-area">
+         
+         <% if( currentPage != 1) { %>
+            <button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
+         <% } %>
+         
+         <% if(currentPage != pi.getMaxPage()) { %>
+            <button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
+         <% } %>
+         
+      </div>
                         </div>
                     </div>
                     </div>
@@ -113,6 +136,10 @@
 
         </div>
     </div>
+   
+
+     <script>
+    </script>
 
 
 

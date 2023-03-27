@@ -4,22 +4,23 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.khtime.board.model.dao.BoardDao;
+import com.khtime.board.model.dao.SearchDao;
 import com.khtime.board.model.vo.Board;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
 
 
-public class BoardService {
+public class SearchService {
 	
-	public ArrayList<Board> selectBoard(int cNo, PageInfo pi) {
+	public ArrayList<Board> searchList(PageInfo pi, String keyword) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		ArrayList<Board> boardList = new BoardDao().selectBoard(conn, cNo, pi);
+		ArrayList<Board> searchList = new SearchDao().searchList(conn,  pi, keyword);
 
 		JDBCTemplate.close(conn);
 
-		return boardList;
+		return searchList;
 	}
 
 	public int boardListCount(int cNo) {
@@ -31,10 +32,6 @@ public class BoardService {
 
 		return result;
 	}
-	
-	
-	
-	
 	
 	public Board selectContent(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -56,6 +53,16 @@ public class BoardService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+
+		return result;
+	}
+	
+	public int keywordListCount(String keyword) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new SearchDao().keywordListCount(conn, keyword);
+
+		JDBCTemplate.close(conn);
 
 		return result;
 	}

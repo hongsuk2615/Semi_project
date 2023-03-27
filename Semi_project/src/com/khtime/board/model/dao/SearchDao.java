@@ -18,14 +18,14 @@ import com.khtime.common.model.vo.PageInfo;
 
 
 
-public class BoardDao {
+public class SearchDao {
 	
 	private Properties prop = new Properties();
 	   
 	   
-	   public BoardDao() {
+	   public SearchDao() {
 	      try {
-	         prop.loadFromXML(new FileInputStream( BoardDao.class.getResource("/sql/board/board-mapper.xml").getPath()   ));
+	         prop.loadFromXML(new FileInputStream( SearchDao.class.getResource("/sql/board/board-mapper.xml").getPath()   ));
 	      } catch (InvalidPropertiesFormatException e) {
 	         e.printStackTrace();
 	      } catch (FileNotFoundException e) {
@@ -36,13 +36,13 @@ public class BoardDao {
 	      
 	   }
 	   
-	   public ArrayList<Board> selectBoard(Connection conn, int cNo, PageInfo pi) {
+	   public ArrayList<Board> searchList(Connection conn, PageInfo pi, String keyword) {
 		    
-		   ArrayList <Board> boardList= new ArrayList<>();
+		   ArrayList <Board> searchList= new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
-			String sql = prop.getProperty("selectBoard");
+			String sql = prop.getProperty("searchList");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -50,9 +50,10 @@ public class BoardDao {
 				int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 				int endRow = startRow + pi.getBoardLimit() - 1;
 				
-				pstmt.setInt(1, cNo);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setString(1,"%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
 				
 				rset = pstmt.executeQuery();
 				while(rset.next()) {
@@ -60,7 +61,6 @@ public class BoardDao {
 								rset.getInt("BOARD_NO"),
 								rset.getString("TITLE"),
 								rset.getString("CONTENT"),
-								rset.getInt("CATEGORY_NO"),
 								rset.getString("WRITER"),
 								rset.getString("IS_QUESTION"),
 								rset.getString("IS_ANONIMOUS"),
@@ -69,7 +69,7 @@ public class BoardDao {
 								rset.getInt("REPLY_COUNT")
 							);
 					
-					boardList.add(b);
+					searchList.add(b);
 				}		
 				
 			} catch (SQLException e) {
@@ -78,19 +78,20 @@ public class BoardDao {
 				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
-			return boardList;
+			return searchList;
 		}
 	   
-	   public int boardListCount(Connection conn, int cNo) {
+	   public int keywordListCount(Connection conn, String keyword) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("boardListCount");
+			String sql = prop.getProperty("keywordListCount");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, cNo);
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
 				rset = pstmt.executeQuery();
 
 				if(rset.next()) {

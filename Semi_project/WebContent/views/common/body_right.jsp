@@ -14,9 +14,10 @@
 <body>
     <div id="body-right">
         <div id="search">
-                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40">
-                <!-- <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요">   -->  
-                <input type="button" id="search-input" onclick="search();">     
+                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40" >
+                <form action="<%=request.getContextPath()%>/boDetailSearch.do" method="GET" >
+                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요" name="keyword"> 
+            	</form>
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
@@ -354,7 +355,7 @@
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
 	    function search(){
-        	location.href = "<%=request.getContextPath()%>/boDetailSearch.do";
+        	location.href = "<%=request.getContextPath()%>/boDetailSearch.do?keyword="+document.getElementById('search-input').value();
         }
         </script>
 
