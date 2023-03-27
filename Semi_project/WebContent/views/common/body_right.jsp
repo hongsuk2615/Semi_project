@@ -85,55 +85,117 @@
         <% } %>
         <div id="hot-board">
             <table id="board-7">
-                <tr>
-                    <th>HOT 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+            	<thead>
+	                <tr>
+	                    <th>HOT 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
+        
         <div id="best-board">
             <table id="board-8">
-                <tr>
-                    <th>BEST 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+                <thead>
+	                <tr>
+	                    <th>BEST 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
     </div>
+    
+    
+    <script>
+        $("#board-7 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+	    
+	    $("#board-8 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+    </script>
+
+    <script>
+        $(function(){
+        function getHotBestBoardList(recommendCount, num){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                type : 'get',
+                success : function(result){
+                    if(result.length == 0 ){
+                        $('#board-'+num+' tbody').append('<tr>'+
+                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 6 ; i++){
+                            if(result[i] != null){
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + result[i].title + '</td>'+
+                                                          '</tr>');
+                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                })
+                            }else {
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td style="text-align:center">' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+    getHotBestBoardList(10,7);
+    getHotBestBoardList(100,8);
+ });
+    </script>
+
+
+
   
 		<!-- [디데이 설정] 모달창 -->
         <div class="modal hidden">
@@ -352,6 +414,7 @@
 	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
+	    
         </script>
 
 </body>

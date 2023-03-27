@@ -43,8 +43,9 @@
 	
 	<entry key="getBoardMakeReq">
 		SELECT *
-		  FROM CATEGORY
-		  JOIN MEMBER ON(REQ_USER = USER_NO)		
+		  FROM CATEGORY C
+		  JOIN MEMBER ON(REQ_USER = USER_NO)
+		 WHERE C.AVAILABLE = 'N'		
 	</entry>
 	
 	<entry key="getNoneApprovedUser">
@@ -94,6 +95,19 @@
 		UPDATE MEMBER
 		   SET IS_WHITELIST = 'Y'
 		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="approveMakeBoard">
+		UPDATE CATEGORY
+		   SET AVAILABLE = 'Y'
+		 WHERE CATEGORY_NAME = ?
+	
+	</entry>
+	
+	<entry key="denyMakeBoard">
+		DELETE CATEGORY
+		 WHERE CATEGORY_NAME = ?
+	
 	</entry>
 
 </properties>

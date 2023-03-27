@@ -1,6 +1,6 @@
 package com.khtime.management.model.dao;
 
-import static com.khtime.common.JDBCTemplate.close;
+import static com.khtime.common.JDBCTemplate.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -337,6 +337,44 @@ public class ManagementDao {
 		
 		return result;
 		
+	}
+	
+	public int approveMakeBoard(Connection conn,String cName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("approveMakeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int denyMakeBoard(Connection conn,String cName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("denyMakeBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
