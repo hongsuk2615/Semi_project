@@ -35,8 +35,8 @@ public class BestBoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		  
+		  int rcCount = Integer.parseInt(request.getParameter("rcCount"));
 	      
-	      int rcCount=0;
 	      
 	      int listCount; // 현재 게시판의 총 개시글 갯수
 	      int currentPage; // 현제 페이지(사용자가 요청한페이지)

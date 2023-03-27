@@ -61,7 +61,7 @@ public class BoardService {
 	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		ArrayList<Board> bestList = new BoardDao().selectBoard(conn, rcCount, pi);
+		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi);
 
 		JDBCTemplate.close(conn);
 

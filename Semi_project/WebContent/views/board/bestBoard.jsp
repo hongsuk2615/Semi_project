@@ -3,7 +3,7 @@
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>    
     <% 
    ArrayList <Board> bestList  = (ArrayList<Board>) request.getAttribute("bestList"); 
-	String keyword = (String) request.getAttribute("keyword");
+    int rcCount = Integer.parseInt(request.getParameter("rcCount"));
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
    
@@ -85,6 +85,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                <% for(Board b : bestList) { %>
                                 <li>
                                     프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
                                     내용 or 제목+내용 <br>
@@ -92,12 +93,12 @@
                                         <div>게시판종류</div>
                                         <div id="board-detail-comment">
                                             <div>첨부파일</div>
-                                            <div>공감</div>
-                                            <div>댓글</div>
+                                            <div><%= b.getRecommendCount() %></div>
+                                        <div><%= b.getReplyCount() %></div>
                                         </div>
                                     </div>
                                 </li>
-
+								<% } %>
                                 
                                
                             </ul>
