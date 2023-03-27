@@ -5,15 +5,15 @@
 
 	<entry key="selectReply">
 		SELECT REPLY_NO,
-			   NICK_NAME AS WRITER,
-			   CONTENT,
+			   M.NICK_NAME AS WRITER,
+			   R.CONTENT,
 			   R.ENROLL_DATE,
 			   R.IS_ANONIMOUS,
 			   P_REPLY_NO
 		FROM REPLY R
-		JOIN BOARD B ON (B.USER_NO = R.WRITER)
+		JOIN BOARD B ON (R.BOARD_NO = B.BOARD_NO)
 		JOIN MEMBER M ON (M.USER_NO = R.WRITER)
-		WHERE BOARD_NO = ?
+		WHERE R.BOARD_NO = ?
 		
 	</entry>
 

@@ -9,17 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
-      <link rel="stylesheet" href="resources/CSS/header.css">
-    <link rel="stylesheet" href="resources/CSS/footer.css">
-    <link rel="stylesheet" href="resources/CSS/mypage.css">
-    <link rel="stylesheet" href="resources/CSS/base.css">
     <title>Document</title>
 </head>
 <body>
     <div id="body-right">
         <div id="search">
-                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40">
-                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요">         
+                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40" >
+                <form action="<%=request.getContextPath()%>/boDetailSearch.do" method="GET" >
+                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요" name="keyword"> 
+            	</form>         
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
@@ -33,7 +31,9 @@
                     <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
+
                     <input type="submit" value="로그인">
+
                     <input type="button" value="회원가입">
                 </div>
             </form>

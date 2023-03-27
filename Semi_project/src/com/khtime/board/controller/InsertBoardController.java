@@ -47,7 +47,6 @@ public class InsertBoardController extends HttpServlet {
 		String isQuestion = request.getParameter("isQuestion") == null ? "N" : "Y";
 		String isAnonimous = request.getParameter("isAnonimous")  == null ? "N" : "Y";;
 		
-		System.out.println(userId+ title+ content+ isQuestion+ isAnonimous);
 		Board b = new Board();
 		b.setWriter(userId);
 		b.setCategoryNo(cNo);

@@ -8,6 +8,15 @@ import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
 
 
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.khtime.board.model.dao.BoardDao;
+import com.khtime.board.model.vo.Board;
+import com.khtime.common.model.vo.PageInfo;
+
+
+
 public class BoardService {
 	
 	public ArrayList<Board> selectBoard(int cNo, PageInfo pi) {
@@ -53,7 +62,27 @@ public class BoardService {
 
 		return result;
 	}
+	
+	
+	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
+		Connection conn = getConnection();
 
+		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi);
+
+		close(conn);
+
+		return bestList;
+	}
+
+	public int bestListCount(int rcCount) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().bestListCount(conn, rcCount);
+
+		close(conn);
+
+		return result;
+	}
 	public ArrayList<Board> getHotBestBoardlist(int recommendCount) {
 		Connection conn = getConnection();
 		ArrayList<Board> list = new BoardDao().getHotBestBoardlist(conn, recommendCount);

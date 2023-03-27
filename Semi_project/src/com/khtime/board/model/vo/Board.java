@@ -22,6 +22,23 @@ public class Board {
 		super();
 	}
 
+	public Board(int boardNo, String title, String content, int categoryNo, String writer, String isQuestion, String isAnonimous,
+			int recommendCount, Date enrollDate, int replyCount) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.categoryNo = categoryNo;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.enrollDate = enrollDate;
+		this.replyCount = replyCount;
+	}
+
+	
+
 	public Board(int boardNo, String title, String content, String writer, String isQuestion, String isAnonimous,
 			int recommendCount, Date enrollDate, int replyCount) {
 		super();
@@ -36,10 +53,8 @@ public class Board {
 		this.replyCount = replyCount;
 	}
 
-
-
 	public Board(String title, String content, String writer, String isQuestion, String isAnonimous, int recommendCount,
-			int scrapCount, int replyCount, Date enrollDate) {
+			int scrapCount, int replyCount, int categoryNo, Date enrollDate) {
 		super();
 		this.title = title;
 		this.content = content;
@@ -49,6 +64,7 @@ public class Board {
 		this.recommendCount = recommendCount;
 		this.scrapCount = scrapCount;
 		this.replyCount = replyCount;
+		this.categoryNo = categoryNo;
 		this.enrollDate = enrollDate;
 	}
 

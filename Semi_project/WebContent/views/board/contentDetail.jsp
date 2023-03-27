@@ -2,8 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-	Board b  = (Board) request.getAttribute("b"); 
-	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
+   Board b  = (Board) request.getAttribute("b"); 
+   ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
+   String cName = (String) request.getAttribute("cName");
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="content-detail">
-                            <div> 자유게시판</div>
+                            <div> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
@@ -95,12 +96,12 @@
 
                             <!-- 댓글 -->
                              <% if(replyList.isEmpty()) { %>
-                           	글이 없습니다,,
+                              글이 없습니다,,
                            <% }else{ %>
                             <ul>
                            
-                            	<% for(Reply r : replyList) { %>
-                            	 <li>
+                               <% for(Reply r : replyList) { %>
+                                <li>
                                     <div id="content-detail-comments">
                                         <div id="comments-left">
                                             프로필사진 &nbsp; 
@@ -114,13 +115,13 @@
                                             대댓글 공감 쪽지 신고
                                         </div>
                                     </div>
-										<%= r.getContent() %>
+                              <%= r.getContent() %>
                                      <br>
                                     <%= r.getEnrollDate() %> <br>
                                 </li>
                                
                                
-                              	  <% } %>
+                                   <% } %>
                                  <% } %>
                                   </ul>
                             
@@ -158,11 +159,11 @@
 
         </div>
     </div>
-		<script>
-		    window.onload = function(){
-			document.getElementById("test1").innerHTML("ddddd");
-			}
-		</script>
+      <script>
+          window.onload = function(){
+         document.getElementById("test1").innerHTML("ddddd");
+         }
+      </script>
 
 
 </body>

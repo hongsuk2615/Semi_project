@@ -3,11 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-   ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
+   ArrayList <Board> searchList  = (ArrayList<Board>) request.getAttribute("searchList"); 
+	String keyword = (String) request.getAttribute("keyword");
    PageInfo pi = (PageInfo)request.getAttribute("pi");
-   String cName = (String) request.getAttribute("cName");
-   int cNo = (int) request.getAttribute("cNo");
    int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
+   
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -53,30 +53,17 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> <%= cName %>게시판</div>
+                            <div> <%= keyword %>&nbsp;로 검색한 결과</div>
                             <div id="createContent">
                                <form action="<%=request.getContextPath()%>/insert.bo" method="post">
-       <input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
-       <div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-            <div>
-            <textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
-            <div id="createContent-check">
-                <div>첨부파일</div>
-                <div>
-                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
-                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-                    <div><button id="create-content-btn">글 작성</button></div>
-                </div>
-            </div>
-            </form>
-                            
+            					</form>
                             </div>
-                           <% if(boardList==null) { %>
+                           <% if(searchList==null) { %>
                               글이 없습니다,,
                            <% }else{ %>
                             <ul>
                            
-                               <% for(Board b : boardList) { %>
+                               <% for(Board b : searchList) { %>
                                 <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
                                 <%= b.getTitle() %><br>
                                     <%= b.getContent() %> <br>
@@ -111,11 +98,11 @@
       <div align="center" class="paging-area">
          
          <% if( currentPage != 1) { %>
-            <button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
+            <button onclick="location.href = '<%=request.getContextPath() %>/boDetailSearch.do?keyword=<%=keyword%>&currentPage=<%= currentPage -1 %>'">이전</button>
          <% } %>
          
          <% if(currentPage != pi.getMaxPage()) { %>
-            <button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
+            <button onclick="location.href = '<%=request.getContextPath() %>/boDetailSearch.do?keyword=<%=keyword%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
          <% } %>
          
       </div>
@@ -136,26 +123,9 @@
 
         </div>
     </div>
-    <script>
-   <%--  document.getElementById("createContent").addEventListener("click",function(){
-    	this.innerHTML = `
-    	<form action="<%=request.getContextPath()%>/insert.bo" method="post">
-    	<input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
-    	<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-            <div>
-            <textarea id="content" name="content" placeholder="기본 설명 내용"><input type="text" ></textarea></div>
-            <div id="createContent-check">
-                <div>첨부파일</div>
-                <div>
-                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
-                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-                    <div><button id="create-content-btn">글 작성</button></div>
-                </div>
-            </div>
-            </form>
-            `;
-    }) --%>
-    
+   
+
+     <script>
     </script>
 
 

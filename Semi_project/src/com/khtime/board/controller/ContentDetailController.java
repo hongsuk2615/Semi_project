@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.service.ReplyService;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.Reply;

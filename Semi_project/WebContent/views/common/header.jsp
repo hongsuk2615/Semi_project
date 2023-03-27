@@ -63,8 +63,10 @@
             document.getElementById("management").addEventListener("click",function(){
                 location.href = "<%= request.getContextPath() %>/management.do";
             })
-        <% } %>
-
+        <% }else{ %>
+	        document.getElementById("mypage-btn").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/myPage.me";
+		<% } %>
          document.getElementById("todolist").addEventListener("click",function(){
             location.href = "<%= request.getContextPath() %>/todolist.me";
         })
