@@ -40,16 +40,19 @@
 
     <script>
     
-    document.getElementById("friendlist").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/friend.me";
-    })
+	    document.getElementById("friendlist").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/friend.me";
+	    }) 
     
 	    document.getElementById("home-logo").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>";
 	    })
+	    
         <% if(loginUser == null) {%> 
         document.getElementById("login-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/login.me";
+          
+          location.href = "<%= request.getContextPath() %>/login.me"; 
+         
         })
 
         document.getElementById("enrollment-btn").addEventListener("click",function(){
@@ -72,7 +75,9 @@
             location.href = "<%= request.getContextPath() %>/bookstore.do";
         })
 	
-    
+        document.getElementById("mypage-btn").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myPage.me";
+   		 })
     </script>
 </body>
 </html>

@@ -20,7 +20,7 @@ import com.khtime.board.model.vo.Reply;
  */
 @WebServlet("/contentDetail.bo")
 public class ContentDetailController extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,29 +30,26 @@ public class ContentDetailController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-   /**
-    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-    */
-   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      int bNo = Integer.valueOf(request.getParameter("bNo"));
-      
-      Board b = new BoardService().selectContent(bNo);
-      ArrayList<Reply> replyList = new ReplyService().selectReply(bNo);
-      String cName = new CategoryService().getCategoryName(b.getCategoryNo());
-      
-      
-      request.setAttribute("replyList", replyList);
-      request.setAttribute("b", b);
-      request.setAttribute("cName", cName);
-      request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
-   }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		
+		Board b = new BoardService().selectContent(bNo);
+		ArrayList<Reply> replyList = new ReplyService().selectReply(bNo);
+		//cNo 추가하기
+		request.setAttribute("replyList", replyList);
+		request.setAttribute("b", b);
+		request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
+	}
 
-   /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-    */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      // TODO Auto-generated method stub
-      doGet(request, response);
-   }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
 
 }

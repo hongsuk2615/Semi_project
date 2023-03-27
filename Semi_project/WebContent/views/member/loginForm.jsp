@@ -21,7 +21,7 @@
            <p>환영합니다.</p>
            <p>커뮤니티입니다.</p>
            <input type="text" id="login-id" name="login-id" placeholder="아이디 입력"> <br><br>
-           <input type="text" id="login-pwd" name="login-pwd" placeholder="비밀번호 입력"> <br><br>
+           <input type="password" id="login-pwd" name="login-pwd" placeholder="비밀번호 입력"> <br><br>
            <button id="login-form-btn">로그인</button> <br>
             <div id="searchId">
             <div><a href="<%= request.getContextPath() %>/searchId.me">아이디/비밀번호 찾기</a></div>

@@ -1,5 +1,5 @@
 package com.khtime.board.model.dao;
-
+import static com.khtime.common.JDBCTemplate.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +36,27 @@ public class BoardDao {
 	      
 	   }
 	   
+	   public ArrayList<Board> getHotBestBoardlist(Connection conn, int recommendCount){
+		   ArrayList<Board> list = new ArrayList<Board>();
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String sql = prop.getProperty("getHotBestBoardlist");
+		   try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, recommendCount);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		 return list;  
+	   }
 	   public ArrayList<Board> selectBoard(Connection conn, int cNo, PageInfo pi) {
 		    
 		   ArrayList <Board> boardList= new ArrayList<>();

@@ -13,8 +13,9 @@
 #board-detail >*{
     width: 100%;
     border: 1px solid black;
-    padding: 10px;
-    margin-bottom: 10px;
+    min-height : 40px;
+	vertical-align : middle;
+	padding: 10px;
 
 }
 
@@ -42,7 +43,8 @@
     justify-content: space-between;
 }
 
-#createContent > div {
+
+#createContent > div, #createContent {
     width: 100%;
     border: 1px solid black;
 }

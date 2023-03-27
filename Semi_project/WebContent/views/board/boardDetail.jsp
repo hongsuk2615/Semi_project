@@ -136,9 +136,26 @@
 
         </div>
     </div>
-   
-
-     <script>
+    <script>
+   <%--  document.getElementById("createContent").addEventListener("click",function(){
+    	this.innerHTML = `
+    	<form action="<%=request.getContextPath()%>/insert.bo" method="post">
+    	<input type="hidden" name="cNo" value="<%= request.getAttribute("cNo")%>">
+    	<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
+            <div>
+            <textarea id="content" name="content" placeholder="기본 설명 내용"><input type="text" ></textarea></div>
+            <div id="createContent-check">
+                <div>첨부파일</div>
+                <div>
+                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
+                    <div><button id="create-content-btn">글 작성</button></div>
+                </div>
+            </div>
+            </form>
+            `;
+    }) --%>
+    
     </script>
 
 

@@ -14,10 +14,8 @@
 <body>
     <div id="body-right">
         <div id="search">
-                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40" >
-                <form action="<%=request.getContextPath()%>/boDetailSearch.do" method="GET" >
-                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요" name="keyword"> 
-            	</form>
+                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40">
+                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요">         
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
@@ -32,7 +30,7 @@
                 </div>
                 <div id="btn-wrapper">
 
-                    <input type="submit" value="로그인이안되네요">
+                    <input type="submit" value="로그인">
 
                     <input type="button" value="회원가입">
                 </div>
@@ -114,6 +112,7 @@
                 </tbody>
             </table>
         </div>
+        
         <div id="best-board">
             <table id="board-8">
                 <thead>
@@ -144,90 +143,61 @@
             </table>
         </div>
     </div>
-  		<script>
-  		$("#board-7 th").click(function(){
-  	        location.href = "<%= request.getContextPath() %>/best.bo";
-  		    })
-  		    
-  		    $("#board-8 th").click(function(){
-  	        location.href = "<%= request.getContextPath() %>/best.bo";
-  		    })
-  		
-  		</script>
+    
+    
+    <script>
+        $("#board-7 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+	    
+	    $("#board-8 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+    </script>
 
-		<% if(loginUser != null){ %>
-        <!-- [디데이 수정] 모달창 스크립트-->
-        <script>
-            const open2 = () => {
-                document.querySelector(".modal2").classList.remove("hidden");
-            }
-            const close2 = () => {
-                console.log('cdlose')
-                document.querySelector(".modal2").classList.add("hidden");
-            }
-            document.querySelector(".openBtn2").addEventListener("click", open2);
-            document.querySelector(".closeBtn3").addEventListener("click", close2);
-            document.querySelector(".deleteBtn").addEventListener("click", close2);
-            document.querySelector(".closeBtn4").addEventListener("click", function(){
-                close1();
-                close2();
-            });
-            document.querySelector(".bg2").addEventListener("click", function(){
-                close1();
-                close2();
-                close();
-            });
-        </script>
+    <script>
+        $(function(){
+        function getHotBestBoardList(recommendCount, num){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                type : 'get',
+                success : function(result){
+                    if(result.length == 0 ){
+                        $('#board-'+num+' tbody').append('<tr>'+
+                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 6 ; i++){
+                            if(result[i] != null){
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + result[i].title + '</td>'+
+                                                          '</tr>');
+                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                })
+                            }else {
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td style="text-align:center">' + '-'+ '</td>'+
 
-        <!-- 새 디데이 달력 스크립트 -->
-        <script>
-        $(function () {
-        $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-        });
-        </script>
-        <script>
-        $.datepicker.setDefaults({
-        dateFormat: 'yy-mm-dd',
-        prevText: '이전 달',
-        nextText: '다음 달',
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        showMonthAfterYear: true,
-        yearSuffix: '년'
-        });
-        $(function() {
-        $("#datepicker").datepicker();
-        });
-        </script>
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+    getHotBestBoardList(10,7);
+    getHotBestBoardList(100,8);
+ });
+    </script>
 
-        <!-- 디데이 수정 달력 스크립트 -->
-        <script>
-            $(function () {
-            $("#datepicker1").datepicker({ dateFormat: "yy-mm-dd" });
-            });
-            </script>
-            <script>
-            $.datepicker.setDefaults({
-            dateFormat: 'yy-mm-dd',
-            prevText: '이전 달',
-            nextText: '다음 달',
-            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-            showMonthAfterYear: true,
-            yearSuffix: '년'
-            });
-            $(function() {
-            $("#datepicker1").datepicker();
-            });
-        </script>
-        
-        		<!-- [디데이 설정] 모달창 -->
+
+
+  
+		<!-- [디데이 설정] 모달창 -->
         <div class="modal hidden">
             <div class="bg"></div>
             <div class="modalBox">
@@ -358,35 +328,94 @@
 				</div>
             </div>
         </div>
+
+        <!-- [디데이 수정] 모달창 스크립트-->
+        <script>
+            const open2 = () => {
+                document.querySelector(".modal2").classList.remove("hidden");
+            }
+            const close2 = () => {
+                console.log('cdlose')
+                document.querySelector(".modal2").classList.add("hidden");
+            }
+            document.querySelector(".openBtn2").addEventListener("click", open2);
+            document.querySelector(".closeBtn3").addEventListener("click", close2);
+            document.querySelector(".deleteBtn").addEventListener("click", close2);
+            document.querySelector(".closeBtn4").addEventListener("click", function(){
+                close1();
+                close2();
+            });
+            document.querySelector(".bg2").addEventListener("click", function(){
+                close1();
+                close2();
+                close();
+            });
+        </script>
+
+        <!-- 새 디데이 달력 스크립트 -->
+        <script>
+        $(function () {
+        $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+        });
+        </script>
+        <script>
+        $.datepicker.setDefaults({
+        dateFormat: 'yy-mm-dd',
+        prevText: '이전 달',
+        nextText: '다음 달',
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년'
+        });
+        $(function() {
+        $("#datepicker").datepicker();
+        });
+        </script>
+
+        <!-- 디데이 수정 달력 스크립트 -->
+        <script>
+            $(function () {
+            $("#datepicker1").datepicker({ dateFormat: "yy-mm-dd" });
+            });
+            </script>
+            <script>
+            $.datepicker.setDefaults({
+            dateFormat: 'yy-mm-dd',
+            prevText: '이전 달',
+            nextText: '다음 달',
+            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+            dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+            showMonthAfterYear: true,
+            yearSuffix: '년'
+            });
+            $(function() {
+            $("#datepicker1").datepicker();
+            });
+        </script>
+        
         <!-- 페이지이동스크립트 -->
         <script>
-        <% if(loginUser != null){%>
+        
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
-	    <%} else {%>
-	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/myPage.me";
-	    })
-	    <% } %>
 	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/study.me";
 	    })
 	    
-	    
-	    $("#board-7 th").click(function(){
-        location.href = "<%= request.getContextPath() %>/best.bo";
-	    })
-	    
-	    $("#board-8 th").click(function(){
-        location.href = "<%= request.getContextPath() %>/best.bo";
+	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
 	    
         </script>
-        <% } %>
-        
-        
 
 </body>
 </html>
