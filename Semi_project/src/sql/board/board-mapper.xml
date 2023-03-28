@@ -177,4 +177,33 @@
 			  )
 	</entry>
 	
+	<entry key="deleteContent">
+	  UPDATE BOARD SET
+	  	STATUS = 'N'
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateBoard">
+	  UPDATE BOARD SET
+	  	TITLE = ?,
+	  	CONTENT = ?,
+	  	CATEGORY_NO = ?,
+	  	IS_QUESTION = ?,
+	  	IS_ANONIMOUS = ?
+	  		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateRecommend">
+	  UPDATE BOARD SET
+	  	RECOMMEND_COUNT += 1
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateScrap">
+	  UPDATE BOARD SET
+	  	SCRAP_COUNT += 1
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
+	
 </properties>

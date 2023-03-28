@@ -1,18 +1,15 @@
 package com.khtime.board.model.service;
-import static com.khtime.common.JDBCTemplate.*;
-
-import java.sql.Connection;
-import java.util.ArrayList;
-import com.khtime.common.model.vo.PageInfo;
-import com.khtime.board.model.dao.BoardDao;
-import com.khtime.board.model.vo.Board;
-
+import static com.khtime.common.JDBCTemplate.close;
+import static com.khtime.common.JDBCTemplate.commit;
+import static com.khtime.common.JDBCTemplate.getConnection;
+import static com.khtime.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
+import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
 
@@ -49,20 +46,6 @@ public class BoardService {
 		return b;
 	}
 
-	public int insertBoard(Board b) {
-		Connection conn = getConnection();
-
-		int result = new BoardDao().insertBoard(conn, b);
-
-		if(result > 0 ) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-
-		return result;
-	}
-	
 	
 	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
 		Connection conn = getConnection();
@@ -89,5 +72,75 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+	public int insertBoard(Board b) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().insertBoard(conn, b);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int deleteContent(int bNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().deleteContent(conn, bNo);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int updateBoard(Board b) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().updateBoard(conn, b);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int updateRecommend(int bNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().updateRecommend(conn, bNo);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int updateScrap(int bNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().updateScrap(conn, bNo);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
 
 }
