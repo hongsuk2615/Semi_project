@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.khtime.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BookSearchController
+ * Servlet implementation class BookSearchDetailController
  */
-@WebServlet("/booksearch.do")
-public class BookSearchController extends HttpServlet {
+@WebServlet("/booksearchdetail.do")
+public class BookSearchDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookSearchController() {
+    public BookSearchDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,6 +28,22 @@ public class BookSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+//		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String thumbnail = request.getParameter("thumbnail");
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		String publisher = request.getParameter("publisher");
+		String datetime = request.getParameter("datetime");
+		String contents = request.getParameter("contents");
 		
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
@@ -55,24 +71,13 @@ public class BookSearchController extends HttpServlet {
 		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
-		
+		 
 		String bookname = request.getParameter("bookname");
 		request.setAttribute("bookname", bookname);
 		
-		/*
-		 * if(bookname.equals("bookname")) { response.sendRedirect("booksearch.jsp"); }
-		 */
-		
-//		request.setAttribute("bookname", "bookname");
-		
-			request.getRequestDispatcher("views/book/booksearch.jsp").forward(request, response);			
-	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		System.out.println(bookname);
+		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
+//		response.sendRedirect(request.getContextPath()+"/booksearchdetail.do?bookname="+title);
 	}
 
 }

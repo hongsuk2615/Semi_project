@@ -416,7 +416,6 @@
 	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
-	    
         </script>
 
 </body>
