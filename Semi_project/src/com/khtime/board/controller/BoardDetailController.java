@@ -58,7 +58,7 @@ public class BoardDetailController extends HttpServlet {
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);
 		
-		
+		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("cNo", cNo);
 		request.setAttribute("cName", cName);
 		request.setAttribute("pi", pi);

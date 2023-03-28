@@ -7,7 +7,7 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
-	int currentPage = Integer.valueOf(request.getParameter("currentPage"));
+	int currentPage = (int)request.getAttribute("currentPage");
 %>    
 <!DOCTYPE html>
 <html lang="en">

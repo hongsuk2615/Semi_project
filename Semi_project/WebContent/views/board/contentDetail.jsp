@@ -72,7 +72,21 @@
                                         </div>
                                         </div>
                                     <div id="content-header-right">
+                                        <%if(((Member)request.getSession().getAttribute("loginUser")).getUserName().equals(b.getWriter())){ %>
+                                        	<button id="deleteBoard">삭제</button>
+                                        	<button id="updateBoard">수정</button>
+                                        	<script>
+                                        	 document.getElementById("deleteBoard").addEventListener("click",function(){
+                                     	        location.href = "<%= request.getContextPath() %>/deleteBoard.bo";
+                                     	    })
+                                     	    
+                                     	    document.getElementById("updateBoard").addEventListener("click",function(){
+                                     	        location.href = "<%= request.getContextPath() %>/updateBoard.bo";
+                                     	    })
+                                        	</script>
+                                        <% }else{ %>
                                         쪽지 신고
+										<% } %>                                        
                                     </div>
                                 </div>
                                 <div>
@@ -103,7 +117,7 @@
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
-                           <textarea id="replyContent" cols="50"  rows="3" style="resize:none;" >댓글입력.</textarea>
+                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" >댓글입력.</textarea>
                         </div>
                         <div>
                             <div>

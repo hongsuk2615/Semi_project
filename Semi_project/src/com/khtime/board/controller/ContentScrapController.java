@@ -1,7 +1,6 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
-import com.khtime.board.model.service.CategoryService;
-import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Board;
-import com.khtime.board.model.vo.Reply;
+import com.khtime.board.model.service.ScrapService;
+import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ContentDetailController
+ * Servlet implementation class ContentScrapController
  */
-@WebServlet("/contentDetail.bo")
-public class ContentDetailController extends HttpServlet {
+@WebServlet("/ContentScrapController")
+public class ContentScrapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContentDetailController() {
+    public ContentScrapController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +32,15 @@ public class ContentDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		Board b = new BoardService().selectContent(bNo);
-		ArrayList<Reply> replyList = new ReplyService().selectReplyList(bNo);
-		String cName = new CategoryService().getCategoryName(b.getCategoryNo());
+		int result = new ScrapService().scrapContent(bNo, userId);
 		
-		request.setAttribute("replyList", replyList);
-		request.setAttribute("b", b);
-		request.setAttribute("cName", cName);
-		request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
+		if(result > 0) { //성공
+			new BoardService().updateScrap(bNo);
+		}else {
+			
+		}
 	}
 
 	/**
