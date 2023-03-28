@@ -141,6 +141,7 @@ public class BoardDao {
 
 				if(rset.next()) {
 					b = new Board(
+							rset.getInt("BOARD_NO"),
 							rset.getString("TITLE"),
 							rset.getString("CONTENT"),
 							rset.getString("WRITER"),
@@ -169,13 +170,13 @@ public class BoardDao {
 			PreparedStatement pstmt = null;
 			
 			String sql = prop.getProperty("insertBoard");
-			System.out.println(b);
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setString(1, b.getTitle());
 				pstmt.setString(2, b.getContent());
 				pstmt.setInt(3, b.getCategoryNo());
+				System.out.println(b.getWriter());
 				pstmt.setString(4, b.getWriter());
 				pstmt.setString(5, b.getIsQuestion());
 				pstmt.setString(6, b.getIsAnonimous());

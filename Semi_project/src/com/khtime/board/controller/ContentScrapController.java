@@ -15,7 +15,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ContentScrapController
  */
-@WebServlet("/ContentScrapController")
+@WebServlet("/scrap.bo")
 public class ContentScrapController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,10 +38,13 @@ public class ContentScrapController extends HttpServlet {
 		
 		if(result > 0) { //성공
 			new BoardService().updateScrap(bNo);
+			request.getSession().setAttribute("alertMsg", "스크랩완료");
 		}else {
-			
+			request.getSession().setAttribute("alertMsg", "이미 스크랩된 글입니다.");
 		}
-	}
+		
+		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

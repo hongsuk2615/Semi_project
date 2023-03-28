@@ -14,7 +14,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ContentUpdateController
  */
-@WebServlet("/ContentUpdateController")
+@WebServlet("/update.bo")
 public class ContentUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

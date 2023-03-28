@@ -15,7 +15,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ContentRecommendController
  */
-@WebServlet("/ContentRecommendController")
+@WebServlet("/recommend.bo")
 public class ContentRecommendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,9 +39,11 @@ public class ContentRecommendController extends HttpServlet {
 		
 		if(result > 0) { //성공
 			new BoardService().updateRecommend(bNo);
+			request.getSession().setAttribute("alertMsg", "공감완료");
 		}else {
-			
+			request.getSession().setAttribute("alertMsg", "이미 공감된 글입니다.");
 		}
+		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}
 
 	/**

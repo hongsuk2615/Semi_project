@@ -5,6 +5,7 @@
 	Board b =(Board) request.getAttribute("b"); 
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
 	String cName = (String) request.getAttribute("cName");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +43,14 @@
     </style>
 </head>
 <body>
+
+<!-- alert -->
+	<% if( alertMsg != null && !alertMsg.equals("")) { %>
+			<script> alert("<%= alertMsg %>")</script>
+			<% session.removeAttribute("alertMsg"); %>
+		<% } %>
+
+
     <div id="wrapper">
         <%@ include file="../common/header.jsp" %>
         <div id="body">
@@ -77,11 +86,11 @@
                                         	<button id="updateBoard">수정</button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/deleteBoard.bo";
+                                     	        location.href = "<%= request.getContextPath() %>/delete.bo?bNo="+<%= b.getBoardNo() %>;
                                      	    })
                                      	    
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/updateBoard.bo";
+                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo="+<%= b.getBoardNo() %>;
                                      	    })
                                         	</script>
                                         <% }else{ %>
@@ -101,8 +110,8 @@
                                     <div><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
-                                    <button>공감</button>
-                                    <button>스크랩</button>
+                                    <button id="recommendbtn">공감</button>
+                                    <button id="scrapbtn">스크랩</button>
                                 </div>
                             </div>
                             
@@ -209,6 +218,21 @@
 				}
 			})
 		}
+		</script>
+		
+		<script>
+		 document.getElementById("recommendbtn").addEventListener("click",function(){
+			
+  	        location.href = "<%= request.getContextPath() %>/recommend.bo?bNo="+<%= b.getBoardNo() %>;
+  	        
+  	        
+  	        
+  	    })
+  	    
+  	    document.getElementById("scrapbtn").addEventListener("click",function(){
+  	    	alert("클릭됨")
+  	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
+  	    })
 	</script>
 
 

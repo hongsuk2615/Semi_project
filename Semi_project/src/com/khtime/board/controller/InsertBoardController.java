@@ -46,9 +46,10 @@ public class InsertBoardController extends HttpServlet {
 		String content = request.getParameter("content");
 		String isQuestion = request.getParameter("isQuestion") == null ? "N" : "Y";
 		String isAnonimous = request.getParameter("isAnonimous")  == null ? "N" : "Y";;
-		
+	
 		Board b = new Board();
 		b.setWriter(String.valueOf(userNo));
+	
 		b.setCategoryNo(cNo);
 		b.setTitle(title);
 		b.setContent(content);
@@ -56,15 +57,11 @@ public class InsertBoardController extends HttpServlet {
 		b.setIsAnonimous(isAnonimous);
 		
 		int result = new BoardService().insertBoard(b);
-		System.out.println(result);
 		if(result > 0 ) {
-			
-			request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
 		}else {
-			System.out.println("실패");
+			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
 		}
-		
-		
 		
 	}
 

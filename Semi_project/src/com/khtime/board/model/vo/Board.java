@@ -53,9 +53,10 @@ public class Board {
 		this.replyCount = replyCount;
 	}
 
-	public Board(String title, String content, String writer, String isQuestion, String isAnonimous, int recommendCount,
+	public Board(int boardNo,String title, String content, String writer, String isQuestion, String isAnonimous, int recommendCount,
 			int scrapCount, int replyCount, int categoryNo, Date enrollDate) {
 		super();
+		this.boardNo = boardNo;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;

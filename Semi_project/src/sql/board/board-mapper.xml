@@ -42,6 +42,7 @@
 
 	<entry key="selectContent">
 		SELECT 
+				B.BOARD_NO,
 				TITLE,
 				CONTENT,
 				M.NICK_NAME AS WRITER,
@@ -70,10 +71,7 @@
 			  ,?
 			  ,?
 			  ,?
-			  ,(SELECT M.USER_NO
-			  	  FROM MEMBER M
-			  	  JOIN BOARD B ON (B.WRITER = M.)
-			  	 WHERE USER_ID = ?)
+			  ,?
 			  ,?
 			  ,?
 			  )
@@ -195,13 +193,13 @@
 	
 	<entry key="updateRecommend">
 	  UPDATE BOARD SET
-	  	RECOMMEND_COUNT += 1
+	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
 	<entry key="updateScrap">
 	  UPDATE BOARD SET
-	  	SCRAP_COUNT += 1
+	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
