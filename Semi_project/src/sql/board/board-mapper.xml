@@ -171,7 +171,6 @@
 			  ,?
 			  ,(SELECT USER_NO
 			  	  FROM MEMBER
-			  	  JOIN BOARD ON (WRITER = USER_NO)
 			  	 WHERE USER_ID = ?)
 			  ,?
 			  ,?
