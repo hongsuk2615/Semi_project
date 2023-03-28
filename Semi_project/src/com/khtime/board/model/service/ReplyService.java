@@ -3,19 +3,38 @@ package com.khtime.board.model.service;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.dao.ReplyDao;
 import com.khtime.board.model.vo.Reply;
 import com.khtime.common.JDBCTemplate;
 
 public class ReplyService {
 	
-	public ArrayList<Reply> selectReply(int bNo){
+	public int insertReply(Reply r) {
+		
 		Connection conn = JDBCTemplate.getConnection();
-
-		ArrayList<Reply> replyList = new ReplyDao().selectReply(conn, bNo);
-
+		
+		int result = new ReplyDao().insertReply(conn, r);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
 		JDBCTemplate.close(conn);
-
-		return replyList;
+		
+		return result;
+	}
+	
+	public ArrayList<Reply> selectReplyList(int bNo){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Reply> list = new ReplyDao().selectReplyList(conn, bNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
 	}
 }

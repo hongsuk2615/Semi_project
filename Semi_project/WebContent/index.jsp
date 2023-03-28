@@ -14,7 +14,7 @@
 
 <script>
 	window.onload = function(){
-		location.href = "<%=request.getContextPath()%>/mainPage.do";
+	location.href = "<%=request.getContextPath()%>/mainPage.do";
 	}
 </script>
 

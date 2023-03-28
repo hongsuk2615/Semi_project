@@ -3,111 +3,97 @@
 <properties>
 
 
-	<entry key="getReportedUsers">
-		SELECT *
-		  FROM MEMBER
-		 WHERE REPORT_COUNT > 0
-		   AND IS_BANNED = 'N'
-		   AND IS_WHITELIST = 'N'
-	</entry>
-	
-	<entry key="getReportedBoards">
-		SELECT BOARD_NO
-			 , TITLE
-			 , CATEGORY_NO
-			 , USER_NAME
-			 , B.RECOMMEND_COUNT
-			 , SCRAP_COUNT
-			 , B.REPORT_COUNT
-		  FROM BOARD B
-		  JOIN MEMBER ON (WRITER = USER_NO)
-		 WHERE B.REPORT_COUNT > 0
-		   AND B.STATUS = 'Y'
-	</entry>
-	
-	<entry key="getEnrollmentReqs">
-		SELECT *
-		  FROM MEMBER
-		 WHERE AVAILABLE = 'N'
-	
-	</entry>
-	
-	<entry key="getBoards">
-		SELECT *
-		  FROM BOARD
-		  JOIN CATEGORY USING(CATEGORY_NO)
-		 WHERE CATEGORY_NAME = ?
-		   AND STATUS = 'Y'
-	
-	</entry>
-	
-	<entry key="getBoardMakeReq">
-		SELECT *
-		  FROM CATEGORY C
-		  JOIN MEMBER ON(REQ_USER = USER_NO)
-		 WHERE C.AVAILABLE = 'N'		
-	</entry>
-	
-	<entry key="getNoneApprovedUser">
-		SELECT *
-		  FROM MEMBER
-		 WHERE AVAILABLE = 'N'
-		   AND USER_ID = ?
-	</entry>
-	
-	<entry key="getBoardMakeReqDetail">
-		SELECT R.USER_ID
-			 , M.USER_NAME
-			 , M.USER_CLASS
-			 , M.AUTHORITY
-			 , R.REASON
-		  FROM CATEGORY C
-		  JOIN BOARD_REQ R ON (BOARD_NAME = CATEGORY_NAME)
-		  JOIN MEMBER M ON (REQ_USER = USER_NO)
-		 WHERE CATEGORY_NAME = ?
-	
-	</entry>
-	
-	<entry key="getReportedUser">
-		SELECT *
-		  FROM MEMBER
-		 WHERE USER_ID = ?	
-	</entry>
-	
-	<entry key="approveEnroll">
-		UPDATE MEMBER
-		   SET AVAILABLE = 'Y'
-		 WHERE USER_ID = ?	
-	</entry>
-	
-	<entry key="denyEnroll">
-		DELETE MEMBER
-		 WHERE USER_ID = ?	
-	</entry>
-	
-	<entry key="banUser">
-		UPDATE MEMBER
-		   SET IS_BANNED = 'Y'
-		 WHERE USER_ID = ?
-	</entry>
-	
-	<entry key="whitelistUser">
-		UPDATE MEMBER
-		   SET IS_WHITELIST = 'Y'
-		 WHERE USER_ID = ?
-	</entry>
-	
-	<entry key="approveMakeBoard">
-		UPDATE CATEGORY
-		   SET AVAILABLE = 'Y'
-		 WHERE CATEGORY_NAME = ?
-	
-	</entry>
-	
-	<entry key="denyMakeBoard">
-		DELETE CATEGORY
-		 WHERE CATEGORY_NAME = ?
-	
-	</entry>
+   <entry key="getReportedUsers">
+      SELECT *
+        FROM MEMBER
+       WHERE REPORT_COUNT > 0
+         AND IS_BANNED = 'N'
+         AND IS_WHITELIST = 'N'
+   </entry>
+   
+   <entry key="getReportedBoards">
+      SELECT BOARD_NO
+          , TITLE
+          , CATEGORY_NO
+          , USER_NAME
+          , B.RECOMMEND_COUNT
+          , SCRAP_COUNT
+          , B.REPORT_COUNT
+        FROM BOARD B
+        JOIN MEMBER ON (WRITER = USER_NO)
+       WHERE B.REPORT_COUNT > 0
+         AND B.STATUS = 'Y'
+   </entry>
+   
+   <entry key="getEnrollmentReqs">
+      SELECT *
+        FROM MEMBER
+       WHERE AVAILABLE = 'N'
+   
+   </entry>
+   
+   <entry key="getBoards">
+      SELECT *
+        FROM BOARD
+        JOIN CATEGORY USING(CATEGORY_NO)
+       WHERE CATEGORY_NAME = ?
+         AND STATUS = 'Y'
+   
+   </entry>
+   
+   <entry key="getBoardMakeReq">
+      SELECT *
+        FROM CATEGORY
+        JOIN MEMBER ON(REQ_USER = USER_NO)      
+   </entry>
+   
+   <entry key="getNoneApprovedUser">
+      SELECT *
+        FROM MEMBER
+       WHERE AVAILABLE = 'N'
+         AND USER_ID = ?
+   </entry>
+   
+   <entry key="getBoardMakeReqDetail">
+      SELECT R.USER_ID
+          , M.USER_NAME
+          , M.USER_CLASS
+          , M.AUTHORITY
+          , R.REASON
+        FROM CATEGORY C
+        JOIN BOARD_REQ R ON (BOARD_NAME = CATEGORY_NAME)
+        JOIN MEMBER M ON (REQ_USER = USER_NO)
+       WHERE CATEGORY_NAME = ?
+   
+   </entry>
+   
+   <entry key="getReportedUser">
+      SELECT *
+        FROM MEMBER
+       WHERE USER_ID = ?   
+   </entry>
+   
+   <entry key="approveEnroll">
+      UPDATE MEMBER
+         SET AVAILABLE = 'Y'
+       WHERE USER_ID = ?   
+   </entry>
+   
+   <entry key="denyEnroll">
+      DELETE MEMBER
+       WHERE USER_ID = ?   
+   </entry>
+   
+   <entry key="banUser">
+      UPDATE MEMBER
+         SET IS_BANNED = 'Y'
+       WHERE USER_ID = ?
+   </entry>
+   
+   <entry key="whitelistUser">
+      UPDATE MEMBER
+         SET IS_WHITELIST = 'Y'
+       WHERE USER_ID = ?
+   </entry>
 
 </properties>
