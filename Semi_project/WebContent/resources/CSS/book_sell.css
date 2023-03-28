@@ -16,10 +16,11 @@
     color: white;
 }
 
-#book-status , 
-#book-trade ,
-#book-sell {
+#book-sell,
+#book-thumbnail {
     background-color: lightgray;
+    flex-direction: column;
+    align-items: center
 }
 
 #book-trade {
@@ -69,7 +70,8 @@
 #upload:hover ,
 #next ,
 #next1 ,
-#next2 {
+#next2 ,
+#next3 {
     cursor: pointer;
 }
 
@@ -94,7 +96,8 @@
 
 #book-next,
 #book-next1,
-#book-next2 {
+#book-next2,
+#book-next3 {
     height: 30px;
     display: flex;
     justify-content: center;
@@ -115,4 +118,9 @@
 
 hr {
     border: 0;
+}
+
+#book-status ,
+#book-trade {
+	background-color: lightgray;
 }

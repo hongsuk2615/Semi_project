@@ -6,6 +6,9 @@
 	String thumbnail = (String)request.getAttribute("thumbnail");
 	String datetime = (String)request.getAttribute("datetime");
 	String contents = (String)request.getAttribute("contents");
+	String title = (String)request.getParameter("title");
+	String author = (String)request.getParameter("author");
+	String publisher = (String)request.getParameter("publisher");
 	System.out.println(book);
 
 %>
@@ -20,6 +23,11 @@
     <style>
         * {
         border: 1px solid rgba(128, 128, 128, 0.568);
+    }
+    #book-sell,
+    #book-inf1,
+    #book-thumbnail {
+    	width: 100%;
     }
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
@@ -67,16 +75,35 @@
                 </div>
     
                 <hr>
-    
+    			
+    			<div id="book-thumbnail">
+    				<div id="book-inf1">
+    					<img src="<%= request.getAttribute("thumbnail") %>">
+    					<input type="hidden" value="<%= request.getAttribute("thumbnail") %>" name="thumbnail">
+    					<h1><%= request.getParameter("title")%></h1>
+    					<input type="hidden" value="<%= request.getParameter("title") %>" name="title">
+    					<p>저자 : <%= request.getParameter("author") %></p>
+    					<input type="hidden" value="<%= request.getParameter("author") %>" name="author">
+    					<p>출판사 : <%= request.getParameter("publisher") %></p>
+     					<input type="hidden" value="<%= request.getParameter("publisher") %>" name="publisher">
+    					<p>출간일 : <%= request.getAttribute("datetime") %></p>
+    					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="datetime">
+    				</div>
+    				<div id="book-next1">
+                        <button type="button" id="next1">다음</button>
+                    </div>
+    			</div>
+    			
+    			<hr>
+    			
                 <div id="book-price">
                     <div id="book-price-input">
                         <input type="text" id="price" placeholder="가격을 입력하세요.">
-                        <div id="book-next1">
-                            <button type="button" id="next1">다음</button>
+                        <div id="book-next2">
+                            <button type="button" id="next2">다음</button>
                         </div>
                     </div>
                 </div>
-                
                 
                 <hr>
     
@@ -97,9 +124,9 @@
                 <hr>
     
                 <div id="book-img-upload">
-                    <input type="file" name="upfiles" multiple>
-                    <div id="book-next2">
-                        <button type="button" id="next2">다음</button>
+                    <input type="file" name="upfiles" multiple max='2' >
+                    <div id="book-next3">
+                        <button type="button" id="next3">다음</button>
                     </div>
                 </div>
                 
@@ -122,53 +149,47 @@
         </div>
     </div>
     <br> <br>
-
-
-    <script> 
-   
     
-        $(function() {
-            
-        	$("#upload").click(function(){
+    <script>
+    $(function() {
+    	/* $("#search-btn").click(function(){
+    		$("#book-thumbnail").css("display" , "flex");
+    	}) */
+    	$("#next").click(function(){
+    		if( $("#book-name-search").val() !== ""){
+    			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
+    		} else {
+    			alert("도서를 검색해 주세요.");
+    		}
+    	})
+    	
+        $("#next1").click(function(){ // 다음 버튼 누르면 페이드인 효과 발생
+                $("#book-price").fadeIn(1500).css("display" , "flex");
+        });
+       
+        $("#next2").click(function(){
+            var p = $("#price").val();
 
-            });
+            if( p !== "" ) {
+                $("#book-status").fadeIn(1500).css("display" , "flex");
+                $("#book-img-upload").fadeIn(1500).css("display" , "flex");
+            } else {
+                alert("가격을 입력해 주세요!");
+            }
+        });
 
-            $("#book-home-btn-img").click(function(){
-
-            });
-
-            $("#next").click(function(){ // 다음 버튼 누르면 페이드인 효과 발생
-                if( $("#book-name-search").val() !== ""){
-                    $("#book-price").fadeIn(1500).css("display" , "flex");
-                } else {
-                    alert("도서를 검색 해 주세요!");
-                }
-            });
-
-           
-            $("#next1").click(function(){
-                var p = $("#price").val();
-
-                if( p !== "" ) {
-                    $("#book-status").fadeIn(1500).css("display" , "flex");
-                    $("#book-img-upload").fadeIn(1500).css("display" , "flex");
-                } else {
-                    alert("가격을 입력해 주세요!");
-                }
-            });
-
-            $("#next2").click(function(){
-                $("#book-trade").fadeIn(1500).css("display" , "flex");
-                $("#book-board-upload").fadeIn(1500).css("display" , "flex");
-            })
-        }
+        $("#next3").click(function(){
+            $("#book-trade").fadeIn(1500).css("display" , "flex");
+            $("#book-board-upload").fadeIn(1500).css("display" , "flex");
+        })
+    })
     </script>
+    
     
     <script>
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
    		 })
-    
     </script>
     
 </body>

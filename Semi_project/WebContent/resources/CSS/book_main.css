@@ -137,3 +137,9 @@
     justify-content: center;
     align-items: center;
 }
+#book-thumbnail {
+    background: lightgray;
+    flex-direction: column;
+    display: none;
+    align-items: center;
+}
