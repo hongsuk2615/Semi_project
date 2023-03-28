@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.khtime.member.model.service.MemberService;
+
 /**
  * Servlet implementation class FreindListController
  */
@@ -28,6 +32,14 @@ public class FriendListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.getRequestDispatcher("views/friend/friendList.jsp").forward(request, response);
+		String userId = request.getParameter("userId");
+		// 2. DB에 현재 전달된 데이터가 존재하는지 확인
+		boolean isId = new MemberService().isId(userId); 
+		// 3. 중복된 아이디가 존재하는 케이스. 않는 케이스별로 데이터 전달
+		JSONObject jobj = new JSONObject();
+		jobj.put("isId", isId);
+		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().print(jobj);
 	}
 
 	/**

@@ -1,20 +1,20 @@
 package com.khtime.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.khtime.common.model.EnrollmentPwdEncryptWrapper;
 import com.khtime.common.model.vo.MyFileRenamePolicy;
-import com.khtime.common.model.vo.AEScryptor;
 import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
 import com.khtime.member.model.vo.UserProFileImg;
-import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class EnrollmentController
@@ -58,12 +58,12 @@ public class EnrollmentController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/member/userProfileImg");
 //			
 //			// 2. 전달된 파일명 수정작업후 서버에 업로드
-			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+			EnrollmentPwdEncryptWrapper multi = new EnrollmentPwdEncryptWrapper(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
 
 			// 2) 요청시 전달값을 뽑아서 변수, 객체에 기록해줄것
 			String userId = multi.getParameter("userId"); // 필수값
-			String userPwd = multi.getParameter("userPwd1"); // 필수값
+			String userPwd = multi.getParameter("userPwd"); // 필수값
 			String userClass = multi.getParameter("class"); //
 			String userName = multi.getParameter("userName"); // 필수값
 			String nickName = multi.getParameter("nick-name"); //

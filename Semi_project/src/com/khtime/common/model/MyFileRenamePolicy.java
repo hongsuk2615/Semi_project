@@ -1,4 +1,4 @@
-package com.kh.common;
+package com.khtime.common.model;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
