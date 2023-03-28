@@ -40,7 +40,7 @@ public class InsertBoardController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -48,7 +48,7 @@ public class InsertBoardController extends HttpServlet {
 		String isAnonimous = request.getParameter("isAnonimous")  == null ? "N" : "Y";;
 		
 		Board b = new Board();
-		b.setWriter(String.valueOf(userNo));
+		b.setWriter(userId);
 		b.setCategoryNo(cNo);
 		b.setTitle(title);
 		b.setContent(content);

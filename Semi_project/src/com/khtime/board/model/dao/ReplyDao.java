@@ -1,7 +1,5 @@
 package com.khtime.board.model.dao;
 
-import static com.khtime.common.JDBCTemplate.close;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,69 +32,39 @@ public class ReplyDao {
 	      
 	   }
 	   
-
-		public int insertReply(Connection conn, Reply r) {
-			
-			int result = 0;
-			
+	   public ArrayList<Reply> selectReply(Connection conn, int bNo) {
+		    
+		   ArrayList <Reply> replyList= new ArrayList<>();
 			PreparedStatement pstmt = null;
-			
-			String sql = prop.getProperty("insertReply");
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, r.getBoardNo());
-				pstmt.setInt(2, Integer.parseInt(r.getWriter()));
-				pstmt.setString(3, r.getContent());
-				pstmt.setString(4, r.getIsAnonimous());
-				
-				
-				result = pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(pstmt);
-			}
-			
-			return result;
-		}
-		
-		public ArrayList<Reply> selectReplyList(Connection conn, int boardNo){
-			ArrayList<Reply> list = new ArrayList<>();
-			
-			PreparedStatement pstmt = null;
-			
 			ResultSet rset = null;
 			
-			String sql = prop.getProperty("selectReplyList");
-			
-			
+			String sql = prop.getProperty("selectReply");
+
 			try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, boardNo);
+				
+				pstmt.setInt(1, bNo);
 				
 				rset = pstmt.executeQuery();
-				
 				while(rset.next()) {
-					list.add(new Reply(
-							rset.getInt("REPLY_NO"),
-							rset.getString("CONTENT"),
-							rset.getString("NICK_NAME"),
-							rset.getDate("ENROLL_DATE"),
-							rset.getString("IS_ANONIMOUS")
-							));				
-				}
+					Reply r = new Reply(
+								rset.getInt("REPLY_NO"),
+								rset.getString("WRITER"),
+								rset.getString("CONTENT"),
+								rset.getDate("ENROLL_DATE"),
+								rset.getString("IS_ANONIMOUS"),
+								rset.getInt("P_REPLY_NO")
+							);
+					
+					replyList.add(r);
+				}		
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				close(rset);
-				close(pstmt);
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
 			}
-			
-			return list;
+			return replyList;
 		}
-		
 }
