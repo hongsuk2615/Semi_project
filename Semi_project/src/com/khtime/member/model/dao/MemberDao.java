@@ -111,7 +111,7 @@ public class MemberDao {
 		}
 		return result;
 	}
-	public boolean updatePwd(Connection conn, String userId, int newPwd) {
+	public boolean updatePwd(Connection conn, String userId, String newPwd) {
 		boolean result = false;
 		PreparedStatement pstmt = null;
 		
@@ -120,7 +120,7 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, newPwd);
+			pstmt.setString(1, newPwd);
 			pstmt.setString(2, userId);
 
 			if(pstmt.executeUpdate() > 0) {

@@ -11,6 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.khtime.common.CommonMethod;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.member.model.dao.MemberDao;
 import com.khtime.member.model.vo.Member;
@@ -45,9 +46,12 @@ public class MemberService {
 		if(result) {
 			
 			// 새비밀번호 생성, 
-			int newPwd = (int)Math.random()*100000+1;
+			  int random = (int)(Math.random()*5 + 10);
+			  String newPwd = CommonMethod.getRamdomPassword(random);
+			
+			
 			result = new MemberDao().updatePwd(conn, userId, newPwd );
-			sendNewPwd(userEmail, newPwd);
+			CommonMethod.sendNewPwd(userEmail, newPwd);
 			JDBCTemplate.close(conn);
 			return result;
 			
