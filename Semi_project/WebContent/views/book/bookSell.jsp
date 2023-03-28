@@ -137,6 +137,7 @@
                         <h1>거래 방법</h1>
                         <p>택배 : <input type="radio" name="delivery">가능 /<input type="radio" name="delivery">불가능</p>
                         <p>직거래 : <input type="radio" name="meet">가능 /<input type="radio" name="meet">불가능</p>
+                        <p>지역 : <input type="text" name="direct"></p>
                     </div>
                 </div>
     
@@ -189,6 +190,11 @@
     <script>
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
+   		 })
+   		 
+   		 document.getElementById("upload").addEventListener("click",function(){
+   			 alert("판매글 등록에 성공했습니다!");
+        	location.href = "<%= request.getContextPath() %>/bookstore.do?bookname="+document.getElementById("book-name-search").value;
    		 })
     </script>
     

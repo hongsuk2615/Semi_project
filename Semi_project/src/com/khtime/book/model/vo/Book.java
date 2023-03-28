@@ -8,7 +8,7 @@ public class Book {
 	private String author;
 	private String publisher;
 	private String isNoted;
-	private int conditon;
+	private int condition;
 	private String isDirect;
 	private String location;
 	private String isSoldout;
@@ -74,12 +74,12 @@ public class Book {
 		this.isNoted = isNoted;
 	}
 
-	public int getConditon() {
-		return conditon;
+	public int getCondition() {
+		return condition;
 	}
 
-	public void setConditon(int conditon) {
-		this.conditon = conditon;
+	public void setCondition(int condition) {
+		this.condition = condition;
 	}
 
 	public String getIsDirect() {
@@ -117,7 +117,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [bookNo=" + bookNo + ", seller=" + seller + ", bookName=" + bookName + ", price=" + price
-				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", conditon=" + conditon
+				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", condition=" + condition
 				+ ", isDirect=" + isDirect + ", location=" + location + ", isSoldout=" + isSoldout + ", status="
 				+ status + "]";
 	}
