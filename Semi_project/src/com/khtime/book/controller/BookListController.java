@@ -1,25 +1,27 @@
 package com.khtime.book.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.board.model.vo.Board;
 import com.khtime.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BookSearchController
+ * Servlet implementation class BookListController
  */
-@WebServlet("/booksearch.do")
-public class BookSearchController extends HttpServlet {
+@WebServlet("/list.do")
+public class BookListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookSearchController() {
+    public BookListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +39,11 @@ public class BookSearchController extends HttpServlet {
 		int startPage; // 페이지 하단에 보여질 페이징바의 시작수
 		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
 		
+		
+		
 		listCount = 50;
+		
+		
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		pageLimit= 4;
@@ -55,18 +61,14 @@ public class BookSearchController extends HttpServlet {
 		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
+
+		 
+		 request.getRequestDispatcher("views/book/booksearch.jsp").forward(request, response);
 		
-		String bookname = request.getParameter("bookname");
-		request.setAttribute("bookname", bookname);
 		
-		/*
-		 * if(bookname.equals("bookname")) { response.sendRedirect("booksearch.jsp"); }
-		 */
 		
-//		request.setAttribute("bookname", "bookname");
-		
-			request.getRequestDispatcher("views/book/booksearch.jsp").forward(request, response);			
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

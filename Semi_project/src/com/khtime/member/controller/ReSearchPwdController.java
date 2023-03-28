@@ -1,4 +1,4 @@
-package com.khtime.friend.controller;
+package com.khtime.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,26 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FreindListController
+ * Servlet implementation class SearchPwdViewController
  */
-@WebServlet("/friend.me")
-public class FriendListController extends HttpServlet {
+@WebServlet("/reSearchPwd.me")
+public class ReSearchPwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendListController() {
+    public ReSearchPwdController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/friend/friendList.jsp").forward(request, response);
+		//+"views/member/searchPwdForm.jsp"
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

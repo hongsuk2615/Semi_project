@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.member.model.service.MemberService;
+
 /**
  * Servlet implementation class SearchIdController
  */
@@ -19,7 +21,6 @@ public class SearchIdController extends HttpServlet {
      */
     public SearchIdController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,7 +36,20 @@ public class SearchIdController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/member/searchIdViewForm.jsp").forward(request, response);
+		String userName = request.getParameter("login-name");
+		String userEmail = request.getParameter("login-email");
+	
+		String userId = new MemberService().searchId(userName, userEmail);
+		
+		if(userId != null) { // 아이디찾기 성공
+			request.setAttribute("userId", userId);
+			request.getRequestDispatcher("views/member/searchIdViewForm.jsp").forward(request, response);
+		}else {  // 아이디찾기 실패
+			request.getSession().setAttribute("alertMsg", "아이디 찾기 실패");
+			response.sendRedirect(request.getContextPath()+"/searchId.me");
+			
+			
+		}
 	}
 
 }

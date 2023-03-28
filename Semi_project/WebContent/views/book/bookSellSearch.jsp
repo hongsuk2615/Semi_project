@@ -150,7 +150,7 @@
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -176,48 +176,41 @@
         $(document).ready(function(){
         	function getBooks(){
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     url: "https://dapi.kakao.com/v3/search/book",
                     data: { query: $("#bookname").val(), size :"8" , page: currPage } ,
                     headers: { Authorization : "KakaoAK 36b9faff2b40c9d761ac0092c6c33863" }
                 })
     
                 .done(function (res){
-                	console.log(res);
-                	console.log(res.length);
-                	
                     <% for(int i = 0; i < 8; i++) { %>
 	                    $("#book-img<%= i %>").empty();
 	                    $("#book-title<%= i %>").empty();
 	                    $("#book-author<%= i %>").empty();
 	                    <% } %>
-	                <% for(int i = 0; i < 8; i++) { %>
-		                $("#book-img<%= i %>").append( "<img src='" +res.documents[<%= i %>].thumbnail + "'/>");
-	                    $("#book-title<%= i %>").append(res.documents[<%= i %>].title);
-	                    $("#book-author<%= i %>").append(res.documents[<%= i %>].authors);
-	                    $("#book-publisher<%= i %>").append(res.documents[<%= i %>].publisher);
-	                    $("#book-datetime<%= i %>").append(res.documents[<%= i %>].datetime);
-	                    let bookdata<%=i%> = {
-	                    		thumbnail : res.documents[<%= i %>].thumbnail,
-	                    		title : res.documents[<%= i %>].title,
-	                    		author : res.documents[<%= i %>].authors,
-	                    		publisher : res.documents[<%= i %>].publisher,
-	                    		datetime : res.documents[<%= i %>].datetime,
-	                    		contents : res.documents[<%= i %>].contents
-	                    };
+	                    <% for(int i = 0; i < 8; i++) { %>
+                        $("#book-img<%= i %>").append( "<img src='" +res.documents[<%= i %>].thumbnail + "'/>");
+                        $("#book-title<%= i %>").append(res.documents[<%= i %>].title);
+                        $("#book-author<%= i %>").append(res.documents[<%= i %>].authors);
+                        $("#book-publisher<%= i %>").append(res.documents[<%= i %>].publisher);
+                        $("#book-datetime<%= i %>").append(res.documents[<%= i %>].datetime.substring(0,10));
+                        $("#book-contents<%= i %>").append(res.documents[<%= i %>].contents);
+                        let bookdata<%=i%> = {
+                        		thumbnail : res.documents[<%= i %>].thumbnail,
+                        		title : res.documents[<%= i %>].title,
+                        		author : res.documents[<%= i %>].authors,
+                        		publisher : res.documents[<%= i %>].publisher,
+                        		datetime : res.documents[<%= i %>].datetime,
+                        		contents : res.documents[<%= i %>].contents
+                        };
                         
-                        function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksearchdetail.do", bookdata<%=i%>)};
+                        function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksellsearch.do", bookdata<%=i%>)};
                         $("#book-inf"+<%=i%>).click(bookdetailPost<%=i%>);
-                        
-                        
                   <% } %>
                 });
             }
-            $("#search-btn").click(function(){
-            	
-            	location.href="<%=request.getContextPath()%>/booksearch.do?bookname="+document.getElementById('bookname').value;
-            });
-           
+            $("#search-btn").click(getBooks);
+            getBooks();
       		
            $("#search-btn").click(function(){
                 if( $("#bookname").val() == "") { 
@@ -231,7 +224,7 @@
        			currPage++;
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
@@ -239,17 +232,22 @@
            		currPage--;
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
-           <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
+           <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
            
-         
-           getBooks();
-        }); 
+        });
+
+    </script>
+    
+    <script>
+		document.getElementById("book-sell-btn-img").addEventListener("click",function(){
+    	location.href = "<%= request.getContextPath() %>/booksell.do"
+		})
     </script>
     
     <script>

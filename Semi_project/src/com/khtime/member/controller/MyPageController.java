@@ -1,4 +1,4 @@
-package com.khtime.friend.controller;
+package com.khtime.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FreindListController
+ * Servlet implementation class MyPageController
  */
-@WebServlet("/friend.me")
-public class FriendListController extends HttpServlet {
+@WebServlet("/myPage.me")
+public class MyPageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendListController() {
+    public MyPageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,8 @@ public class FriendListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/friend/friendList.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("views/member/mypage.jsp").forward(request, response);
 	}
 
 	/**

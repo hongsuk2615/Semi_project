@@ -1,25 +1,27 @@
 package com.khtime.book.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.book.model.vo.Book;
 import com.khtime.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class BookSearchController
+ * Servlet implementation class BookSellSearchController
  */
-@WebServlet("/booksearch.do")
-public class BookSearchController extends HttpServlet {
+@WebServlet("/booksellsearch.do")
+public class BookSellSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookSearchController() {
+    public BookSellSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -59,20 +61,34 @@ public class BookSearchController extends HttpServlet {
 		String bookname = request.getParameter("bookname");
 		request.setAttribute("bookname", bookname);
 		
-		/*
-		 * if(bookname.equals("bookname")) { response.sendRedirect("booksearch.jsp"); }
-		 */
+		request.getRequestDispatcher("views/book/bookSellSearch.jsp").forward(request, response);
 		
-//		request.setAttribute("bookname", "bookname");
-		
-			request.getRequestDispatcher("views/book/booksearch.jsp").forward(request, response);			
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String thumbnail = request.getParameter("thumbnail");
+		String title = request.getParameter("title");
+		String author = request.getParameter("author");
+		String publisher = request.getParameter("publisher");
+		String datetime = request.getParameter("datetime");
+		String contents = request.getParameter("contents");
+		
+		Book book = new Book();
+		book.setBookName(title);
+		book.setAuthor(author);
+		book.setPublisher(publisher);
+		
+		request.setAttribute("thumbnail",thumbnail);
+		request.setAttribute("book", book);
+		request.setAttribute("datetime", datetime);
+		request.setAttribute("contents", contents);
+		
+		request.getRequestDispatcher("views/book/bookSell.jsp").forward(request, response);
+		
 	}
 
 }

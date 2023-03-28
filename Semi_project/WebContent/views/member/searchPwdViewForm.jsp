@@ -16,12 +16,15 @@
       <div id="home-logo">
                     <img src="resources/IMG/로고이미지.png" alt="로고이미지">
                 </div>
+                <% if((boolean)request.getAttribute("emailCheck") == true ){%>
            <p>메일 전송 완료</p>
            <button id="login-form-btn">로그인</button> <br>
+           
+           <% }else{ %>
            <p>메일 전송 실패</p>
            
            <button id="searchPwd-form-btn">다시 비밀번호찾기 폼으로 이동</button> <br>
-        
+        	<% } %>
          
        
 </div>
@@ -34,7 +37,7 @@
     }) // 로그인버튼 -> 로그인폼 이동
     
     document.getElementById("searchPwd-form-btn").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/searchPwd.me";
+        location.href = "<%= request.getContextPath() %>/login.me";
     }) // 비밀번호찾기 폼으로 이동 
 
 

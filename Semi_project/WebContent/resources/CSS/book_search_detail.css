@@ -1,3 +1,29 @@
+ img {
+            width: 220px;
+            height: 340px;
+            display: flex;
+            justify-content: center;
+    		align-items: center;
+        }
+.book-text {
+        	width: 500px;
+        	height:400px;
+        	display: flex;
+            justify-content: space-around;
+    		align-items: center;
+    		flex-direction: column;
+    		text-align: center;
+    		margin-left: 50px;
+        }
+        
+#book-thumbnail {
+        	width: 600px;
+        	height: 400px;
+        	display: flex;
+            justify-content: space-around;
+    		align-items: flex-start;
+        }
+        
 #book-header {
     height: 120px;
     width: 100%;
@@ -115,14 +141,23 @@
     justify-content: space-between; /* 가로 정렬 */
 }
 
-#book-body-content1 , 
-#book-body-content2 {
+#book-body-content1 {
     width: 1180px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 100px;
 }
 
+#book-body-content2 {
+	display: flex;
+	justify-content: space-between;
+}
+
+.book-sell-img {
+	display: flex;
+	flex-direction: column;
+}
 #book-search , 
 #book-search-input {
     height: 100px;
@@ -136,4 +171,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.book-sell-inf {
+	display: flex;
 }
