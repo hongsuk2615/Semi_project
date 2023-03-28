@@ -40,6 +40,8 @@
 		UPDATE MEMBER
 		   SET EMAIL = ?
 		 WHERE USER_ID = ?
+	</entry>
+	
 	<entry key="memberCheck">
 		SELECT * 
 		  FROM MEMBER

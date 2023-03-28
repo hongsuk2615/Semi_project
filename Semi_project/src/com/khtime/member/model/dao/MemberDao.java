@@ -83,29 +83,6 @@ public class MemberDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-		} return userId;
-	   }
-	   
-	 public int checkPwd(Connection conn, String userPwd,String userId) {
-		 int result = 0;
-		 
-		 PreparedStatement pstmt =null;
-		 
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("checkPwd");
-		 
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userPwd);
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result++;
-			} 
-			
 		}
 		return userId;
 	}
@@ -131,10 +108,10 @@ public class MemberDao {
 		} finally {
 			JDBCTemplate.close(rset);
 			JDBCTemplate.close(pstmt);
-		} return result;
-	 }
-	 
-	 public int updatePwd(Connection conn, String updatePwd,String userId) {
+		}
+		return result;
+	}
+	public int updatePwd(Connection conn, String updatePwd,String userId) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -156,8 +133,37 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		} return result;
 	 }
-	 
-	 public int updateEmail(Connection conn, String updateEmail,String userId) {
+	
+	
+	public int checkPwd(Connection conn, String userPwd,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+		 
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("checkPwd");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result++;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		} return result;
+	 }
+	
+	public int updateEmail(Connection conn, String updateEmail,String userId) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -177,8 +183,8 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		} return result;
 	 }
-	 
-	 public int checkPwdForEmail(Connection conn, String userPwd,String userId) {
+	
+	public int checkPwdForEmail(Connection conn, String userPwd,String userId) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -205,8 +211,8 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		} return result;
 	 }
-	 
-	 public int checkNickName(Connection conn, String userNickName,String updateNickName,String userId) {
+	
+	public int checkNickName(Connection conn, String userNickName,String updateNickName,String userId) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -233,8 +239,8 @@ public class MemberDao {
 			JDBCTemplate.close(pstmt);
 		} return result;
 	 }
-	 
-	 public int updateNickName(Connection conn, String userId, String userNickName) {
+	
+	public int updateNickName(Connection conn, String userId, String userNickName) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -250,29 +256,11 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 		
 			
-		}
-		return result;
-	}
-	public boolean updatePwd(Connection conn, String userId, String newPwd) {
-		boolean result = false;
-		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("updatePwd");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, newPwd);
-			pstmt.setString(2, userId);
-
-			if(pstmt.executeUpdate() > 0) {
-				result = true;
-			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JDBCTemplate.close(pstmt);
 		} return result;
 	 }
+
 }

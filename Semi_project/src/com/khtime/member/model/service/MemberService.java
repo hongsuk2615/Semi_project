@@ -111,30 +111,30 @@ public class MemberService {
 //		JDBCTemplate.close(conn);
 //		return m;
 //	}
-}
-	public boolean searchPwd(String userId, String userEmail) {
-		Connection conn = JDBCTemplate.getConnection();
 
-		boolean result = new MemberDao().memberCheck(conn, userId, userEmail);
-	
-		if(result) {
-			
-			// 새비밀번호 생성, 
-			  int random = (int)(Math.random()*5 + 10);
-			  String newPwd = CommonMethod.getRamdomPassword(random);
-			
-			
-			result = new MemberDao().updatePwd(conn, userId, newPwd );
-			CommonMethod.sendNewPwd(userEmail, newPwd);
-			JDBCTemplate.close(conn);
-			return result;
-			
-			
-		}else {
-			JDBCTemplate.close(conn);
-			return result;
-		}
-	}
+//	public boolean searchPwd(String userId, String userEmail) {
+//		Connection conn = JDBCTemplate.getConnection();
+//
+//		boolean result = new MemberDao().memberCheck(conn, userId, userEmail);
+//	
+//		if(result) {
+//			
+//			// 새비밀번호 생성, 
+//			  int random = (int)(Math.random()*5 + 10);
+//			  String newPwd = CommonMethod.getRamdomPassword(random);
+//			
+//			
+//			result = new MemberDao().updatePwd(conn, userId, newPwd );
+//			CommonMethod.sendNewPwd(userEmail, newPwd);
+//			JDBCTemplate.close(conn);
+//			return result;
+//			
+//			
+//		}else {
+//			JDBCTemplate.close(conn);
+//			return result;
+//		}
+//	}
 		
 		
 		public void sendNewPwd(String email, int newPwd) {
