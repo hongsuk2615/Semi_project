@@ -42,6 +42,7 @@
 
 	<entry key="selectContent">
 		SELECT 
+				B.BOARD_NO,
 				TITLE,
 				CONTENT,
 				M.NICK_NAME AS WRITER,
@@ -70,10 +71,7 @@
 			  ,?
 			  ,?
 			  ,?
-			  ,(SELECT M.USER_NO
-			  	  FROM MEMBER M
-			  	  JOIN BOARD B ON (B.WRITER = M.)
-			  	 WHERE USER_ID = ?)
+			  ,?
 			  ,?
 			  ,?
 			  )
@@ -176,5 +174,34 @@
 			  ,?
 			  )
 	</entry>
+	
+	<entry key="deleteContent">
+	  UPDATE BOARD SET
+	  	STATUS = 'N'
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateBoard">
+	  UPDATE BOARD SET
+	  	TITLE = ?,
+	  	CONTENT = ?,
+	  	CATEGORY_NO = ?,
+	  	IS_QUESTION = ?,
+	  	IS_ANONIMOUS = ?
+	  		WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateRecommend">
+	  UPDATE BOARD SET
+	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
+	<entry key="updateScrap">
+	  UPDATE BOARD SET
+	  	SCRAP_COUNT = SCRAP_COUNT + 1
+	  	WHERE BOARD_NO = ?
+	</entry>
+	
 	
 </properties>

@@ -141,6 +141,7 @@ public class BoardDao {
 
 				if(rset.next()) {
 					b = new Board(
+							rset.getInt("BOARD_NO"),
 							rset.getString("TITLE"),
 							rset.getString("CONTENT"),
 							rset.getString("WRITER"),
@@ -169,13 +170,13 @@ public class BoardDao {
 			PreparedStatement pstmt = null;
 			
 			String sql = prop.getProperty("insertBoard");
-			System.out.println(b);
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setString(1, b.getTitle());
 				pstmt.setString(2, b.getContent());
 				pstmt.setInt(3, b.getCategoryNo());
+				System.out.println(b.getWriter());
 				pstmt.setString(4, b.getWriter());
 				pstmt.setString(5, b.getIsQuestion());
 				pstmt.setString(6, b.getIsAnonimous());
@@ -265,6 +266,102 @@ public class BoardDao {
 		}
 	   
 	   
+	   public int deleteContent(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("deleteContent");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int updateBoard(Connection conn, Board b) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("updateBoard");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, b.getTitle());
+				pstmt.setString(2, b.getContent());
+				pstmt.setInt(3, b.getCategoryNo());
+				pstmt.setString(4, b.getIsQuestion());
+				pstmt.setString(5, b.getIsAnonimous());
+				
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int updateRecommend(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("updateRecommend");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int updateScrap(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("updateScrap");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
 	   

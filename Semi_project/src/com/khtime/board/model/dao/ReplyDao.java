@@ -1,5 +1,7 @@
 package com.khtime.board.model.dao;
 
+import static com.khtime.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,39 +34,69 @@ public class ReplyDao {
 	      
 	   }
 	   
-	   public ArrayList<Reply> selectReply(Connection conn, int bNo) {
-		    
-		   ArrayList <Reply> replyList= new ArrayList<>();
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			
-			String sql = prop.getProperty("selectReply");
 
+		public int insertReply(Connection conn, Reply r) {
+			
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("insertReply");
+			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setInt(1, bNo);
+				pstmt.setInt(1, r.getBoardNo());
+				pstmt.setInt(2, Integer.parseInt(r.getWriter()));
+				pstmt.setString(3, r.getContent());
+				pstmt.setString(4, r.getIsAnonimous());
 				
-				rset = pstmt.executeQuery();
-				while(rset.next()) {
-					Reply r = new Reply(
-								rset.getInt("REPLY_NO"),
-								rset.getString("WRITER"),
-								rset.getString("CONTENT"),
-								rset.getDate("ENROLL_DATE"),
-								rset.getString("IS_ANONIMOUS"),
-								rset.getInt("P_REPLY_NO")
-							);
-					
-					replyList.add(r);
-				}		
+				
+				result = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
+				close(pstmt);
 			}
-			return replyList;
+			
+			return result;
 		}
+		
+		public ArrayList<Reply> selectReplyList(Connection conn, int boardNo){
+			ArrayList<Reply> list = new ArrayList<>();
+			
+			PreparedStatement pstmt = null;
+			
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectReplyList");
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, boardNo);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Reply(
+							rset.getInt("REPLY_NO"),
+							rset.getString("CONTENT"),
+							rset.getString("NICK_NAME"),
+							rset.getDate("ENROLL_DATE"),
+							rset.getString("IS_ANONIMOUS")
+							));				
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+			return list;
+		}
+		
 }

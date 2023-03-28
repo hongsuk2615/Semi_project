@@ -1,7 +1,6 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +12,16 @@ import com.khtime.board.model.vo.Board;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertBoardController
+ * Servlet implementation class ContentUpdateController
  */
-@WebServlet("/insert.bo")
-public class InsertBoardController extends HttpServlet {
+@WebServlet("/update.bo")
+public class ContentUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertBoardController() {
+    public ContentUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,38 +30,38 @@ public class InsertBoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String isQuestion = request.getParameter("isQuestion") == null ? "N" : "Y";
 		String isAnonimous = request.getParameter("isAnonimous")  == null ? "N" : "Y";;
-	
+		
 		Board b = new Board();
 		b.setWriter(String.valueOf(userNo));
-	
 		b.setCategoryNo(cNo);
 		b.setTitle(title);
 		b.setContent(content);
 		b.setIsQuestion(isQuestion);
 		b.setIsAnonimous(isAnonimous);
 		
-		int result = new BoardService().insertBoard(b);
+		int result = new BoardService().updateBoard(b);
+		System.out.println(result);
 		if(result > 0 ) {
-			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
+			
+			request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
 		}else {
-			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
+			System.out.println("실패");
 		}
-		
 	}
 
 }

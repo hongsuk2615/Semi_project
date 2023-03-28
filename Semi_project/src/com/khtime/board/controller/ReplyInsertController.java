@@ -1,7 +1,6 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,23 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.service.BoardService;
-import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.Reply;
+import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ContentDetailController
+ * Servlet implementation class ReplyInsertController
  */
-@WebServlet("/contentDetail.bo")
-public class ContentDetailController extends HttpServlet {
+@WebServlet("/rInsert.bo")
+public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContentDetailController() {
+    public ReplyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +31,20 @@ public class ContentDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		String content = request.getParameter("content");
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+		String isAnonimous = request.getParameter("isAnonimous");
+	
+		Reply r = new Reply();
+		r.setContent(content);
+		r.setReplyNo(bNo);
+		r.setWriter(userNo+"");
+		r.setIsAnonimous(isAnonimous);
 		
-		Board b = new BoardService().selectContent(bNo);
-		ArrayList<Reply> replyList = new ReplyService().selectReplyList(bNo);
-		String cName = new CategoryService().getCategoryName(b.getCategoryNo());
+		int result = new ReplyService().insertReply(r);
 		
-		request.setAttribute("replyList", replyList);
-		request.setAttribute("b", b);
-		request.setAttribute("cName", cName);
-		request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
+		response.getWriter().print(result);
 	}
 
 	/**
