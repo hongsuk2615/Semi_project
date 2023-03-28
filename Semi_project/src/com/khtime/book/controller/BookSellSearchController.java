@@ -89,6 +89,8 @@ public class BookSellSearchController extends HttpServlet {
 		
 		request.getRequestDispatcher("views/book/bookSell.jsp").forward(request, response);
 		
+		
+		
 	}
 
 }

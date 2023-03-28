@@ -3,8 +3,27 @@
 <properties>
 
 	
-	<entry key="idCheck">
-		
+	<entry key="insertBook">
+		INSERT INTO BOOK (BOOK_NO , 
+						  SELLER , 
+						  BOOK_NAME , 
+						  PRICE , 
+						  AUTHOR , 
+						  PUBLISHER , 
+						  IS_NOTIED , 
+						  CONDITION , 
+						  IS_DIRECT , 
+						  LOCATION)
+				  VALUES (SEQ_BKNO.NEXTVAL,
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ? , 
+				  		   ?)
 	</entry>
 	
 	
