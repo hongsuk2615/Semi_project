@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+
+	<entry key="selectReply">
+		SELECT REPLY_NO,
+			   M.NICK_NAME AS WRITER,
+			   R.CONTENT,
+			   R.ENROLL_DATE,
+			   R.IS_ANONIMOUS,
+			   P_REPLY_NO
+		FROM REPLY R
+		JOIN BOARD B ON (R.BOARD_NO = B.BOARD_NO)
+		JOIN MEMBER M ON (M.USER_NO = R.WRITER)
+		WHERE R.BOARD_NO = ?
+		
+	</entry>
+
+	
+</properties>

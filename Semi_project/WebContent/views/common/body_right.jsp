@@ -14,8 +14,10 @@
 <body>
     <div id="body-right">
         <div id="search">
-                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40">
-                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요">         
+                <img src="<%=request.getContextPath()%>/resources/IMG/searchimg.png" alt="searchimg" width="40" height="40" >
+                <form action="<%=request.getContextPath()%>/boDetailSearch.do" method="GET" >
+                <input type="search" id="search-input" placeholder="전체 게시글의 글을 검색하세요" name="keyword"> 
+            	</form>         
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
@@ -29,7 +31,9 @@
                     <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
+
                     <input type="submit" value="로그인">
+
                     <input type="button" value="회원가입">
                 </div>
             </form>
@@ -82,56 +86,118 @@
         </div>
         <% } %>
         <div id="hot-board">
-            <table id="board-5">
-                <tr>
-                    <th>HOT 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+            <table id="board-7">
+            	<thead>
+	                <tr>
+	                    <th>HOT 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
+        
         <div id="best-board">
-            <table id="board-6">
-                <tr>
-                    <th>BEST 게시판</th>
-                </tr>
-                <tr>
-                    <td>게시물 제목1</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목2</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목3</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목4</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목5</td>
-                </tr>
-                <tr>
-                    <td>게시물 제목6</td>
-                </tr>
+            <table id="board-8">
+                <thead>
+	                <tr>
+	                    <th>BEST 게시판</th>
+	                </tr>
+                </thead>
+                <tbody>
+	                <tr>
+	                    <td>게시물 제목1</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목2</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목3</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목4</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목5</td>
+	                </tr>
+	                <tr>
+	                    <td>게시물 제목6</td>
+	                </tr>
+                </tbody>
             </table>
         </div>
     </div>
+    
+    
+    <script>
+        $("#board-7 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+	    
+	    $("#board-8 th").click(function(){
+	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    })
+    </script>
+
+    <script>
+        $(function(){
+        function getHotBestBoardList(recommendCount, num){
+            $.ajax({
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                type : 'get',
+                success : function(result){
+                    if(result.length == 0 ){
+                        $('#board-'+num+' tbody').append('<tr>'+
+                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 6 ; i++){
+                            if(result[i] != null){
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td>' + result[i].title + '</td>'+
+                                                          '</tr>');
+                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                })
+                            }else {
+                                $('#board-'+num+' tbody').append('<tr>'+
+                                                                '<td style="text-align:center">' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }			
+            },
+            error : function(){
+                console.log("ajax통신 실패");
+            }				
+        });			
+    }
+    getHotBestBoardList(10,7);
+    getHotBestBoardList(100,8);
+ });
+    </script>
+
+
+
   
 		<!-- [디데이 설정] 모달창 -->
         <div class="modal hidden">

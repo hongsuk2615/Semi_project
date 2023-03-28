@@ -7,7 +7,7 @@ public class Board {
 	private String title;
 	private String content;
 	private int categoryNo;
-	private int writer;
+	private String writer;
 	private String isQuestion;
 	private String isAnonimous;
 	private int reportCount;
@@ -15,9 +15,57 @@ public class Board {
 	private int scrapCount;
 	private Date enrollDate;
 	private String status;
-	
+	private int replyCount;
+
+
 	public Board() {
 		super();
+	}
+
+	public Board(int boardNo, String title, String content, int categoryNo, String writer, String isQuestion, String isAnonimous,
+			int recommendCount, Date enrollDate, int replyCount) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.categoryNo = categoryNo;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.enrollDate = enrollDate;
+		this.replyCount = replyCount;
+	}
+
+	
+
+	public Board(int boardNo, String title, String content, String writer, String isQuestion, String isAnonimous,
+			int recommendCount, Date enrollDate, int replyCount) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.enrollDate = enrollDate;
+		this.replyCount = replyCount;
+	}
+
+	public Board(String title, String content, String writer, String isQuestion, String isAnonimous, int recommendCount,
+			int scrapCount, int replyCount, int categoryNo, Date enrollDate) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.replyCount = replyCount;
+		this.categoryNo = categoryNo;
+		this.enrollDate = enrollDate;
 	}
 
 	public int getBoardNo() {
@@ -52,11 +100,11 @@ public class Board {
 		this.categoryNo = categoryNo;
 	}
 
-	public int getWriter() {
+	public String getWriter() {
 		return writer;
 	}
 
-	public void setWriter(int writer) {
+	public void setWriter(String writer) {
 		this.writer = writer;
 	}
 
@@ -115,6 +163,15 @@ public class Board {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
 
 	@Override
 	public String toString() {

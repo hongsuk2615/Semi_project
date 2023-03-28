@@ -21,8 +21,8 @@
            <p>회원가입 시 입력한 이름과 이메일 주소를 입력하시면,<br>
             해당 이메일로 비밀번호를 전송해드립니다.
            </p>
-           <input type="text" id="login-id" placeholder="아이디 입력"> <br><br>
-           <input type="text" id="login-email" placeholder="이메일 입력"> <br><br>
+           <input type="text" name="login-id" placeholder="아이디 입력"> <br><br>
+           <input type="text" name="login-email" placeholder="이메일 입력"> <br><br>
            <button id="submit-email">메일 전송</button> <br><br>
             
         </form>

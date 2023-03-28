@@ -334,7 +334,6 @@ function readURL(input) {
             document.querySelector(".modal1").classList.remove("hidden");
         }
         const close1 = () => {
-            console.log('cdlose')
             document.querySelector(".modal1").classList.add("hidden");
         }
         document.querySelector(".openBtn1").addEventListener("click", open1);
@@ -348,7 +347,6 @@ function readURL(input) {
         document.querySelector(".modal2").classList.remove("hidden");
     }
     const close2 = () => {
-        console.log('cdlose')
         document.querySelector(".modal2").classList.add("hidden");
     }
     document.querySelector(".openBtn2").addEventListener("click", open2);
@@ -363,7 +361,6 @@ function readURL(input) {
         document.querySelector(".modal3").classList.remove("hidden");
     }
     const close3 = () => {
-        console.log('cdlose')
         document.querySelector(".modal3").classList.add("hidden");
     }
     document.querySelector(".openBtn3").addEventListener("click", open3);
