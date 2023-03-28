@@ -7,10 +7,14 @@
 	</entry>
 	
 	<entry key = "isId">
-		SELECT *
+	SELECT * 
 		  FROM MEMBER
 		 WHERE USER_ID = ?
+		   AND USER_ID != ?
 	</entry>
+	
+	
+	
 	
 	
 	

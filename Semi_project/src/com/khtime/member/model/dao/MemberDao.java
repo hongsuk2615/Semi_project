@@ -111,8 +111,7 @@ public class MemberDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userId);
 				rset = pstmt.executeQuery();
-				result = rset.next();
-				System.out.println(result);
+				result = rset.next();				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {

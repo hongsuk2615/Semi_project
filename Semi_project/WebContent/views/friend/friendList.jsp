@@ -75,7 +75,7 @@
                     <br>
                     <div id="keyword">
                         <div id="checkid"></div>
-                        <div></div>
+                        <div id="userName"></div>
                         <div></div>
                         <div></div>
                     </div>
@@ -90,16 +90,20 @@
 				 function idCheck2(){
 					 // 아이디를 입력하는 input요소 얻어오기
 					 let inputId = document.getElementById("userId").value;  
+					 let inputName = document.getElementById("userName").value;
 					  $.ajax({
 						 url : "<%= request.getContextPath()%>/friend.me",
 						 data : {userId : inputId},
+						 method : "post",
 						 success : function(result){
 							 console.log(result);
-							 if(result.isId){
-                                $("#checkid").html("님 입니다.").css("color","black");
+							 if(result){
+								 if(confirm("친구 요청 하시겠습니까?")){
+									 location.href="";//친구요청 서블릿으로 연결
+								 }
 							 }else{
 								 
-                                $("#checkid").html("아이디를 잘못입력하셨습니다.").css("color","red");
+                                alert("없는 아이디이거나 본인 아이디입니다.");
 							 }
 							 
 						 }	 

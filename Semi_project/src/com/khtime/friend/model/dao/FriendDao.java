@@ -12,6 +12,8 @@ import java.util.Properties;
 
 import com.khtime.common.JDBCTemplate;
 
+
+
 public class FriendDao {
 	private Properties prop = new Properties();
 	   
@@ -29,8 +31,8 @@ public class FriendDao {
 	      
 	   }
 	   
-		public boolean isId(Connection conn,String userId) {
-			boolean result = false;
+		public boolean isId(Connection conn, String loginUserId ,String userId) {
+			boolean result= false;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("isId");
 			ResultSet rset = null;
@@ -38,9 +40,9 @@ public class FriendDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userId);
+				pstmt.setString(2, loginUserId);
 				rset = pstmt.executeQuery();
 				result = rset.next();
-				System.out.println(result);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -50,4 +52,6 @@ public class FriendDao {
 			
 			return result;
 		}
+		
+	
 }
