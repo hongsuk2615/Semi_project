@@ -131,13 +131,15 @@
     justify-content: center;
 }
 
-#book-text {
-    text-align: center;
-}
-
 #book-footer {
     height: 100px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+#book-thumbnail {
+    background: lightgray;
+    flex-direction: column;
+    display: none;
     align-items: center;
 }

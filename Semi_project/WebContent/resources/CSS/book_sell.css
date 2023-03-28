@@ -1,0 +1,126 @@
+#book-title {
+    height: 300px;
+    background: lightgray;
+}
+
+#book-inf {
+    align-items: center;
+    margin-top: 50px;
+}
+
+#book-body {
+    margin-top: 50px;
+}
+
+#book-home-btn {
+    color: white;
+}
+
+#book-sell,
+#book-thumbnail {
+    background-color: lightgray;
+    flex-direction: column;
+    align-items: center
+}
+
+#book-trade {
+    background-color: lightgray;
+}
+
+#book-body {
+    margin-top: 50px;
+}
+
+#book-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-sell-header {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-img-upload ,
+#book-price ,
+#book-board-upload {
+    height: 100px;
+    background-color: lightgray;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#price {
+    height: 20px;
+}
+
+#book-price-input {
+    height: 30px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-price-enter:hover ,
+#upload:hover ,
+#next ,
+#next1 ,
+#next2 ,
+#next3 {
+    cursor: pointer;
+}
+
+#upload {
+    height: 30px;
+    width: 300px;
+    background-color: rgb(57, 189, 235);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 5px;
+}
+
+.next , 
+#next1 , 
+#next2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-next,
+#book-next1,
+#book-next2,
+#book-next3 {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#book-status,
+#book-trade {
+    display: none;
+    flex-direction: column;
+}
+
+#book-next2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+    border: 0;
+}
+
+#book-status ,
+#book-trade {
+	background-color: lightgray;
+}

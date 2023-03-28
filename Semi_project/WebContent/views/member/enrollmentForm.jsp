@@ -16,10 +16,8 @@
     <style>
      .input-form {
       max-width: 680px;
-
       margin-top: 80px;
       padding: 32px;
-
       background: #fff;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -45,12 +43,10 @@
             display: inline-block;
             box-sizing: border-box;
         }
-
         a {
             text-decoration: none;
             color: black;
         }
-
         #wrapper {
             width: 100%;
             min-width: 1180px;
@@ -236,7 +232,6 @@
 					$("#titleImg").click(function() {
 						$("#file1").click();
 					})
-
 					/* $("#contentImg1").click(function(){
 						$("#file2").click();
 					})
@@ -246,7 +241,6 @@
 					$("#contentImg3").click(function(){
 						$("#file4").click();
 					}) */
-
 				});
 				function loadImg(inputFile, num) {
 					// inputFile : 현재 변화가 생긴 input type="file" 요소
@@ -275,7 +269,6 @@
 						
 							switch(num){
 							case 1: $("#titleImg").attr("src",url);break;
-
 							}
 							
 							
@@ -337,7 +330,6 @@
 				 function validate(){
 			            
 			            // 유효섬 검사 목록 : id , password, name
-
 			            // input 요소 객체들 가져다 놓기
 			           
 			           /*  let userPwd1 = document.getElementById("userPwd1"); */
@@ -361,7 +353,6 @@
 			            }
 			            */     
 			         
-
 			            // 2) 비밀번호 검사
 			            //    영문자(대소문자), 숫자, 특수문자로 이루어진 총 8~15글자
 			            let regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
@@ -373,7 +364,6 @@
 			            } 
 			            
 			            
-
 			            // 3) 비밀번호 일치확인
 			            if(userPwd1.value !== userPwd2.value){
 			                alert("동일한 비밀번호를 입력해주세요.");
@@ -381,7 +371,6 @@
 			                uesrPwd2.select();
 			                return false;
 			            }
-
 			           // 4) 이름검사
 			            //    한글(결합)로만 2글자이상
 			            regExp = /^[가-힣]{2,}$/;
@@ -398,7 +387,6 @@
 			                return false;
 			            }
 						
-
 			      	  // 2. checked 속성을 체크합니다.
 			  		    if(document.getElementById("check_1").checked && document.getElementById("check_2").checked) {
 			  		    	return true;	    	
