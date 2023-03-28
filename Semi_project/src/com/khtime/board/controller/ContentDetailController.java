@@ -37,10 +37,12 @@ public class ContentDetailController extends HttpServlet {
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		
 		Board b = new BoardService().selectContent(bNo);
-		ArrayList<Reply> replyList = new ReplyService().selectReply(bNo);
-		//cNo 추가하기
+		ArrayList<Reply> replyList = new ReplyService().selectReplyList(bNo);
+		String cName = new CategoryService().getCategoryName(b.getCategoryNo());
+		
 		request.setAttribute("replyList", replyList);
 		request.setAttribute("b", b);
+		request.setAttribute("cName", cName);
 		request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
 	}
 

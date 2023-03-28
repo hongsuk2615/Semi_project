@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.khtime.member.model.vo.Member"%>
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
+
+%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +16,13 @@
     <title>Document</title>
 </head>
 <body>
+	<% if(alertMsg != null && !alertMsg.equals("")){ %>
+			<script>
+				alert('<%=alertMsg%>');
+			</script>
+				
+	<% } %>
+	<% session.setAttribute("alertMsg", ""); %>
     <div id="header">
         <div id="header-content">
             <div id="home-logo">

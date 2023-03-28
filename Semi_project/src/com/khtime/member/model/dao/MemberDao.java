@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.khtime.common.JDBCTemplate;
 import com.khtime.member.model.vo.Member;
+import com.khtime.member.model.vo.UserProFileImg;
 
 public class MemberDao {
 	private Properties prop = new Properties();
@@ -43,12 +44,24 @@ public class MemberDao {
 			pstmt.setString(2, userPwd);
 
 			rset = pstmt.executeQuery();
-
-			if (rset.next()) {
-				m = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
-						rset.getString("USER_CLASS"), rset.getString("USER_NAME"), rset.getString("NICK_NAME"),
-						rset.getString("EMAIL"), rset.getDate("ENROLL_DATE"), rset.getInt("AUTHORITY"),
-						rset.getInt("REPORT_COUNT"), rset.getString("IS_BANNED"), rset.getString("IS_WHITELIST"));
+			
+			if(rset.next()) {
+				m = new Member(
+								rset.getInt("USER_NO"),
+								rset.getString("USER_ID"),
+								rset.getString("USER_PWD"),
+								rset.getString("USER_CLASS"),
+								rset.getString("USER_NAME"),
+								rset.getString("NICK_NAME"),
+								rset.getString("EMAIL"),
+								rset.getDate("ENROLL_DATE"),
+								rset.getInt("AUTHORITY"),
+								rset.getInt("REPORT_COUNT"),
+								rset.getInt("RECOMMEND_COUNT"),
+								rset.getString("IS_BANNED"),
+								rset.getString("IS_WHITELIST"), 
+								rset.getString("STATUS")
+						);
 				System.out.println(m);
 
 			}
@@ -66,7 +79,6 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("searchId");
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -86,6 +98,76 @@ public class MemberDao {
 		}
 		return userId;
 	}
+		
+		public boolean isId(Connection conn,String userId) {
+			boolean result = false;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("isId");
+			ResultSet rset = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rset = pstmt.executeQuery();
+				result = rset.next();
+				System.out.println(result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			
+			return result;
+		}
+		
+		public int insertUserProFileImg(Connection conn , int userNo, UserProFileImg upf) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertUserProFileImg");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, userNo);
+				pstmt.setString(2,upf.getOriginName() );
+				pstmt.setString(3, upf.getChangeName());
+				pstmt.setString(4, upf.getFilePath());
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+			} finally {
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+		
+		public int selectMember(Connection conn, String userId) {
+			int userNo = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectMember");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userId);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					userNo = rset.getInt("USER_NO");
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return userNo;
+		}
+
+		
 
 	public boolean memberCheck(Connection conn, String userId, String userEmail) {
 		boolean result = false;

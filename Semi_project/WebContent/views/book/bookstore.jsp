@@ -23,7 +23,7 @@
                 <button id="book-home-btn">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
                 </button>
-                <button type="button" id="book-sell-btn">
+                <button id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
                 </button>
             </div>
@@ -133,13 +133,9 @@
     
     <script>
     	document.getElementById("search-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
+        	location.href = "<%= request.getContextPath() %>/booksearch.do?name="+document.getElementById("bookname").value;
    		 })
-    	
-   		 document.getElementById("book-sell-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/booksell.do";
-   		 })
-   		 
+    
     </script>
 </body>
 </html>
