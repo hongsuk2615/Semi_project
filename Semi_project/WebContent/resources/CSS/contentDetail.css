@@ -29,7 +29,7 @@
    
 }
 
-.content-detail-comments{
+#content-detail-comments{
     display: flex;
     justify-content: space-between;
    

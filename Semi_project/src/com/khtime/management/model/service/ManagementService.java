@@ -143,6 +143,36 @@ public class ManagementService {
 		return result;	
 	}
 	
+	public int approveMakeBoard(String cName) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new ManagementDao().approveMakeBoard(conn, cName);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;	
+	}
+	
+	public int denyMakeBoard(String cName) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new ManagementDao().denyMakeBoard(conn, cName);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;	
+	}
+	
+	
+	
 	
 
 	

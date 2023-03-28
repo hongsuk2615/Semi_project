@@ -29,15 +29,6 @@ public class Reply {
 		this.pReplyNo = pReplyNo;
 	}
 
-	public Reply(int replyNo, String content, String writer, Date enrollDate, String isAnonimous) {
-		super();
-		this.replyNo = replyNo;
-		this.content = content;
-		this.writer = writer;
-		this.enrollDate = enrollDate;
-		this.isAnonimous = isAnonimous;
-	}
-
 
 
 	public int getReplyNo() {

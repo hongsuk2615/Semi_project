@@ -131,10 +131,6 @@
     justify-content: center;
 }
 
-#book-text {
-    text-align: center;
-}
-
 #book-footer {
     height: 100px;
     display: flex;

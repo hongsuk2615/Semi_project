@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.member.model.vo.Member"%>
-<% 
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	String alertMsg = (String)session.getAttribute("alertMsg");
-
-%>  
+<% Member loginUser = (Member)session.getAttribute("loginUser");%>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +12,6 @@
     <title>Document</title>
 </head>
 <body>
-	<% if(alertMsg != null && !alertMsg.equals("")){ %>
-			<script>
-				alert(<%=alertMsg%>);
-			</script>
-	<% } %>
-	<%session.setAttribute("alertMsg", ""); %>		
     <div id="header">
         <div id="header-content">
             <div id="home-logo">
@@ -66,15 +56,17 @@
         })
 
         document.getElementById("enrollment-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/boardDetail.bo?cNo=1&currentPage=1";
+            location.href = "<%= request.getContextPath() %>/enroll.me";
         })
         <% } else if(loginUser.getAuthority() == 0) { %>
             
             document.getElementById("management").addEventListener("click",function(){
                 location.href = "<%= request.getContextPath() %>/management.do";
             })
-        <% } %>
-
+        <% }else{ %>
+	        document.getElementById("mypage-btn").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/myPage.me";
+		<% } %>
          document.getElementById("todolist").addEventListener("click",function(){
             location.href = "<%= request.getContextPath() %>/todolist.me";
         })
