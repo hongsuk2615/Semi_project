@@ -42,14 +42,6 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="memberCheck">
-		SELECT * 
-		  FROM MEMBER
-		 WHERE USER_ID = ?
-		   AND EMAIL = ?
-		   AND STATUS = 'Y'
-	</entry>
-	
 	
 	
 	<entry key="checkNickName">

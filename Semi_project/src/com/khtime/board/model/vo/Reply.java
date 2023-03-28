@@ -7,7 +7,7 @@ import oracle.sql.DATE;
 public class Reply {
 	private int replyNo;
 	private int boardNo;
-	private String writer;
+	private int writer;
 	private String content;
 	private Date enrollDate;
 	private String isAnonimous;
@@ -16,19 +16,6 @@ public class Reply {
 	public Reply() {
 		super();
 	}
-
-	
-	
-	public Reply(int replyNo, String writer, String content, Date enrollDate, String isAnonimous, int pReplyNo) {
-		super();
-		this.replyNo = replyNo;
-		this.writer = writer;
-		this.content = content;
-		this.enrollDate = enrollDate;
-		this.isAnonimous = isAnonimous;
-		this.pReplyNo = pReplyNo;
-	}
-
 
 
 	public int getReplyNo() {
@@ -47,11 +34,11 @@ public class Reply {
 		this.boardNo = boardNo;
 	}
 
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
 
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 

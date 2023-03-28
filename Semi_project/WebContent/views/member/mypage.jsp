@@ -224,7 +224,7 @@
 						style="width: 100%; height: 120px; display: flex; justify-content: space-evenly; padding-top: 70px;">
 						<button type="submit" id="yes" style="width: 100%;">예</button>
 						<button id="no" style="width: 100%;">아니오</button>
-					</div>
+					</div>aaaa
 				</div>
 			</div>
 			</form>
@@ -334,6 +334,7 @@ function readURL(input) {
             document.querySelector(".modal1").classList.remove("hidden");
         }
         const close1 = () => {
+            console.log('cdlose')
             document.querySelector(".modal1").classList.add("hidden");
         }
         document.querySelector(".openBtn1").addEventListener("click", open1);
@@ -347,6 +348,7 @@ function readURL(input) {
         document.querySelector(".modal2").classList.remove("hidden");
     }
     const close2 = () => {
+        console.log('cdlose')
         document.querySelector(".modal2").classList.add("hidden");
     }
     document.querySelector(".openBtn2").addEventListener("click", open2);
@@ -361,6 +363,7 @@ function readURL(input) {
         document.querySelector(".modal3").classList.remove("hidden");
     }
     const close3 = () => {
+        console.log('cdlose')
         document.querySelector(".modal3").classList.add("hidden");
     }
     document.querySelector(".openBtn3").addEventListener("click", open3);

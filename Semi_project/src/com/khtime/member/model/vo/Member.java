@@ -13,7 +13,6 @@ public class Member {
 	private Date date;
 	private int authority;
 	private int reportCount;
-	private int recommendCount;
 	private String isBanned;
 	private String isWhitelist;
 	private String status;
@@ -38,16 +37,6 @@ public class Member {
 		this.reportCount = reportCount;
 		this.isBanned = isBanned;
 		this.isWhitelist = isWhitelist;
-	}
-
-	
-	public int getRecommendCount() {
-		return recommendCount;
-	}
-
-
-	public void setRecommendCount(int recommendCount) {
-		this.recommendCount = recommendCount;
 	}
 
 
