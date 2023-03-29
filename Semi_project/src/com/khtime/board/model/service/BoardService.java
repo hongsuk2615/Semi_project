@@ -47,10 +47,10 @@ public class BoardService {
 	}
 
 	
-	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
+	public ArrayList<Board> bestList(int rcCount, PageInfo pi, String year) {
 		Connection conn = getConnection();
 
-		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi);
+		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi, year);
 
 		close(conn);
 

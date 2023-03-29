@@ -194,9 +194,9 @@ public class BoardDao {
 	   
 	   
 	   
-	   public ArrayList<Board> bestList(Connection conn, int rcCount, PageInfo pi) {
+	   public ArrayList<Board> bestList(Connection conn, int rcCount, PageInfo pi, String year) {
 		    
-		   ArrayList <Board> boardList= new ArrayList<>();
+		   ArrayList <Board> bestList= new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			
@@ -209,8 +209,9 @@ public class BoardDao {
 				int endRow = startRow + pi.getBoardLimit() - 1;
 				
 				pstmt.setInt(1, rcCount);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setString(2, year);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
 				
 				rset = pstmt.executeQuery();
 				while(rset.next()) {
@@ -227,7 +228,7 @@ public class BoardDao {
 								rset.getInt("REPLY_COUNT")
 							);
 					
-					boardList.add(b);
+					bestList.add(b);
 				}		
 				
 			} catch (SQLException e) {
@@ -236,7 +237,7 @@ public class BoardDao {
 				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
-			return boardList;
+			return bestList;
 		}
 	   
 	   public int bestListCount(Connection conn, int rcCount) {
