@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class PasswordEncryptFilter
  */
-@WebFilter("/enroll.me")
+@WebFilter({"/login.me","/enroll.me"})
 public class PasswordEncryptFilter implements Filter {
 
     /**
@@ -35,6 +35,7 @@ public class PasswordEncryptFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		System.out.println("ffff");
 		PasswordEncryptWrapper pew = new PasswordEncryptWrapper((HttpServletRequest)request);
 		
 		chain.doFilter(pew, response);

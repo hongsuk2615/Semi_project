@@ -10,6 +10,8 @@ public class Friend {
 	}
 
 
+
+
 	public int getUser1() {
 		return user1;
 	}

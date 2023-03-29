@@ -21,6 +21,21 @@ public class Member {
 	public Member() {
 		super();
 	}
+	
+	
+
+	public Member(String userId, String userPwd, String userClass, String userName, String nickName, String email,
+			int authority) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userClass = userClass;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.email = email;
+		this.authority = authority;
+	}
+
 
 
 	public Member(int userNo, String userId, String userPwd, String userClass, String userName, String nickName,

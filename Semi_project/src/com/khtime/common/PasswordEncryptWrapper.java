@@ -19,13 +19,13 @@ public class PasswordEncryptWrapper extends HttpServletRequestWrapper{
 	@Override
 	public String getParameter(String name) {
 		String value = "";
+		System.out.println(name);
 		// 매개변수로 전달받은 name변수의 값이 userPwd일때 암호화 작업 수행하기
-		if (name.equals("userPwd1") ) {
+		if (name.equals("login-pwd")) {
 			//암호화 시켜주기
 			System.out.println("암호화 전 비밀번호 : " + super.getParameter(name));
 			value = getSHA512(super.getParameter(name));
 			System.out.println("암호화 후 비밀번호 : " + value);
-			System.out.println(value.length());
 		}else {
 			value = super.getParameter(name);
 		}
