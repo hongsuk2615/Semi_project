@@ -1,29 +1,25 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Reply;
 
 /**
- * Servlet implementation class ReplySelectController
+ * Servlet implementation class ReplyRecommendController
  */
-@WebServlet("/select.re")
-public class ReplySelectController extends HttpServlet {
+@WebServlet("/recommend.re")
+public class ReplyRecommendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplySelectController() {
+    public ReplyRecommendController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +28,17 @@ public class ReplySelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
-		ArrayList<Reply> list = new ReplyService().selectReplyList(bNo);
+		int rNo = Integer.valueOf(request.getParameter("rNo"));
+		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		
-		
-		// Gson을 이용해서 응답 ArrayList- > JSONArray로 변환
-		response.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(list , response.getWriter());
+		int result = new ReplyService().deleteReply(rNo);
+		if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "삭제성공");
+		}else {
+			request.getSession().setAttribute("alertMsg", "삭제성공");
+		}
+		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}
 
 	/**

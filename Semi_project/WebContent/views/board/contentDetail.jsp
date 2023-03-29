@@ -165,7 +165,7 @@
 		
 		function insertReply(){
 			$.ajax({
-				url : "<%=request.getContextPath()%>/rInsert.bo",
+				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
 					
 					content : $("#replyContent").val(), 
@@ -191,20 +191,25 @@
 		}
 		
 		function selectReplyList(){
+			let replycount = 0;
 			$.ajax({
-				url : "<%=request.getContextPath()%>/rSelect.bo",
+				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
 					let result  = "";
 					for(let i of list){ 
 						result += "<li>"
+							// <0,1> <1,2> <2,3> <3,4> 
+							 + i.replyNo
 							 + "<div class='content-detail-comments'>"
 							 + "<div class='comments-left'>"
 							 +"프로필사진"
 							 + i.writer
 							 + "</div>"
 							 + "<div class='comments-right'>"
-		                     + " 대댓글 공감 삭제 신고"
+		                     + " 대댓글 신고"
+		                     +"<button id=recommendbtn"+i.replyNo+" onclick='recommendclick(this.id)'>공감</button>"
+		                     +"<button id=deletebtn"+i.replyNo+" onclick='deleteclick(this.id)'>삭제</button>"
 		                     + "</div>"
 		                     + "</div>"
 		                     + i.content
@@ -231,6 +236,16 @@
   	    document.getElementById("scrapbtn").addEventListener("click",function(){
   	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
   	    })
+  	   
+  	    function deleteclick(id){
+			 alert(id.substr(9));
+			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
+		 }
+		 
+		 function recommendclick(id){
+			 alert(id.substr(12));
+			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
+		 }
 	</script>
 
 

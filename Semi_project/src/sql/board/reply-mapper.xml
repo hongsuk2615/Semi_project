@@ -19,6 +19,11 @@
 		WHERE BOARD_NO = ?
 		ORDER BY ENROLL_DATE DESC, REPLY_NO DESC
 	</entry>
+	
+	<entry key="deleteReply">
+		DELETE FROM REPLY
+			WHERE REPLY_NO = ?
+	</entry>
 
 	
 </properties>

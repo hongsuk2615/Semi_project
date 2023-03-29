@@ -9,7 +9,7 @@ import com.khtime.common.JDBCTemplate;
 
 public class ReplyService {
 	
-public int insertReply(Reply r, int userNo) {
+	public int insertReply(Reply r, int userNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -35,5 +35,20 @@ public int insertReply(Reply r, int userNo) {
 		JDBCTemplate.close(conn);
 		
 		return list;
+	}
+	
+	public int deleteReply(int rNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new ReplyDao().deleteReply(conn, rNo);
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		return result;
 	}
 }

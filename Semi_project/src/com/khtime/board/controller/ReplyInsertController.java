@@ -15,7 +15,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ReplyInsertController
  */
-@WebServlet("/rInsert.bo")
+@WebServlet("/insert.re")
 public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
