@@ -143,9 +143,9 @@
                                          
                FROM BOARD B
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE B.RECOMMENT_COUNT > ?
+               WHERE B.RECOMMEND_COUNT > ?
                  AND B.STATUS = 'Y'
-               ORDER BY B.RECOMMENT_COUNT DESC
+               ORDER BY B.RECOMMEND_COUNT DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
@@ -156,7 +156,7 @@
 	<entry key="bestListCount">
 		SELECT COUNT(*) AS COUNT
 		  FROM BOARD
-		 WHERE RECOMMENT_COUNT > ?
+		 WHERE RECOMMEND_COUNT > ?
 		   AND STATUS = 'Y'
 		   
 	</entry>

@@ -59,57 +59,53 @@
                             <a href="">21년 하반기</a>
                             <a href="">21년 상반기</a>
                             </div>
-
+							<% if(bestList==null) { %>
+                              글이 없습니다,,
+                           <% }else{ %>
                             <ul>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div>공감</div>
-                                            <div>댓글</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div>공감</div>
-                                            <div>댓글</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <% for(Board b : bestList) { %>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div><%= b.getRecommendCount() %></div>
+                           
+                               <% for(Board b : bestList) { %>
+                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
+                                <%= b.getTitle() %><br>
+                                    <%= b.getContent() %> <br>
+                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
+                                    <div id="board-detail-comment">
+                                        <div>첨부파일</div>
+                                        <div><%= b.getRecommendCount() %></div>
                                         <div><%= b.getReplyCount() %></div>
-                                        </div>
                                     </div>
                                 </li>
-								<% } %>
-                                
                                
+                                   <% } %>
+                                 <% } %>
                             </ul>
+                             <script>
+                           $(function(){
+                              $("#board-detail li").click(function(){
+                                 let bNo = $(this).children().eq(0).text();
+                                 location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+                                 
+                              });
+                           });
+                        </script>
                             
                     </div>
                     <div id="board-detail-search">
                        
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
-                        <div>이전</div>
-                        <div>다음</div>
+				                        
+				      <div align="center" class="paging-area">
+				         
+				         <% if( currentPage != 1) { %>
+				            <button onclick="location.href = '<%=request.getContextPath() %>/best.bo?rcCount=<%=rcCount%>&currentPage=<%= currentPage -1 %>'">이전</button>
+				         <% } %>
+				         
+				         <% if(currentPage != pi.getMaxPage()) { %>
+				            <button onclick="location.href = '<%=request.getContextPath() %>/best.bo?rcCount=<%=rcCount%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
+				         <% } %>
+				         
+				      </div>
                         </div>
                     </div>
                     </div>
