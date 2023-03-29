@@ -36,7 +36,7 @@ public class BoardDao {
 	      
 	   }
 	   
-	   public ArrayList<Board> getHotBestBoardlist(Connection conn, int recommendCount){
+	   public ArrayList<Board> getHotBestBoardlist(Connection conn, int recommendCount, String year){
 		   ArrayList<Board> list = new ArrayList<Board>();
 		   PreparedStatement pstmt = null;
 		   ResultSet rset = null;
@@ -44,9 +44,13 @@ public class BoardDao {
 		   try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, recommendCount);
+			pstmt.setString(2, year);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				
+				Board b = new Board();
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setTitle(rset.getString("TITLE"));
+				list.add(b);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

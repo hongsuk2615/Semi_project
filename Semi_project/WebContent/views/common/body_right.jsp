@@ -93,24 +93,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -123,24 +106,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -163,8 +129,12 @@
         $(function(){
         function getHotBestBoardList(recommendCount, num){
             $.ajax({
-                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get',
                 type : 'get',
+                data : {
+                    rcCount : recommendCount,
+                    year : new Date().getFullYear()
+                },
                 success : function(result){
                     if(result.length == 0 ){
                         $('#board-'+num+' tbody').append('<tr>'+
@@ -193,8 +163,8 @@
             }				
         });			
     }
-    getHotBestBoardList(10,7);
-    getHotBestBoardList(100,8);
+    getHotBestBoardList(9,7);
+    getHotBestBoardList(99,8);
  });
     </script>
 
