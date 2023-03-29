@@ -1,6 +1,7 @@
 package com.khtime.todolist.vo;
 
 public class Todolist {
+	private int toDoListNo;
 	private String userId;
 	private String content;
 	private int priority;

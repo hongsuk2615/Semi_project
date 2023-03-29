@@ -42,7 +42,7 @@ public class BoardDetailController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int cNo = Integer.valueOf(request.getParameter("cNo"));
-		
+		System.out.println(cNo);
 		
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)

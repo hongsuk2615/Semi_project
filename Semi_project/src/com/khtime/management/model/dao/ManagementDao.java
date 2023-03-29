@@ -250,7 +250,7 @@ public class ManagementDao {
 				reportedUser.setIsWhitelist(rset.getString("IS_WHITELIST"));
 				reportedUser.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
 				reportedUser.setReportCount(rset.getInt("REPORT_COUNT"));
-				reportedUser.setDate(rset.getDate("ENROLL_DATE"));
+				reportedUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
