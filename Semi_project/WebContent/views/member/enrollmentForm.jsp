@@ -14,7 +14,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
     <style>
-     .input-form {
+      .input-form {
       max-width: 680px;
       margin-top: 80px;
       padding: 32px;
@@ -42,6 +42,7 @@
         div {
             display: inline-block;
             box-sizing: border-box;
+            
         }
         a {
             text-decoration: none;

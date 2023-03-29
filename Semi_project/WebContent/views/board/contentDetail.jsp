@@ -120,10 +120,36 @@
 
                             <!-- 댓글 -->
                             
-                            <ul id="comments-area">
+                         <ul id="comments-area">
+                            <% if(replyList.isEmpty()) { %>
+                           	글이 없습니다,,
+                           <% }else{ %>
+                              
                            
-                            </ul>
-                            
+                            	<% for(Reply r : replyList) { %>
+                               <li>
+							
+							<%= r.getReplyNo() %>
+							 <div class='content-detail-comments'>
+							 <div class='comments-left'>
+							 프로필사진
+							 <%= r.getWriter() %>
+							 </div>
+							 <div class='comments-right'>
+		                     대댓글 신고
+		                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
+		                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
+		                     </div>
+		                     </div>
+		                     <%= r.getContent() %>
+		                     <br>
+		                     <%= r.getEnrollDate() %>
+		                     <br>
+		                     </li>
+                               
+                              	  <% } %>
+                                 <% } %>
+                                  </ul>
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
@@ -159,9 +185,9 @@
         </div>
     </div>
 		<script>
-		$(function(){
+		/* $(function(){
 			setInterval(selectReplyList, 1000);
-		});
+		}); */
 		
 		function insertReply(){
 			$.ajax({
@@ -173,13 +199,10 @@
 					isAnonimous : $("#isAnonimous").val()
 				}, 
 				success : function(result){
-					//댓글등록성공시  result = 1
 					console.log(result);
-					// 댓글등록 실패시 result = 0
 					if(result > 0){
-						//새 댓글목록 불러오는 함수호출
+						$("#comments-area").html("");
 						selectReplyList();
-						// 댓글내용 비워주기
 						$("#replyContent").val("");
 					}else{
 						alert("댓글작성에 실패했습니다.");	
