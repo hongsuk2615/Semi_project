@@ -144,6 +144,7 @@
                FROM BOARD B
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
                WHERE B.RECOMMEND_COUNT > ?
+               AND TO_CHAR(B.ENROLL_DATE,'YYYY') = ?
                  AND B.STATUS = 'Y'
                ORDER BY B.RECOMMEND_COUNT DESC
             ) A

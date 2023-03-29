@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>    
-    <% 
+ <% 
    ArrayList <Board> bestList  = (ArrayList<Board>) request.getAttribute("bestList"); 
     int rcCount = Integer.parseInt(request.getParameter("rcCount"));
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
-   
-%>   
+   String boardTitle = (String)request.getAttribute("boardTitle");
+   String year = request.getParameter("year");
+   %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="../../resources/CSS/body.css">
     <link rel="stylesheet" href="../../resources/CSS/footer.css">
     <link rel="stylesheet" href="../../resources/CSS/bestBoard.css">
+    <link rel="stylesheet" href="resources/CSS/boardDetail.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -51,13 +54,11 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> BEST 게시판</div>
+                            <div> <%= boardTitle%></div>
                             <div>
-                            <a href="">23년 상반기</a>
-                            <a href="">22년 하반기</a>
-                            <a href="">22년 상반기</a>
-                            <a href="">21년 하반기</a>
-                            <a href="">21년 상반기</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2023" >2023</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2022">2022</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2021">2021</a>
                             </div>
 							<% if(bestList==null) { %>
                               글이 없습니다,,
@@ -88,6 +89,22 @@
                               });
                            });
                         </script>
+                        
+                        
+        <script>
+        
+	    
+	    $("#board-8 th").click(function(){
+	    	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
+	    })
+    </script>
+                        
+                        
+                        
+                        
+                        
+                        
                             
                     </div>
                     <div id="board-detail-search">

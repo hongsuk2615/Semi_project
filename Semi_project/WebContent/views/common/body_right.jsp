@@ -149,11 +149,13 @@
     
     <script>
         $("#board-7 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=9";
+        	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=9&year="+date.getFullYear();
 	    })
 	    
 	    $("#board-8 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99";
+	    	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
 	    })
     </script>
 
