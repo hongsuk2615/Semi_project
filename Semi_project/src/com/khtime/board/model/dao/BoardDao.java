@@ -49,7 +49,6 @@ public class BoardDao {
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -164,7 +163,7 @@ public class BoardDao {
 			return b;
 		}
 	   
-	   public int insertBoard(Connection conn, Board b) {
+	   public int insertBoard(Connection conn, Board b, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -176,8 +175,7 @@ public class BoardDao {
 				pstmt.setString(1, b.getTitle());
 				pstmt.setString(2, b.getContent());
 				pstmt.setInt(3, b.getCategoryNo());
-				System.out.println(b.getWriter());
-				pstmt.setString(4, b.getWriter());
+				pstmt.setInt(4, userNo);
 				pstmt.setString(5, b.getIsQuestion());
 				pstmt.setString(6, b.getIsAnonimous());
 				

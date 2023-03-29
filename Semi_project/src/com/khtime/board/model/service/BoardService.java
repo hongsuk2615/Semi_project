@@ -72,11 +72,11 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
-	public int insertBoard(Board b) {
+	public int insertBoard(Board b, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new BoardDao().insertBoard(conn, b);
-
+		int result = new BoardDao().insertBoard(conn, b, userNo);
+		System.out.println("result:" + result);
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {
