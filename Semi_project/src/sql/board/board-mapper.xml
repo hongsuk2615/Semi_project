@@ -3,87 +3,87 @@
 <properties>
 
 
-	<entry key="selectBoard">
-		SELECT * 	
-		FROM(
-				SELECT ROWNUM RNUM , A.*
-				FROM (
-					SELECT DISTINCT
-					      BOARD_NO,
-					      TITLE,
-					      CONTENT,
-					      B.CATEGORY_NO,
-					      M.NICK_NAME AS WRITER,
-					      IS_QUESTION,
+   <entry key="selectBoard">
+      SELECT *    
+      FROM(
+            SELECT ROWNUM RNUM , A.*
+            FROM (
+               SELECT DISTINCT
+                     BOARD_NO,
+                     TITLE,
+                     CONTENT,
+                     B.CATEGORY_NO,
+                     M.NICK_NAME AS WRITER,
+                     IS_QUESTION,
                           IS_ANONIMOUS,
-					      B.RECOMMEND_COUNT,
-					      B.ENROLL_DATE,
-					      REPLY_COUNT
-					                          
-					FROM BOARD B
-					JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-					WHERE CATEGORY_NO = ?
-					  AND B.STATUS = 'Y'
-					ORDER BY ENROLL_DATE DESC
-				) A
-			)
-		WHERE RNUM BETWEEN ? AND ?
+                     B.RECOMMEND_COUNT,
+                     B.ENROLL_DATE,
+                     REPLY_COUNT
+                                         
+               FROM BOARD B
+               JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+               WHERE CATEGORY_NO = ?
+                 AND B.STATUS = 'Y'
+               ORDER BY ENROLL_DATE DESC
+            ) A
+         )
+      WHERE RNUM BETWEEN ? AND ?
         
-	</entry>
-	
+   </entry>
+   
 
-	<entry key="boardListCount">
-		SELECT COUNT(*) AS COUNT
-		  FROM BOARD
-		 WHERE CATEGORY_NO = ?
-		   AND STATUS = 'Y'
-	</entry>
+   <entry key="boardListCount">
+      SELECT COUNT(*) AS COUNT
+        FROM BOARD
+       WHERE CATEGORY_NO = ?
+         AND STATUS = 'Y'
+   </entry>
 
 
-	<entry key="selectContent">
-		SELECT 
-				B.BOARD_NO,
-				TITLE,
-				CONTENT,
-				M.NICK_NAME AS WRITER,
-				IS_QUESTION,
-				IS_ANONIMOUS,
-				B.RECOMMEND_COUNT,
-				B.SCRAP_COUNT,
-				REPLY_COUNT,
-				B.CATEGORY_NO,
-				B.ENROLL_DATE
-		  FROM BOARD B
-		  JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-		 WHERE BOARD_NO = ?
-		   AND B.STATUS = 'Y'
-	</entry>
-	
-	<entry key="test">
-	  (SELECT COUNT(*)
+   <entry key="selectContent">
+      SELECT 
+            B.BOARD_NO,
+            TITLE,
+            CONTENT,
+            M.NICK_NAME AS WRITER,
+            IS_QUESTION,
+            IS_ANONIMOUS,
+            B.RECOMMEND_COUNT,
+            B.SCRAP_COUNT,
+            REPLY_COUNT,
+            B.CATEGORY_NO,
+            B.ENROLL_DATE
+        FROM BOARD B
+        JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+       WHERE BOARD_NO = ?
+         AND B.STATUS = 'Y'
+   </entry>
+   
+   <entry key="test">
+     (SELECT COUNT(*)
                           FROM REPLY R
                           WHERE R.BOARD_NO = B.BOARD_NO)  
-	</entry>
-	
-	<entry key="insertBoard">
-		INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER, IS_QUESTION, IS_ANONIMOUS)
-		VALUES(SEQ_BONO.NEXTVAL
-			  ,?
-			  ,?
-			  ,?
-			  ,?
-			  ,?
-			  ,?
-			  )
-	</entry>
-	
-	
-	
-	
-	
-	
-	
-	<entry key="searchList">
+   </entry>
+   
+   <entry key="insertBoard">
+      INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER, IS_QUESTION, IS_ANONIMOUS)
+      VALUES(SEQ_BONO.NEXTVAL
+           ,?
+           ,?
+           ,?
+           ,?
+           ,?
+           ,?
+           )
+   </entry>
+   
+   
+   
+   
+   
+   
+   
+   <entry key="searchList">
       SELECT *    
       FROM(
             SELECT ROWNUM RNUM , A.*
@@ -110,85 +110,85 @@
       WHERE RNUM BETWEEN ? AND ?
         
    </entry>
-	
-	
-	
-	<entry key="keywordListCount">
-		SELECT COUNT(*) AS COUNT
-		  FROM BOARD
-		 WHERE TITLE LIKE  ?
+   
+   
+   
+   <entry key="keywordListCount">
+      SELECT COUNT(*) AS COUNT
+        FROM BOARD
+       WHERE TITLE LIKE  ?
                   OR CONTENT LIKE ?
-		   AND STATUS = 'Y'
-	</entry>
-	
-	
-	
-	
-	<entry key="bestList">
-		SELECT * 	
-		FROM(
-				SELECT ROWNUM RNUM , A.*
-				FROM (
-					SELECT DISTINCT
-					      BOARD_NO,
-					      TITLE,
-					      CONTENT,
-					      B.CATEGORY_NO,
-					      M.NICK_NAME AS WRITER,
-					      IS_QUESTION,
+         AND STATUS = 'Y'
+   </entry>
+   
+   
+   
+   
+   <entry key="bestList">
+      SELECT *    
+      FROM(
+            SELECT ROWNUM RNUM , A.*
+            FROM (
+               SELECT DISTINCT
+                     BOARD_NO,
+                     TITLE,
+                     CONTENT,
+                     B.CATEGORY_NO,
+                     M.NICK_NAME AS WRITER,
+                     IS_QUESTION,
                           IS_ANONIMOUS,
-					      B.RECOMMEND_COUNT,
-					      B.ENROLL_DATE,
-					      REPLY_COUNT
-					                          
-					FROM BOARD B
-					JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-					WHERE B.RECOMMENT_COUNT > ?
-					  AND B.STATUS = 'Y'
-					ORDER BY B.RECOMMENT_COUNT DESC
-				) A
-			)
-		WHERE RNUM BETWEEN ? AND ?
+                     B.RECOMMEND_COUNT,
+                     B.ENROLL_DATE,
+                     REPLY_COUNT
+                                         
+               FROM BOARD B
+               JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+               WHERE B.RECOMMENT_COUNT > ?
+                 AND B.STATUS = 'Y'
+               ORDER BY B.RECOMMENT_COUNT DESC
+            ) A
+         )
+      WHERE RNUM BETWEEN ? AND ?
         
-	</entry>
-	
+   </entry>
+   
 
-	<entry key="bestListCount">
-		SELECT COUNT(*) AS COUNT
-		  FROM BOARD
-		 WHERE RECOMMENT_COUNT > ?
-		   AND STATUS = 'Y'
-		   
-	</entry>
-	
-	
-	<entry key="deleteContent">
-	  UPDATE BOARD SET
-	  	STATUS = 'N'
-	  	WHERE BOARD_NO = ?
-	</entry>
-	
-	<entry key="updateBoard">
-	  UPDATE BOARD SET
-	  	TITLE = ?,
-	  	CONTENT = ?,
-	  	CATEGORY_NO = ?,
-	  	IS_QUESTION = ?,
-	  	IS_ANONIMOUS = ?
-	  		WHERE BOARD_NO = ?
-	</entry>
-	
-	<entry key="updateRecommend">
-	  UPDATE BOARD SET
-	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
-	  	WHERE BOARD_NO = ?
-	</entry>
-	
-	<entry key="updateScrap">
-	  UPDATE BOARD SET
-	  	SCRAP_COUNT = SCRAP_COUNT + 1
-	  	WHERE BOARD_NO = ?
-	</entry>
-	
-	
+   <entry key="bestListCount">
+      SELECT COUNT(*) AS COUNT
+        FROM BOARD
+       WHERE RECOMMENT_COUNT > ?
+         AND STATUS = 'Y'
+         
+   </entry>
+   
+   
+   <entry key="deleteContent">
+     UPDATE BOARD SET
+        STATUS = 'N'
+        WHERE BOARD_NO = ?
+   </entry>
+   
+   <entry key="updateBoard">
+     UPDATE BOARD SET
+        TITLE = ?,
+        CONTENT = ?,
+        CATEGORY_NO = ?,
+        IS_QUESTION = ?,
+        IS_ANONIMOUS = ?
+           WHERE BOARD_NO = ?
+   </entry>
+   
+   <entry key="updateRecommend">
+     UPDATE BOARD SET
+        RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+        WHERE BOARD_NO = ?
+   </entry>
+   
+   <entry key="updateScrap">
+     UPDATE BOARD SET
+        SCRAP_COUNT = SCRAP_COUNT + 1
+        WHERE BOARD_NO = ?
+   </entry>
+   
+   
 </properties>
