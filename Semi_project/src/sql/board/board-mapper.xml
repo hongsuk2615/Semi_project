@@ -192,5 +192,12 @@
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
+	<entry key="getHotBestBoardlist">
+		SELECT BOARD_NO
+		     , TITLE
+		  FROM BOARD
+		 WHERE RECOMMEND_COUNT > ?
+		   AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
+	</entry>
 	
 </properties>
