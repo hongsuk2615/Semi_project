@@ -11,11 +11,20 @@ public class Todolist {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Todolist(String userId, String content, int priority) {
+	public Todolist(int toDoListNo, String userId, String content, int priority) {
 		super();
+		this.toDoListNo = toDoListNo;
 		this.userId = userId;
 		this.content = content;
 		this.priority = priority;
+	}
+
+	public int getToDoListNo() {
+		return toDoListNo;
+	}
+
+	public void setToDoListNo(int toDoListNo) {
+		this.toDoListNo = toDoListNo;
 	}
 
 	public String getUserId() {
@@ -44,8 +53,11 @@ public class Todolist {
 
 	@Override
 	public String toString() {
-		return "Todolist [userId=" + userId + ", content=" + content + ", priority=" + priority + "]";
+		return "Todolist [toDoListNo=" + toDoListNo + ", userId=" + userId + ", content=" + content + ", priority="
+				+ priority + "]";
 	}
+
+	
 	
 	
 }
