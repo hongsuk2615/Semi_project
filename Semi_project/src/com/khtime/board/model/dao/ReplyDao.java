@@ -35,7 +35,7 @@ public class ReplyDao {
 	   }
 	   
 
-		public int insertReply(Connection conn, Reply r) {
+		public int insertReply(Connection conn, Reply r, int userNo) {
 			
 			int result = 0;
 			
@@ -45,12 +45,12 @@ public class ReplyDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
-				
+				System.out.println("bno: " + r.getBoardNo());
 				pstmt.setInt(1, r.getBoardNo());
-				pstmt.setInt(2, Integer.parseInt(r.getWriter()));
+				pstmt.setInt(2, userNo);
 				pstmt.setString(3, r.getContent());
 				pstmt.setString(4, r.getIsAnonimous());
-				
+				System.out.println("dao:"+r.getIsAnonimous());
 				
 				result = pstmt.executeUpdate();
 				

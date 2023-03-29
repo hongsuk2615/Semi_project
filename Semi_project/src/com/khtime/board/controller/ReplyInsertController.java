@@ -31,19 +31,19 @@ public class ReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 		String content = request.getParameter("content");
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-		String isAnonimous = request.getParameter("isAnonimous");
-	
+		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
+		
 		Reply r = new Reply();
 		r.setContent(content);
-		r.setReplyNo(bNo);
-		r.setWriter(userNo+"");
+		r.setBoardNo(bNo);
 		r.setIsAnonimous(isAnonimous);
 		
-		int result = new ReplyService().insertReply(r);
+		int result = new ReplyService().insertReply(r, userNo);
 		
+		response.setContentType("text/html charset=UTF-8");
 		response.getWriter().print(result);
 	}
 
