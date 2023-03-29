@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -118,30 +117,12 @@
                             
 
 
-                            <!-- 댓글 -->
-                            
-                            <ul id="comments-area">
-                           
-                            </ul>
-                            
-                    <!-- 댓글달기 -->
-                    <div id="createComments">
-                        <div>
-                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" >댓글입력.</textarea>
-                        </div>
-                        <div>
-                            <div>
-                                <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
-                            </div>
-                            <div>
-                                <button onclick="insertReply()">글작성 버튼</button>
-                            </div>
-                        </div>
-                    </div>
+                        
+                   
                 </div>
                     <div id="goto-boardlist">
                        
-                        <div>글 목록</div>
+                        <div>수정 뒤로가기</div>
                     </div>
                     </div>
     
@@ -158,83 +139,7 @@
 
         </div>
     </div>
-		<script>
-		$(function(){
-			setInterval(selectReplyList, 1000);
-		});
-		
-		function insertReply(){
-			$.ajax({
-				url : "<%=request.getContextPath()%>/rInsert.bo",
-				data :{
-					
-					content : $("#replyContent").val(), 
-					bNo     : "<%= b.getBoardNo() %>",
-					isAnonimous : $("#isAnonimous").val()
-				}, 
-				success : function(result){
-					//댓글등록성공시  result = 1
-					console.log(result);
-					// 댓글등록 실패시 result = 0
-					if(result > 0){
-						//새 댓글목록 불러오는 함수호출
-						selectReplyList();
-						// 댓글내용 비워주기
-						$("#replyContent").val("");
-					}else{
-						alert("댓글작성에 실패했습니다.");	
-					}
-				}, error : function(){
-					console.log("댓글작성실패")
-				}
-			})
-		}
-		
-		function selectReplyList(){
-			$.ajax({
-				url : "<%=request.getContextPath()%>/rSelect.bo",
-				data : { bNo : "<%=b.getBoardNo() %>"},
-				success : function(list){
-					let result  = "";
-					for(let i of list){ 
-						result += "<li>"
-							 + "<div class='content-detail-comments'>"
-							 + "<div class='comments-left'>"
-							 +"프로필사진"
-							 + i.writer
-							 + "</div>"
-							 + "<div class='comments-right'>"
-		                     + " 대댓글 공감 삭제 신고"
-		                     + "</div>"
-		                     + "</div>"
-		                     + i.content
-		                     + "<br>"
-		                     + i.enrollDate
-		                     + "<br>"
-		                     + "</li>"
-					}
-					$("#comments-area").html(result);
-				},
-				error : function(){
-					console.log("게시글 목록조회 실패")
-				}
-			})
-		}
-		</script>
-		
-		<script>
-		 document.getElementById("recommendbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/recommend.bo?bNo="+<%= b.getBoardNo() %>;
-  	        
-  	    })
-  	    
-  	    document.getElementById("scrapbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
-  	    })
-	</script>
-
-
-
+	
 
 </body>
 

@@ -9,11 +9,11 @@ import com.khtime.common.JDBCTemplate;
 
 public class ReplyService {
 	
-public int insertReply(Reply r) {
+public int insertReply(Reply r, int userNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new ReplyDao().insertReply(conn, r);
+		int result = new ReplyDao().insertReply(conn, r, userNo);
 		
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
