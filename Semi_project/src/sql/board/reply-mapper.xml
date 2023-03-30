@@ -27,7 +27,7 @@
 	<entry key="deleteReply">
 		DELETE FROM REPLY
 			WHERE REPLY_NO = ?
-			AND USER_NO = ?
+			AND WRITER = ?
 	</entry>
 	
 		<entry key="recommendCountUp">

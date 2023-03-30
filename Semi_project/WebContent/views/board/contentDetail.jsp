@@ -201,7 +201,6 @@
 				success : function(result){
 					console.log(result);
 					if(result > 0){
-						$("#comments-area").html("");
 						selectReplyList();
 						selectReplyCount();
 						$("#replyContent").val("");

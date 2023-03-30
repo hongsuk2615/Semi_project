@@ -33,7 +33,6 @@ public class ContentScrapController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		
 		int result = new ScrapService().scrapContent(bNo, userNo);
 		
 		if(result > 0) { //성공
