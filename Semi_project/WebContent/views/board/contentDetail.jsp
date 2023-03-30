@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -81,8 +82,8 @@
                                             </div>
                                         </div>
                                         </div>
-                                    <div id="content-header-right">
-                                        <%if(((Member)request.getSession().getAttribute("loginUser")).getUserName().equals(b.getWriter())){ %>
+                                    <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
+                                        <%if( request.getSession().getAttribute("loginUser") != null||((Member)request.getSession().getAttribute("loginUser")).getNickName().equals(b.getWriter())){ %>
                                         	<button id="deleteBoard">삭제</button>
                                         	<button id="updateBoard">수정</button>
                                         	<script>
@@ -107,7 +108,7 @@
                                 </div>
                                 <div>
                                     <div><%= b.getRecommendCount() %></div>
-                                    <div><%= b.getReplyCount() %></div>
+                                    <div id="replydiv"><%= b.getReplyCount() %></div>
                                     <div><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
@@ -145,6 +146,7 @@
 		                     <br>
 		                     <%= r.getEnrollDate() %>
 		                     <br>
+		                      <%= r.getRecommendCount() %>
 		                     </li>
                                
                               	  <% } %>
@@ -160,7 +162,7 @@
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
                             </div>
                             <div>
-                                <button onclick="insertReply()">글작성 버튼</button>
+                                <button onclick="replyisEmpty()">글작성 버튼</button>
                             </div>
                         </div>
                     </div>
@@ -185,17 +187,21 @@
         </div>
     </div>
 		<script>
-		/* $(function(){
-			setInterval(selectReplyList, 1000);
-		}); */
 		
-		function insertReply(){
+		function replyisEmpty(){
+			if(document.getElementById("replyContent").value.trim().length == 0){ 
+				alert("댓글 입력해주세요");
+			}else{
+				insertReply();
+			}
+		}
+		
+		 function insertReply(){
 			$.ajax({
 				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
-					
-					content : $("#replyContent").val(), 
-					bNo     : "<%= b.getBoardNo() %>",
+					bNo : "<%= b.getBoardNo() %>",
+					content : $("#replyContent").val(),
 					isAnonimous : $("#isAnonimous").val()
 				}, 
 				success : function(result){
@@ -203,7 +209,9 @@
 					if(result > 0){
 						$("#comments-area").html("");
 						selectReplyList();
+						selectReplyCount();
 						$("#replyContent").val("");
+						
 					}else{
 						alert("댓글작성에 실패했습니다.");	
 					}
@@ -211,8 +219,10 @@
 					console.log("댓글작성실패")
 				}
 			})
-		}
+			}
+			
 		
+	
 		function selectReplyList(){
 			let replycount = 0;
 			$.ajax({
@@ -239,6 +249,7 @@
 		                     + "<br>"
 		                     + i.enrollDate
 		                     + "<br>"
+		                     + i.recommendCount
 		                     + "</li>"
 					}
 					$("#comments-area").html(result);
@@ -248,6 +259,27 @@
 				}
 			})
 		}
+		
+		function selectReplyCount(){
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/content.re",
+				data :{
+					bNo : "<%= b.getBoardNo() %>"
+				}, 
+				success : function(result){
+					console.log("보드테이블 댓글개수:"+ result);
+						$("#replydiv").html(result);
+					
+				}, error : function(){
+					console.log("댓글개수 조회 실패")
+				}
+			
+			})
+		} 
+	
+		
+	
 		</script>
 		
 		<script>

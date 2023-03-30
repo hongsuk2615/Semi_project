@@ -9,11 +9,15 @@
 	
 	<entry key="selectReplyList">
 		SELECT 
-			REPLY_NO, 
+			R.REPLY_NO,
+			R.BOARD_NO,
+			NICK_NAME AS WRITER,
 			R.CONTENT, 
-			NICK_NAME,
+			R.RECOMMEND_COUNT,
+			R.REPORT_COUNT,
 			R.ENROLL_DATE,
-			R.IS_ANONIMOUS
+			R.IS_ANONIMOUS,
+			P_REPLY_NO
 		FROM REPLY R
 		JOIN MEMBER ON (USER_NO = WRITER)
 		WHERE BOARD_NO = ?
@@ -23,6 +27,12 @@
 	<entry key="deleteReply">
 		DELETE FROM REPLY
 			WHERE REPLY_NO = ?
+	</entry>
+	
+		<entry key="recommendCountUp">
+	  UPDATE REPLY SET
+	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+	  	WHERE REPLY_NO = ?
 	</entry>
 
 	

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.service.ReplyService;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class ReplyRecommendController
@@ -31,12 +33,15 @@ public class ReplyRecommendController extends HttpServlet {
 		
 		int rNo = Integer.valueOf(request.getParameter("rNo"));
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		int result = new ReplyService().deleteReply(rNo);
+		int result = new RecommendService().recommendReply(rNo, userNo);
+		
 		if(result > 0 ) {
-			request.getSession().setAttribute("alertMsg", "삭제성공");
+			new ReplyService().recommendCountUp(rNo);
+			request.getSession().setAttribute("alertMsg", "공감성공");
 		}else {
-			request.getSession().setAttribute("alertMsg", "삭제성공");
+			request.getSession().setAttribute("alertMsg", "공감실패");
 		}
 		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -82,10 +83,14 @@ public class ReplyDao {
 				while(rset.next()) {
 					list.add(new Reply(
 							rset.getInt("REPLY_NO"),
+							rset.getInt("BOARD_NO"),
+							rset.getString("WRITER"),
 							rset.getString("CONTENT"),
-							rset.getString("NICK_NAME"),
+							rset.getInt("RECOMMEND_COUNT"),
+							rset.getInt("REPORT_COUNT"),
 							rset.getDate("ENROLL_DATE"),
-							rset.getString("IS_ANONIMOUS")
+							rset.getString("IS_ANONIMOUS"),
+							rset.getInt("P_REPLY_NO")
 							));				
 				}
 				
@@ -120,5 +125,28 @@ public class ReplyDao {
 			
 			return result;
 		}
+		
+		   public int recommendCountUp(Connection conn, int rNo) {
+			   
+				int result = 0;
+				PreparedStatement pstmt = null;
+				
+				String sql = prop.getProperty("recommendCountUp");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, rNo);
+					
+					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+				
+					JDBCTemplate.close(pstmt);
+				}
+				return result;
+			}
 		
 }

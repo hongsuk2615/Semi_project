@@ -15,6 +15,7 @@ public class Reply {
 	private String isAnonimous;
 	private int pReplyNo;
 	
+	
 	public Reply() {
 		super();
 	}
