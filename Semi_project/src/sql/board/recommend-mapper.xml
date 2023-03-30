@@ -3,7 +3,7 @@
 <properties>
 
 	<entry key="recommendContent">
-		INSERT INTO RECOMMEND VALUES
+		INSERT INTO BOARD_RECOMMEND VALUES
 	 	 (?, ?)
 	</entry>
 	

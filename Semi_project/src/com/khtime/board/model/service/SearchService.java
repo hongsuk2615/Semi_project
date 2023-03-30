@@ -43,19 +43,7 @@ public class SearchService {
 		return b;
 	}
 
-	public int insertBoard(Board b) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result = new BoardDao().insertBoard(conn, b);
-
-		if(result > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		}
-
-		return result;
-	}
+	
 	
 	public int keywordListCount(String keyword) {
 		Connection conn = JDBCTemplate.getConnection();

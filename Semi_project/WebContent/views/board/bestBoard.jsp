@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>    
-    <% 
+ <% 
    ArrayList <Board> bestList  = (ArrayList<Board>) request.getAttribute("bestList"); 
     int rcCount = Integer.parseInt(request.getParameter("rcCount"));
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
-   
-%>   
+   String boardTitle = (String)request.getAttribute("boardTitle");
+   String year = request.getParameter("year");
+   %>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,8 @@
     <link rel="stylesheet" href="../../resources/CSS/body.css">
     <link rel="stylesheet" href="../../resources/CSS/footer.css">
     <link rel="stylesheet" href="../../resources/CSS/bestBoard.css">
+    <link rel="stylesheet" href="resources/CSS/boardDetail.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -51,65 +54,75 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> BEST 게시판</div>
+                            <div> <%= boardTitle%></div>
                             <div>
-                            <a href="">23년 상반기</a>
-                            <a href="">22년 하반기</a>
-                            <a href="">22년 상반기</a>
-                            <a href="">21년 하반기</a>
-                            <a href="">21년 상반기</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2023" >2023</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2022">2022</a>
+                            <a href="<%=request.getContextPath()%>/best.bo?rcCount=<%=rcCount %>&year=2021">2021</a>
                             </div>
-
+							<% if(bestList==null) { %>
+                              글이 없습니다,,
+                           <% }else{ %>
                             <ul>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div>공감</div>
-                                            <div>댓글</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div>공감</div>
-                                            <div>댓글</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <% for(Board b : bestList) { %>
-                                <li>
-                                    프로필 &nbsp; 작성자 &nbsp; 작성일자<br>
-                                    내용 or 제목+내용 <br>
-                                    <div id="board-detail-bottom"> 
-                                        <div>게시판종류</div>
-                                        <div id="board-detail-comment">
-                                            <div>첨부파일</div>
-                                            <div><%= b.getRecommendCount() %></div>
+                           
+                               <% for(Board b : bestList) { %>
+                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
+                                <%= b.getTitle() %><br>
+                                    <%= b.getContent() %> <br>
+                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
+                                    <div id="board-detail-comment">
+                                        <div>첨부파일</div>
+                                        <div><%= b.getRecommendCount() %></div>
                                         <div><%= b.getReplyCount() %></div>
-                                        </div>
                                     </div>
                                 </li>
-								<% } %>
-                                
                                
+                                   <% } %>
+                                 <% } %>
                             </ul>
+                             <script>
+                           $(function(){
+                              $("#board-detail li").click(function(){
+                                 let bNo = $(this).children().eq(0).text();
+                                 location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+                                 
+                              });
+                           });
+                        </script>
+                        
+                        
+        <script>
+        
+	    
+	    $("#board-8 th").click(function(){
+	    	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
+	    })
+    </script>
+                        
+                        
+                        
+                        
+                        
+                        
                             
                     </div>
                     <div id="board-detail-search">
                        
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
-                        <div>이전</div>
-                        <div>다음</div>
+				                        
+				      <div align="center" class="paging-area">
+				         
+				         <% if( currentPage != 1) { %>
+				            <button onclick="location.href = '<%=request.getContextPath() %>/best.bo?rcCount=<%=rcCount%>&currentPage=<%= currentPage -1 %>'">이전</button>
+				         <% } %>
+				         
+				         <% if(currentPage != pi.getMaxPage()) { %>
+				            <button onclick="location.href = '<%=request.getContextPath() %>/best.bo?rcCount=<%=rcCount%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
+				         <% } %>
+				         
+				      </div>
                         </div>
                     </div>
                     </div>

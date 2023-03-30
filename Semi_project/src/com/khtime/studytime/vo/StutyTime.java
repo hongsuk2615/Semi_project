@@ -1,4 +1,4 @@
-package studytime.vo;
+package com.khtime.studytime.vo;
 
 import oracle.sql.DATE;
 

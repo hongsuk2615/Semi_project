@@ -9,6 +9,8 @@ public class Reply {
 	private int boardNo;
 	private String writer;
 	private String content;
+	private int recommendCount;
+	private int reportCount;
 	private Date enrollDate;
 	private String isAnonimous;
 	private int pReplyNo;
@@ -19,6 +21,22 @@ public class Reply {
 
 	
 	
+	public Reply(int replyNo, int boardNo, String writer, String content, int recommendCount, int reportCount,
+			Date enrollDate, String isAnonimous, int pReplyNo) {
+		super();
+		this.replyNo = replyNo;
+		this.boardNo = boardNo;
+		this.writer = writer;
+		this.content = content;
+		this.recommendCount = recommendCount;
+		this.reportCount = reportCount;
+		this.enrollDate = enrollDate;
+		this.isAnonimous = isAnonimous;
+		this.pReplyNo = pReplyNo;
+	}
+
+
+
 	public Reply(int replyNo, String writer, String content, Date enrollDate, String isAnonimous, int pReplyNo) {
 		super();
 		this.replyNo = replyNo;
@@ -36,6 +54,30 @@ public class Reply {
 		this.writer = writer;
 		this.enrollDate = enrollDate;
 		this.isAnonimous = isAnonimous;
+	}
+
+	
+
+	public int getRecommendCount() {
+		return recommendCount;
+	}
+
+
+
+	public void setRecommendCount(int recommendCount) {
+		this.recommendCount = recommendCount;
+	}
+
+
+
+	public int getReportCount() {
+		return reportCount;
+	}
+
+
+
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
 	}
 
 
@@ -96,13 +138,13 @@ public class Reply {
 		this.pReplyNo = pReplyNo;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", boardNo=" + boardNo + ", writer=" + writer + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", isAnonimous=" + isAnonimous + ", pReplyNo=" + pReplyNo + "]";
+				+ ", recommendCount=" + recommendCount + ", reportCount=" + reportCount + ", enrollDate=" + enrollDate
+				+ ", isAnonimous=" + isAnonimous + ", pReplyNo=" + pReplyNo + "]";
 	}
-	
-	
-	
 	
 }

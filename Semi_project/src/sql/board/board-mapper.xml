@@ -143,9 +143,10 @@
                                          
                FROM BOARD B
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE B.RECOMMENT_COUNT > ?
+               WHERE B.RECOMMEND_COUNT > ?
+               AND TO_CHAR(B.ENROLL_DATE,'YYYY') = ?
                  AND B.STATUS = 'Y'
-               ORDER BY B.RECOMMENT_COUNT DESC
+               ORDER BY B.RECOMMEND_COUNT DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
@@ -156,7 +157,7 @@
 	<entry key="bestListCount">
 		SELECT COUNT(*) AS COUNT
 		  FROM BOARD
-		 WHERE RECOMMENT_COUNT > ?
+		 WHERE RECOMMEND_COUNT > ?
 		   AND STATUS = 'Y'
 		   
 	</entry>
@@ -191,5 +192,12 @@
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
+	<entry key="getHotBestBoardlist">
+		SELECT BOARD_NO
+		     , TITLE
+		  FROM BOARD
+		 WHERE RECOMMEND_COUNT > ?
+		   AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
+	</entry>
 	
 </properties>
