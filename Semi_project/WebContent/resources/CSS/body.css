@@ -8,7 +8,7 @@
 }
 
 #body td {
-    border-top: 1px solid rgb(151, 150, 150);
+    border-top: 1px solid #E9ECEF;
 }
 
 #main-banner {
@@ -31,8 +31,8 @@
 }
 
 #body-left table {
-    border: 1px solid rgb(151, 150, 150);
-    background-color: rgb(227, 241, 255);
+    border: 1px solid #E9ECEF;
+    background-color: #E3F2FD;
     min-height : 200px;
 }
 #books-wrapper{
@@ -85,7 +85,7 @@
 
 #board-wrapper th {
     text-align: left;
-    background-color: rgb(57, 189, 235);
+    background-color: #42A5F5;
     color: aliceblue;
 }
 
@@ -98,7 +98,7 @@
 
 #body-right table {
     border: 1px solid rgb(151, 150, 150);
-    background-color: rgb(255, 227, 227);
+    background-color: #FFEBEE;
 }
 
 #body-right img {
@@ -115,7 +115,7 @@
 
 
 #search {
-    border: 1px solid rgb(151, 150, 150);
+    border: 1px solid #E9ECEF;
     background-color: white;
     width: 100%;
     display: flex;
@@ -175,7 +175,7 @@
 
 #user-list>div {
     height: 40px;
-    border: 1px solid rgb(151, 150, 150);
+    border: 1px solid #E9ECEF;
     display: flex;
     align-items: center;
     width: 100%;
@@ -198,7 +198,7 @@
 
 #additional-functions>div {  
     height: 40px;
-    border: 1px solid rgb(151, 150, 150);
+    border: 1px solid #E9ECEF;
     display: flex;
     align-items: center;
 }
@@ -215,7 +215,7 @@
 
 #hot-board th {
     text-align: left;
-    background-color: rgb(233, 68, 46);
+    background-color: #F44336;
     color: aliceblue;
 }
 
@@ -225,6 +225,6 @@
 
 #best-board th {
     text-align: left;
-    background-color: rgb(233, 68, 46);
+    background-color: #F44336;
     color: aliceblue;
 }

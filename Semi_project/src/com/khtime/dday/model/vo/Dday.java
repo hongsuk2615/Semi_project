@@ -5,18 +5,18 @@ import java.util.Date;
 public class Dday {
 	private int dDayNo;
 	private Date dDay;
-	private Date mainDDay;
-	private String userId;
+	private String title;
+	private int userId;
 	
 	public Dday() {
 		super();
 	}
 
-	public Dday(int dDayNo, Date dDay, Date mainDDay, String userId) {
+	public Dday(int dDayNo, Date dDay, String title, int userId) {
 		super();
 		this.dDayNo = dDayNo;
 		this.dDay = dDay;
-		this.mainDDay = mainDDay;
+		this.title = title;
 		this.userId = userId;
 	}
 
@@ -36,22 +36,28 @@ public class Dday {
 		this.dDay = dDay;
 	}
 
-	public Date getMainDDay() {
-		return mainDDay;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setMainDDay(Date mainDDay) {
-		this.mainDDay = mainDDay;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
+	@Override
+	public String toString() {
+		return "Dday [dDayNo=" + dDayNo + ", dDay=" + dDay + ", title=" + title + ", userId=" + userId + "]";
+	}
+
+	
 	
 	
 	
