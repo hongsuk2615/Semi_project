@@ -104,7 +104,7 @@ public class ReplyDao {
 			return list;
 		}
 		
-		public int deleteReply(Connection conn, int rNo) {
+		public int deleteReply(Connection conn, int rNo, int userNo) {
 			
 			int result = 0;
 			
@@ -116,6 +116,7 @@ public class ReplyDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, rNo);
+				pstmt.setInt(2, userNo);
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();

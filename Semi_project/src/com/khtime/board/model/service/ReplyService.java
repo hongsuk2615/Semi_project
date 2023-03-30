@@ -44,11 +44,11 @@ public class ReplyService {
 		return list;
 	}
 	
-	public int deleteReply(int rNo, int bNo) {
+	public int deleteReply(int rNo, int bNo, int userNo) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new ReplyDao().deleteReply(conn, rNo);
+		int result = new ReplyDao().deleteReply(conn, rNo, userNo);
 		if(result > 0) {
 			JDBCTemplate.commit(conn);
 			result = new BoardDao().replyCountDown(conn, bNo);

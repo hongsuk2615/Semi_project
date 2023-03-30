@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.ReplyService;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class ReplyDeleteController
@@ -32,7 +33,8 @@ public class ReplyDeleteController extends HttpServlet {
 
 		int rNo = Integer.valueOf(request.getParameter("rNo"));
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
-		int result = new ReplyService().deleteReply(rNo, bNo);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int result = new ReplyService().deleteReply(rNo, bNo, userNo);
 		if(result > 0 ) {
 			request.getSession().setAttribute("alertMsg", "삭제성공");
 		}else {

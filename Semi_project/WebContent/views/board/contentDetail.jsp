@@ -83,7 +83,7 @@
                                         </div>
                                         </div>
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
-                                        <%if( request.getSession().getAttribute("loginUser") != null||((Member)request.getSession().getAttribute("loginUser")).getNickName().equals(b.getWriter())){ %>
+                                        <%if( request.getSession().getAttribute("loginUser") != null &&((Member)request.getSession().getAttribute("loginUser")).getNickName().equals(b.getWriter())){ %>
                                         	<button id="deleteBoard">삭제</button>
                                         	<button id="updateBoard">수정</button>
                                         	<script>
