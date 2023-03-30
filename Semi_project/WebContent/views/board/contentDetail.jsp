@@ -122,7 +122,7 @@
                             
                          <ul id="comments-area">
                             <% if(replyList.isEmpty()) { %>
-                           	글이 없습니다,,
+                           	<li>글이 없습니다,,</li>
                            <% }else{ %>
                               
                            
@@ -153,7 +153,7 @@
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
-                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" >댓글입력.</textarea>
+                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" placeholder="댓글입력"></textarea>
                         </div>
                         <div>
                             <div>
