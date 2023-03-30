@@ -36,7 +36,6 @@
 </style>
 
 <body>
-	
 
     <div id="wrapper">
         <%@ include file="header.jsp" %>

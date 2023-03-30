@@ -23,4 +23,21 @@ public class RecommendService {
 		
 		return result;
 	}
+	
+	public int recommendReply(int rNo, int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new RecommendDao().recommendReply(conn, rNo, userNo);
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

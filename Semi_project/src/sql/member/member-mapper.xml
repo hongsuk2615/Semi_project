@@ -8,6 +8,7 @@
 		WHERE USER_ID = ?
 		AND USER_PWD = ?
 		AND STATUS = 'Y'
+		
 	</entry>
 	
 	<entry key = "insertMember">

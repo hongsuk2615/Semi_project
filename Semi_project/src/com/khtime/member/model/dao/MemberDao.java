@@ -50,7 +50,7 @@ public class MemberDao {
 						rset.getString("USER_CLASS"), rset.getString("USER_NAME"), rset.getString("NICK_NAME"),
 						rset.getString("EMAIL"), rset.getDate("ENROLL_DATE"), rset.getInt("AUTHORITY"),
 						rset.getInt("REPORT_COUNT"), rset.getString("IS_BANNED"), rset.getString("IS_WHITELIST"));
-				System.out.println(m);
+				m.setAvailable(rset.getString("AVAILABLE"));
 
 			}
 		} catch (SQLException e) {

@@ -65,7 +65,6 @@ public class MemberService {
 
 		if (result) {
 
-			// 새비밀번호 생성,
 			int random = (int) (Math.random() * 5 + 10);
 			String newPwd = CommonMethod.getRamdomPassword(random);
 
