@@ -35,18 +35,18 @@ public class ddayController extends HttpServlet {
 		
 		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
 		String dDay = request.getParameter("dDay");
-		String mainDDay = request.getParameter("mainDDay");
-		String userId = request.getParameter("userId");
+		String title = request.getParameter("title");
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		
 		
 		
-		ArrayList<Board> dDayList = new DdayService().dDaytList(dDayNo, dDay, mainDDay, userId);
+		ArrayList<Board> dDayList = new DdayService().dDaytList(dDayNo, dDay, title, userId);
 	      
 	      
 	      
 	    request.setAttribute("dDay",dDay);
 	    request.setAttribute("dDayNo", dDayNo);
-	    request.setAttribute("mainDDay", mainDDay);
+	    request.setAttribute("title", title);
 	    request.setAttribute("userId", userId);
 	    
 		
