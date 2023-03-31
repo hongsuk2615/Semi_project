@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.vo.Board;
 import com.khtime.dday.model.service.DdayService;
+import com.khtime.dday.model.vo.Dday;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class ddayInsertController
@@ -32,6 +34,7 @@ public class ddayInsertController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
 		String dDay = request.getParameter("dDay");
 		String title = request.getParameter("title");
@@ -39,14 +42,15 @@ public class ddayInsertController extends HttpServlet {
 		
 		
 		
-		ArrayList<Board> dDayList = new DdayService().dDaytList(dDayNo, dDay, title, userId);
-	      
-	      
-	      
-	    request.setAttribute("dDay",dDay);
-	    request.setAttribute("dDayNo", dDayNo);
-	    request.setAttribute("title", title);
-	    request.setAttribute("userId", userId);
+		Dday d = new Dday();
+		
+		d.setdDayNo(dDayNo);
+		d.setdDay(dDay);
+		d.setTitle(title);
+		d.setUserId(userId);
+		
+		int result = new DdayService().insertDday(d,userNo);
+		
 	    
 		
 		
