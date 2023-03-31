@@ -15,7 +15,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ReplyInsertController
  */
-@WebServlet("/rInsert.bo")
+@WebServlet("/insert.re")
 public class ReplyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +33,7 @@ public class ReplyInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 		String content = request.getParameter("content");
+		System.out.println("content: "+content);
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
 		
@@ -41,7 +42,7 @@ public class ReplyInsertController extends HttpServlet {
 		r.setBoardNo(bNo);
 		r.setIsAnonimous(isAnonimous);
 		
-		int result = new ReplyService().insertReply(r, userNo);
+		int result = new ReplyService().insertReply(r, userNo, bNo);
 		
 		response.setContentType("text/html charset=UTF-8");
 		response.getWriter().print(result);

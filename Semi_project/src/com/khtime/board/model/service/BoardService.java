@@ -45,12 +45,22 @@ public class BoardService {
 
 		return b;
 	}
-
 	
-	public ArrayList<Board> bestList(int rcCount, PageInfo pi) {
+	public int selectReplyCount(int bNo) {
 		Connection conn = getConnection();
 
-		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi);
+		int result = new BoardDao().selectReplyCount(conn, bNo);
+		close(conn);
+
+		return result;
+	}
+
+
+	
+	public ArrayList<Board> bestList(int rcCount, PageInfo pi, String year) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> bestList = new BoardDao().bestList(conn, rcCount, pi, year);
 
 		close(conn);
 
@@ -66,9 +76,9 @@ public class BoardService {
 
 		return result;
 	}
-	public ArrayList<Board> getHotBestBoardlist(int recommendCount) {
+	public ArrayList<Board> getHotBestBoardlist(int recommendCount, String year) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new BoardDao().getHotBestBoardlist(conn, recommendCount);
+		ArrayList<Board> list = new BoardDao().getHotBestBoardlist(conn, recommendCount, year);
 		close(conn);
 		return list;
 	}
@@ -114,10 +124,10 @@ public class BoardService {
 		return result;
 	}
 	
-	public int updateRecommend(int bNo) {
+	public int recommendCountUp(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new BoardDao().updateRecommend(conn, bNo);
+		int result = new BoardDao().recommendCountUp(conn, bNo);
 
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -128,10 +138,10 @@ public class BoardService {
 		return result;
 	}
 	
-	public int updateScrap(int bNo) {
+	public int scrapCountUp(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new BoardDao().updateScrap(conn, bNo);
+		int result = new BoardDao().scrapCountUp(conn, bNo);
 
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);
@@ -141,6 +151,8 @@ public class BoardService {
 
 		return result;
 	}
+	
+	
 	
 
 }

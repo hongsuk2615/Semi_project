@@ -16,7 +16,7 @@ import com.khtime.board.model.vo.Reply;
 /**
  * Servlet implementation class ReplySelectController
  */
-@WebServlet("/rSelect.bo")
+@WebServlet("/select.re")
 public class ReplySelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

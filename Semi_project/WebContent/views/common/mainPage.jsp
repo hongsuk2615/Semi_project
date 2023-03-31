@@ -38,12 +38,6 @@
 </style>
 
 <body>
-	<!-- alert -->
-   <% if( alertMsg != null && !alertMsg.equals("")) { %>
-         <script> alert("<%= alertMsg %>")</script>
-         <% session.removeAttribute("alertMsg"); %>
-      <% } %>
-   
 
     <div id="wrapper">
         <%@ include file="header.jsp" %>

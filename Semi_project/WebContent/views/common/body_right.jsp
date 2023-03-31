@@ -93,24 +93,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -123,24 +106,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -149,11 +115,13 @@
     
     <script>
         $("#board-7 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo";
+        	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=9&year="+date.getFullYear();
 	    })
 	    
 	    $("#board-8 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
 	    })
     </script>
 
@@ -161,8 +129,12 @@
         $(function(){
         function getHotBestBoardList(recommendCount, num){
             $.ajax({
-                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get',
                 type : 'get',
+                data : {
+                    rcCount : recommendCount,
+                    year : new Date().getFullYear()
+                },
                 success : function(result){
                     if(result.length == 0 ){
                         $('#board-'+num+' tbody').append('<tr>'+
@@ -175,7 +147,7 @@
                                                                 '<td>' + result[i].title + '</td>'+
                                                           '</tr>');
                                 $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
                                 })
                             }else {
                                 $('#board-'+num+' tbody').append('<tr>'+
@@ -191,8 +163,8 @@
             }				
         });			
     }
-    getHotBestBoardList(10,7);
-    getHotBestBoardList(100,8);
+    getHotBestBoardList(9,7);
+    getHotBestBoardList(99,8);
  });
     </script>
 

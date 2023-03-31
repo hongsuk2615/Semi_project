@@ -59,6 +59,13 @@
          AND B.STATUS = 'Y'
    </entry>
    
+    <entry key="selectReplyCount">
+      SELECT 
+            REPLY_COUNT AS COUNT
+        FROM BOARD
+       WHERE BOARD_NO = ?
+   </entry>
+   
    <entry key="test">
      (SELECT COUNT(*)
                           FROM REPLY R
@@ -143,9 +150,10 @@
                                          
                FROM BOARD B
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE B.RECOMMENT_COUNT > ?
+               WHERE B.RECOMMEND_COUNT > ?
+               AND TO_CHAR(B.ENROLL_DATE,'YYYY') = ?
                  AND B.STATUS = 'Y'
-               ORDER BY B.RECOMMENT_COUNT DESC
+               ORDER BY B.RECOMMEND_COUNT DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
@@ -156,7 +164,7 @@
 	<entry key="bestListCount">
 		SELECT COUNT(*) AS COUNT
 		  FROM BOARD
-		 WHERE RECOMMENT_COUNT > ?
+		 WHERE RECOMMEND_COUNT > ?
 		   AND STATUS = 'Y'
 		   
 	</entry>
@@ -179,17 +187,37 @@
 	  		WHERE BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateRecommend">
+	<entry key="recommendCountUp">
 	  UPDATE BOARD SET
 	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateScrap">
+	<entry key="scrapCountUp">
 	  UPDATE BOARD SET
 	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
+	<entry key="getHotBestBoardlist">
+		SELECT BOARD_NO
+		     , TITLE
+		  FROM BOARD
+		 WHERE RECOMMEND_COUNT > ?
+		   AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
+	</entry>
+	
+	 <entry key="replyCountUp">
+      UPDATE BOARD SET
+	  		REPLY_COUNT = REPLY_COUNT + 1
+	  	WHERE BOARD_NO = ?
+   </entry>
+   
+   <entry key="replyCountDown">
+      UPDATE BOARD SET
+	  		REPLY_COUNT = REPLY_COUNT - 1
+	  	WHERE BOARD_NO = ?
+   </entry>
+   
 	
 </properties>

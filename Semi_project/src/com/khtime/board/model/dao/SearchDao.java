@@ -121,6 +121,7 @@ public class SearchDao {
 
 				if(rset.next()) {
 					b = new Board(
+							rset.getInt("BOARD_NO"),
 							rset.getString("TITLE"),
 							rset.getString("CONTENT"),
 							rset.getString("WRITER"),
