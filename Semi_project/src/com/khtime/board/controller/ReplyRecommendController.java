@@ -1,28 +1,27 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Reply;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReplyInsertController
+ * Servlet implementation class ReplyRecommendController
  */
-@WebServlet("/insert.re")
-public class ReplyInsertController extends HttpServlet {
+@WebServlet("/recommend.re")
+public class ReplyRecommendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyInsertController() {
+    public ReplyRecommendController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +30,20 @@ public class ReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-		String content = request.getParameter("content");
-		System.out.println("content: "+content);
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
 		
-		Reply r = new Reply();
-		r.setContent(content);
-		r.setBoardNo(bNo);
-		r.setIsAnonimous(isAnonimous);
+		int rNo = Integer.valueOf(request.getParameter("rNo"));
+		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		int result = new ReplyService().insertReply(r, userNo, bNo);
+		int result = new RecommendService().recommendReply(rNo, userNo);
 		
-		response.setContentType("text/html charset=UTF-8");
-		
-		response.getWriter().print(result);
+		if(result > 0 ) {
+			new ReplyService().recommendCountUp(rNo);
+			request.getSession().setAttribute("alertMsg", "공감성공");
+		}else {
+			request.getSession().setAttribute("alertMsg", "공감실패");
+		}
+		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}
 
 	/**

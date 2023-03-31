@@ -14,7 +14,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
     <style>
-     .input-form {
+      .input-form {
       max-width: 680px;
       margin-top: 80px;
       padding: 32px;
@@ -42,6 +42,7 @@
         div {
             display: inline-block;
             box-sizing: border-box;
+            
         }
         a {
             text-decoration: none;
@@ -92,7 +93,7 @@
                             <img id="titleImg" width="150" height="150">
                         </div><br>
                         <div id="file-area" style="border: 1px solid black">
-                           <input type="file" id="file1" name="file" onchange="loadImg(this, 1);" required> 
+                           <input type="file" id="file1" name="file" onchange="loadImg(this, 1);"> 
                         </div>
                     </div><br>
                      <hr style=" background-color: black;">
@@ -288,7 +289,7 @@
 					 // 아이디를 입력하는 input요소 얻어오기
 					 let inputId = document.getElementById("userId").value;
 					 
-					   let regExp = /^[a-zA-Z][a-zA-Z0-9]{5,12}$/;	            
+					   let regExp = /^[a-zA-Z][a-zA-Z0-9]{4,11}$/;	            
 					 console.log(inputId);
 					 // 비동기 요청 보내기
 					  $.ajax({

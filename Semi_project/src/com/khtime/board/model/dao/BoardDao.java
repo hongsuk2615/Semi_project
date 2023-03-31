@@ -166,6 +166,30 @@ public class BoardDao {
 			}
 			return b;
 		}
+	   public int selectReplyCount(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectReplyCount");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+				result = rset.getInt("COUNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 	   
 	   public int insertBoard(Connection conn, Board b, int userNo) {
 		   
@@ -320,12 +344,12 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int updateRecommend(Connection conn, int bNo) {
+	   public int recommendCountUp(Connection conn, int bNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
 			
-			String sql = prop.getProperty("updateRecommend");
+			String sql = prop.getProperty("recommendCountUp");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -343,18 +367,62 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int updateScrap(Connection conn, int bNo) {
+	
+	   
+	   public int scrapCountUp(Connection conn, int bNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
 			
-			String sql = prop.getProperty("updateScrap");
+			String sql = prop.getProperty("scrapCountUp");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, bNo);
 				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int replyCountUp(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("replyCountUp");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+			
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int replyCountDown(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("replyCountDown");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+			
 				result = pstmt.executeUpdate();
 
 			} catch (SQLException e) {

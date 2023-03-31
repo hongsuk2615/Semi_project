@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Reply;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReplyInsertController
+ * Servlet implementation class ReplyDeleteController
  */
-@WebServlet("/insert.re")
-public class ReplyInsertController extends HttpServlet {
+@WebServlet("/delete.re")
+public class ReplyDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyInsertController() {
+    public ReplyDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +30,17 @@ public class ReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-		String content = request.getParameter("content");
-		System.out.println("content: "+content);
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
-		
-		Reply r = new Reply();
-		r.setContent(content);
-		r.setBoardNo(bNo);
-		r.setIsAnonimous(isAnonimous);
-		
-		int result = new ReplyService().insertReply(r, userNo, bNo);
-		
-		response.setContentType("text/html charset=UTF-8");
-		
-		response.getWriter().print(result);
+
+		int rNo = Integer.valueOf(request.getParameter("rNo"));
+		int bNo = Integer.valueOf(request.getParameter("bNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int result = new ReplyService().deleteReply(rNo, bNo, userNo);
+		if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "삭제성공");
+		}else {
+			request.getSession().setAttribute("alertMsg", "삭제실패");
+		}
+		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}
 
 	/**

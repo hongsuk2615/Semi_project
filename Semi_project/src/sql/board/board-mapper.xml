@@ -59,6 +59,13 @@
          AND B.STATUS = 'Y'
    </entry>
    
+    <entry key="selectReplyCount">
+      SELECT 
+            REPLY_COUNT AS COUNT
+        FROM BOARD
+       WHERE BOARD_NO = ?
+   </entry>
+   
    <entry key="test">
      (SELECT COUNT(*)
                           FROM REPLY R
@@ -180,13 +187,13 @@
 	  		WHERE BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateRecommend">
+	<entry key="recommendCountUp">
 	  UPDATE BOARD SET
 	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE BOARD_NO = ?
 	</entry>
 	
-	<entry key="updateScrap">
+	<entry key="scrapCountUp">
 	  UPDATE BOARD SET
 	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
@@ -199,5 +206,18 @@
 		 WHERE RECOMMEND_COUNT > ?
 		   AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
 	</entry>
+	
+	 <entry key="replyCountUp">
+      UPDATE BOARD SET
+	  		REPLY_COUNT = REPLY_COUNT + 1
+	  	WHERE BOARD_NO = ?
+   </entry>
+   
+   <entry key="replyCountDown">
+      UPDATE BOARD SET
+	  		REPLY_COUNT = REPLY_COUNT - 1
+	  	WHERE BOARD_NO = ?
+   </entry>
+   
 	
 </properties>

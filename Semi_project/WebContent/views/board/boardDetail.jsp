@@ -71,7 +71,7 @@
 					           	</form>
                             
                             </div>
-                           <% if(boardList==null) { %>
+                           <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
                            <% }else{ %>
                             <ul>
