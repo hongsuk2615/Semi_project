@@ -181,14 +181,14 @@ public class MemberService {
 			rollback(conn);
 		}
 		close(conn);
-		System.out.println("업데이트이메일 멤버" + m);
+		
 		return m;
 	}
 	
-	public int checkNickName(String userId, String updateNickName) {
+	public boolean checkNickName(String updateNickName,String userNickName) {
 		Connection conn = getConnection();
-		int result = 0;
-		result = new MemberDao().checkNickName(conn, updateNickName, userId);
+		boolean result = false;
+		result = new MemberDao().checkNickName(conn, updateNickName, userNickName);
 		close(conn);
 		return result;
 	}

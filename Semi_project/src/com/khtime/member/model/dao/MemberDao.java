@@ -328,8 +328,8 @@ public class MemberDao {
 		} return result;
 	 }
 	 
-	 public int checkNickName(Connection conn,String updateNickName,String userId) {
-		 int result = 0;
+	 public boolean checkNickName(Connection conn,String updateNickName,String userNickName) {
+		 boolean result = false;
 		 
 		 PreparedStatement pstmt =null;
 		 
@@ -340,15 +340,12 @@ public class MemberDao {
 		 try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, userId);
+			pstmt.setString(1, userNickName);
 			pstmt.setString(2, updateNickName);
 			
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result++;
-				
-				System.out.println("체크값 :" + result);
-			} 
+			
+			result = rset.next();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

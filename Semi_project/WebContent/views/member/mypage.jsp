@@ -212,38 +212,31 @@
 			<div class="addDdayBody">
 				<div class="inputBox">
 					<h3 class="inputLabel">닉네임</h3>
-					<input type="text" name="updateNickName" placeholder="김따따" class="inputField" /><br>
+					<input type="text" id="nickName" name="updateNickName" placeholder="특수문자 제외 2자~ 8자" class="inputField" /><br>
 				</div>
 				<div id="emailnotice"
 					style="position: relative; text-align: center;">
 					※ 닉네임을 설정하면 <span class="redline">30일간 변경할 수 없습니다.</span><br>
 				</div>
 				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
-					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onblur="nick_chk(this.value);">
+					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onclick="return validateNickName();">
 					닉네임 설정
 				</button>
 			</div>
 		</form>
 		<script>
-		function nick_chk(str) {
-		 if(str.length < 2 || str.length > 10) {
-		   alert("2~10자의 한글, 영문, 숫자만 사용할 수 있습니다.");
-		   return;
-		 }
-		 var chk = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
-		 for(var i = 0; i <= str.length -1 ; i++ ) {
-		  if(chk.test(str.charAt(i)))
-		  {
-		  }
-
-		  else
-		  {
-		   alert("2~10자의 한글, 영문, 숫자만 사용할 수 있습니다.");
-		   return false;
-		  }
-		 }
-
-		 return true;
+		function validateNickName(){
+			  var nickNameVal = $("#nickName").val();
+			  
+			  var regExp = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/;
+			  // 검증에 사용할 정규식 변수 regExp에 저장
+			  if (regExp.test(nickNameVal)) {
+			    return true;
+			  }
+			  else {
+			    alert('닉네임 형식이 다릅니다.');
+			    return false;
+			  }
 		}
 		</script>
 		</div>

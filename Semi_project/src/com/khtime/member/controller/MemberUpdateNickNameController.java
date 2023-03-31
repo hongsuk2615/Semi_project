@@ -41,11 +41,12 @@ public class MemberUpdateNickNameController extends HttpServlet {
 		
 		String updateNickName = request.getParameter("updateNickName");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
+		String userNickName = ((Member)request.getSession().getAttribute("loginUser")).getNickName();
 		String userPwd =request.getParameter("userPwd");
 
-		int checkNickName = new MemberService().checkNickName(userId, updateNickName);
+		boolean checkNickName = new MemberService().checkNickName(userNickName, updateNickName);
 	
-		if(checkNickName == 0) {
+		if(checkNickName) {
 			Member m = new MemberService().updateNickName(updateNickName,userId,userPwd);
 			
 			HttpSession session = request.getSession();
@@ -55,8 +56,7 @@ public class MemberUpdateNickNameController extends HttpServlet {
 				session.setAttribute("alertMsg", "닉네임이 변경되었습니다.");
 				session.setAttribute("loginUser", m);
 			}else {
-				session.setAttribute("alertMsg", "이메일 변경실패");
-			
+				session.setAttribute("alertMsg", "닉네임 변경 실패");	
 			}
 		}
 		else {			
