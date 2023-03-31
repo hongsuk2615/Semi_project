@@ -39,29 +39,7 @@
 
 <body>
     <div id="wrapper">
-        <div id="header">
-            <div id="header-content">
-                <div id="home-logo">
-                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
-                </div>
-                <div id="navbar">
-                    <div>게시판</div>
-                    <div>친구목록</div>
-                    <div>중고책방</div>
-                    <div>To Do List</div>
-                    <div>관리</div>
-                </div>
-                <div id="header-right">
-                    <button id="login-btn">로그인</button>
-                    <button id="enrollment-btn">회원가입</button>
-                </div>
-            </div>
-
-
-        </div>
-       
-
-
+         <%@ include file="../common/header.jsp" %>
         
         <div id="body">
             <div id="tdl-wrapper">
@@ -205,26 +183,68 @@
         
     </div>
     <script>
-       $('#add-btn').click(function(){
+       $('#add-btn').click(function(){ // 비동기 todolist 추가
             let content = $('#modal-tdl-text>input').val();
             let priority = $('#modal-tdl-priority>input:checked').val();
             
             $.ajax({
-                url : 'Semi_project/addToDoList.me',
+                url : '/Semi_project/addToDoList.me',
                 data : {content,priority},
                 success : function(result){
                     console.log(result);
+                    if(result){
+                        alert('추가 성공');
+                    }else{
+                        alert('추가 실패');
+                    }
                 },
                 error : function(){
-
+                    console.log('todolist 추가 ajax요청 실패')
                 }
 
 
             })
         })
+    </script>
+    <script>
+        function getTodolist(){
+            $.ajax({
+                url : '/Semi_project/getToDoList.me',
+                success : function(tdl){
+                    if(tdl.length == 0){
+                        $('#content').html('to do list가 없습니다.');
+                    }else{
+                        $(tdl).each(function(index,item){
+                            $('#content').html(`
+                                <div class="tdl">
+                                    <div class="tdl-content">
+                                        \${item.content}
+                                    </div>
+                                    <div class="priority">
+                                        <input type="radio" name="priority\${index}">
+                                        <input type="radio" name="priority\${index}">
+                                        <input type="radio" name="priority\${index}">
+                                    </div>
+                                    <div class="delete-btn">
+
+                                    </div>
+                                </div>`);
+                            // $('input[name="priority"+index]').
+                            console.log(item);
+                            console.log(index);
+                        })
+                    } 
+                },
+                error : function(){
+                    console.log('todolist 조회 ajax요청 실패')
+                }
+
+
+            })
 
 
 
+        }
 
     </script>
     <script>
