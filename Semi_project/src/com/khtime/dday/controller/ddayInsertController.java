@@ -1,7 +1,9 @@
 package com.khtime.dday.controller;
 
+import static com.khtime.common.StringToDate.transformDate;
+
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.vo.Board;
 import com.khtime.dday.model.service.DdayService;
 import com.khtime.dday.model.vo.Dday;
 import com.khtime.member.model.vo.Member;
@@ -36,18 +37,18 @@ public class ddayInsertController extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
-		String dDay = request.getParameter("dDay");
+		Date dDay = transformDate(request.getParameter("dDay"));
 		String title = request.getParameter("title");
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		
-		
+
+	
 		
 		Dday d = new Dday();
 		
 		d.setdDayNo(dDayNo);
-		d.setdDay(dDay);
 		d.setTitle(title);
-		d.setUserId(userId);
+		d.setdDay(dDay);
+		
+		
 		
 		int result = new DdayService().insertDday(d, userNo);
 		
