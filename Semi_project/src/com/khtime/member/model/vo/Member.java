@@ -21,8 +21,15 @@ public class Member {
 	public Member() {
 		super();
 	}
+	 
 	
-	
+
+	public Member(int userNo) {
+		super();
+		this.userNo = userNo;
+	}
+
+
 
 	public Member(String userId, String userPwd, String userClass, String userName, String nickName, String email,
 			int authority) {

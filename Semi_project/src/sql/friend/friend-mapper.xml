@@ -13,8 +13,26 @@
 		   AND USER_ID != ?
 	</entry>
 	
-	
-	
+	<entry key = "friendReq">
+	INSERT INTO FRIEND(USER1 , USER2)
+    VALUES(?,(SELECT USER_NO
+			    FROM MEMBER
+			   WHERE USER_ID = ? ))
+      	
+	</entry>
+		
+	<entry key = "friendlist">
+		
+		SELECT USER_NAME
+ 			   FROM MEMBER
+ 			   WHERE USER_NO IN (SELECT USER2 AS FRIENDS
+  			   FROM FRIEND
+ 			   WHERE USER1 = ? AND IS_AGREE='Y'
+ 			UNION
+			   SELECT USER1 AS FRIENDS
+  			   FROM FRIEND 
+ 			   WHERE USER2 = ? AND IS_AGREE='Y')
+	</entry>
 	
 	
 	
