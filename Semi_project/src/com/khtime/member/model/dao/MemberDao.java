@@ -164,9 +164,9 @@ public class MemberDao {
 
 			pstmt.setString(1, userName);
 			pstmt.setString(2, userEmail);
-
+			
 			rset = pstmt.executeQuery();
-
+			
 			if (rset.next()) {
 				userId = rset.getString("USER_ID");
 			}
@@ -227,5 +227,156 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int checkPwd(Connection conn, String userPwd,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+		 
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("checkPwd");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result++;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return result;
+	 }
+	 
+	 public int updateMyPwd(Connection conn, String updatePwd,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+
+		 String sql = prop.getProperty("updatePwd");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, updatePwd);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} return result;
+	 }
+	 
+	 public int updateEmail(Connection conn, String updateEmail,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+
+		 String sql = prop.getProperty("updateEmail");
+	
+		 try {
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, updateEmail);
+			pstmt.setString(2, userId);
+	
+			result = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} return result;
+	 }
+	 
+	 public int checkPwdForEmail(Connection conn, String userPwd,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+		 
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("checkPwdForEmail");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result++;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return result;
+	 }
+	 
+	 public int checkNickName(Connection conn, String userNickName,String updateNickName,String userId) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+		 
+		 ResultSet rset = null;
+		 
+		 String sql = prop.getProperty("checkNickName");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userNickName);
+			
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result++;
+			} 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return result;
+	 }
+	 
+	 public int updateNickName(Connection conn, String userId, String userNickName) {
+		 int result = 0;
+		 
+		 PreparedStatement pstmt =null;
+
+		 String sql = prop.getProperty("updateNickName");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userNickName);
+			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+		
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} return result;
+	 }
 
 }
