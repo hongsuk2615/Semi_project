@@ -110,5 +110,79 @@ public class MemberService {
 
 		return userNo;
 	}
+	
+	public Member updateMyPwd(String updatePwd, String userPwd, String userId) {
+		Connection conn = getConnection();
+		Member m = null;
+
+		int result = new MemberDao().checkPwd(conn, userPwd, userId);
+
+		if (result > 0) {
+			result = new MemberDao().updateMyPwd(conn, updatePwd, userId);
+			if (result > 0) {
+				commit(conn);
+				m = new MemberDao().loginMember(conn, userId, updatePwd);
+			} else {
+
+				rollback(conn);
+			}
+		}
+		close(conn);
+		return m;
+	}
+
+	public Member updateEmail(String updateEmail, String userId, String userPwd) {
+		Connection conn = getConnection();
+		Member m = null;
+		int result = 0;
+		System.out.println(updateEmail);
+		
+		result = new MemberDao().updateEmail(conn, updateEmail, userId);
+		System.out.println(result);
+		
+		if (result > 0) {
+
+			commit(conn);
+	
+			m =new MemberDao().loginMember(conn, userId, userPwd);
+		} else {
+
+			rollback(conn);
+		}
+
+		close(conn);
+		System.out.println("업데이트이메일 멤버" + m);
+		return m;
+	}
+
+	public int checkPwd(String userId, String userPwd) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new MemberDao().checkPwdForEmail(conn, userPwd, userId);
+		close(conn);
+		return result;
+	}
+
+//	public Member updateNickName(String updateNickName, String userId, String userNickName) {
+//		
+//		Connection conn = JDBCTemplate.getConnection();
+//		
+//		Member m = null;
+//		
+//		int result = new MemberDao().checkNickName(conn,userId,userNickName);
+//		
+//		if(result>0) {
+//			result = new MemberDao().updateNickName(conn,updateNickName,userId);
+//			if(result>0) {
+//				JDBCTemplate.commit(conn);
+//				m =new MemberDao().loginMember(conn, userId, updateNickName);
+//			} else {
+//				
+//				JDBCTemplate.rollback(conn);
+//			}
+//		}
+//		JDBCTemplate.close(conn);
+//		return m;
+//	}
 
 }
