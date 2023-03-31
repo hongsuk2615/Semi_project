@@ -49,7 +49,7 @@ public class ddayInsertController extends HttpServlet {
 		d.setTitle(title);
 		d.setUserId(userId);
 		
-		int result = new DdayService().insertDday(d,userNo);
+		int result = new DdayService().insertDday(d, userNo);
 		
 	    
 		
