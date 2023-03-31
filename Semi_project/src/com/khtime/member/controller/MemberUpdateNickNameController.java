@@ -42,28 +42,20 @@ public class MemberUpdateNickNameController extends HttpServlet {
 		String updateNickName = request.getParameter("updateNickName");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userNickName = ((Member)request.getSession().getAttribute("loginUser")).getNickName();
-		String userPwd =request.getParameter("userPwd");
 
-		boolean checkNickName = new MemberService().checkNickName(userNickName, updateNickName);
-	
-		if(checkNickName) {
-			Member m = new MemberService().updateNickName(updateNickName,userId,userPwd);
+		System.out.println(userNickName);
+		Member m = new MemberService().updateNickName(updateNickName,userId);
+		
+		HttpSession session = request.getSession();
+		
+		if(m == null) {
+			session.setAttribute("alertMsg", "닉네임변경 성공");
+					s
+		}else {		
+			session.setAttribute("alertMsg", "닉네임변경 실패");
+			session.setAttribute("loginUser", m); 
 			
-			HttpSession session = request.getSession();
-
-			System.out.println("멤버:" + m);
-			if(m != null) {
-				session.setAttribute("alertMsg", "닉네임이 변경되었습니다.");
-				session.setAttribute("loginUser", m);
-			}else {
-				session.setAttribute("alertMsg", "닉네임 변경 실패");	
-			}
 		}
-		else {			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "누군가 사용하고있는 닉네임입니다.");
-		}
-
 		response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
 

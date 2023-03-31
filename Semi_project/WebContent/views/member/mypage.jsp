@@ -220,7 +220,7 @@
 				</div>
 				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
 					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onclick="return validateNickName();">
-					닉네임 설정
+					닉네임 변경
 				</button>
 			</div>
 		</form>
@@ -259,7 +259,7 @@
 					<span style="text-align: center;">탈퇴하시겠습니까?</span>
 					<div class="closeBtn2" id="confirm"
 						style="width: 100%; height: 120px; display: flex; justify-content: space-evenly; padding-top: 70px;">
-						<button type="submit" id="yes" style="width: 100%;" onclick="return deleteMember()";>예</button>
+						<button type="submit" id="yes" style="width: 100%;">예</button>
 						<button id="no" style="width: 100%;">아니오</button>
 					</div>
 				</div>
@@ -267,9 +267,11 @@
 		</div>
 		
 		<script>
-			function deleteMember(){
-				
-			}
+			$(function(){
+				$('#yes').click(function(){
+					location.href = '<%= request.getContextPath() %>/deleteMember.me'
+				});
+			});
 		</script>
 	</div>
 

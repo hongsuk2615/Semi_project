@@ -163,34 +163,33 @@ public class MemberService {
 		return result;
 	}
 
-	public Member updateNickName(String updateNickName, String userId,String userPwd) {
-		
+	public Member updateNickName(String updateNickName,  String userId) {
 		Connection conn = getConnection();
 		Member m = null;
-		int result = 0;
-		System.out.println(updateNickName);
-		
-		result = new MemberDao().updateNickName(conn, updateNickName, userId);
-		System.out.println(result);
+		int result = new MemberDao().updateNickName(conn, updateNickName, userId);
 		
 		if (result > 0) {
-
-			commit(conn);
-			m =new MemberDao().loginMember(conn, userId, userPwd);
-		} else {
+		commit(conn);
+		m = new MemberDao().loginMember(conn, userId, updateNickName);
+		}else {
 			rollback(conn);
-		}
+			}
 		close(conn);
-		
 		return m;
-	}
+		}
 	
-	public boolean checkNickName(String updateNickName,String userNickName) {
-		Connection conn = getConnection();
-		boolean result = false;
-		result = new MemberDao().checkNickName(conn, updateNickName, userNickName);
-		close(conn);
-		return result;
-	}
-
+	public int deleteMember(String userId) {
+	      
+	      Connection conn = getConnection();
+	      
+	      int result = new MemberDao().deleteMember(conn, userId);
+	      
+	      if(result > 0) {
+	         commit(conn);
+	      }else {
+	         rollback(conn);
+	      }
+	     close(conn);
+	      return result;
+	   }
 }
