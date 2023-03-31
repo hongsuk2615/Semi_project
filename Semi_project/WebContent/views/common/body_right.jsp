@@ -21,18 +21,18 @@
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
-            <form action="<%= request.getContextPath() %>/login.me" method="post">
+            <form >
                 <div id="id-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/idimg.png" alt="idimg" width="40" height="40">
-                    <input type="text" name="login-id" placeholder="아이디를 입력하세요">
+                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요">
                 </div>
                 <div id="pwd-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/pwdimg.png" alt="pwdimg" width="40" height="40">
-                    <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
+                    <input type="password" id = "loginPwd" name="loginPwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
 
-                    <input type="submit" value="로그인">
+                    <input type="button" onclick="login()" value="로그인">
 
                     <input type="button" value="회원가입">
                 </div>
@@ -376,6 +376,27 @@
         
         <!-- 페이지이동스크립트 -->
         <script>
+        
+        function login(){
+    		$.ajax({
+				url : "<%=request.getContextPath()%>/login.me",
+				type : "post",
+				data :{
+					loginId :  $("#loginId").val(),
+					loginPwd :  $("#loginPwd").val()
+				}, 
+				success : function(r){
+					console.log(r);
+					switch(r){
+					case '-1' : location.href="<%= request.getContextPath()%>/login.me"; alert("아이디나 비번이 맞지 않습니다!"); break;
+					case '0' : alert("승인되지않은 아이디입니다!"); break;
+					case '1' : location.href="<%= request.getContextPath()%>"; break;
+					}
+				}, error : function(){
+					console.log("ajax통신실패")
+				}
+			})
+    	}
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
