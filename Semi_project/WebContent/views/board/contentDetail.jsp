@@ -55,7 +55,7 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="content-detail">
-                            <div> <%= cName %>게시판</div>
+                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
@@ -163,7 +163,7 @@
                 </div>
                     <div id="goto-boardlist">
                        
-                        <div>글 목록</div>
+                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
                     </div>
                     </div>
     
@@ -195,7 +195,7 @@
 				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
 					bNo : "<%= b.getBoardNo() %>",
-					content : $("#replyContent").val(),
+					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
 					isAnonimous : $("#isAnonimous").val()
 				}, 
 				success : function(result){
