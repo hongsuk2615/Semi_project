@@ -37,19 +37,23 @@ public class ddayInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
+		System.out.println(request.getParameter("dDay"));
 		Date dDay = transformDate(request.getParameter("dDay"));
 		String title = request.getParameter("title");
-
+		System.out.println(userNo);
+		System.out.println(dDay);
+		System.out.println(title);
 	
+//		
+//		Dday d = new Dday();
+//		
+//		d.setdDayNo(dDayNo);
+//		d.setTitle(title);
+//		d.setdDay(dDay);
 		
-		Dday d = new Dday();
+		boolean result = new DdayService().insertDday(userNo,title,dDay);
 		
-		d.setdDayNo(dDayNo);
-		d.setTitle(title);
-		d.setdDay(dDay);
 		
-		int result = new DdayService().insertDday(d, userNo);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(result, response.getWriter());

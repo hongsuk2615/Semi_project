@@ -1,5 +1,6 @@
 package com.khtime.dday.model.service;
 import java.sql.Connection;
+import java.sql.Date;
 
 import com.khtime.common.JDBCTemplate;
 import com.khtime.dday.model.dao.DdayDao;
@@ -7,13 +8,13 @@ import com.khtime.dday.model.vo.Dday;
 
 public class DdayService {
 	
-	public int insertDday(Dday d , int userNo) {
+	public boolean insertDday(int userNo, String title, Date dDay) {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new DdayDao().insertDday(conn, d, userNo);
+		boolean result = new DdayDao().insertDday(conn, userNo,title,dDay);
 		
-		if(result > 0 ) {
+		if(result) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);

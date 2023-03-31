@@ -18,7 +18,7 @@ public class StringToDate {
     // 날짜가 yyyymmdd 형식으로 입력되었을 경우 Date로 변경하는 메서드
     public static Date transformDate(String date)
     {
-        SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+        SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyy-mm-dd");
         
         // Date로 변경하기 위해서는 날짜 형식을 yyyy-mm-dd로 변경해야 한다.
         SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-mm-dd");

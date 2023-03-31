@@ -207,25 +207,35 @@
         
         
         <script>
-        
-        $('.closeBtn2').click(function(){
-        	$.ajax({
-        		type : "get",
-        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
-        		data : { "title" : $('#dDayTitle').val() ,      
-        				 "dDay " : $('#datepicker').val()
-        		},
-        		success : function(){
-        			
-        			
-        			
-        		}
-        		
-        		
-        		
-        	})
-        })
-        
+        function makeEvent(){
+	        $('.closeBtn2').click(function(){
+	        	console.log("저장버튼클릭");
+	        	$.ajax({
+	        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+	        		data : { "title" : $('#dDayTitle').val() ,      
+	        				 "dDay" : $('#datepicker').val()
+	        		},
+	        		success : function(result){
+	        			if(result){
+	        				console.log(result);
+	        				alert("저장 성공");
+	        				
+	        			}else{
+	        				alert("저장 실패");
+	        			}
+	        			
+	        		},
+	        		error : function(result){
+	        			
+	        		},
+	        		complete : function(){
+	        			close1();
+	                    close();
+	        		}
+	        		
+	        	});
+	        });
+        } 
         
         
     </script>
@@ -284,6 +294,7 @@
         <script>
             const open1 = () => {
                 document.querySelector(".modal1").classList.remove("hidden");
+                makeEvent();
             }
             const close1 = () => {
                 console.log('cdlose')
@@ -291,10 +302,10 @@
             }
             document.querySelector(".openBtn1").addEventListener("click", open1);
             document.querySelector(".closeBtn1").addEventListener("click", close1);
-            document.querySelector(".closeBtn2").addEventListener("click", function(){
+            /* document.querySelector(".closeBtn2").addEventListener("click", function(){
                 close1();
                 close();
-            });
+            }); */
             document.querySelector(".bg1").addEventListener("click", function(){
                 close1();
                 close();
