@@ -78,6 +78,86 @@
 		WHERE USER_ID = ?
 
 	</entry>
+	
+	<entry key="checkPwd">
+		SELECT USER_PWD
+		 FROM  MEMBER
+		WHERE USER_ID = ? AND USER_PWD = ? AND STATUS ='Y' 
+	</entry>
+	
+	<entry key="updatePwd">
+		UPDATE MEMBER
+		   SET USER_PWD = ?
+		 WHERE USER_ID = ? 
+	</entry>
+	
+	<entry key="checkPwdForEmail">
+		SELECT USER_PWD
+		 FROM  MEMBER
+		WHERE USER_ID = ? AND USER_PWD = ? AND STATUS ='Y' 
+	</entry>
+	
+	<entry key="updateEmail">
+		UPDATE MEMBER
+		   SET EMAIL = ?
+		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="checkNickName">
+		SELECT NICK_NAME
+		  FROM MEMBER
+		 WHERE NICK_NAME = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateNickName">
+		UPDATE MEMBER
+		   SET NICK_NAME = ?
+		 WHERE USER_ID = ?	
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		   SET STAUS = 'N'
+		 WHERE USER_ID = ?
+	</entry>
+
+	<!-- 여기부터 석범 코드 -->
+	
+	<entry key="checkPwd">
+		SELECT USER_PWD
+		 FROM  MEMBER
+		WHERE USER_ID = ? AND USER_PWD = ? AND STATUS ='Y' 
+	</entry>
+	
+	<entry key="checkPwdForEmail">
+		SELECT USER_PWD
+		 FROM  MEMBER
+		WHERE USER_ID = ? AND USER_PWD = ? AND STATUS ='Y' 
+	</entry>
+	
+	<entry key="updateEmail">
+		UPDATE MEMBER
+		   SET EMAIL = ?
+		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="checkNickName">
+		SELECT NICK_NAME
+		  FROM MEMBER
+		 WHERE NICK_NAME = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateNickName">
+		UPDATE MEMBER
+		   SET NICK_NAME = ?
+		 WHERE USER_ID = ?	
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE MEMBER
+		   SET STAUS = 'N'
+		 WHERE USER_ID = ?
+	</entry>
 
 
 </properties>
