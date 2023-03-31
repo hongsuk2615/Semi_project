@@ -55,18 +55,11 @@
 					<div id="myinfo" style="height: 270px; width: 500px;">
 						<strong>내 정보</strong>
 						<div style="position: relative; left: 45%;">
-
-
 							<button type="button" class="openBtn">비밀번호변경</button>
-
-
 							<button type="button" class="openBtn1">이메일변경</button>
-
-
 						</div>
 						<br>
 						<br>
-
 						<div style="width: 100px; height: 100px;">
 							<label for="profile">
 								<div style="border: 1px solid red; max-width:100px; max-height: 100px;">

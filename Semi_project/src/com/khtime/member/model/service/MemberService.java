@@ -163,26 +163,34 @@ public class MemberService {
 		return result;
 	}
 
-//	public Member updateNickName(String updateNickName, String userId, String userNickName) {
-//		
-//		Connection conn = JDBCTemplate.getConnection();
-//		
-//		Member m = null;
-//		
-//		int result = new MemberDao().checkNickName(conn,userId,userNickName);
-//		
-//		if(result>0) {
-//			result = new MemberDao().updateNickName(conn,updateNickName,userId);
-//			if(result>0) {
-//				JDBCTemplate.commit(conn);
-//				m =new MemberDao().loginMember(conn, userId, updateNickName);
-//			} else {
-//				
-//				JDBCTemplate.rollback(conn);
-//			}
-//		}
-//		JDBCTemplate.close(conn);
-//		return m;
-//	}
+	public Member updateNickName(String updateNickName, String userId,String userPwd) {
+		
+		Connection conn = getConnection();
+		Member m = null;
+		int result = 0;
+		System.out.println(updateNickName);
+		
+		result = new MemberDao().updateNickName(conn, updateNickName, userId);
+		System.out.println(result);
+		
+		if (result > 0) {
+
+			commit(conn);
+			m =new MemberDao().loginMember(conn, userId, userPwd);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		System.out.println("업데이트이메일 멤버" + m);
+		return m;
+	}
+	
+	public int checkNickName(String userId, String updateNickName) {
+		Connection conn = getConnection();
+		int result = 0;
+		result = new MemberDao().checkNickName(conn, updateNickName, userId);
+		close(conn);
+		return result;
+	}
 
 }
