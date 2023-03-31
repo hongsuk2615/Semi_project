@@ -289,12 +289,10 @@
   	    })
   	   
   	    function deleteclick(id){
-			 
 			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
 		 }
 		 
 		 function recommendclick(id){
-		
 			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
 		 }
 	</script>
