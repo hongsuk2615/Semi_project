@@ -129,6 +129,7 @@
 						<h4 class="inputLabel">새 비밀번호</h4>
 						<input type="password" name="updatePwd" placeholder="새 비밀번호" class="inputField" required /><br>
 						<input type="password"name="checkPwd" placeholder="새 비밀번호 확인" class="inputField" required />
+						
 					</div>
 		
 					<div class="inputBox">
@@ -206,37 +207,6 @@
 	</div>
 
 
-
-	<!-- [회원 탈퇴] 모달창 -->
-	<div class="modal2 hidden" id="deleteModal">
-		<div class="bg2"></div>
-		
-		<div class="modalBox" style="height: 300px;">
-			<div class="header">
-				<h2>회원탈퇴</h2>
-			</div>
-			<div class="addDdayBody">
-				<div id="emailnotice"
-					style="position: relative; text-align: center;">
-					<p style="text-align: center;">그 동안 KH TIME을 이용해주셔서 감사합니다.</p>
-					<span style="text-align: center;">탈퇴하시겠습니까?</span>
-					<div class="closeBtn2" id="confirm"
-						style="width: 100%; height: 120px; display: flex; justify-content: space-evenly; padding-top: 70px;">
-						<button type="submit" id="yes" style="width: 100%;" onclick="return deleteMember()";>예</button>
-						<button id="no" style="width: 100%;">아니오</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<script>
-			function deleteMember(){
-				
-			}
-		</script>
-	</div>
-
-
 	<!-- [닉네임 변경] 모달창 -->
 	<div class="modal3 hidden">
 		<div class="bg3"></div>
@@ -284,14 +254,43 @@
 		}
 		</script>
 		</div>
+	</div>
+	
+	
+
+	<!-- [회원 탈퇴] 모달창 -->
+	<div class="modal2 hidden" id="deleteModal">
+		<div class="bg2"></div>
 		
+		<div class="modalBox" style="height: 300px;">
+			<div class="header">
+				<h2>회원탈퇴</h2>
+			</div>
+			<div class="addDdayBody">
+				<div id="emailnotice"
+					style="position: relative; text-align: center;">
+					<p style="text-align: center;">그 동안 KH TIME을 이용해주셔서 감사합니다.</p>
+					<span style="text-align: center;">탈퇴하시겠습니까?</span>
+					<div class="closeBtn2" id="confirm"
+						style="width: 100%; height: 120px; display: flex; justify-content: space-evenly; padding-top: 70px;">
+						<button type="submit" id="yes" style="width: 100%;" onclick="return deleteMember()";>예</button>
+						<button id="no" style="width: 100%;">아니오</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			function deleteMember(){
+				
+			}
+		</script>
 	</div>
 
 
 
 
-	<script>
-
+	<script> // 프로필사진 업로드 스크립트
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
