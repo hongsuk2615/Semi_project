@@ -3,7 +3,7 @@ package com.khtime.dday.controller;
 import static com.khtime.common.StringToDate.transformDate;
 
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.khtime.dday.model.service.DdayService;
 import com.khtime.dday.model.vo.Dday;
 import com.khtime.member.model.vo.Member;
@@ -18,7 +19,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class ddayInsertController
  */
-@WebServlet("/ddayInsertController")
+@WebServlet("/ddayInsert.bo")
 public class ddayInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,11 +49,10 @@ public class ddayInsertController extends HttpServlet {
 		d.setTitle(title);
 		d.setdDay(dDay);
 		
-		
-		
 		int result = new DdayService().insertDday(d, userNo);
-		
-	    
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(result, response.getWriter());
 		
 		
 		

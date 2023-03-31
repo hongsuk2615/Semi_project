@@ -1,6 +1,6 @@
 package com.khtime.dday.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Dday {
 	private int dDayNo;

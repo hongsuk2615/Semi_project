@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,6 +204,32 @@
 				</div>
             </div>
         </div>
+        
+        
+        <script>
+        
+        $('.closeBtn2').click(function(){
+        	$.ajax({
+        		type : "get",
+        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+        		data : { "title" : $('#dDayTitle').val() ,      
+        				 "dDay " : $('#datepicker').val()
+        		},
+        		success : function(){
+        			
+        			
+        			
+        		}
+        		
+        		
+        		
+        	})
+        })
+        
+        
+        
+    </script>
+        
 
         <!-- [디데이 설정] 모달창 스크립트 -->
         <script>
@@ -233,7 +260,7 @@
 				<div class="addDdayBody">
 					<div class="inputBox">
 						<p class="inputLabel">디데이</p>
-						<input type="text" placeholder="디데이를 입력해주세요" class="inputField"/>
+						<input type="text" placeholder="디데이를 입력해주세요" id="dDayTitle" class="inputField"/>
 					</div>
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>

@@ -2,6 +2,7 @@ package com.khtime.dday.model.service;
 import java.sql.Connection;
 
 import com.khtime.common.JDBCTemplate;
+import com.khtime.dday.model.dao.DdayDao;
 import com.khtime.dday.model.vo.Dday;
 
 public class DdayService {

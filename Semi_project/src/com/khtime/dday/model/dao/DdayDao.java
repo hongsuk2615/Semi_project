@@ -40,8 +40,8 @@ public class DdayDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1,userNo);
-				
-				
+				pstmt.setDate(2, d.getdDay());
+				pstmt.setString(3, d.getTitle());
 				
 				result = pstmt.executeUpdate();
 
