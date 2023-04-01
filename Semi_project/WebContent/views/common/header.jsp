@@ -26,7 +26,7 @@
                 <img src="<%= request.getContextPath()%>/resources/IMG/로고이미지.png" alt="로고이미지">
             </div>
             <div id="navbar">
-                <div>게시판</div>
+                <div id="boardsearch">게시판</div>
                 <div id="friendlist">친구목록</div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
@@ -47,7 +47,10 @@
     </div>
 
     <script>
-    
+    	
+  		document.getElementById("boardsearch").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/board.me";
+  		}) 
 	    document.getElementById("friendlist").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>/friend.me";
 	    }) 

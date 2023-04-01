@@ -22,7 +22,15 @@ public class Member {
 	public Member() {
 		super();
 	}
+	 
 	
+
+	public Member(int userNo) {
+		super();
+		this.userNo = userNo;
+	}
+
+
 	
 	
 
