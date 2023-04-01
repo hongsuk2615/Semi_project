@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.vo.Board;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class ContentDeleteController
@@ -31,8 +32,8 @@ public class ContentDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
-		
-		int result = new BoardService().deleteContent(bNo);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int result = new BoardService().deleteContent(bNo, userNo);
 		
 		response.sendRedirect(request.getContextPath());
 	}
