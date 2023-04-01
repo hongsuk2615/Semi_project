@@ -54,6 +54,8 @@
 					 if(r != ""){$("body").html(r); 
 					 }else{
 						 alert("이름이나 이메일이 맞지 않습니다!");
+						 $("#loginName").val("");
+						 $("#loginEmail").val("");
 					 }
 				
 				}, error : function(){

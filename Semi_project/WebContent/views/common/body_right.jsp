@@ -389,7 +389,7 @@
 					console.log(r);
 					switch(r){
 					case '-1' : location.href="<%= request.getContextPath()%>/login.me"; alert("아이디나 비번이 맞지 않습니다!"); break;
-					case '0' : alert("승인되지않은 아이디입니다!"); break;
+					case '0' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
 					}
 				}, error : function(){
