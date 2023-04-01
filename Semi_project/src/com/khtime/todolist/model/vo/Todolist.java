@@ -1,21 +1,29 @@
 package com.khtime.todolist.model.vo;
 
 public class Todolist {
-	private String userId;
+	private int toDoListNo;
+	private int userNo;
 	private String content;
 	private int priority;
 	
 	public Todolist() {
 		super();
 	}
-
-
-	public String getUserId() {
-		return userId;
+	
+	public int getToDoListNo() {
+		return toDoListNo;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setToDoListNo(int toDoListNo) {
+		this.toDoListNo = toDoListNo;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public String getContent() {

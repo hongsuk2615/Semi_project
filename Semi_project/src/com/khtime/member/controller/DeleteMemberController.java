@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
@@ -36,10 +37,21 @@ public class DeleteMemberController extends HttpServlet {
 		
 		if(result > 0) {
 			
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "탈퇴 성공. 그 동안 이용해주셔서 감사합니다.");
+			
+			
 			
 		}
-		
+		else {			
+			HttpSession session = request.getSession();
+			session.setAttribute("alertMsg", "탈퇴 실패.");
+		}
+
+		response.sendRedirect(request.getContextPath() + "/logout.me");
 	}
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
