@@ -15,40 +15,45 @@ import com.khtime.member.model.service.MemberService;
 @WebServlet("/searchId.me")
 public class SearchIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchIdController() {
-        super();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/searchIdForm.jsp").forward(request, response);
+	public SearchIdController() {
+		super();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
-		String userName = request.getParameter("login-name");
-		String userEmail = request.getParameter("login-email");
-	
+		request.getRequestDispatcher("views/member/searchIdForm.jsp").forward(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String userName = request.getParameter("loginName");
+		String userEmail = request.getParameter("loginEmail");
 		String userId = new MemberService().searchId(userName, userEmail);
 		
-		if(userId != null) { // 아이디찾기 성공
+		String result = "";
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		if (userId != null) { // 아이디찾기 성공
 			request.setAttribute("userId", userId);
 			request.getRequestDispatcher("views/member/searchIdViewForm.jsp").forward(request, response);
-		}else {  // 아이디찾기 실패
-			request.getSession().setAttribute("alertMsg", "아이디 찾기 실패");
-			response.sendRedirect(request.getContextPath()+"/searchId.me");
 			
-			
+		} else { // 아이디찾기 실패
+			response.getWriter().print(result);
 		}
 	}
 

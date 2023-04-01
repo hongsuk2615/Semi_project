@@ -55,7 +55,7 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="content-detail">
-                            <div> <%= cName %>게시판</div>
+                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
@@ -163,7 +163,7 @@
                 </div>
                     <div id="goto-boardlist">
                        
-                        <div>글 목록</div>
+                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
                     </div>
                     </div>
     
@@ -195,7 +195,7 @@
 				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
 					bNo : "<%= b.getBoardNo() %>",
-					content : $("#replyContent").val(),
+					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
 					isAnonimous : $("#isAnonimous").val()
 				}, 
 				success : function(result){
@@ -224,26 +224,29 @@
 				success : function(list){
 					let result  = "";
 					for(let i of list){ 
-						result += "<li>"
-							// <0,1> <1,2> <2,3> <3,4> 
-							 + i.replyNo
-							 + "<div class='content-detail-comments'>"
-							 + "<div class='comments-left'>"
-							 +"프로필사진"
-							 + i.writer
-							 + "</div>"
-							 + "<div class='comments-right'>"
-		                     + " 대댓글 신고"
-		                     +"<button id=recommendbtn"+i.replyNo+" onclick='recommendclick(this.id)'>공감</button>"
-		                     +"<button id=deletebtn"+i.replyNo+" onclick='deleteclick(this.id)'>삭제</button>"
-		                     + "</div>"
-		                     + "</div>"
-		                     + i.content
-		                     + "<br>"
-		                     + i.enrollDate
-		                     + "<br>"
-		                     + i.recommendCount
-		                     + "</li>"
+						result += 
+						`
+						<li>
+						\${i.replyNo}
+						 <div class='content-detail-comments'>
+						 <div class='comments-left'>
+						 프로필사진
+						 \${i.writer}
+						 </div>
+						 <div class='comments-right'>
+	                     대댓글 신고
+	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
+	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+	                     </div>
+	                     </div>
+	                     \${i.content}
+	                     <br>
+	                     \${i.enrollDate}
+	                     <br>
+	                      \${i.recommendCount}
+	                     </li>
+	                     `
+                           
 					}
 					$("#comments-area").html(result);
 				},
@@ -286,12 +289,10 @@
   	    })
   	   
   	    function deleteclick(id){
-			 alert(id.substr(9));
 			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
 		 }
 		 
 		 function recommendclick(id){
-			 alert(id.substr(12));
 			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
 		 }
 	</script>

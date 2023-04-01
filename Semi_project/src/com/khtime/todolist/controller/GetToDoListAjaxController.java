@@ -1,6 +1,7 @@
-package com.khtime.board.controller;
+package com.khtime.todolist.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.service.ReplyService;
-import com.khtime.board.model.vo.Reply;
+import com.google.gson.Gson;
 import com.khtime.member.model.vo.Member;
+import com.khtime.todolist.model.service.TodolistService;
+import com.khtime.todolist.model.vo.Todolist;
 
 /**
- * Servlet implementation class ReplyInsertController
+ * Servlet implementation class GetToDoListAjaxController
  */
-@WebServlet("/insert.re")
-public class ReplyInsertController extends HttpServlet {
+@WebServlet("/getToDoList.me")
+public class GetToDoListAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyInsertController() {
+    public GetToDoListAjaxController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +33,12 @@ public class ReplyInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-		String content = request.getParameter("content");
-		System.out.println("content: "+content);
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
-		
-		Reply r = new Reply();
-		r.setContent(content);
-		r.setBoardNo(bNo);
-		r.setIsAnonimous(isAnonimous);
-		
-		int result = new ReplyService().insertReply(r, userNo, bNo);
-		
-		response.setContentType("text/html charset=UTF-8");
-		
-		response.getWriter().print(result);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		System.out.println(userNo);
+		ArrayList<Todolist> list = new TodolistService().getTodolist(userNo);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(list,response.getWriter());
 	}
 
 	/**
