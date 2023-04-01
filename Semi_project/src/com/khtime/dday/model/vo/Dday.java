@@ -1,23 +1,23 @@
 package com.khtime.dday.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Dday {
 	private int dDayNo;
 	private Date dDay;
 	private String title;
-	private int userId;
+	private int userNo;
 	
 	public Dday() {
 		super();
 	}
 
-	public Dday(int dDayNo, Date dDay, String title, int userId) {
+	public Dday(int dDayNo, Date dDay, String title, int userNo) {
 		super();
 		this.dDayNo = dDayNo;
 		this.dDay = dDay;
 		this.title = title;
-		this.userId = userId;
+		this.userNo = userNo;
 	}
 
 	public int getdDayNo() {
@@ -44,17 +44,17 @@ public class Dday {
 		this.title = title;
 	}
 
-	public int getUserId() {
-		return userId;
+	public int getuserNo() {
+		return userNo;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserId(int userNo) {
+		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Dday [dDayNo=" + dDayNo + ", dDay=" + dDay + ", title=" + title + ", userId=" + userId + "]";
+		return "Dday [dDayNo=" + dDayNo + ", dDay=" + dDay + ", title=" + title + ", userNo=" + userNo + "]";
 	}
 
 	
