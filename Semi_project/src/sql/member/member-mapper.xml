@@ -141,21 +141,16 @@
 		 WHERE USER_ID = ?
 	</entry>
 	
-	<entry key="checkNickName">
-		SELECT NICK_NAME
-		  FROM MEMBER
-		 WHERE NICK_NAME = ? AND STATUS = 'Y'
-	</entry>
-	
 	<entry key="updateNickName">
 		UPDATE MEMBER
 		   SET NICK_NAME = ?
 		 WHERE USER_ID = ?	
 	</entry>
 	
+
 	<entry key="deleteMember">
 		UPDATE MEMBER
-		   SET STAUS = 'N'
+		   SET STATUS = 'N'
 		 WHERE USER_ID = ?
 	</entry>
 

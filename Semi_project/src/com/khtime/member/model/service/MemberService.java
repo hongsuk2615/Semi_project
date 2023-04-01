@@ -163,26 +163,33 @@ public class MemberService {
 		return result;
 	}
 
-//	public Member updateNickName(String updateNickName, String userId, String userNickName) {
-//		
-//		Connection conn = JDBCTemplate.getConnection();
-//		
-//		Member m = null;
-//		
-//		int result = new MemberDao().checkNickName(conn,userId,userNickName);
-//		
-//		if(result>0) {
-//			result = new MemberDao().updateNickName(conn,updateNickName,userId);
-//			if(result>0) {
-//				JDBCTemplate.commit(conn);
-//				m =new MemberDao().loginMember(conn, userId, updateNickName);
-//			} else {
-//				
-//				JDBCTemplate.rollback(conn);
-//			}
-//		}
-//		JDBCTemplate.close(conn);
-//		return m;
-//	}
-
+	public Member updateNickName(String updateNickName,  String userId) {
+		Connection conn = getConnection();
+		Member m = null;
+		int result = new MemberDao().updateNickName(conn, updateNickName, userId);
+		
+		if (result > 0) {
+		commit(conn);
+		m = new MemberDao().loginMember(conn, userId, updateNickName);
+		}else {
+			rollback(conn);
+			}
+		close(conn);
+		return m;
+		}
+	
+	public int deleteMember(String userId) {
+	      
+	      Connection conn = getConnection();
+	      
+	      int result = new MemberDao().deleteMember(conn, userId);
+	      
+	      if(result > 0) {
+	         commit(conn);
+	      }else {
+	         rollback(conn);
+	      }
+	     close(conn);
+	      return result;
+	   }
 }
