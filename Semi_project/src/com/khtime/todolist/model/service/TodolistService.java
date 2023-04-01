@@ -32,4 +32,17 @@ public class TodolistService {
 		
 		return list;
 	}
+	
+	public boolean deleteToDoList(int tdlNo, int userNo) {
+		Connection conn = getConnection();
+		boolean result = new TodolistDao().deleteToDoList(conn, tdlNo, userNo);
+		close(conn);
+		return result;
+	}
+	public boolean changePriority(int priority, int tdlNo , int userNo) {
+		Connection conn = getConnection();
+		boolean result = new TodolistDao().changePriority(conn, priority, tdlNo, userNo);
+		close(conn);
+		return result;
+	}
 }

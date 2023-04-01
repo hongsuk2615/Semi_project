@@ -18,7 +18,21 @@
 			 , CONTENT
 	      FROM TO_DO_LIST
 	     WHERE USER_NO = ?
-	     ORDER BY PRIORITY DESC
+	     ORDER BY PRIORITY DESC, TO_DO_LIST_NO DESC
+	</entry>
+	
+	<entry key="deleteToDoList">
+		DELETE FROM TO_DO_LIST
+		 WHERE TO_DO_LIST_NO = ?
+		   AND USER_NO = ?	
+	</entry>
+	
+	<entry key="changePriority">
+		UPDATE TO_DO_LIST
+		   SET PRIORITY = ? 
+		 WHERE TO_DO_LIST_NO = ?
+		   AND USER_NO = ?
+	
 	</entry>
 
 	
