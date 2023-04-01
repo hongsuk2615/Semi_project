@@ -79,4 +79,41 @@ public class TodolistDao {
 		return list;
 		
 	}
+	
+	public boolean deleteToDoList(Connection conn, int tdlNo, int userNo) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteToDoList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tdlNo);
+			pstmt.setInt(2, userNo);
+			result = pstmt.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public boolean changePriority(Connection conn, int priority, int tdlNo, int userNo) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changePriority");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, priority);
+			pstmt.setInt(2, tdlNo);
+			pstmt.setInt(3, userNo);
+			result = pstmt.executeUpdate() > 0 ? true : false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
