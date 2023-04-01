@@ -82,7 +82,7 @@
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
-							 console.log(result);
+							 alert(result);
 							 if(result){
 								 if(confirm("친구 요청 하시겠습니까?")){
 									 location.href="<%=request.getContextPath() %>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결

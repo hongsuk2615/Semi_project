@@ -15,6 +15,7 @@ import com.khtime.board.model.vo.Board;
 import com.khtime.common.JDBCTemplate;
 
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 
 
@@ -434,7 +435,40 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   
+	   public ArrayList<Board> boardTitle(Connection conn, String searchTitle){
+		   Board b = null;
+		   
+		   ArrayList<Board> bt = new ArrayList<>();
+		   
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("boardTitle");
+			
+			ResultSet rset = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, searchTitle);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					b =new Board();
+		
+					b.setTitle(rset.getString("TITLE"));
+			
+					bt.add(b);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return bt;
+	   }
 	   
 	   
 	   

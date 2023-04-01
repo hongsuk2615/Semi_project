@@ -152,7 +152,16 @@ public class BoardService {
 		return result;
 	}
 	
+	public ArrayList<Board> boardTitle( String searchTitle){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Board> bt = new  BoardDao().boardTitle(conn , searchTitle);
 	
+		close(conn); 
+		
+		return bt;
+	}
 	
 
 }

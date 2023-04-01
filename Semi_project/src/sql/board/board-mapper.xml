@@ -219,5 +219,10 @@
 	  	WHERE BOARD_NO = ?
    </entry>
    
+   <entry key="boardTitle">
+   			SELECT TITLE 
+			FROM BOARD
+			WHERE TITLE = ?
+   </entry>
 	
 </properties>

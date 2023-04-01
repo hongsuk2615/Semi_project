@@ -1,11 +1,19 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.vo.Board;
+import com.khtime.friend.model.service.FriendService;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardSearchController
@@ -33,8 +41,15 @@ public class BoardSearchController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String searchTitle = request.getParameter("Board");
+		ArrayList<Board> bt = new  BoardService().boardTitle(searchTitle);
+		
+		System.out.println("ggggggg"+bt);
+		
+		Gson gson = new Gson();
+		response.setContentType("application/json; charset=UTF-8");
+		gson.toJson(bt,response.getWriter());
+		
 	}
 
 }

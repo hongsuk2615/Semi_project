@@ -1,5 +1,7 @@
+<%@ page import = "java.util.ArrayList,com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <% ArrayList<Board> bt = (ArrayList<Board>)request.getAttribute("bt"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +13,8 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardlistpage.css">
+     <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -61,13 +65,21 @@
             <div id="content">
                 <form id="boardmake">
                     <div>
-                        <div><input type="text" name="name" placeholder="게시판 검색" id="searchBoard"></div>
+                        <div><input type="text" name="name" placeholder="게시판 검색" id="Board"></div>
                         <button type="button"  onclick="searchBoard();" >검색</button> <br>
                     </div>
+
                     <br>
                     <div id="searchresult">'게시판 검색 결과'</div>
                     <div id="keyword">
-                        <div>keyword</div>
+                        <div>
+                        <%if(bt != null ) {%>
+                        alert(bt);
+                        <% for(Board b : bt){ %>		
+							<%=b.getTitle() %><br>			
+						<% } %> 
+                        <% } %>
+                        </div>
                         <div>keyword</div>
                         <div>keyword</div>
                         <div>keyword</div>
@@ -82,18 +94,33 @@
 
         </div>
     </div>
-		<script>
+	
+	    <script>
 		function searchBoard(){
-			let searchBoard = document.getElementById("searchBoard").value;
+			alert("ddddd");
+			let searchBoard = document.getElementById("Board").value;
 			
 			$.ajax({
+				
 				url : "<%= request.getContextPath()%>/board.me",
-			})
-		}
+				data : {Board : searchBoard},
+				method : "post",
+				success :function(result){
+						 console.log(result);
+							 if(result){		
+								
+									<%--  location.href="<%=request.getContextPath() %>/board.me?Board="+searchBoard; --%>
+							 }else{
+								 
+                                alert("존재하지 않는 게시물입니다.");
+							 }
+							 
+						 }	 
+					 });
+				 }
 			
 		</script>
-
-
+                    
 
 
 
