@@ -175,6 +175,7 @@
 	  UPDATE BOARD SET
 	  	STATUS = 'N'
 	  	WHERE BOARD_NO = ?
+	  	AND USER_NO = ?
 	</entry>
 	
 	<entry key="updateBoard">
@@ -185,6 +186,7 @@
 	  	IS_QUESTION = ?,
 	  	IS_ANONIMOUS = ?
 	  		WHERE BOARD_NO = ?
+	  		AND USER_NO = ?
 	</entry>
 	
 	<entry key="recommendCountUp">

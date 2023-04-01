@@ -42,26 +42,15 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String userId = request.getParameter("login-id");
-		String userPwd = request.getParameter("login-pwd");
+		String userId = request.getParameter("loginId");
+		String userPwd = request.getParameter("loginPwd");
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
-		System.out.println(loginUser);
-		if (loginUser == null) {
-
-			System.out.println("로그인실패");
-			response.sendRedirect(request.getContextPath());
-
-		} else {
-
-			if (loginUser.getAvailable().equals("N")) {
-				request.getSession().setAttribute("alertMsg", "승인되지않은 아이디입니다!");
-				response.sendRedirect(request.getContextPath());
-			} else {
-				request.getSession().setAttribute("loginUser", loginUser);
-				System.out.println("로그인완료");
-				response.sendRedirect(request.getContextPath());
-			}
-		}
+		
+		int result = (loginUser == null) ? -1 : loginUser.getAvailable().equals("N") ? 0 : 1;
+		if (result == 1) request.getSession().setAttribute("loginUser", loginUser);
+			
+		response.setContentType("text/html; charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 }

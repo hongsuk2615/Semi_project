@@ -1,5 +1,6 @@
 package com.khtime.board.model.dao;
-import static com.khtime.common.JDBCTemplate.*;
+import static com.khtime.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,8 +13,8 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
+import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.common.JDBCTemplate;
-
 import com.khtime.common.model.vo.PageInfo;
 import com.khtime.member.model.vo.Member;
 
@@ -192,7 +193,35 @@ public class BoardDao {
 		}
 	   
 	   
-	   public int insertBoard(Connection conn, Board b, int userNo) {
+	   public int insertBoard(Connection conn, Board b, int userNo ) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			System.out.println(b);
+			String sql = prop.getProperty("insertBoard");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, b.getTitle());
+				pstmt.setString(2, b.getContent());
+				pstmt.setInt(3, b.getCategoryNo());
+				pstmt.setInt(4, userNo);
+				pstmt.setString(5, b.getIsQuestion());
+				pstmt.setString(6, b.getIsAnonimous());
+				
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int insertAttachment(Connection conn, Board b, int userNo ) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -294,7 +323,7 @@ public class BoardDao {
 		}
 	   
 	   
-	   public int deleteContent(Connection conn, int bNo) {
+	   public int deleteContent(Connection conn, int bNo, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -305,6 +334,7 @@ public class BoardDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, bNo);
+				pstmt.setInt(2, userNo);
 				
 				result = pstmt.executeUpdate();
 

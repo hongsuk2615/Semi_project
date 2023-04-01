@@ -33,6 +33,15 @@
    		DELETE FROM D_DAY
 		WHERE D_DAY_NO = ?
    </entry>
-	
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 	
 </properties>
