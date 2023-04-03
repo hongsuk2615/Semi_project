@@ -67,7 +67,7 @@
                                                 <% } %> 
                                             </div>
     								<div>등록일: <%= b.getEnrollDate() %></div>
-    								<div><input type="text" id="title" name="title" placeholder="글 제목"> <%= b.getTitle() %></div>
+    								<div><input type="text" id="title" name="title" placeholder="글 제목" value="<%=b.getTitle()%>"></div>
       							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"><%= b.getContent() %></textarea></div>
            							<div id="createContent-check">
                 						<div>첨부파일<input type="file" id="upfile" name="upfile" multiple>
