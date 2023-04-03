@@ -184,7 +184,7 @@
 				<div class="header">
 					<p>디데이 설정</p>
 				</div>
-				<div class="body">
+				<div class="body" id="dDayList">
                     
 					<div class="openBtn2" id="ddayBox">
 						<div>
@@ -239,6 +239,61 @@
         
         
     </script>
+    
+    
+    <script>
+    	function getDday(){
+    		$.ajax({
+    			url : '<%=request.getContextPath()%>/dday.me',
+    			success : function(Dday){
+    				console.log(Dday);
+    				if(Dday.length == 0){
+                        $('#dDayList').html(`
+                        		<div class="openBtn2" id="ddayBox">
+        						<div>
+        							<p class="titleText">디데이 예시</p>
+        							<p class="dateText">2023.09.09(일)</p>
+        						</div>
+        						<div>
+        							<p class="ddayText">D-100</p>
+        						</div>
+        					</div>`);
+                    }else{
+                    	$('#dDayList').html('');
+                    	$(Dday).each(function(index,item){
+                    		$('#dDayList').append(`
+                    				<div class="openBtn2" id="ddayBox">
+            						<div>
+            							<p class="titleText">디데이 예시</p>
+            							<p class="dateText">2023.09.09(일)</p>
+            						</div>
+            						<div>
+            							<p class="ddayText">D-100</p>
+            						</div>
+            					</div>`)
+            					
+                    	}
+                    	
+                    	
+                    }
+    				
+    			}
+    			
+    		})
+    		
+    	}
+    
+    
+    
+    
+    </script>
+    
+    
+    
+    
+    
+    
+    
         
 
         <!-- [디데이 설정] 모달창 스크립트 -->
