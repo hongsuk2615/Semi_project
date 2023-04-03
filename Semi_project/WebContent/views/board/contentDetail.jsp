@@ -1,8 +1,9 @@
-<%@ page import="com.khtime.board.model.vo.Board, java.util.ArrayList, com.khtime.board.model.vo.Reply" %>
+<%@ page import="com.khtime.board.model.vo.Board, java.util.ArrayList, com.khtime.board.model.vo.Reply, com.khtime.board.model.vo.BoardAttachment" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	Board b =(Board) request.getAttribute("b"); 
+	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
 	String cName = (String) request.getAttribute("cName");
 %>     
@@ -60,7 +61,7 @@
                                 <div id="content-header">
                                     <div id="content-header-left">
                                         <div id="content-profile">
-                                            프로필
+                                            <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30">
                                         </div>
                                         <div id="content-writer">
                                             <div>
@@ -69,7 +70,6 @@
                                                 <% }else { %>
                                                 익명
                                                 <% } %> 
-                                              
                                             </div>
                                             <div>
                                                 <%= b.getEnrollDate() %>
@@ -82,11 +82,10 @@
                                         	<button id="updateBoard">수정</button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/delete.bo?bNo="+<%= b.getBoardNo() %>;
+                                     	        location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&aC=<%=attachmentList.size()%>";
                                      	    })
-                                     	    
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo="+<%= b.getBoardNo() %>;
+                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
                                      	    })
                                         	</script>
                                         <% }else{ %>
@@ -101,6 +100,10 @@
                                    <%= b.getContent() %>
                                 </div>
                                 <div>
+                                        <% for(BoardAttachment at : attachmentList){ %>
+												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
+										<% } %></div>
+                                <div>
                                     <div><%= b.getRecommendCount() %></div>
                                     <div id="replydiv"><%= b.getReplyCount() %></div>
                                     <div><%= b.getScrapCount() %></div>
@@ -110,8 +113,6 @@
                                     <button id="scrapbtn">스크랩</button>
                                 </div>
                             </div>
-                            
-
 
                             <!-- 댓글 -->
                             
@@ -119,29 +120,26 @@
                             <% if(replyList.isEmpty()) { %>
                            	<li>글이 없습니다,,</li>
                            <% }else{ %>
-                              
-                           
                             	<% for(Reply r : replyList) { %>
                                <li>
-							
-							<%= r.getReplyNo() %>
-							 <div class='content-detail-comments'>
-							 <div class='comments-left'>
-							 프로필사진
-							 <%= r.getWriter() %>
-							 </div>
-							 <div class='comments-right'>
-		                     대댓글 신고
-		                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
-		                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
-		                     </div>
-		                     </div>
-		                     <%= r.getContent() %>
-		                     <br>
-		                     <%= r.getEnrollDate() %>
-		                     <br>
-		                      <%= r.getRecommendCount() %>
-		                     </li>
+									<%= r.getReplyNo() %>
+									 <div class='content-detail-comments'>
+									 <div class='comments-left'>
+									 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
+									 <%= r.getWriter() %>
+									 </div>
+									 <div class='comments-right'>
+				                     대댓글 신고
+				                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
+				                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
+				                     </div>
+				                     </div>
+				                     <%= r.getContent() %>
+				                     <br>
+				                     <%= r.getEnrollDate() %>
+				                     <br>
+				                      <%= r.getRecommendCount() %>
+			                     </li>
                                
                               	  <% } %>
                                  <% } %>
@@ -230,7 +228,7 @@
 						\${i.replyNo}
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
-						 프로필사진
+						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
 						 \${i.writer}
 						 </div>
 						 <div class='comments-right'>

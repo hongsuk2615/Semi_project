@@ -46,15 +46,19 @@
             TITLE,
             CONTENT,
             M.NICK_NAME AS WRITER,
+            B.CATEGORY_NO,
             IS_QUESTION,
             IS_ANONIMOUS,
+            B.REPORT_COUNT,
             B.RECOMMEND_COUNT,
             B.SCRAP_COUNT,
+            B.ENROLL_DATE,
+            B.STATUS,
             REPLY_COUNT,
-            B.CATEGORY_NO,
-            B.ENROLL_DATE
+            FILE_PATH || CHANGE_NAME AS USERPROFILE
         FROM BOARD B
-        JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+        LEFT JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+        LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = B.WRITER)
        WHERE BOARD_NO = ?
          AND B.STATUS = 'Y'
    </entry>
@@ -84,10 +88,23 @@
            )
    </entry>
    
+    <entry key="insertAttachment">
+      INSERT INTO BOARD_ATTACHMENT (FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+      VALUES(SEQ_BFNO.NEXTVAL
+           ,SEQ_BONO.CURRVAL
+           ,?
+           ,?
+           ,?
+           ,?
+           )
+   </entry>
    
-   
-   
-   
+    <entry key="selectAttachmentList">
+      SELECT 
+           FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL, STATUS
+        FROM BOARD_ATTACHMENT
+       WHERE REF_BNO = ?
+   </entry>
    
    
    <entry key="searchList">
@@ -168,14 +185,18 @@
 		   AND STATUS = 'Y'
 		   
 	</entry>
-	
 
-	
 	<entry key="deleteContent">
 	  UPDATE BOARD SET
 	  	STATUS = 'N'
 	  	WHERE BOARD_NO = ?
-	  	AND USER_NO = ?
+	  	AND WRITER = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+	  UPDATE BOARD_ATTACHMENT SET
+	  	STATUS = 'N'
+	  	WHERE REF_BNO = ?
 	</entry>
 	
 	<entry key="updateBoard">
