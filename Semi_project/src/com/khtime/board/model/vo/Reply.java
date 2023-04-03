@@ -14,8 +14,11 @@ public class Reply {
 	private Date enrollDate;
 	private String isAnonimous;
 	private int pReplyNo;
+	private String userProfile;
 	
 	
+
+
 	public Reply() {
 		super();
 	}
@@ -23,7 +26,7 @@ public class Reply {
 	
 	
 	public Reply(int replyNo, int boardNo, String writer, String content, int recommendCount, int reportCount,
-			Date enrollDate, String isAnonimous, int pReplyNo) {
+			Date enrollDate, String isAnonimous, int pReplyNo, String userProfile) {
 		super();
 		this.replyNo = replyNo;
 		this.boardNo = boardNo;
@@ -34,6 +37,7 @@ public class Reply {
 		this.enrollDate = enrollDate;
 		this.isAnonimous = isAnonimous;
 		this.pReplyNo = pReplyNo;
+		this.userProfile = userProfile;
 	}
 
 
@@ -137,6 +141,14 @@ public class Reply {
 
 	public void setpReplyNo(int pReplyNo) {
 		this.pReplyNo = pReplyNo;
+	}
+	
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
 	}
 
 

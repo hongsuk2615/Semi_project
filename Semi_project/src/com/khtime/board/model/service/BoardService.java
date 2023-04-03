@@ -24,6 +24,16 @@ public class BoardService {
 
 		return boardList;
 	}
+	
+	public ArrayList<BoardAttachment> selectAttachmentList(int bNo) {
+		Connection conn = getConnection();
+
+		ArrayList<BoardAttachment> attachmentList = new BoardDao().selectAttachmentList(conn, bNo);
+
+		close(conn);
+
+		return attachmentList;
+	}
 
 	public int boardListCount(int cNo) {
 		Connection conn = getConnection();
@@ -82,16 +92,16 @@ public class BoardService {
 		return list;
 	}
 	
-	public int insertBoard(Board b, int userNo, BoardAttachment at) {
+	public int insertBoard(Board b, int userNo, ArrayList<BoardAttachment> list) {
 		Connection conn = JDBCTemplate.getConnection();
 
 		int result1 = new BoardDao().insertBoard(conn, b, userNo);
 		int result2 = 1;
-		
-		if (at != null) {
-			result2 = new BoardDao().insertAttachment(conn, at);
+		System.out.println("result1:"+result1);
+		if (!list.isEmpty()) {
+			result2 = new BoardDao().insertAttachment(conn, list);
 		}
-		
+		System.out.println("result2:"+result2);
 		if(result1 * result2 > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {

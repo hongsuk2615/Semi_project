@@ -56,7 +56,7 @@
                             <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
                             <div id="createContent">
                      
-                         		<form action="<%=request.getContextPath()%>/insert.bo" method="post" enctype="multipart/form-data">
+                         		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
       							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
            							<div id="createContent-check">
@@ -64,37 +64,51 @@
                							<div>
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-						                    <div><button type="button" id="create-content-btn" onclick="sendFile()">글 작성</button></div>
+						                    <div><button type="button" id="create-content-btn" onclick="createContent()">글 작성</button></div>
 						                </div>
 						            </div>
 					           	</form>
                             <script>
-		function sendFile(){
+		function createContent(){
 			
-			let form = new FormData();
+			let formData = new FormData();
 			
 			if($("#upfile")[0].files.length < 5){
+				formData.append("cNo", <%= request.getAttribute("cNo")%>);
+				formData.append("title", $("#title").val());
+				formData.append("content", $("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("isQuestion", $("#isQuestion").val());
+				formData.append("isAnonimous", $("#isAnonimous").val());
+				
 			$.each( $("#upfile")[0].files , function(index , file){
-				form.append("upfile"+index , file);
+				formData.append("upfile"+index , file);
 			});
 			
 			
 			$.ajax({
 				url : "<%= request.getContextPath() %>/insert.bo",
-				data : {form,
-						cNo : <%= request.getAttribute("cNo")%>,
-						title : $("#title").val(),
-						content : $("#content").val(),
-						isQuestion : $("#isQuestion").val(),
-						isAnonimous : $("#isAnonimous").val()
-						},
+				data : formData,
 				type : "post",
 				processData : false,
 				contentType : false,
 				success : function(data){
-					alert("업로드성공");
+					console.log(data);
+					
+					if(data > 0) {
+						alert("업로드성공");
+						selectBoardList();
+						$("#title").val("");
+						$("#content").val("");
+						$("#upfile").val("");
+						$("#isQuestion").val("");
+						$("#isAnonimous").val("");
+						}
+					if(data == 0) alert("업로드실패");
+					if(data < 0) alert("전송방식 잘못됨");
 					$("#upfile").val("");
-				}
+						
+					}
+				
 			});
 			}else{
 				alert("첨부파일 개수 초과");
@@ -102,12 +116,26 @@
 			}
 			
 		}
+		
+
+		function selectBoardList(){
+			let replycount = 0;
+			$.ajax({
+				url : "<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>",
+				success : function(list){
+					$("body").html(list);
+				},
+				error : function(){
+					console.log("게시글 목록조회 실패")
+				}
+			})
+		}
 	</script>
                             </div>
                            <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
                            <% }else{ %>
-                            <ul>
+                            <ul id="content-area">
                            
                             	<% for(Board b : boardList) { %>
                                 <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
@@ -115,7 +143,7 @@
                                     <%= b.getContent() %> <br>
                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
                                     <div id="board-detail-comment">
-                                        <div>첨부파일</div>
+                                        
                                         <div><%= b.getRecommendCount() %></div>
                                         <div><%= b.getReplyCount() %></div>
                                     </div>

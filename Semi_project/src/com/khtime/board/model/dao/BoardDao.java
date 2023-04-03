@@ -106,6 +106,43 @@ public class BoardDao {
 			return boardList;
 		}
 	   
+	   public ArrayList<BoardAttachment> selectAttachmentList(Connection conn, int bNo) {
+		    
+		   ArrayList <BoardAttachment> attachmentList= new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String sql = prop.getProperty("selectAttachmentList");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					BoardAttachment at = new BoardAttachment(
+								rset.getInt("FILE_NO"),
+								rset.getInt("REF_BNO"),
+								rset.getString("ORIGIN_NAME"),
+								rset.getString("CHANGE_NAME"),
+								rset.getString("FILE_PATH"),
+								rset.getDate("UPLOAD_DATE"),
+								rset.getInt("FILE_LEVEL"),
+								rset.getString("STATUS")
+							);
+					
+					attachmentList.add(at);
+				}		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return attachmentList;
+		}
+	   
 	   public int boardListCount(Connection conn, int cNo) {
 		   
 			int result = 0;
@@ -148,14 +185,17 @@ public class BoardDao {
 							rset.getInt("BOARD_NO"),
 							rset.getString("TITLE"),
 							rset.getString("CONTENT"),
+							rset.getInt("CATEGORY_NO"),
 							rset.getString("WRITER"),
 							rset.getString("IS_QUESTION"),
 							rset.getString("IS_ANONIMOUS"),
+							rset.getInt("REPORT_COUNT"),
 							rset.getInt("RECOMMEND_COUNT"),
 							rset.getInt("SCRAP_COUNT"),
+							rset.getDate("ENROLL_DATE"),
+							rset.getString("STATUS"),
 							rset.getInt("REPLY_COUNT"),
-							rset.getInt("CATEGORY_NO"),
-							rset.getDate("ENROLL_DATE")
+							rset.getString("USERPROFILE")
 							);
 					
 				}
@@ -209,7 +249,7 @@ public class BoardDao {
 				
 				
 				result = pstmt.executeUpdate();
-
+				System.out.println("boardresult:"+result);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -219,20 +259,23 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int insertAttachment(Connection conn, BoardAttachment at) {
+	   public int insertAttachment(Connection conn, ArrayList<BoardAttachment> list) {
 		   
-			int result = 0;
+			int result = 1;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertAttachment");
+			System.out.println(list);
 			try {
 				pstmt = conn.prepareStatement(sql);
-				
+				for(BoardAttachment at : list) {
 				pstmt.setString(1, at.getOriginName());
 				pstmt.setString(2, at.getChangeName());
 				pstmt.setString(3, at.getFilePath());
+				pstmt.setInt(4, at.getFileLevel());
 				
-				result = pstmt.executeUpdate();
-
+				result *= pstmt.executeUpdate();
+				}
+				System.out.println("attresult:"+result);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {

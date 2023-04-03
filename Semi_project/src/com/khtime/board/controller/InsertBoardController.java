@@ -2,6 +2,7 @@ package com.khtime.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -50,11 +51,10 @@ public class InsertBoardController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("여기로 와?");
 		
+		int result = -1;
 		
-		/*if (ServletFileUpload.isMultipartContent(request)) {*/
-			System.out.println("여기sms?");
+		if (ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/board/");
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -67,7 +67,6 @@ public class InsertBoardController extends HttpServlet {
 			String isQuestion = multi.getParameter("isQuestion") == null ? "N" : "Y";
 			String isAnonimous = multi.getParameter("isAnonimous") == null ? "N" : "Y";
 			
-
 			Board b = new Board();
 			b.setCategoryNo(cNo);
 			b.setTitle(title);
@@ -75,46 +74,30 @@ public class InsertBoardController extends HttpServlet {
 			b.setIsQuestion(isQuestion);
 			b.setIsAnonimous(isAnonimous);
 			
-			System.out.println(cNo);
-			System.out.println(content);
-			System.out.println(multi.getFileNames());
-			
-			Enumeration e = multi.getFileNames();
-			while(e.hasMoreElements()) {
-				String fileName = (String) e.nextElement();
-				String originName = multi.getOriginalFileName(fileName);// 넘어온 파일의 원본명
-				String changeName = multi.getFilesystemName(fileName);// 넘어온 파일의 수정명
-				System.out.println(fileName + originName +"|||||||"+ changeName);
-			}
-			
-			
 			BoardAttachment at = null;
+			ArrayList<BoardAttachment> list = new ArrayList<>();
+			Enumeration e = multi.getFileNames();
 			
-			if(multi.getOriginalFileName("upfile") != null) {
-				 at = new BoardAttachment();
-				 at.setOriginName(multi.getOriginalFileName("upfile"));
-				 at.setChangeName(multi.getFilesystemName("upfile"));
-				 at.setFilePath("resources/board/");
-			 }
-			
-			int result = new BoardService().insertBoard(b, userNo, at);
-			
-			if (result > 0) {
-				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-				response.sendRedirect(request.getContextPath() + "/boardDetail.bo?cNo="+cNo);
-			} else {
-				
-				if(at != null) {
-					 new File(savePath+at.getChangeName()).delete();
-				 }
-				
-				request.getSession().setAttribute("alertMsg", "게시글 작성 실패");
-				response.sendRedirect(request.getContextPath() + "/boardDetail.bo?cNo="+cNo);
+			while(e.hasMoreElements()) {
+				at = new BoardAttachment();
+				String fileName = (String) e.nextElement();
+				at.setOriginName(multi.getOriginalFileName(fileName));
+				at.setChangeName(multi.getFilesystemName(fileName));
+				at.setFilePath("/resources/board/");
+				at.setFileLevel(Integer.valueOf(fileName.substring(fileName.length()-1, fileName.length())));
+				list.add(at);
 			}
-		/*}else {*/
-			request.setAttribute("errorMsg", "전송방법이 잘못되었습니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			/* } */
+			result = new BoardService().insertBoard(b, userNo, list);
+			response.setContentType("text/html; charset=UTF-8");
+			
+			if (result <= 0 && at != null) {
+				new File(savePath+at.getChangeName()).delete();
+			} 
+				
+		} 
+	
+		response.getWriter().print(result);
 	}
-
+	
+	
 }

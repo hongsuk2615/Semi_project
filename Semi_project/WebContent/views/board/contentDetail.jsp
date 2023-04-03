@@ -1,9 +1,11 @@
-<%@ page import="com.khtime.board.model.vo.Board, java.util.ArrayList, com.khtime.board.model.vo.Reply" %>
+<%@ page import="com.khtime.board.model.vo.Board, java.util.ArrayList, com.khtime.board.model.vo.Reply, com.khtime.board.model.vo.BoardAttachment" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	Board b =(Board) request.getAttribute("b"); 
+	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
+	
 	String cName = (String) request.getAttribute("cName");
 %>     
 <!DOCTYPE html>
@@ -60,7 +62,7 @@
                                 <div id="content-header">
                                     <div id="content-header-left">
                                         <div id="content-profile">
-                                            프로필
+                                            <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30">
                                         </div>
                                         <div id="content-writer">
                                             <div>
@@ -101,6 +103,10 @@
                                    <%= b.getContent() %>
                                 </div>
                                 <div>
+                                        <% for(BoardAttachment at : attachmentList){ %>
+												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
+										<% } %></div>
+                                <div>
                                     <div><%= b.getRecommendCount() %></div>
                                     <div id="replydiv"><%= b.getReplyCount() %></div>
                                     <div><%= b.getScrapCount() %></div>
@@ -127,7 +133,7 @@
 							<%= r.getReplyNo() %>
 							 <div class='content-detail-comments'>
 							 <div class='comments-left'>
-							 프로필사진
+							 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
 							 <%= r.getWriter() %>
 							 </div>
 							 <div class='comments-right'>
@@ -230,7 +236,7 @@
 						\${i.replyNo}
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
-						 프로필사진
+						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
 						 \${i.writer}
 						 </div>
 						 <div class='comments-right'>
