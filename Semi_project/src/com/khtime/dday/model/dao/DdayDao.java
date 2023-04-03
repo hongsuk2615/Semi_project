@@ -110,7 +110,22 @@ public class DdayDao {
 			return result;
 		}
 	   
-	   
+	   public boolean deleteDday(Connection conn, int dDayNo) {
+			boolean result = false;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("deleteDday");
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, dDayNo);
+				result = pstmt.executeUpdate() > 0 ? true : false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
 	   

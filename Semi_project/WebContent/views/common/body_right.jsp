@@ -204,37 +204,43 @@
 				</div>
             </div>
         </div>
+        <script >
+        function insertDday(){
+        	console.log("저장버튼클릭");
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+        		data : { "title" : $('#dDayTitle').val() ,      
+        				 "dDay" : $('#datepicker').val()
+        		},
+        		success : function(result){
+        			if(result){
+        				console.log(result);
+        				alert("저장 성공");
+        				
+        			}else{
+        				alert("저장 실패");
+        			}
+        			
+        		},
+        		error : function(result){
+        			
+        		},
+        		complete : function(){
+        			close1();
+                    close();
+        		}
+        		
+        	});
+        }
         
+        
+        
+        </script>
         
         <script>
         function makeEvent(){
-	        $('.closeBtn2').click(function(){
-	        	console.log("저장버튼클릭");
-	        	$.ajax({
-	        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
-	        		data : { "title" : $('#dDayTitle').val() ,      
-	        				 "dDay" : $('#datepicker').val()
-	        		},
-	        		success : function(result){
-	        			if(result){
-	        				console.log(result);
-	        				alert("저장 성공");
-	        				
-	        			}else{
-	        				alert("저장 실패");
-	        			}
-	        			
-	        		},
-	        		error : function(result){
-	        			
-	        		},
-	        		complete : function(){
-	        			close1();
-	                    close();
-	        		}
-	        		
-	        	});
-	        });
+        	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
+	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
         } 
         
         
@@ -285,8 +291,41 @@
     		
     	}
     
+    </script>
     
     
+    
+    <script>
+   
+    function updateEvent(){
+    	console.log("저장버튼클릭");
+    	$.ajax({
+    		url : '<%=request.getContextPath()%>/updateDday.me',
+    		data : { "title" : $('#changeTitle').val() ,      
+    				 "dDay" : $('#datepicker1').val(),
+    				 "dDayNo" : $('#dDayNo').val()
+    		},
+    		success : function(result){
+    			if(result){
+    				console.log(result);
+    				alert("저장 성공");
+    				
+    			}else{
+    				alert("저장 실패");
+    			}
+    			
+    		},
+    		error : function(result){
+    			
+    		},
+    		complete : function(){
+    			close2();
+    			getDday();
+    		}
+    		
+    	});
+    
+    }
     
     </script>
     
@@ -378,7 +417,7 @@
 					<div class="inputBox">
 						<p class="inputLabel">디데이</p>
 						<input type="hidden" id = "dDayNo" name="dDayNo">
-						<input type="text" placeholder="디데이를 입력해주세요" class="inputField"/>
+						<input type="text" id="changeTitle" placeholder="디데이를 입력해주세요" class="inputField"/>
 					</div>
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
@@ -397,6 +436,34 @@
             </div>
         </div>
 
+		<script>
+        function deleteEvent(){ //// 삭제버튼 이벤트함수
+        	let dDayNo = $('#dDayNo').val();
+            $.ajax({
+                url : '<%=request.getContextPath()%>/deleteDday.me',
+                data :{dDayNo},
+                success : function(result){
+                    if(result){
+                        alert("삭제성공");
+                        getDday();
+                        close2();
+                    }else{
+                        alert("삭제실패");
+                        getDday();
+                    }
+                },
+                error : function(){
+                console.log('Dday 삭제 ajax요청 실패')
+                }
+            })      
+        }
+        </script>
+
+
+
+
+
+
         <!-- [디데이 수정] 모달창 스크립트-->
         <script>
         function updateDday(dDayNo){
@@ -412,8 +479,8 @@
                 document.querySelector(".modal2").classList.add("hidden");
             }
             
-            document.querySelector(".closeBtn3").addEventListener("click", close2);
-            document.querySelector(".deleteBtn").addEventListener("click", close2);
+            document.querySelector(".closeBtn3").addEventListener("click", updateEvent);
+            document.querySelector(".deleteBtn").addEventListener("click", deleteEvent);
             document.querySelector(".closeBtn4").addEventListener("click", function(){
                 close1();
                 close2();
@@ -424,7 +491,12 @@
                 close();
             });
         </script>
-
+        
+        
+        
+ 
+        
+        
         <!-- 새 디데이 달력 스크립트 -->
         <script>
         $(function () {
