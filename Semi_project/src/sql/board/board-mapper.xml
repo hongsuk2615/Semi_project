@@ -221,10 +221,12 @@
 	  	WHERE BOARD_NO = ?
    </entry>
    
-   <entry key="boardTitle">
-   			SELECT TITLE 
-			FROM BOARD
-			WHERE TITLE = ?
+   <entry key="categoryTitle">
+   		SELECT CATEGORY_NAME
+   			 , CATEGORY_NO
+		FROM CATEGORY
+		WHERE CATEGORY_NAME LIKE ?
+		AND AVAILABLE = 'Y'
    </entry>
 	
 </properties>

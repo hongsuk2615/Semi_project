@@ -13,10 +13,9 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
-import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.category.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
-import com.khtime.member.model.vo.Member;
 
 
 
@@ -465,30 +464,32 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public ArrayList<Board> boardTitle(Connection conn, String searchTitle){
-		   Board b = null;
+	   public ArrayList<Category> categoryTitle(Connection conn, String searchTitle){
+		   Category c = null;
 		   
-		   ArrayList<Board> bt = new ArrayList<>();
+		   ArrayList<Category> cn = new ArrayList<>();
 		   
 			PreparedStatement pstmt = null;
 			
-			String sql = prop.getProperty("boardTitle");
+			String sql = prop.getProperty("categoryTitle");
+			System.out.println(searchTitle);
 			
 			ResultSet rset = null;
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setString(1, searchTitle);
+				pstmt.setString(1, "%"+searchTitle+"%");
 				
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					b =new Board();
+					c =new Category();
 		
-					b.setTitle(rset.getString("TITLE"));
+					c.setCategoryName(rset.getString("CATEGORY_NAME"));
+					c.setCategoryNo(rset.getInt("CATEGORY_NO"));
 			
-					bt.add(b);
+					cn.add(c);
 				}
 				
 			} catch (SQLException e) {
@@ -497,7 +498,7 @@ public class BoardDao {
 				close(rset);
 				close(pstmt);
 			}
-			return bt;
+			return cn;
 	   }
 	   
 	   

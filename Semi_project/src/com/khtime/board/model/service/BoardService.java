@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
-import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.category.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -82,25 +82,25 @@ public class BoardService {
 		return list;
 	}
 	
-	public int insertBoard(Board b, int userNo, BoardAttachment at) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result1 = new BoardDao().insertBoard(conn, b, userNo);
-		int result2 = 1;
-		
-		if (at != null) {
-			result2 = new BoardDao().insertAttachment(conn, at);
-		}
-		
-		if(result1 * result2 > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result1 * result2;
-	}
-	
+//	public int insertBoard(Board b, int userNo, BoardAttachment at) {
+//		Connection conn = JDBCTemplate.getConnection();
+//
+//		int result1 = new BoardDao().insertBoard(conn, b, userNo);
+//		int result2 = 1;
+//		
+//		if (at != null) {
+//			result2 = new BoardDao().insertAttachment(conn, at);
+//		}
+//		
+//		if(result1 * result2 > 0 ) {
+//			JDBCTemplate.commit(conn);
+//		}else {
+//			JDBCTemplate.rollback(conn);
+//		} JDBCTemplate.close(conn);
+//
+//		return result1 * result2;
+//	}
+//	
 	
 	public int deleteContent(int bNo, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -158,15 +158,15 @@ public class BoardService {
 		return result;
 	}
 	
-	public ArrayList<Board> boardTitle( String searchTitle){
+	public ArrayList<Category> categoryTitle( String searchTitle){
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<Board> bt = new  BoardDao().boardTitle(conn , searchTitle);
+		ArrayList<Category> cn = new  BoardDao().categoryTitle(conn , searchTitle);
 	
 		close(conn); 
 		
-		return bt;
+		return cn;
 	}
 	
 

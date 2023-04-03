@@ -1,7 +1,6 @@
 <%@ page import = "java.util.ArrayList,com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <% ArrayList<Board> bt = (ArrayList<Board>)request.getAttribute("bt"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,19 +70,12 @@
 
                     <br>
                     <div id="searchresult">'게시판 검색 결과'</div>
-                    <div id="keyword">
-                        <div>
-                        <%if(bt != null ) {%>
-                        alert(bt);
-                        <% for(Board b : bt){ %>		
-							<%=b.getTitle() %><br>			
-						<% } %> 
-                        <% } %>
+                 
+                        <div  id="keyword">
+                     
                         </div>
-                        <div>keyword</div>
-                        <div>keyword</div>
-                        <div>keyword</div>
-                    </div>
+                   
+                   
                     <button>게시판 생성 요청</button>
                 </form>
             </div>
@@ -97,22 +89,26 @@
 	
 	    <script>
 		function searchBoard(){
-			alert("ddddd");
+
 			let searchBoard = document.getElementById("Board").value;
 			
 			$.ajax({
 				
-				url : "<%= request.getContextPath()%>/board.me",
+				url : "<%= request.getContextPath()%>/board.do",
 				data : {Board : searchBoard},
-				method : "post",
 				success :function(result){
-						 console.log(result);
-							 if(result){		
-								
-									<%--  location.href="<%=request.getContextPath() %>/board.me?Board="+searchBoard; --%>
+									$('#searchresult').html(searchBoard+"   검색결과");
+							 if(result.length == 0){		
+									$('#keyword').html("조회된 게시판은 존재하지 않습니다.");
 							 }else{
-								 
-                                alert("존재하지 않는 게시물입니다.");
+								 $('#keyword').html('');
+								 $(result).each(function(index , item){
+									 console.log(item);
+									 $('#keyword').append(`<div id="category\${index}">\${item.categoryName}</div>`);
+									 $('#category'+index).click(function(){
+										 location.href="<%=request.getContextPath() %>/boardDetail.bo?cNo="+item.categoryNo;
+									 })
+								 })
 							 }
 							 
 						 }	 
