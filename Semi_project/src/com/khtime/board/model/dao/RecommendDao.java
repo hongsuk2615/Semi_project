@@ -54,5 +54,29 @@ public class RecommendDao {
 			return result;
 		}
 	   
+	   public int recommendReply(Connection conn, int rNo, int userNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("recommendReply");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, rNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 
 }

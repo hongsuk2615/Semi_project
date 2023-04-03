@@ -5,7 +5,6 @@
 	Board b =(Board) request.getAttribute("b"); 
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
 	String cName = (String) request.getAttribute("cName");
-	String alertMsg = (String)session.getAttribute("alertMsg");
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +18,8 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
     <style>
         * {
@@ -44,11 +45,6 @@
 </head>
 <body>
 
-<!-- alert -->
-	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-			<script> alert("<%= alertMsg %>")</script>
-			<% session.removeAttribute("alertMsg"); %>
-		<% } %>
 
 
     <div id="wrapper">
@@ -59,7 +55,7 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="content-detail">
-                            <div> <%= cName %>게시판</div>
+                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
@@ -80,8 +76,8 @@
                                             </div>
                                         </div>
                                         </div>
-                                    <div id="content-header-right">
-                                        <%if(((Member)request.getSession().getAttribute("loginUser")).getUserName().equals(b.getWriter())){ %>
+                                    <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
+                                        <%if( request.getSession().getAttribute("loginUser") != null &&((Member)request.getSession().getAttribute("loginUser")).getNickName().equals(b.getWriter())){ %>
                                         	<button id="deleteBoard">삭제</button>
                                         	<button id="updateBoard">수정</button>
                                         	<script>
@@ -106,7 +102,7 @@
                                 </div>
                                 <div>
                                     <div><%= b.getRecommendCount() %></div>
-                                    <div><%= b.getReplyCount() %></div>
+                                    <div id="replydiv"><%= b.getReplyCount() %></div>
                                     <div><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
@@ -119,28 +115,55 @@
 
                             <!-- 댓글 -->
                             
-                            <ul id="comments-area">
+                         <ul id="comments-area">
+                            <% if(replyList.isEmpty()) { %>
+                           	<li>글이 없습니다,,</li>
+                           <% }else{ %>
+                              
                            
-                            </ul>
-                            
+                            	<% for(Reply r : replyList) { %>
+                               <li>
+							
+							<%= r.getReplyNo() %>
+							 <div class='content-detail-comments'>
+							 <div class='comments-left'>
+							 프로필사진
+							 <%= r.getWriter() %>
+							 </div>
+							 <div class='comments-right'>
+		                     대댓글 신고
+		                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
+		                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
+		                     </div>
+		                     </div>
+		                     <%= r.getContent() %>
+		                     <br>
+		                     <%= r.getEnrollDate() %>
+		                     <br>
+		                      <%= r.getRecommendCount() %>
+		                     </li>
+                               
+                              	  <% } %>
+                                 <% } %>
+                                  </ul>
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
-                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" >댓글입력.</textarea>
+                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" placeholder="댓글입력"></textarea>
                         </div>
                         <div>
                             <div>
-                                <input id="isAnonimous" name="isAnonimous" type="checkbox">익명
+                                <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
                             </div>
                             <div>
-                                <button onclick="insertReply()">글작성 버튼</button>
+                                <button onclick="replyisEmpty()">글작성 버튼</button>
                             </div>
                         </div>
                     </div>
                 </div>
                     <div id="goto-boardlist">
                        
-                        <div>글 목록</div>
+                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
                     </div>
                     </div>
     
@@ -158,27 +181,30 @@
         </div>
     </div>
 		<script>
-		$(function(){
-			setInterval(selectReplyList, 1000);
-		});
 		
-		function insertReply(){
+		function replyisEmpty(){
+			if(document.getElementById("replyContent").value.trim().length == 0){ 
+				alert("댓글 입력해주세요");
+			}else{
+				insertReply();
+			}
+		}
+		
+		 function insertReply(){
 			$.ajax({
-				url : "<%=request.getContextPath()%>/rInsert.bo",
+				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
-					content : $("#replyContent").val(), 
-					bNo     : "<%= b.getBoardNo() %>",
+					bNo : "<%= b.getBoardNo() %>",
+					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
 					isAnonimous : $("#isAnonimous").val()
 				}, 
 				success : function(result){
-					//댓글등록성공시  result = 1
-					
-					// 댓글등록 실패시 result = 0
+					console.log(result);
 					if(result > 0){
-						//새 댓글목록 불러오는 함수호출
 						selectReplyList();
-						// 댓글내용 비워주기
+						selectReplyCount();
 						$("#replyContent").val("");
+						
 					}else{
 						alert("댓글작성에 실패했습니다.");	
 					}
@@ -186,30 +212,41 @@
 					console.log("댓글작성실패")
 				}
 			})
-		}
+			}
+			
 		
+	
 		function selectReplyList(){
+			let replycount = 0;
 			$.ajax({
-				url : "<%=request.getContextPath()%>/rSelect.bo",
+				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
 					let result  = "";
 					for(let i of list){ 
-						result += "<li>"
-							 + "<div class='content-detail-comments'>"
-							 + "<div class='comments-left'>"
-							 +"프로필사진"
-							 + i.writer
-							 + "</div>"
-							 + "<div class='comments-right'>"
-		                     + " 대댓글 공감 쪽지 신고"
-		                     + "</div>"
-		                     + "</div>"
-		                     + i.content
-		                     + "<br>"
-		                     + i.enrollDate
-		                     + "<br>"
-		                     + "</li>"
+						result += 
+						`
+						<li>
+						\${i.replyNo}
+						 <div class='content-detail-comments'>
+						 <div class='comments-left'>
+						 프로필사진
+						 \${i.writer}
+						 </div>
+						 <div class='comments-right'>
+	                     대댓글 신고
+	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
+	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+	                     </div>
+	                     </div>
+	                     \${i.content}
+	                     <br>
+	                     \${i.enrollDate}
+	                     <br>
+	                      \${i.recommendCount}
+	                     </li>
+	                     `
+                           
 					}
 					$("#comments-area").html(result);
 				},
@@ -218,21 +255,46 @@
 				}
 			})
 		}
+		
+		function selectReplyCount(){
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/content.re",
+				data :{
+					bNo : "<%= b.getBoardNo() %>"
+				}, 
+				success : function(result){
+					console.log("보드테이블 댓글개수:"+ result);
+						$("#replydiv").html(result);
+					
+				}, error : function(){
+					console.log("댓글개수 조회 실패")
+				}
+			
+			})
+		} 
+	
+		
+	
 		</script>
 		
 		<script>
 		 document.getElementById("recommendbtn").addEventListener("click",function(){
-			
   	        location.href = "<%= request.getContextPath() %>/recommend.bo?bNo="+<%= b.getBoardNo() %>;
-  	        
-  	        
   	        
   	    })
   	    
   	    document.getElementById("scrapbtn").addEventListener("click",function(){
-  	    	alert("클릭됨")
   	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
   	    })
+  	   
+  	    function deleteclick(id){
+			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
+		 }
+		 
+		 function recommendclick(id){
+			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
+		 }
 	</script>
 
 

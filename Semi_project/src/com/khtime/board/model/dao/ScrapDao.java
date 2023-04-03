@@ -29,7 +29,7 @@ public class ScrapDao {
 	      
 	   }
 	   
-	   public int scrapContent(Connection conn, int bNo, String userId) {
+	   public int scrapContent(Connection conn, int bNo, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -40,7 +40,7 @@ public class ScrapDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, bNo);
-				pstmt.setString(2, userId);
+				pstmt.setInt(2, userNo);
 				
 				result = pstmt.executeUpdate();
 

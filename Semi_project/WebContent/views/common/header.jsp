@@ -1,24 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.member.model.vo.Member"%>
-<% Member loginUser = (Member)session.getAttribute("loginUser");%>  
+<% 
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
+%>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/header.css">
     <title>Document</title>
 </head>
 <body>
+	<% if( alertMsg != null && !alertMsg.equals("")) { %>
+		<script> alert("<%= alertMsg %>")</script>
+		<% request.getSession().setAttribute("alertMsg",""); %>
+	<% } %>
     <div id="header">
         <div id="header-content">
             <div id="home-logo">
                 <img src="<%= request.getContextPath()%>/resources/IMG/로고이미지.png" alt="로고이미지">
             </div>
             <div id="navbar">
-                <div>게시판</div>
+                <div id="boardsearch">게시판</div>
                 <div id="friendlist">친구목록</div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
@@ -39,7 +47,10 @@
     </div>
 
     <script>
-    
+    	
+  		document.getElementById("boardsearch").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/board.me";
+  		}) 
 	    document.getElementById("friendlist").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>/friend.me";
 	    }) 
@@ -66,8 +77,9 @@
         <% }else{ %>
 	        document.getElementById("mypage-btn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>/myPage.me";
+	        })
 		<% } %>
-         document.getElementById("todolist").addEventListener("click",function(){
+		document.getElementById("todolist").addEventListener("click",function(){
             location.href = "<%= request.getContextPath() %>/todolist.me";
         })
         

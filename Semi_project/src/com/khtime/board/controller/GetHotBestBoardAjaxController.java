@@ -32,9 +32,9 @@ public class GetHotBestBoardAjaxController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int recommendCount = Integer.parseInt(request.getParameter("rCo"));
-
-		ArrayList<Board> list = new BoardService().getHotBestBoardlist(recommendCount);
+		int recommendCount = Integer.parseInt(request.getParameter("rcCount"));
+		String year = request.getParameter("year");
+		ArrayList<Board> list = new BoardService().getHotBestBoardlist(recommendCount, year);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(list,response.getWriter());

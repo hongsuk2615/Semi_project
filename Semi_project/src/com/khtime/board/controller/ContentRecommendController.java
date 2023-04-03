@@ -38,7 +38,7 @@ public class ContentRecommendController extends HttpServlet {
 		int result = new RecommendService().recommendContent(bNo, userNo);
 		
 		if(result > 0) { //성공
-			new BoardService().updateRecommend(bNo);
+			new BoardService().recommendCountUp(bNo);
 			request.getSession().setAttribute("alertMsg", "공감완료");
 		}else {
 			request.getSession().setAttribute("alertMsg", "이미 공감된 글입니다.");

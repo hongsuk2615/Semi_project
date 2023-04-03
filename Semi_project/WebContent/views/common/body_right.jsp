@@ -1,6 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset = "UTF-8"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -21,18 +26,18 @@
         </div>
         <div id="login">
         	<% if(loginUser == null) {%>
-            <form action="<%= request.getContextPath() %>/login.me" method="post">
+            <form >
                 <div id="id-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/idimg.png" alt="idimg" width="40" height="40">
-                    <input type="text" name="login-id" placeholder="아이디를 입력하세요">
+                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요">
                 </div>
                 <div id="pwd-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/pwdimg.png" alt="pwdimg" width="40" height="40">
-                    <input type="password" name="login-pwd" placeholder="비밀번호를 입력하세요">
+                    <input type="password" id = "loginPwd" name="loginPwd" placeholder="비밀번호를 입력하세요">
                 </div>
                 <div id="btn-wrapper">
 
-                    <input type="submit" value="로그인">
+                    <input type="button" onclick="login()" value="로그인">
 
                     <input type="button" value="회원가입">
                 </div>
@@ -93,24 +98,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -123,24 +111,7 @@
 	                </tr>
                 </thead>
                 <tbody>
-	                <tr>
-	                    <td>게시물 제목1</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목2</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목3</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목4</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목5</td>
-	                </tr>
-	                <tr>
-	                    <td>게시물 제목6</td>
-	                </tr>
+	                
                 </tbody>
             </table>
         </div>
@@ -149,11 +120,13 @@
     
     <script>
         $("#board-7 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo";
+        	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=9&year="+date.getFullYear();
 	    })
 	    
 	    $("#board-8 th").click(function(){
-	    	location.href = "<%=request.getContextPath()%>/best.bo";
+	    	let date = new Date();
+	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
 	    })
     </script>
 
@@ -161,8 +134,12 @@
         $(function(){
         function getHotBestBoardList(recommendCount, num){
             $.ajax({
-                url : '<%=request.getContextPath()%>/hotBestBoardlist.get?rCo='+recommendCount,
+                url : '<%=request.getContextPath()%>/hotBestBoardlist.get',
                 type : 'get',
+                data : {
+                    rcCount : recommendCount,
+                    year : new Date().getFullYear()
+                },
                 success : function(result){
                     if(result.length == 0 ){
                         $('#board-'+num+' tbody').append('<tr>'+
@@ -175,7 +152,7 @@
                                                                 '<td>' + result[i].title + '</td>'+
                                                           '</tr>');
                                 $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
                                 })
                             }else {
                                 $('#board-'+num+' tbody').append('<tr>'+
@@ -191,8 +168,8 @@
             }				
         });			
     }
-    getHotBestBoardList(10,7);
-    getHotBestBoardList(100,8);
+    getHotBestBoardList(9,7);
+    getHotBestBoardList(99,8);
  });
     </script>
 
@@ -227,6 +204,42 @@
 				</div>
             </div>
         </div>
+        
+        
+        <script>
+        function makeEvent(){
+	        $('.closeBtn2').click(function(){
+	        	console.log("저장버튼클릭");
+	        	$.ajax({
+	        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+	        		data : { "title" : $('#dDayTitle').val() ,      
+	        				 "dDay" : $('#datepicker').val()
+	        		},
+	        		success : function(result){
+	        			if(result){
+	        				console.log(result);
+	        				alert("저장 성공");
+	        				
+	        			}else{
+	        				alert("저장 실패");
+	        			}
+	        			
+	        		},
+	        		error : function(result){
+	        			
+	        		},
+	        		complete : function(){
+	        			close1();
+	                    close();
+	        		}
+	        		
+	        	});
+	        });
+        } 
+        
+        
+    </script>
+        
 
         <!-- [디데이 설정] 모달창 스크립트 -->
         <script>
@@ -257,7 +270,7 @@
 				<div class="addDdayBody">
 					<div class="inputBox">
 						<p class="inputLabel">디데이</p>
-						<input type="text" placeholder="디데이를 입력해주세요" class="inputField"/>
+						<input type="text" placeholder="디데이를 입력해주세요" id="dDayTitle" class="inputField"/>
 					</div>
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
@@ -281,6 +294,7 @@
         <script>
             const open1 = () => {
                 document.querySelector(".modal1").classList.remove("hidden");
+                makeEvent();
             }
             const close1 = () => {
                 console.log('cdlose')
@@ -288,10 +302,10 @@
             }
             document.querySelector(".openBtn1").addEventListener("click", open1);
             document.querySelector(".closeBtn1").addEventListener("click", close1);
-            document.querySelector(".closeBtn2").addEventListener("click", function(){
+            /* document.querySelector(".closeBtn2").addEventListener("click", function(){
                 close1();
                 close();
-            });
+            }); */
             document.querySelector(".bg1").addEventListener("click", function(){
                 close1();
                 close();
@@ -404,6 +418,27 @@
         
         <!-- 페이지이동스크립트 -->
         <script>
+        
+        function login(){
+    		$.ajax({
+				url : "<%=request.getContextPath()%>/login.me",
+				type : "post",
+				data :{
+					loginId :  $("#loginId").val(),
+					loginPwd :  $("#loginPwd").val()
+				}, 
+				success : function(r){
+					console.log(r);
+					switch(r){
+					case '-1' : location.href="<%= request.getContextPath()%>/login.me"; alert("아이디나 비번이 맞지 않습니다!"); break;
+					case '0' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '1' : location.href="<%= request.getContextPath()%>"; break;
+					}
+				}, error : function(){
+					console.log("ajax통신실패")
+				}
+			})
+    	}
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";

@@ -1,21 +1,31 @@
 package com.khtime.dday.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Dday {
+	private int dDayNo;
 	private Date dDay;
-	private Date mainDDay;
-	private String userId;
+	private String title;
+	private int userNo;
 	
 	public Dday() {
 		super();
 	}
 
-	public Dday(Date dDay, Date mainDDay, String userId) {
+	public Dday(int dDayNo, Date dDay, String title, int userNo) {
 		super();
+		this.dDayNo = dDayNo;
 		this.dDay = dDay;
-		this.mainDDay = mainDDay;
-		this.userId = userId;
+		this.title = title;
+		this.userNo = userNo;
+	}
+
+	public int getdDayNo() {
+		return dDayNo;
+	}
+
+	public void setdDayNo(int dDayNo) {
+		this.dDayNo = dDayNo;
 	}
 
 	public Date getdDay() {
@@ -26,26 +36,29 @@ public class Dday {
 		this.dDay = dDay;
 	}
 
-	public Date getMainDDay() {
-		return mainDDay;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setMainDDay(Date mainDDay) {
-		this.mainDDay = mainDDay;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getUserId() {
-		return userId;
+	public int getuserNo() {
+		return userNo;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(int userNo) {
+		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
-		return "D_Day [dDay=" + dDay + ", mainDDay=" + mainDDay + ", userId=" + userId + "]";
+		return "Dday [dDayNo=" + dDayNo + ", dDay=" + dDay + ", title=" + title + ", userNo=" + userNo + "]";
 	}
+
+	
+	
 	
 	
 }

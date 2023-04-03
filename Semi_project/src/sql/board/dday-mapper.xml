@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectDday">
+         SELECT 
+            D_DAY_NO,
+            D_DAY,
+            TITLE
+        FROM D_DAY 
+        WHERE USER_NO = ?
+      
+   </entry>
+   
+   <entry key="insertDday">
+      INSERT INTO D_DAY (D_DAY_NO, USER_NO, D_DAY, TITLE)
+      VALUES(SEQ_DDNO.NEXTVAL
+           ,?
+           ,?
+           ,?
+           )
+   </entry>
+   
+   <entry key="updateDday">
+   		UPDATE D_DAY SET
+	  	D_DAY = ?
+	  	TITLE = ?
+	  		WHERE D_DAY_NO = ?
+   
+   </entry>
+   
+   <entry key="deleteDday">
+   		DELETE FROM D_DAY
+		WHERE D_DAY_NO = ?
+   </entry>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+	
+</properties>

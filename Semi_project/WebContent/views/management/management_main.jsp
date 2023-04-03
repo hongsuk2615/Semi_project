@@ -159,7 +159,7 @@
 	
 															  '</tr>');
 								}
-							}	
+							}		
 					  }	
                       enrollModalEvent();	
 				},
@@ -202,7 +202,7 @@
 																	'<td>' + result[i].scrapCount + '</td>'+
 															  '</tr>');
                                     $('#board-2 tbody>tr').eq(i).click(function(){
-                                        location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                        location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
                                     })
 								}else {
 									$('#board-2 tbody').append('<tr>'+
@@ -273,6 +273,7 @@
                 url : '<%=request.getContextPath()%>/manageReportUser.get',
                 type : 'get',
                 success : function(result){ 
+                	console.log("리포트유저"+result);
                     if(result.length == 0 ){
                         $('#board-4 tbody').append('<tr>'+
                                                         '<td>' + '조회된 유저가 없습니다.' + '</td>'+
@@ -327,7 +328,7 @@
                                                                 '<td>' + result[i].title + '</td>'+
                                                           '</tr>');
                                 $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bno="+result[i].boardNo;
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
                                 })
                             }else {
                                 $('#board-'+num+' tbody').append('<tr>'+
@@ -367,10 +368,10 @@
                 location.href = "";
             });
             document.querySelector("#board-5 th").addEventListener("click", function () {
-                location.href = "";
+                location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo=4";
             });
             document.querySelector("#board-6 th").addEventListener("click", function () {
-                location.href = "";
+            	location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo=5";
             });
             function enrollModalEvent(){
             $("#board-1 tbody>tr").each(function (index, item) { //회원가입 승인요청 모달창
@@ -588,12 +589,7 @@
         }
       
         </script>
-      
-      
-      
-      
-      
-      
+
       
     </body>
 

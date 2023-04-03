@@ -19,7 +19,7 @@ public class CategoryDao {
 	   
 	   public CategoryDao() {
 	      try {
-	         prop.loadFromXML(new FileInputStream( BoardDao.class.getResource("/sql/board/category-mapper.xml").getPath()   ));
+	         prop.loadFromXML(new FileInputStream( BoardDao.class.getResource("/sql/board/category-mapper.xml").getPath()));
 	      } catch (InvalidPropertiesFormatException e) {
 	         e.printStackTrace();
 	      } catch (FileNotFoundException e) {
@@ -36,15 +36,13 @@ public class CategoryDao {
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
 			String sql = prop.getProperty("getCategoryName");
-
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, cNo);
 				rset = pstmt.executeQuery();
-
+				
 				if(rset.next()) {
 					cName = rset.getString("CATEGORY_NAME");
-					
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -52,6 +50,7 @@ public class CategoryDao {
 				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
+			System.out.println("dao:" + cName);
 			return cName;
 		}
 }
