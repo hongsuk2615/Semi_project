@@ -1,5 +1,7 @@
+<%@ page import = "java.util.ArrayList,com.khtime.member.model.vo.Member" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,10 +61,10 @@
                     <br>
                     <div id="keyword">
                         <div id="checkid"></div>
-                        <div id="userName"></div>
-                        <div></div>
-                        <div></div>
                     </div>
+					<% for(Member m : list){ %>		
+							<%=m.getUserName() %><br>			
+					<% } %>
                 </form>
             </div>
         </div>
@@ -74,16 +76,16 @@
 				 function idCheck2(){
 					 // 아이디를 입력하는 input요소 얻어오기
 					 let inputId = document.getElementById("userId").value;  
-					 let inputName = document.getElementById("userName").value;
+				
 					  $.ajax({
-						 url : "<%= request.getContextPath()%>/friend.me",
+						 url : "<%= request.getContextPath()%>/friendReq.do",
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
 							 console.log(result);
 							 if(result){
 								 if(confirm("친구 요청 하시겠습니까?")){
-									 location.href="";//친구요청 서블릿으로 연결
+									 location.href="<%=request.getContextPath() %>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결
 								 }
 							 }else{
 								 

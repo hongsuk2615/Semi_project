@@ -159,7 +159,7 @@
 	
 															  '</tr>');
 								}
-							}	
+							}		
 					  }	
                       enrollModalEvent();	
 				},

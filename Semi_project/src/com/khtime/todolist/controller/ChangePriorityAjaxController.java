@@ -1,4 +1,4 @@
-package com.khtime.member.controller;
+package com.khtime.todolist.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,34 +6,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.khtime.member.model.vo.Member;
+import com.khtime.todolist.model.service.TodolistService;
 
 /**
- * Servlet implementation class LogoutController
+ * Servlet implementation class ChangePriorityAjaxController
  */
-@WebServlet("/logout.me")
-public class LogoutController extends HttpServlet {
+@WebServlet("/changePriority.me")
+public class ChangePriorityAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutController() {
+    public ChangePriorityAjaxController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//		request.getSession().invalidate();
-		
-		
-		HttpSession session = request.getSession();
-		session.removeAttribute("loginUser");
-		
-		response.sendRedirect(request.getContextPath());
+		int tdlNo = Integer.parseInt(request.getParameter("toDoListNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int priority = Integer.parseInt(request.getParameter("priority"));
+		boolean result = new TodolistService().changePriority(priority, tdlNo, userNo);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 
 	/**

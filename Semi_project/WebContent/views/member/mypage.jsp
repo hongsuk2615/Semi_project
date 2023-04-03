@@ -55,18 +55,11 @@
 					<div id="myinfo" style="height: 270px; width: 500px;">
 						<strong>내 정보</strong>
 						<div style="position: relative; left: 45%;">
-
-
 							<button type="button" class="openBtn">비밀번호변경</button>
-
-
 							<button type="button" class="openBtn1">이메일변경</button>
-
-
 						</div>
 						<br>
 						<br>
-
 						<div style="width: 100px; height: 100px;">
 							<label for="profile">
 								<div style="border: 1px solid red; max-width:100px; max-height: 100px;">
@@ -129,6 +122,7 @@
 						<h4 class="inputLabel">새 비밀번호</h4>
 						<input type="password" name="updatePwd" placeholder="새 비밀번호" class="inputField" required /><br>
 						<input type="password"name="checkPwd" placeholder="새 비밀번호 확인" class="inputField" required />
+						
 					</div>
 		
 					<div class="inputBox">
@@ -206,6 +200,49 @@
 	</div>
 
 
+	<!-- [닉네임 변경] 모달창 -->
+	<div class="modal3 hidden">
+		<div class="bg3"></div>
+		<div class="modalBox" style="height: 300px;">
+
+			<div class="header">
+				<h2>닉네임 변경</h2>
+			</div>
+		<form action="<%= request.getContextPath() %>/updateNickName.me" method="post">
+			<div class="addDdayBody">
+				<div class="inputBox">
+					<h3 class="inputLabel">닉네임</h3>
+					<input type="text" id="nickName" name="updateNickName" placeholder="특수문자 제외 2자~ 8자" class="inputField" /><br>
+				</div>
+				<div id="emailnotice"
+					style="position: relative; text-align: center;">
+					※ 닉네임을 설정하면 <span class="redline">30일간 변경할 수 없습니다.</span><br>
+				</div>
+				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
+					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onclick="return validateNickName();">
+					닉네임 변경
+				</button>
+			</div>
+		</form>
+		<script>
+		function validateNickName(){
+			  var nickNameVal = $("#nickName").val();
+			  
+			  var regExp = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,8}$/;
+			  // 검증에 사용할 정규식 변수 regExp에 저장
+			  if (regExp.test(nickNameVal)) {
+			    return true;
+			  }
+			  else {
+			    alert('닉네임 형식이 다릅니다.');
+			    return false;
+			  }
+		}
+		</script>
+		</div>
+	</div>
+	
+	
 
 	<!-- [회원 탈퇴] 모달창 -->
 	<div class="modal2 hidden" id="deleteModal">
@@ -222,7 +259,7 @@
 					<span style="text-align: center;">탈퇴하시겠습니까?</span>
 					<div class="closeBtn2" id="confirm"
 						style="width: 100%; height: 120px; display: flex; justify-content: space-evenly; padding-top: 70px;">
-						<button type="submit" id="yes" style="width: 100%;" onclick="return deleteMember()";>예</button>
+						<button type="submit" id="yes" style="width: 100%;">예</button>
 						<button id="no" style="width: 100%;">아니오</button>
 					</div>
 				</div>
@@ -230,68 +267,18 @@
 		</div>
 		
 		<script>
-			function deleteMember(){
-				
-			}
+			$(function(){
+				$('#yes').click(function(){
+					location.href = '<%= request.getContextPath() %>/deleteMember.me'
+				});
+			});
 		</script>
 	</div>
 
 
-	<!-- [닉네임 변경] 모달창 -->
-	<div class="modal3 hidden">
-		<div class="bg3"></div>
-		<div class="modalBox" style="height: 300px;">
-
-			<div class="header">
-				<h2>닉네임 변경</h2>
-			</div>
-		<form action="<%= request.getContextPath() %>/updateNickName.me" method="post">
-			<div class="addDdayBody">
-				<div class="inputBox">
-					<h3 class="inputLabel">닉네임</h3>
-					<input type="text" name="updateNickName" placeholder="김따따" class="inputField" /><br>
-				</div>
-				<div id="emailnotice"
-					style="position: relative; text-align: center;">
-					※ 닉네임을 설정하면 <span class="redline">30일간 변경할 수 없습니다.</span><br>
-				</div>
-				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
-					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onblur="nick_chk(this.value);">
-					닉네임 설정
-				</button>
-			</div>
-		</form>
-		<script>
-		function nick_chk(str) {
-		 if(str.length < 2 || str.length > 10) {
-		   alert("2~10자의 한글, 영문, 숫자만 사용할 수 있습니다.");
-		   return;
-		 }
-		 var chk = /[0-9]|[a-z]|[A-Z]|[가-힣]/;
-		 for(var i = 0; i <= str.length -1 ; i++ ) {
-		  if(chk.test(str.charAt(i)))
-		  {
-		  }
-
-		  else
-		  {
-		   alert("2~10자의 한글, 영문, 숫자만 사용할 수 있습니다.");
-		   return false;
-		  }
-		 }
-
-		 return true;
-		}
-		</script>
-		</div>
-		
-	</div>
 
 
-
-
-	<script>
-
+	<script> // 프로필사진 업로드 스크립트
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();

@@ -1,5 +1,7 @@
 package com.khtime.friend.model.dao;
 
+import static com.khtime.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,10 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.common.JDBCTemplate;
+import com.khtime.member.model.vo.Member;
 
 public class FriendDao {
 	private Properties prop = new Properties();
@@ -50,5 +54,59 @@ public class FriendDao {
 
 		return result;
 	}
+	
+	public int friendReq(Connection conn,String friendId , int loginUserNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("friendReq");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setString(2, friendId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+    
+	public ArrayList<Member> friendlist(Connection conn , int loginUserNo ){
+		Member m = null;
+		ArrayList<Member> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("friendlist");
+		
+		ResultSet rset = null;
 
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, loginUserNo);
+			
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				m =new Member();
+	
+				m.setUserName(rset.getString("USER_NAME"));
+		
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

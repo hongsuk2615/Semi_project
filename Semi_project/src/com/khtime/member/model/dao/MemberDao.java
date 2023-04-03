@@ -328,35 +328,8 @@ public class MemberDao {
 		} return result;
 	 }
 	 
-	 public int checkNickName(Connection conn, String userNickName,String updateNickName,String userId) {
-		 int result = 0;
-		 
-		 PreparedStatement pstmt =null;
-		 
-		 ResultSet rset = null;
-		 
-		 String sql = prop.getProperty("checkNickName");
-		 
-		 try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, userNickName);
-			
-			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result++;
-			} 
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		} return result;
-	 }
 	 
-	 public int updateNickName(Connection conn, String userId, String userNickName) {
+	 public int updateNickName(Connection conn, String updateNickName,String userId) {
 		 int result = 0;
 		 
 		 PreparedStatement pstmt =null;
@@ -366,7 +339,7 @@ public class MemberDao {
 		 try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, userNickName);
+			pstmt.setString(1, updateNickName);
 			pstmt.setString(2, userId);
 			
 			result = pstmt.executeUpdate();
@@ -378,5 +351,30 @@ public class MemberDao {
 			close(pstmt);
 		} return result;
 	 }
-
+	 
+	 public int deleteMember(Connection conn, String userId) {
+	      
+	      int result = 0;
+	      
+	      PreparedStatement pstmt = null;
+	      
+	      String sql = prop.getProperty("deleteMember");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, userId);
+	        
+	         
+	         result = pstmt.executeUpdate();
+	         
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	   }
 }

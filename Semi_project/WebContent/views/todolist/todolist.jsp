@@ -58,74 +58,6 @@
                     </div>     
                 </div>
                 <div id="content">
-                    <div class="tdl">
-                        <div class="tdl-content">
-                            내용입니다.....
-                        </div>
-                        <div class="priority">
-                            <input type="radio" name="priority1"checked>
-                            <input type="radio" name="priority1">
-                            <input type="radio" name="priority1">
-                        </div>
-                        <div class="delete-btn">
-
-                        </div>
-                    </div>
-                    <div class="tdl">
-                        <div class="tdl-content">
-                            내용입니다.....
-                        </div>
-                        <div class="priority">
-                            <input type="radio" name="priority1"checked>
-                            <input type="radio" name="priority1">
-                            <input type="radio" name="priority1">
-                        </div>
-                        <div class="delete-btn">
-
-                        </div>
-                    </div>
-                    <div class="tdl">
-                        <div class="tdl-content">
-                            내용입니다.....
-                        </div>
-                        <div class="priority">
-                            <input type="radio" name="priority1"checked>
-                            <input type="radio" name="priority1">
-                            <input type="radio" name="priority1">
-                        </div>
-                        <div class="delete-btn">
-
-                        </div>
-                    </div>
-                    <div class="tdl">
-                        <div class="tdl-content">
-                            내용입니다.....
-                        </div>
-                        <div class="priority">
-                            <input type="radio" name="priority1"checked>
-                            <input type="radio" name="priority1">
-                            <input type="radio" name="priority1">
-                        </div>
-                        <div class="delete-btn">
-
-                        </div>
-                    </div>
-                    <div class="tdl">
-                        <div class="tdl-content">
-                            내용입니다.....
-                        </div>
-                        <div class="priority">
-                            <input type="radio" name="priority1"checked>
-                            <input type="radio" name="priority1">
-                            <input type="radio" name="priority1">
-                        </div>
-                        <div class="delete-btn">
-
-                        </div>
-                    </div>
-                    
-                    
-                    
                     
                 </div>
                 <div id="tdl-modal">
@@ -155,23 +87,9 @@
                             
                         </div>
                     </div>
-                    
-
-
-
-
-
 
                 </div>
-               
-
-
-
-
-
-
-            </div>
-            
+            </div>    
         </div>
 
 
@@ -183,54 +101,88 @@
         
     </div>
     <script>
-       $('#add-btn').click(function(){ // 비동기 todolist 추가
-            let content = $('#modal-tdl-text>input').val();
-            let priority = $('#modal-tdl-priority>input:checked').val();
-            
-            $.ajax({
-                url : '/Semi_project/addToDoList.me',
-                data : {content,priority},
-                success : function(result){
-                    console.log(result);
-                    if(result){
-                        alert('추가 성공');
-                    }else{
-                        alert('추가 실패');
+        function deleteEvent(number){ // 삭제버튼 이벤트함수
+            $('#delete-btn'+number+'').click(function(){
+                let toDoListNo = $(this).attr('data-tdl');
+                console.log(toDoListNo);
+                $.ajax({
+                    url : '/Semi_project/deleteToDoList.me',
+                    data :{toDoListNo},
+                    success : function(result){
+                        if(result){
+                            alert("삭제성공");
+                            getTodolist();
+                        }else{
+                            alert("삭제실패");
+                            getTodolist();
+                        }
+                    },
+                    error : function(){
+                    console.log('todolist 삭제 ajax요청 실패')
                     }
-                },
-                error : function(){
-                    console.log('todolist 추가 ajax요청 실패')
-                }
-
-
+                })      
             })
-        })
+        }
     </script>
     <script>
-        function getTodolist(){
+        function changePriorityEvent(number){ // 우선순위 변경 이벤트 함수
+            $('input[name=priority'+number+']').click(function(){
+                let priority = $('input[name=priority'+number+']:checked').val();
+                let toDoListNo = $(this).attr('data-tdl');
+                $.ajax({
+                    url : '/Semi_project/changePriority.me',
+                    data :{toDoListNo, priority},
+                    success : function(result){
+                        if(result){
+                            getTodolist();
+                        }else{
+                            getTodolist();
+                        }
+                    },
+                    error : function(){
+                    console.log('todolist 삭제 ajax요청 실패')
+                    }
+                })      
+            })
+        }
+    </script>
+    <script>
+        function getTodolist(){ // todolist 조회 및 요소 생성 함수
             $.ajax({
                 url : '/Semi_project/getToDoList.me',
                 success : function(tdl){
                     if(tdl.length == 0){
-                        $('#content').html('to do list가 없습니다.');
+                        $('#content').html(`
+                            <div class="tdl" style="display:flex; justify-content : center; text-align: center;">
+                                <div class="tdl-content">
+                                   to do list가 없습니다.
+                                </div>
+                            </div>`);
                     }else{
+                        $('#content').html('');
                         $(tdl).each(function(index,item){
-                            $('#content').html(`
+                            $('#content').append(`
                                 <div class="tdl">
                                     <div class="tdl-content">
                                         \${item.content}
                                     </div>
                                     <div class="priority">
-                                        <input type="radio" name="priority\${index}">
-                                        <input type="radio" name="priority\${index}">
-                                        <input type="radio" name="priority\${index}">
+                                        <input type="radio" name="priority\${index}" value="3" data-tdl ="\${item.toDoListNo}">
+                                        <input type="radio" name="priority\${index}" value="2" data-tdl ="\${item.toDoListNo}">
+                                        <input type="radio" name="priority\${index}" value="1" data-tdl ="\${item.toDoListNo}">
                                     </div>
-                                    <div class="delete-btn">
+                                    <div class="delete-btn" id="delete-btn\${index}" data-tdl ="\${item.toDoListNo}">
 
                                     </div>
                                 </div>`);
-                            // $('input[name="priority"+index]').
-                            console.log(item);
+                            switch(item.priority){
+                                case 1 : $('input[name=priority'+index+']').eq(2).prop('checked','true'); break;
+                                case 2 : $('input[name=priority'+index+']').eq(1).prop('checked','true'); break;
+                                case 3 : $('input[name=priority'+index+']').eq(0).prop('checked','true'); break;
+                            }
+                            deleteEvent(index);
+                            changePriorityEvent(index);
+                            console.log(typeof(item.priority));
                             console.log(index);
                         })
                     } 
@@ -245,8 +197,36 @@
 
 
         }
+        getTodolist();
 
     </script>
+    
+    <script>
+       $('#add-btn').click(function(){ // 비동기 todolist 추가
+            let content = $('#modal-tdl-text>input').val();
+            let priority = $('#modal-tdl-priority>input:checked').val();
+            
+            $.ajax({
+                url : '/Semi_project/addToDoList.me',
+                data : {content,priority},
+                success : function(result){
+                    console.log(result);
+                    if(result){
+                        alert('추가 성공');
+                        getTodolist();
+                    }else{
+                        alert('추가 실패');
+                    }
+                },
+                error : function(){
+                    console.log('todolist 추가 ajax요청 실패')
+                }
+
+
+            })
+        })
+    </script>
+    
     <script>
         document.getElementById('tdl-btn-add').addEventListener('click',function(){
             document.getElementById('tdl-modal').style.visibility = 'visible';
