@@ -54,9 +54,8 @@
 					loginId :  $("#loginId").val(),
 					loginPwd :  $("#loginPwd").val()
 				}, 
-				success : function(r){
-					console.log(r);
-					switch(r){
+				success : function(result){
+					switch(result){
 					case '-1' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
 					case '0' : alert("승인되지않은 아이디입니다!"); break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;

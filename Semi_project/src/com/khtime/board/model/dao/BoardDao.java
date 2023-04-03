@@ -196,7 +196,6 @@ public class BoardDao {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
-			System.out.println(b);
 			String sql = prop.getProperty("insertBoard");
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -220,22 +219,17 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int insertAttachment(Connection conn, Board b, int userNo ) {
+	   public int insertAttachment(Connection conn, BoardAttachment at) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
-			System.out.println(b);
-			String sql = prop.getProperty("insertBoard");
+			String sql = prop.getProperty("insertAttachment");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
-				pstmt.setString(1, b.getTitle());
-				pstmt.setString(2, b.getContent());
-				pstmt.setInt(3, b.getCategoryNo());
-				pstmt.setInt(4, userNo);
-				pstmt.setString(5, b.getIsQuestion());
-				pstmt.setString(6, b.getIsAnonimous());
-				
+				pstmt.setString(1, at.getOriginName());
+				pstmt.setString(2, at.getChangeName());
+				pstmt.setString(3, at.getFilePath());
 				
 				result = pstmt.executeUpdate();
 
