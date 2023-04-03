@@ -2,8 +2,23 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	
-	<entry key="selectNoticeList">
+	<entry key="addToDoList">
+		INSERT INTO TO_DO_LIST(TO_DO_LIST_NO, USER_NO, CONTENT, PRIORITY)
+		                VALUES(SEQ_TDLNO.NEXTVAL
+		                	  ,?
+		                	  ,?
+		                	  ,?
+		                	   )
 
+	</entry>
+	
+	<entry key="getToDoList">
+		SELECT TO_DO_LIST_NO
+			 , PRIORITY
+			 , CONTENT
+	      FROM TO_DO_LIST
+	     WHERE USER_NO = ?
+	     ORDER BY PRIORITY DESC
 	</entry>
 
 	
