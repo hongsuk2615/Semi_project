@@ -58,7 +58,7 @@ a {
 
 				</table>
 				<div id="body-footer">
-					<input id="search-user" type="search">
+					<input id="search-user" type="search" placeholder="이름으로 검색">
 					<div id="page-btn">
 						<div id="back-btn"></div>
 						<div id="next-btn"></div>
@@ -72,27 +72,6 @@ a {
 		<div id="management-modal">
 			<div id="modal-content">
 				<div id="modal-body">
-					<div class="modal-body-wrapper">
-						<div class="modal-body-left">내용주제1</div>
-						<div class="modal-body-right">내용</div>
-					</div>
-					<div class="modal-body-wrapper">
-						<div class="modal-body-left">내용주제1</div>
-						<div class="modal-body-right">내용</div>
-					</div>
-					<div class="modal-body-wrapper">
-						<div class="modal-body-left">내용주제1</div>
-						<div class="modal-body-right">내용</div>
-					</div>
-					<div class="modal-body-wrapper">
-						<div class="modal-body-left">내용주제1</div>
-						<div class="modal-body-right">내용</div>
-					</div>
-					<div class="modal-body-wrapper">
-						<div class="modal-body-left">내용주제1</div>
-						<div class="modal-body-right">내용</div>
-					</div>
-
 				</div>
 
 

@@ -50,9 +50,11 @@
 	        location.href = "<%= request.getContextPath() %>/boardreq.do";
 	    })
         document.getElementById("userManagement").addEventListener("click",function(){
-	        location.href = "<%= request.getContextPath() %>";
+	        location.href = "<%= request.getContextPath() %>/usermanagement.do";
 	    })
-        
+	    document.getElementById("logout-btn").addEventListener("click",function(){
+	    	location.href = "<%= request.getContextPath()%>/logout.me";
+	    })
         
         
 

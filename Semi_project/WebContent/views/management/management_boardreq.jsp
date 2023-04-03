@@ -58,7 +58,7 @@ a {
 
 				</table>
 				<div id="body-footer">
-					<input id="search-user" type="search">
+					<input id="search-user" type="search" placeholder="게시판 카테고리로 검색">
 					<div id="page-btn">
 						<div id="back-btn"></div>
 						<div id="next-btn"></div>
