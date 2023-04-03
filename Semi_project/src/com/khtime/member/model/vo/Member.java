@@ -12,12 +12,17 @@ public class Member {
 	private String email;
 	private Date enrollDate;
 	private int authority;
-	private int reportCount;
 	private int recommendCount;
+	private int reportCount;
 	private String isBanned;
 	private String isWhitelist;
 	private String available;
 	private String status;
+	private String userProfile;
+
+	
+
+
 
 	public Member() {
 		super();
@@ -35,8 +40,8 @@ public class Member {
 	
 
 	public Member(int userNo, String userId, String userPwd, String userClass, String userName, String nickName,
-			String email, Date enrollDate, int authority, int reportCount, int recommendCount, String isBanned,
-			String isWhitelist, String available, String status) {
+			String email, Date enrollDate, int authority,int recommendCount, int reportCount, String isBanned,
+			String isWhitelist, String available, String status, String userProfile) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -47,12 +52,13 @@ public class Member {
 		this.email = email;
 		this.enrollDate = enrollDate;
 		this.authority = authority;
-		this.reportCount = reportCount;
 		this.recommendCount = recommendCount;
+		this.reportCount = reportCount;
 		this.isBanned = isBanned;
 		this.isWhitelist = isWhitelist;
 		this.available = available;
 		this.status = status;
+		this.userProfile = userProfile;
 	}
 
 
@@ -299,7 +305,13 @@ public class Member {
 		this.status = status;
 	}
 
+	public String getUserProfile() {
+		return userProfile;
+	}
 
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
 
 
 	@Override

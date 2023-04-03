@@ -84,7 +84,7 @@ public class EnrollmentController extends HttpServlet {
 				UserProFileImg upfi = new UserProFileImg();
 				upfi.setOriginName(multi.getOriginalFileName(key));
 				upfi.setChangeName(multi.getFilesystemName(key));
-				upfi.setFilePath("/resources/member/userProfileImg");
+				upfi.setFilePath("/resources/member/userProfileImg/");
 				result2 = new MemberService().insertUserProFileImg(userNo, upfi);
 
 			} else {
