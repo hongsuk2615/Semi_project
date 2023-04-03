@@ -63,7 +63,7 @@ public class DdayDao {
 	   }
 	   
 	   
-	   public ArrayList<Dday> getDday(Connection conn,int userNo, Date Dday, String title){
+	   public ArrayList<Dday> getDday(Connection conn,int userNo){
 			ArrayList<Dday> list = new ArrayList<Dday>();
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("selectDday");

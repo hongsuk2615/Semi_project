@@ -262,17 +262,19 @@
                     	$('#dDayList').html('');
                     	$(Dday).each(function(index,item){
                     		$('#dDayList').append(`
-                    				<div class="openBtn2" id="ddayBox">
+                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
             						<div>
-            							<p class="titleText">디데이 예시</p>
-            							<p class="dateText">2023.09.09(일)</p>
+            							<p class="titleText">\${item.title}</p>
+            							<p class="dateText">\${item.dDay}</p>
             						</div>
             						<div>
             							<p class="ddayText">D-100</p>
             						</div>
-            					</div>`)
+            					</div><br>`);
+                    		
+                    		$('#ddayBox'+index).click(updateDday(item.dDayNo));
             					
-                    	}
+                    	})
                     	
                     	
                     }
@@ -288,18 +290,12 @@
     
     </script>
     
-    
-    
-    
-    
-    
-    
-        
 
         <!-- [디데이 설정] 모달창 스크립트 -->
         <script>
             const open = () => {
                 document.querySelector(".modal").classList.remove("hidden");
+                getDday();
             }
             const close = () => {
 				console.log('cdlose')
@@ -381,6 +377,7 @@
 				<div class="addDdayBody">
 					<div class="inputBox">
 						<p class="inputLabel">디데이</p>
+						<input type="hidden" id = "dDayNo" name="dDayNo">
 						<input type="text" placeholder="디데이를 입력해주세요" class="inputField"/>
 					</div>
 					<div class="inputBox">
@@ -402,14 +399,19 @@
 
         <!-- [디데이 수정] 모달창 스크립트-->
         <script>
+        function updateDday(dDayNo){
             const open2 = () => {
                 document.querySelector(".modal2").classList.remove("hidden");
+                document.getElementById('dDayNo').value = dDayNo;
+                
             }
+            return open2;
+        }
             const close2 = () => {
                 console.log('cdlose')
                 document.querySelector(".modal2").classList.add("hidden");
             }
-            document.querySelector(".openBtn2").addEventListener("click", open2);
+            
             document.querySelector(".closeBtn3").addEventListener("click", close2);
             document.querySelector(".deleteBtn").addEventListener("click", close2);
             document.querySelector(".closeBtn4").addEventListener("click", function(){

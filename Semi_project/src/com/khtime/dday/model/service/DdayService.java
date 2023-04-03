@@ -31,9 +31,9 @@ public class DdayService {
 	}
 	
 	
-	public ArrayList<Dday> getDday(int userNo, Date dDay, String title ){
+	public ArrayList<Dday> getDday(int userNo){
 		Connection conn = getConnection();
-		ArrayList<Dday> list = new DdayDao().getDday(conn, userNo, dDay, title);
+		ArrayList<Dday> list = new DdayDao().getDday(conn, userNo);
 		
 		close(conn);
 		
