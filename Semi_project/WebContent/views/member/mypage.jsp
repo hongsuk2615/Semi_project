@@ -79,7 +79,7 @@
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
 						<a class="openBtn3">닉네임변경(모달)</a>
-						<a href="">쪽지함(하이퍼링크)</a>
+						<a href="views/member/messagebox.jsp">쪽지함(하이퍼링크)</a>
 					    <a href="">게시글관리(하이퍼링크)</a>
 					</div>
 
