@@ -142,6 +142,20 @@ public class BoardService {
 		return result;
 	}
 	
+	public int insertUpdateAttachment(int bNo, BoardAttachment at) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = new BoardDao().insertUpdateAttachment(conn, bNo, at);
+
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
 	public int recommendCountUp(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
@@ -161,6 +175,18 @@ public class BoardService {
 
 		int result = new BoardDao().scrapCountUp(conn, bNo);
 
+		if(result > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int updateAttachment(int fNo) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new BoardDao().updateAttachment(conn, fNo);
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {

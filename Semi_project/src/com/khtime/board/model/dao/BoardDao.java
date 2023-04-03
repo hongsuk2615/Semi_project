@@ -249,7 +249,30 @@ public class BoardDao {
 				
 				
 				result = pstmt.executeUpdate();
-				System.out.println("boardresult:"+result);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int insertUpdateAttachment(Connection conn, int bNo, BoardAttachment at) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertUpdateAttachment");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, bNo);
+				
+				result = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -406,6 +429,27 @@ public class BoardDao {
 			return result;
 		}
 	   
+	   public int updateAttachment(Connection conn, int fNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateAttachment");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, fNo);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   
 	   public int updateBoard(Connection conn, Board b) {
 		   
 			int result = 0;
@@ -421,7 +465,8 @@ public class BoardDao {
 				pstmt.setInt(3, b.getCategoryNo());
 				pstmt.setString(4, b.getIsQuestion());
 				pstmt.setString(5, b.getIsAnonimous());
-				
+				pstmt.setInt(6, b.getBoardNo());
+				pstmt.setInt(7, Integer.valueOf(b.getWriter()));
 				
 				result = pstmt.executeUpdate();
 

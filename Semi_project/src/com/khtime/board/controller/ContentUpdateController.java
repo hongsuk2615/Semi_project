@@ -55,6 +55,7 @@ public class ContentUpdateController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
@@ -63,6 +64,7 @@ public class ContentUpdateController extends HttpServlet {
 		
 		Board b = new Board();
 		b.setWriter(String.valueOf(userNo));
+		b.setBoardNo(bNo);
 		b.setCategoryNo(cNo);
 		b.setTitle(title);
 		b.setContent(content);
@@ -70,12 +72,12 @@ public class ContentUpdateController extends HttpServlet {
 		b.setIsAnonimous(isAnonimous);
 		
 		int result = new BoardService().updateBoard(b);
-		System.out.println(result);
 		if(result > 0 ) {
-			
-			request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
+			request.getSession().setAttribute("alertMsg", "게시글 수정 성공");
+			response.sendRedirect(request.getContextPath());
 		}else {
-			System.out.println("실패");
+			request.getSession().setAttribute("alertMsg", "게시글 수정 실패");
+			response.sendRedirect(request.getContextPath());
 		}
 	}
 

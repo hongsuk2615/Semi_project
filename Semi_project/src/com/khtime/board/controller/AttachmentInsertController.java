@@ -21,36 +21,32 @@ import com.khtime.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class InsertBoardController
+ * Servlet implementation class AttachmentInsertController
  */
-@WebServlet("/insert.bo")
-public class InsertBoardController extends HttpServlet {
+@WebServlet("/insert.at")
+public class AttachmentInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AttachmentInsertController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public InsertBoardController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int result = -1;
 		
@@ -59,23 +55,9 @@ public class InsertBoardController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/board/");
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
-
-			int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
-			int cNo = Integer.parseInt(multi.getParameter("cNo"));
-			String title = multi.getParameter("title");
-			String content = multi.getParameter("content");
-			String isQuestion = multi.getParameter("isQuestion") == null ? "N" : "Y";
-			String isAnonimous = multi.getParameter("isAnonimous") == null ? "N" : "Y";
-			
-			Board b = new Board();
-			b.setCategoryNo(cNo);
-			b.setTitle(title);
-			b.setContent(content);
-			b.setIsQuestion(isQuestion);
-			b.setIsAnonimous(isAnonimous);
 			
 			BoardAttachment at = null;
-			ArrayList<BoardAttachment> list = new ArrayList<>();
+			int bNo = Integer.valueOf(multi.getParameter("bNo"));
 			Enumeration e = multi.getFileNames();
 			
 			while(e.hasMoreElements()) {
@@ -84,20 +66,18 @@ public class InsertBoardController extends HttpServlet {
 				at.setOriginName(multi.getOriginalFileName(fileName));
 				at.setChangeName(multi.getFilesystemName(fileName));
 				at.setFilePath("/resources/board/");
-				at.setFileLevel(Integer.valueOf(fileName.substring(fileName.length()-1, fileName.length())));
-				list.add(at);
 			}
-			result = new BoardService().insertBoard(b, userNo, list);
+			result = new BoardService().insertUpdateAttachment(bNo, at);
 			response.setContentType("text/html; charset=UTF-8");
 			
-			if (result <= 0 && at != null) {
+			if (result <= 0) {
 				new File(savePath+at.getChangeName()).delete();
 			} 
 				
 		} 
 	
 		response.getWriter().print(result);
+	
 	}
-	
-	
+
 }

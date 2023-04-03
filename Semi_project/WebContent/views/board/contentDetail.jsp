@@ -94,13 +94,14 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <%= b.getTitle() %>
+                                    글 번호:<%= b.getBoardNo()%> , <%= b.getTitle() %>
                                 </div>
                                 <div>
                                    <%= b.getContent() %>
                                 </div>
                                 <div>
                                         <% for(BoardAttachment at : attachmentList){ %>
+                                        		파일 번호: <%= at.getFileNo() %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
 										<% } %></div>
                                 <div>
