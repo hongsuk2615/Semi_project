@@ -274,7 +274,7 @@
             							<p class="dateText">\${item.dDay}</p>
             						</div>
             						<div>
-            							<p class="ddayText">D-100</p>
+            							<p class="ddayText">`+(item.dDay - new Date())+`</p>
             						</div>
             					</div><br>`);
                     		
