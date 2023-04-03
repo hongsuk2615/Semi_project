@@ -37,8 +37,8 @@ public class BookInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.getRequestDispatcher("views/book/bookstore.jsp").forward(request, response);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class BookInsertController extends HttpServlet {
 				bat = new BookAttachment();
 				bat.setOriginName( multi.getOriginalFileName("upfile") ); 
 				bat.setChangeName( multi.getFilesystemName("upfile")); 
-				bat.setFilePath("resources/board_upfiles/");
+				bat.setFilePath("resources/book_upfiles/");
 			}
 			
 			
@@ -90,7 +90,7 @@ public class BookInsertController extends HttpServlet {
 			if(result > 0) { 
 				
 				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-				response.sendRedirect(request.getContextPath()+"/bookstore.do?currentPage=1"); 
+				response.sendRedirect(request.getContextPath()+"/bookstore.do?currentPage=1");
 			} else {
 				
 				if(bat != null) {
@@ -107,5 +107,5 @@ public class BookInsertController extends HttpServlet {
 		}
 		
 	}
-	}
+}
 

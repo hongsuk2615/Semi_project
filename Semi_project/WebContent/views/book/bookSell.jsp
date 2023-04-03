@@ -10,6 +10,8 @@
 	String author = (String)request.getParameter("author");
 	String publisher = (String)request.getParameter("publisher");
 	System.out.println(book);
+	
+	String contextPath = request.getContextPath();
 
 %>
 <!DOCTYPE html>
@@ -62,7 +64,7 @@
         </div>
 
         <div id="book-body">
-            <form action="" id="" enctype="multipart/form-data">
+            <form action="<%= contextPath %>/bookinsert.do" id="enroll-form" enctype="multipart/form-data">
                 <div id="book-sell">
                     <div id="book-sell-header">
                         <img src="resources/IMG/glass.png" id="glass">
@@ -144,7 +146,7 @@
                 <hr>
     
                 <div id="book-board-upload">
-                    <button type="button" id="upload">게시하기</button>
+                    <button type="submit" id="upload">게시하기</button>
                 </div>
             </form>
         </div>
@@ -194,7 +196,7 @@
    		 
    		 document.getElementById("upload").addEventListener("click",function(){
    			 alert("판매글 등록에 성공했습니다!");
-        	location.href = "<%= request.getContextPath() %>/bookstore.do?bookname="+document.getElementById("book-name-search").value;
+        	location.href = "<%= request.getContextPath() %>/bookinsert.do?bookname="+document.getElementById("book-name-search").value;
    		 })
     </script>
     

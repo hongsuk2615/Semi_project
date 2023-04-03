@@ -44,12 +44,18 @@ public class BookDao {
 			pstmt.setString(2, book.getBookName());
 			pstmt.setInt(3, book.getPrice());
 			pstmt.setString(4, book.getAuthor());
-			pstmt.set
+			pstmt.setString(5, book.getPublisher());
+			pstmt.setString(6, book.getIsNoted());
+			pstmt.setInt(7, book.getCondition());
+			pstmt.setString(8, book.getIsDirect());
+			pstmt.setString(9, book.getLocation());
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
-		   
+		 return result; 
 	   }
 	   
 	   

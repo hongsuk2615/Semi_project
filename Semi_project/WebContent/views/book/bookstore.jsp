@@ -1,5 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.common.model.vo.*, com.khtime.board.model.vo.Board"
     pageEncoding="UTF-8"%>
+<%
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage(); 
+	
+	String contextPath = request.getContextPath();
+%>  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +22,7 @@
         border: 1px solid rgba(128, 128, 128, 0.568);
     }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
 </head>
@@ -118,12 +129,31 @@
         </div>
         <div id="book-footer">
             <div id="book-page">
-                <button>&lt;</button>
+            	<% if(currentPage != 1) { %>
+					<button id=prevPage>&lt;</button>
+				<% } %>
+				
+				<% for(int i = startPage; i <= endPage; i++ ) { %>
+					
+					<% if(i != currentPage) { %>
+						<%-- <button ><%= i %></button> --%>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; "><%= i %></button>
+					<% } else { %>
+						<button disabled><%=i %></button>
+					<% } %>
+					
+				<% } %>
+				
+				<% if(currentPage != maxPage) { %>
+					<button type="button" id="nextPage">&gt;</button>
+				<% } %>
+            
+                <!-- <button>&lt;</button>
                 <button id="book-page-btn1">1</button>
                 <button id="book-page-btn2">2</button>
                 <button id="book-page-btn3">3</button>
                 <button id="book-page-btn4">4</button>
-                <button>&gt;</button>
+                <button>&gt;</button> -->
             </div>
         </div>
         
@@ -132,6 +162,29 @@
     </div>
     
     <script>
+    let currPage = <%= currentPage %>;
+     $(function() {
+    	 $("#nextPage").click(function(){
+				currPage++;
+			/* 	let a = "btn"+currPage; */
+				
+				location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
+				<%-- $(a).click("#btn<%= currentPage %>"); --%>
+				/* getBooks(); */
+			});
+	   	$("#prevPage").click(function(){
+	   		currPage--;
+	   		/* 	let a = "btn"+currPage; */
+			
+			location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
+			<%-- $(a).click("#btn<%= currentPage %>"); --%>
+			/* getBooks(); */
+	   	});
+     })
+	    
+	</script>
+	   	
+	<script>   	
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
    		 })
