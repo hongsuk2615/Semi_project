@@ -97,11 +97,9 @@ public class BoardService {
 
 		int result1 = new BoardDao().insertBoard(conn, b, userNo);
 		int result2 = 1;
-		System.out.println("result1:"+result1);
 		if (!list.isEmpty()) {
 			result2 = new BoardDao().insertAttachment(conn, list);
 		}
-		System.out.println("result2:"+result2);
 		if(result1 * result2 > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -111,19 +109,23 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	
-	public int deleteContent(int bNo, int userNo) {
+	public int deleteContent(int bNo, int userNo, int aC) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new BoardDao().deleteContent(conn, bNo, userNo);
-
-		if(result > 0 ) {
+		int result1 = new BoardDao().deleteContent(conn, bNo, userNo);
+		int result2 = 1;
+		
+		if(aC > 0) {
+		result2 = new BoardDao().deleteAttachment(conn, bNo);
+		}
+		
+		if(result1 * result2 > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);
 		} JDBCTemplate.close(conn);
 
-		return result;
+		return result1 * result2;
 	}
 	
 	public int updateBoard(Board b) {

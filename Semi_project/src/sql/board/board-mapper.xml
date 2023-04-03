@@ -107,11 +107,6 @@
    </entry>
    
    
-   
-   
-   
-   
-   
    <entry key="searchList">
       SELECT *    
       FROM(
@@ -190,14 +185,18 @@
 		   AND STATUS = 'Y'
 		   
 	</entry>
-	
 
-	
 	<entry key="deleteContent">
 	  UPDATE BOARD SET
 	  	STATUS = 'N'
 	  	WHERE BOARD_NO = ?
-	  	AND USER_NO = ?
+	  	AND WRITER = ?
+	</entry>
+	
+	<entry key="deleteAttachment">
+	  UPDATE BOARD_ATTACHMENT SET
+	  	STATUS = 'N'
+	  	WHERE REF_BNO = ?
 	</entry>
 	
 	<entry key="updateBoard">

@@ -383,6 +383,29 @@ public class BoardDao {
 			return result;
 		}
 	   
+	   public int deleteAttachment(Connection conn, int bNo) {
+		   
+			int result = 1;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("deleteAttachment");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 	   public int updateBoard(Connection conn, Board b) {
 		   
 			int result = 0;

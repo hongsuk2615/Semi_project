@@ -5,7 +5,6 @@
 	Board b =(Board) request.getAttribute("b"); 
 	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
-	
 	String cName = (String) request.getAttribute("cName");
 %>     
 <!DOCTYPE html>
@@ -71,7 +70,6 @@
                                                 <% }else { %>
                                                 익명
                                                 <% } %> 
-                                              
                                             </div>
                                             <div>
                                                 <%= b.getEnrollDate() %>
@@ -84,11 +82,10 @@
                                         	<button id="updateBoard">수정</button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/delete.bo?bNo="+<%= b.getBoardNo() %>;
+                                     	        location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&aC=<%=attachmentList.size()%>";
                                      	    })
-                                     	    
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo="+<%= b.getBoardNo() %>;
+                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
                                      	    })
                                         	</script>
                                         <% }else{ %>
@@ -116,8 +113,6 @@
                                     <button id="scrapbtn">스크랩</button>
                                 </div>
                             </div>
-                            
-
 
                             <!-- 댓글 -->
                             
@@ -125,29 +120,26 @@
                             <% if(replyList.isEmpty()) { %>
                            	<li>글이 없습니다,,</li>
                            <% }else{ %>
-                              
-                           
                             	<% for(Reply r : replyList) { %>
                                <li>
-							
-							<%= r.getReplyNo() %>
-							 <div class='content-detail-comments'>
-							 <div class='comments-left'>
-							 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
-							 <%= r.getWriter() %>
-							 </div>
-							 <div class='comments-right'>
-		                     대댓글 신고
-		                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
-		                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
-		                     </div>
-		                     </div>
-		                     <%= r.getContent() %>
-		                     <br>
-		                     <%= r.getEnrollDate() %>
-		                     <br>
-		                      <%= r.getRecommendCount() %>
-		                     </li>
+									<%= r.getReplyNo() %>
+									 <div class='content-detail-comments'>
+									 <div class='comments-left'>
+									 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
+									 <%= r.getWriter() %>
+									 </div>
+									 <div class='comments-right'>
+				                     대댓글 신고
+				                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
+				                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
+				                     </div>
+				                     </div>
+				                     <%= r.getContent() %>
+				                     <br>
+				                     <%= r.getEnrollDate() %>
+				                     <br>
+				                      <%= r.getRecommendCount() %>
+			                     </li>
                                
                               	  <% } %>
                                  <% } %>
