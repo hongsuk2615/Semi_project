@@ -356,16 +356,16 @@
       <script>
       
             document.querySelector("#board-1 th").addEventListener("click", function () {
-                location.href = "<%=request.getContextPath()%>/usermanagement.do";
+                location.href = "<%=request.getContextPath()%>/enrollManagement.do";
             });
             document.querySelector("#board-2 th").addEventListener("click", function () {
-                location.href = "";
+                location.href = "<%=request.getContextPath()%>/reportedBoard.do";
             });
             document.querySelector("#board-3 th").addEventListener("click", function () {
-                location.href = "";
+                location.href = "<%=request.getContextPath()%>/boardreq.do";
             });
             document.querySelector("#board-4 th").addEventListener("click", function () {
-                location.href = "";
+                location.href = "<%=request.getContextPath()%>/reportedUsers.do";
             });
             document.querySelector("#board-5 th").addEventListener("click", function () {
                 location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo=4";

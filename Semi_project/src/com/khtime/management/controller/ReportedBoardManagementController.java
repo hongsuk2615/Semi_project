@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserManagementController
+ * Servlet implementation class ReportedBoardManagementController
  */
-@WebServlet("/usermanagement.do")
-public class UserManagementController extends HttpServlet {
+@WebServlet("/reportedBoard.do")
+public class ReportedBoardManagementController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserManagementController() {
+    public ReportedBoardManagementController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,7 @@ public class UserManagementController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/management/management_users.jsp").forward(request, response);
+		request.getRequestDispatcher("views/management/management_boards.jsp").forward(request, response);
 	}
 
 	/**
