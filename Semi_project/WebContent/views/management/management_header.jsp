@@ -24,10 +24,10 @@
                 <img src="<%= request.getContextPath()%>/resources/IMG/로고이미지.png" alt="로고이미지">
             </div>
             <div id="navbar">
-                <div>회원가입 승인</div>
-                <div>신고게시물 관리</div>
-                <div>게시판 생성 승인</div>
-                <div>유저관리</div>
+                <div id="approveEnroll">회원가입 승인</div>
+                <div id="reportedBoards">신고게시물 관리</div>
+                <div id="boardReq">게시판 생성 승인</div>
+                <div id="userManagement">유저관리</div>
             </div>
             <div id="header-right">
                 <button id="logout-btn">로그아웃</button>
@@ -38,6 +38,18 @@
     <script>
     
 	    document.getElementById("home-logo").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>";
+	    })
+        document.getElementById("approveEnroll").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/enrollManagement.do";
+	    })
+        document.getElementById("reportedBoards").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/reportedBoard.do";
+	    })
+        document.getElementById("boardReq").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/boardreq.do";
+	    })
+        document.getElementById("userManagement").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>";
 	    })
         
