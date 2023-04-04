@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.khtime.board.model.vo.Reply;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.member.model.vo.Member;
+import com.khtime.message.model.vo.Message;
 
 public class MessageDao {
 	private Properties prop = new Properties();

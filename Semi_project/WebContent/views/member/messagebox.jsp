@@ -65,56 +65,12 @@
                         <% } %>
                         
                         
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
-                        <div id="date">
-                            <div>닉네임</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="text">내용</div>
+                        
                     </div>
                 </div>
                 <div id="content2">
                     <div id="messagesend">
-                        <div><b style="font-size: xx-large;">닉네임</b></div>
+                        <div><b style="font-size: xx-large;">교류하는사람 닉네임</b></div>
                         <div id="newfix">
                             <div><button class="openBtn">쪽지보내기</button></div>
                             <div><button>새로고침</button></div>

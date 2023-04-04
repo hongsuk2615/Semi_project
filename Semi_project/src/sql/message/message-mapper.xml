@@ -18,7 +18,7 @@
     <entry key="selectMessage">
     	SELECT NICK_NAME
     		  ,USER_NO
-    	  FROM MEMBER
+    	  FROM MEMBER 
     	 WHERE USER_NO IN 
     	 	( SELECT RECEIVER  AS MESSAGE_USER
  			    FROM MESSAGE
@@ -26,7 +26,9 @@
 				UNION
 			  SELECT SENDER AS MESSAGE_USER
  			  FROM MESSAGE
-			  WHERE RECEIVER = ?)    
+			  WHERE RECEIVER = ?)  
+			 
+		 
     </entry>
 	
 	

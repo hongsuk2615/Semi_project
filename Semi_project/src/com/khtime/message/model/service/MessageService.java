@@ -7,6 +7,7 @@ import static com.khtime.common.JDBCTemplate.*;
 
 import com.khtime.member.model.vo.Member;
 import com.khtime.message.model.dao.MessageDao;
+import com.khtime.message.model.vo.Message;
 
 public class MessageService {
 	
