@@ -46,11 +46,24 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 
 			if (rset.next()) {
-				m = new Member(rset.getInt("USER_NO"), rset.getString("USER_ID"), rset.getString("USER_PWD"),
-						rset.getString("USER_CLASS"), rset.getString("USER_NAME"), rset.getString("NICK_NAME"),
-						rset.getString("EMAIL"), rset.getDate("ENROLL_DATE"), rset.getInt("AUTHORITY"),
-						rset.getInt("REPORT_COUNT"), rset.getString("IS_BANNED"), rset.getString("IS_WHITELIST"));
-				m.setAvailable(rset.getString("AVAILABLE"));
+				m = new Member(rset.getInt("USER_NO"), 
+						rset.getString("USER_ID"), 
+						rset.getString("USER_PWD"),
+						rset.getString("USER_CLASS"),
+						rset.getString("USER_NAME"), 
+						rset.getString("NICK_NAME"),
+						rset.getString("EMAIL"), 
+						rset.getDate("ENROLL_DATE"), 
+						rset.getInt("AUTHORITY"),
+						rset.getInt("RECOMMEND_COUNT"),
+						rset.getInt("REPORT_COUNT"),
+						rset.getString("IS_BANNED"),
+						rset.getString("IS_WHITELIST"),
+						rset.getString("AVAILABLE"),
+						rset.getString("STATUS"),
+						rset.getString("USERPROFILE")
+						);
+						
 
 			}
 		} catch (SQLException e) {

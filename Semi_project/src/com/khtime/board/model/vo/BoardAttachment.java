@@ -12,6 +12,20 @@ public class BoardAttachment {
 	private int fileLevel;
 	private String status;
 	
+	
+	public BoardAttachment(int fileNo, int refBno, String originName, String changeName, String filePath,
+			Date uploadDate, int fileLevel, String status) {
+		super();
+		this.fileNo = fileNo;
+		this.refBno = refBno;
+		this.originName = originName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
+		this.status = status;
+	}
+
 	public BoardAttachment() {
 		super();
 	}

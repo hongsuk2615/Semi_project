@@ -1,6 +1,8 @@
 package com.khtime.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.vo.Board;
+import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.member.model.vo.Member;
 
 /**
@@ -31,7 +35,18 @@ public class ContentUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-	
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		
+		Board b = new BoardService().selectContent(bNo);
+		ArrayList <BoardAttachment> attachmentList = new BoardService().selectAttachmentList(bNo);
+		String cName = new CategoryService().getCategoryName(cNo);
+		
+		request.setAttribute("cName", cName);
+		request.setAttribute("b", b);
+		request.setAttribute("attachmentList", attachmentList);
+		
+		request.getRequestDispatcher("views/board/contentUpdate.jsp").forward(request, response);
 	}
 
 	/**

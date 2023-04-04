@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 
 <html lang="en">
@@ -23,7 +24,7 @@
         display: inline-block;
         box-sizing: border-box;
     }
-
+	
     a {
         text-decoration: none;
         color: black;

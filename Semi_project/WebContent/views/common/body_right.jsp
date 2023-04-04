@@ -45,7 +45,7 @@
             <% } else { %>
             <div id="loginuser-profile">
             	<div id="loginuser-profileimg">
-                    <img src="/Semi_project/resources/IMG/user.png" alt="로그인유저프사">
+                    <img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사">
                 </div>
                 <div id="loginuser-nickname"><%=loginUser.getNickName() %></div>
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
