@@ -2,13 +2,7 @@
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	String cName = (String) request.getAttribute("cName");
-	int cNo = (int) request.getAttribute("cNo");
-	int currentPage = (int)request.getAttribute("currentPage");
-%>    
+	   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +54,11 @@
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
       							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
            							<div id="createContent-check">
+<<<<<<< HEAD
+                						<div>첨부파일<input type="file" name="upfile"></div> 
+=======
                 						<div>첨부파일<input type="file" id="upfile" name="upfile" multiple></div>
+>>>>>>> main
                							<div>
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>

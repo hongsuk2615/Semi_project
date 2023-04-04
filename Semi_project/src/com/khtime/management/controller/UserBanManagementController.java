@@ -29,7 +29,8 @@ public class UserBanManagementController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		int result = new ManagementService().banUser(userId);
+		String isBanned = request.getParameter("isBanned");
+		int result = new ManagementService().banUser(userId, isBanned);
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "계정정지성공");
 		}else {

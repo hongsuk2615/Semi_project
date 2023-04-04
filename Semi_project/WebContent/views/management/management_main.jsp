@@ -141,6 +141,7 @@
 					url : '<%=request.getContextPath()%>/manageEnrollmentReqs.get',
 					type : 'get',
 					success : function(result){ 
+						console.log(result);
 						if(result.length == 0 ){
 							$('#board-1 tbody').append('<tr>'+
 															'<td>' + '요청된 회원가입이없습니다.' + '</td>'+

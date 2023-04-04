@@ -29,11 +29,16 @@ public class UserWhitelistController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		int result = new ManagementService().whitelistUser(userId);
+		String isWhitelist = request.getParameter("isWhitelist");
+		int result = new ManagementService().whitelistUser(userId,isWhitelist);
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "화이트리스트 추가 성공");
+			if(isWhitelist.equals("Y")) {
+				request.getSession().setAttribute("alertMsg", "화이트리스트 추가 성공");
+			}else {
+				request.getSession().setAttribute("alertMsg", "화이트리스트 해제 성공");
+			}
 		}else {
-			request.getSession().setAttribute("alertMsg", "화이트리스트 추가 실패");
+			request.getSession().setAttribute("alertMsg", "화이트리스트 추가/해제 실패");
 		}
 		response.sendRedirect(request.getContextPath()+"/management.do");
 	}
