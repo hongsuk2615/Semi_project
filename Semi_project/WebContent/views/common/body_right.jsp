@@ -238,13 +238,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
         <script>
         function makeEvent(){
         	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
@@ -295,7 +288,7 @@
             							<p class="dateText">\${item.dDay}</p>
             						</div>
             						<div>
-            							<p class="ddayText">D-\${Math.floor((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
             						</div>
             					</div><br>`);
                     		
