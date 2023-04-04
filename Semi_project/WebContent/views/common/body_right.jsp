@@ -184,7 +184,7 @@
 				<div class="header">
 					<p>디데이 설정</p>
 				</div>
-				<div class="body" id="dDayList">
+				<div class="body" id="dDayList" style="overflow: auto;">
                     
 					<div class="openBtn2" id="ddayBox">
 						<div>
@@ -207,6 +207,7 @@
         <script >
         function insertDday(){
         	console.log("저장버튼클릭");
+        	
         	$.ajax({
         		url : '<%=request.getContextPath()%>/ddayInsert.bo',
         		data : { "title" : $('#dDayTitle').val() ,      
@@ -233,9 +234,16 @@
         	});
         }
         
-        
-        
         </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         <script>
         function makeEvent(){
@@ -247,10 +255,20 @@
     </script>
     
     
+    
+    <!-- 디데이 자동 스크롤 스크립트 -->
+    <script>
+
+		$('#dDayList').scrollTop($('#dDayList').prop('scrollHeight'));
+
+	</script>
+
+    
     <script>
     	function getDday(){
     		$.ajax({
     			url : '<%=request.getContextPath()%>/dday.me',
+    			
     			success : function(Dday){
     				console.log(Dday);
     				if(Dday.length == 0){
@@ -267,6 +285,9 @@
                     }else{
                     	$('#dDayList').html('');
                     	$(Dday).each(function(index,item){
+                    		let dDaySplit = item.dDay.replace('월',',').split(',');
+                    		let dDay = dDaySplit[2]+'/'+dDaySplit[0] + '/' +dDaySplit[1];
+               
                     		$('#dDayList').append(`
                     				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
             						<div>
@@ -274,7 +295,7 @@
             							<p class="dateText">\${item.dDay}</p>
             						</div>
             						<div>
-            							<p class="ddayText">`+(item.dDay - new Date())+`</p>
+            							<p class="ddayText">D-\${Math.floor((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
             						</div>
             					</div><br>`);
                     		
@@ -365,10 +386,10 @@
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
 						<div class="dayChipWrapper">
-							<button class="dayChip">30일 뒤</button>
-							<button class="dayChip">100일 뒤</button>
-							<button class="dayChip">180일 뒤</button>
-							<button class="dayChip">360일 뒤</button>
+							<button class="dayChip" id="plus30">30일 뒤</button>
+							<button class="dayChip" id="plus100">100일 뒤</button>
+							<button class="dayChip" id="plus180">180일 뒤</button>
+							<button class="dayChip" id="plus360">360일 뒤</button>
 						</div>
 						<input type="text" placeholder="디데이 날짜를 선택해주세요" class="inputField" id="datepicker"/>
 					</div>
@@ -378,6 +399,32 @@
 				</div>
             </div>
         </div>
+        
+        <!-- 새 디데이 날짜 플러스 버튼 스크립트 -->
+        <script>
+        	function makeDate(num){
+        		let inputDate = new Date();
+        		inputDate.setDate(inputDate.getDate() + num);
+        		console.log(inputDate);
+        		let result = inputDate.getFullYear() +'-' + (inputDate.getMonth()+1) + '-' + inputDate.getDate();
+        		return result;
+        	}
+        	$('#plus30').click(function(){
+        		$('#datepicker').val(makeDate(30));
+        	})
+        	
+        	$('#plus100').click(function(){
+        		$('#datepicker').val(makeDate(100));
+        	})
+        	$('#plus180').click(function(){
+        		$('#datepicker').val(makeDate(180));
+        	})
+        	$('#plus360').click(function(){
+        		$('#datepicker').val(makeDate(360));
+        	})
+        
+        
+        </script>
 
 
         <!-- [새 디데이] 모달창 스크립트 -->
@@ -422,10 +469,10 @@
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
 						<div class="dayChipWrapper">
-							<button class="dayChip">30일 뒤</button>
-							<button class="dayChip">100일 뒤</button>
-							<button class="dayChip">180일 뒤</button>
-							<button class="dayChip">360일 뒤</button>
+							<button class="dayChip" id="rplus30">30일 뒤</button>
+							<button class="dayChip" id="rplus100">100일 뒤</button>
+							<button class="dayChip" id="rplus180">180일 뒤</button>
+							<button class="dayChip" id="rplus360">360일 뒤</button>
 						</div>
 						<input type="text" placeholder="디데이 날짜를 선택해주세요" class="inputField" id="datepicker1"/>
 					</div>
@@ -457,6 +504,34 @@
                 }
             })      
         }
+        </script>
+        
+        
+        
+        <!-- 디데이 수정 날짜 플러스 버튼 스크립트 -->
+        <script>
+        	function CorrectionMakeDate(num){
+        		let inputDate = new Date();
+        		inputDate.setDate(inputDate.getDate() + num);
+        		console.log(inputDate);
+        		let result = inputDate.getFullYear() +'-' + (inputDate.getMonth()+1) + '-' + inputDate.getDate();
+        		return result;
+        	}
+        	$('#rplus30').click(function(){
+        		$('#datepicker1').val(makeDate(30));
+        	})
+        	
+        	$('#rplus100').click(function(){
+        		$('#datepicker1').val(makeDate(100));
+        	})
+        	$('#rplus180').click(function(){
+        		$('#datepicker1').val(makeDate(180));
+        	})
+        	$('#rplus360').click(function(){
+        		$('#datepicker1').val(makeDate(360));
+        	})
+        
+        
         </script>
 
 
