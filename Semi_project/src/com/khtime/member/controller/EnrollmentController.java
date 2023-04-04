@@ -94,10 +94,10 @@ public class EnrollmentController extends HttpServlet {
 			if(result1 > 0 && result2 > 0) {
 				request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다.");
 				response.sendRedirect(request.getContextPath());	
-			} else if (result1 < 0) {
+			} else if (result1 == 0) {
 				request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다 : 개인정보기입값오류");
 				response.sendRedirect(request.getContextPath()+"/enroll.me");
-			} else if (result2 < 0 ) {
+			} else if (result2 == 0 ) {
 				request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다 : 프로필사진오류");
 				response.sendRedirect(request.getContextPath()+"/enroll.me");
 			}

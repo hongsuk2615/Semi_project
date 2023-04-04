@@ -249,5 +249,22 @@
 		WHERE CATEGORY_NAME LIKE ?
 		AND AVAILABLE = 'Y'
    </entry>
+   
+   <entry key="boardRequest">
+   		INSERT INTO BOARD_REQ(BOARD_NAME,USER_ID,REASON)
+   		 VALUES(
+            ?
+           ,?
+           ,?
+           )	
+   </entry>
+   
+    <entry key="boardCategoryreq">
+   		INSERT INTO CATEGORY(CATEGORY_NO,CATEGORY_NAME,REQ_USER)
+   		 VALUES(SEQ_CNO.NEXTVAL
+           ,?
+           ,?
+           )	
+   </entry>
 	
 </properties>
