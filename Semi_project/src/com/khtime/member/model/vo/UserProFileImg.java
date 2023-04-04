@@ -1,13 +1,13 @@
 package com.khtime.member.model.vo;
 
-import oracle.sql.DATE;
+import java.util.Date;
 
 public class UserProFileImg {
 	private int refUserId;
 	private String originName;
 	private String changeName;
 	private String filePath;
-	private DATE uploadDate;
+	private Date uploadDate;
 	private String status;
 	
 	public UserProFileImg() {
@@ -46,11 +46,11 @@ public class UserProFileImg {
 		this.filePath = filePath;
 	}
 
-	public DATE getUploadDate() {
+	public Date getUploadDate() {
 		return uploadDate;
 	}
 
-	public void setUploadDate(DATE uploadDate) {
+	public void setUploadDate(Date uploadDate) {
 		this.uploadDate = uploadDate;
 	}
 

@@ -81,7 +81,7 @@ public class ReplyDao {
 				rset = pstmt.executeQuery();
 				
 				while(rset.next()) {
-					list.add(new Reply(
+					Reply r = new Reply(
 							rset.getInt("REPLY_NO"),
 							rset.getInt("BOARD_NO"),
 							rset.getString("WRITER"),
@@ -90,9 +90,12 @@ public class ReplyDao {
 							rset.getInt("REPORT_COUNT"),
 							rset.getDate("ENROLL_DATE"),
 							rset.getString("IS_ANONIMOUS"),
-							rset.getInt("P_REPLY_NO")
-							));				
+							rset.getInt("P_REPLY_NO"),
+							rset.getString("USERPROFILE")
+							);
+					list.add(r);
 				}
+				System.out.println(list);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -33,16 +33,16 @@ public class ContentDeleteController extends HttpServlet {
 
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int result = new BoardService().deleteContent(bNo, userNo);
+		int aC = Integer.valueOf(request.getParameter("aC"));
+		int result = new BoardService().deleteContent(bNo, userNo, aC);
 		
 		response.sendRedirect(request.getContextPath());
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
 	}
 
