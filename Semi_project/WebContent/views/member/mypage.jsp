@@ -79,7 +79,7 @@
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
 						<a class="openBtn3">닉네임변경(모달)</a>
-						<a href="views/member/messagebox.jsp">쪽지함(하이퍼링크)</a>
+						<a id="messageboxBtn">쪽지함(하이퍼링크)</a>
 					    <a href="">게시글관리(하이퍼링크)</a>
 					</div>
 
@@ -360,7 +360,13 @@ function readURL(input) {
     document.querySelector(".openBtn3").addEventListener("click", open3);
     document.querySelector(".closeBtn3").addEventListener("click", close3);
     document.querySelector(".bg3").addEventListener("click", close3);
-</script>
+	</script>
+	
+	<script>  	
+  		document.getElementById("messageboxBtn").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
+  		}) 
+  	</script>
 
 
 

@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
-	<entry key="loginMember">
-		
-	</entry>
+	
+	<entry key = "sendMessage">
+      INSERT INTO MESSAGE(MESSAGE_NO,
+                     SENDER,
+                     RECEIVER,
+                     CONTENT,
+               				)
+               VALUES (SEQ_MNO.NEXTVAL,
+                     ?,
+                     ?,
+                     ?,   
+                     )
+    </entry>
+    
+    <entry key="selectMessage">
+    	SELECT NICK_NAME
+    		  ,USER_NO
+    	  FROM MEMBER
+    	 WHERE USER_NO IN 
+    	 	( SELECT RECEIVER  AS MESSAGE_USER
+ 			    FROM MESSAGE
+ 				WHERE SENDER = ?
+				UNION
+			  SELECT SENDER AS MESSAGE_USER
+ 			  FROM MESSAGE
+			  WHERE RECEIVER = ?)    
+    </entry>
 	
 	
 </properties>
