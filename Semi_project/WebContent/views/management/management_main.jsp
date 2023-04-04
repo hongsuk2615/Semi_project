@@ -475,20 +475,22 @@
                                     <div class="modal-body-left">사유</div>
                                     <div class="modal-body-right">\${Object.keys(result)[0]}</div>
                                 </div>`;
+
+                                document.getElementById("ban-deny-btn").innerHTML = "승인";
+                                document.getElementById("ban-deny-btn").addEventListener('click',function(){
+                                    location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=Y";
+                                });
+                                document.getElementById("unban-approve-btn").innerHTML = "거부";
+                                document.getElementById("unban-approve-btn").addEventListener('click',function(){
+                                    location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=N";
+                                });    
                                 
                             },
                             error : function(){
                             console.log("ajax통신 실패");
                             }				
                         });     
-                        document.getElementById("ban-deny-btn").innerHTML = "승인";
-                        document.getElementById("ban-deny-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=Y";
-                        });
-                        document.getElementById("unban-approve-btn").innerHTML = "거부";
-                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=N";
-                        });    
+                        
                     }
                     
                 }
@@ -529,7 +531,7 @@
                                 </div>
                                 <div class="modal-body-wrapper">
                                     <div class="modal-body-left">가입일자</div>
-                                    <div class="modal-body-right">\${result.date}</div>
+                                    <div class="modal-body-right">\${result.enrollDate}</div>
                                 </div>
                                 <div class="modal-body-wrapper">
                                     <div class="modal-body-left">신고횟수</div>

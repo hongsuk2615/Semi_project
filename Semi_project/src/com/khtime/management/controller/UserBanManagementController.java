@@ -32,9 +32,13 @@ public class UserBanManagementController extends HttpServlet {
 		String isBanned = request.getParameter("isBanned");
 		int result = new ManagementService().banUser(userId, isBanned);
 		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "계정정지성공");
+			if(isBanned.equals("Y")) {
+				request.getSession().setAttribute("alertMsg", "계정정지성공");
+			}else {
+				request.getSession().setAttribute("alertMsg", "정지해제성공");
+			}
 		}else {
-			request.getSession().setAttribute("alertMsg", "계정정지실패");
+			request.getSession().setAttribute("alertMsg", "계정정지/정지해제 실패");
 		}
 		response.sendRedirect(request.getContextPath()+"/management.do");
 	}
