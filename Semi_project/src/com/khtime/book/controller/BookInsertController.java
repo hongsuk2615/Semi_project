@@ -51,7 +51,7 @@ public class BookInsertController extends HttpServlet {
 
 			int maxSize = 1024 * 1024 * 10;
 			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/book/book_upfile/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/book/thumb_upfiles/");
 
 			MultipartRequest multi = new MultipartRequest(request , savePath , maxSize, "UTF-8",
 					new MyFileRenamePolicy());

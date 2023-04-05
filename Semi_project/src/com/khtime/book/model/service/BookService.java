@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.khtime.book.model.dao.BookDao;
 import com.khtime.book.model.vo.Book;
 import com.khtime.book.model.vo.BookAttachment;
+import com.khtime.common.model.vo.PageInfo;
+
 import static com.khtime.common.JDBCTemplate.*;
 
 public class BookService {
@@ -28,11 +30,11 @@ public class BookService {
 		return result1 * result2;
 	}
 	
-	public ArrayList<Book> selectThumbnailList() {
+	public ArrayList<Book> selectThumbnailList(PageInfo pi) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Book> bList = new BookDao().selectThumbnailList(conn);
+		ArrayList<Book> bList = new BookDao().selectThumbnailList(conn , pi);
 		
 		close(conn);
 		

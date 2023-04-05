@@ -40,6 +40,7 @@
     justify-content: center;
     align-items: center;
     width: 155px;
+    height: 50px;
 }
 
 #book-header-navbar {
@@ -52,7 +53,7 @@
 #book-sell-btn {
     border: none;
     background: none;
-    /* display: flex; */
+	color: white;
 }
 
 #book-home-btn-img ,
@@ -67,7 +68,10 @@
 #book-page-btn1,
 #book-page-btn2,
 #book-page-btn3,
-#book-page-btn4 {
+#book-page-btn4,
+#message-btn,
+#mypage-btn,
+#book-wrap {
    cursor: pointer;   
 }
 
@@ -115,12 +119,12 @@
     justify-content: space-between; /* 가로 정렬 */
 }
 
-#book-body-content1 , 
-#book-body-content2 {
+#book-body-content1 {
     width: 1180px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 #book-search , 
@@ -142,4 +146,52 @@
     flex-direction: column;
     display: none;
     align-items: center;
+}
+
+#message-btn{
+    margin-right: 5px;
+    height: 100%;
+    width: 40px;
+    background-color: transparent;
+    background-image: url(../IMG/쪽지함.png);  
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#mypage-btn{
+    margin-left: 5px;
+    height: 100%;
+    width: 40px;
+    background-color: transparent;
+    background-image: url(../IMG/마이페이지.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#book-inf {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+#book-text {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    width: 250px;
+    height: 100px;
+}
+
+#book-title {
+	font-size: large;
+}
+
+#book-price {
+	font-size: large;
+	color: red;
+}
+#book-wrap {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }

@@ -61,7 +61,7 @@ public class BookStoreController extends HttpServlet {
 		 
 		 request.setAttribute("pi", pi);
 		 
-		 ArrayList<Book> bList = new BookService().selectThumbnailList();
+		 ArrayList<Book> bList = new BookService().selectThumbnailList(pi);
 		 
 		 request.setAttribute("bList", bList);
 		

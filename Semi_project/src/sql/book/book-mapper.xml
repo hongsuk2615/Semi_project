@@ -37,12 +37,20 @@
 	</entry>
 	
 	<entry key="selectThumbnailList">
-		SELECT BOOK_NO ,
+		SELECT *    
+      FROM(
+            SELECT ROWNUM RNUM , A.*
+            FROM (
+               SELECT BOOK_NO ,
 			   BOOK_NAME ,
 			   PRICE ,
 			   FILE_PATH || CHANGE_NAME AS TITLEIMG
-		FROM BOOK B
-		LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
-		WHERE B.STATUS = 'Y';
+			FROM BOOK B
+			LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
+			WHERE B.STATUS = 'Y'
+			AND FILE_LEVEL = 1
+            ) A
+         )
+      WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>

@@ -12,6 +12,7 @@
 	
 	String contextPath = request.getContextPath();
 	ArrayList<Book> bList = (ArrayList<Book>) request.getAttribute("bList");
+	int length = 0;
 %>  
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +36,10 @@
         <div id="book-navbar">
             <div id="book-btn">
                 <button id="book-home-btn">
-                    <img src="resources/IMG/home.png" id="book-home-btn-img">
+                    <img src="resources/IMG/home.png" id="book-home-btn-img">Home
                 </button>
                 <button type="button" id="book-sell-btn">
-                    <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
+                    <img src="resources/IMG/pencil.png" id="book-sell-btn-img">판매하기
                 </button>
             </div>
         </div>
@@ -52,15 +53,22 @@
             </div>
             <div id="book-body-content1">
                 <div id="book-inf">
-                	<% for(Book book : bList) { %>
-	                    <div id="book-img">
-	                        <img src=" <%= contextPath %><%= request.getAttribute("titleImg") %> ">
+                <% if(bList.size() > 8) {
+	                	length = 8;
+	                }else {
+	                	length = bList.size();
+	                }
+                %>
+                	<% for(int i = 0; i < length; i++) { %>
+                	<div id="book-wrap">
+                		<div id="book-img">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
-	                    <%-- <div id="book-text">
-	                        <div><%= request.getParameter("author") %></div>
-	                        <div><%= book.getBookName() %></div>
-	                        <div><%= request.getAttribute("bookName") %></div>
-	                    </div> --%>
+	                    <div id="book-text">
+	                        <div id="book-title"><%= bList.get(i).getBookName() %></div><br>
+	                        <div id="book-price">가격 : <%= bList.get(i).getPrice() %></div>
+	                    </div>
+                	</div>
                     <% } %>
                 </div>
                <!-- <div id="book-inf">
@@ -94,44 +102,7 @@
 
             <hr><hr>
 
-            <!-- <div id="book-body-content2">
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-            </div> -->
+            
         </div>
     </div>
         <div id="book-footer">
@@ -204,6 +175,9 @@
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
    		 
+   		 document.getElementById("book-wrap").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookdetail.do";
+   		 })
     </script>
 </body>
 </html>

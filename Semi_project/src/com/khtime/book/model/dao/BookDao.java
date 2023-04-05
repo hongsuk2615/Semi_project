@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.khtime.book.model.vo.Book;
 import com.khtime.book.model.vo.BookAttachment;
+import com.khtime.common.model.vo.PageInfo;
 
 public class BookDao {
 	
@@ -93,7 +94,7 @@ public class BookDao {
 		 return result;
 	  }
 	  
-	  public ArrayList<Book> selectThumbnailList(Connection conn) {
+	  public ArrayList<Book> selectThumbnailList(Connection conn , PageInfo pi) {
 		  
 		  ArrayList<Book> bList = new ArrayList<>();
 		  
@@ -106,6 +107,11 @@ public class BookDao {
 		  try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -114,7 +120,7 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
-				
+				System.out.println(book);
 				bList.add(book);
 			}
 		} catch (SQLException e) {
