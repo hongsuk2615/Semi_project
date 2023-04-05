@@ -28,7 +28,16 @@
  			  FROM MESSAGE
 			  WHERE RECEIVER = ?)  
 			 
-		 
+    </entry>
+    
+    <entry key="getContents">
+    	 SELECT *
+    	   FROM MESSAGE
+    	  WHERE SENDER IN(?,?)  
+    	    AND RECEIVER IN(?,?)
+    	  ORDER BY SEND_DATE DESC
+    
+    
     </entry>
 	
 	

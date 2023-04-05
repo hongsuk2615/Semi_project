@@ -34,4 +34,10 @@ public class MessageService {
 		
 		return result;
 	}
+	public ArrayList<ArrayList<String>> getContents(int userNo , int opponentNo){
+		Connection conn = getConnection();
+		ArrayList<ArrayList<String>> result = new MessageDao().getContents(conn, userNo, opponentNo);
+		close(conn);
+		return result;
+	}
 }

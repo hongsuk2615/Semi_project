@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.khtime.member.model.vo.Member" %>
+<%@ page import="java.util.ArrayList,java.util.HashMap, com.khtime.member.model.vo.Member" %>
 <%
-	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");	
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+	HashMap<Integer,ArrayList<ArrayList<String>>> contents = (HashMap<Integer,ArrayList<ArrayList<String>>>) request.getAttribute("contents");
  %>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,18 +60,18 @@
                         <%for(Member m : list) {%>
                         <div id="date">
                             <div><%= m.getNickName() %></div>
-                            <div><%= m.getUserNo() %></div>
+                            
+                            <div><%= contents.get(m.getUserNo()).get(0).get(2) %></div>
                         </div>
-                        <div id="text"><%=m.getUserNo() %></div>
-                        <% } %>
-                        
-                        
-                        
+                        <div id="text"><%= contents.get(m.getUserNo()).get(0).get(1) %></div>
+                        <% } %>               
                     </div>
                 </div>
                 <div id="content2">
                     <div id="messagesend">
-                        <div><b style="font-size: xx-large;">교류하는사람 닉네임</b></div>
+                    	<%for(Member m : list) { %>
+                        <div><b style="font-size: xx-large;"><%= m.getNickName() %></b></div>
+                        <% } %>
                         <div id="newfix">
                             <div><button class="openBtn">쪽지보내기</button></div>
                             <div><button>새로고침</button></div>
@@ -81,6 +82,7 @@
                             <div>받은쪽지</div>
                             <div>날짜</div>
                         </div>
+                        
                         <div id="receivetext">
                             내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
                             내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자

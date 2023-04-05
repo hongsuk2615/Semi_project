@@ -90,4 +90,40 @@ public class MessageDao {
 			
 			return list;
 	   }
+	   
+	   public ArrayList<ArrayList<String>> getContents(Connection conn, int userNo, int opponentNo){
+		   ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		   PreparedStatement pstmt = null;
+		   ResultSet rset = null;
+		   String sql = prop.getProperty("getContents");
+		   
+		   try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, opponentNo);
+			pstmt.setInt(3, userNo);
+			pstmt.setInt(4, opponentNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				ArrayList<String> list = new ArrayList<String>();
+				if(rset.getInt("SENDER")== userNo) {
+					list.add("send");
+				}else {
+					list.add("recieve");
+				}
+				list.add(rset.getString("CONTENT"));
+				list.add(rset.getString("SEND_DATE"));		
+				result.add(list);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		   
+		   return result;
+	   }
 }
