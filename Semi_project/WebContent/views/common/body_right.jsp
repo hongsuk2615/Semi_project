@@ -283,17 +283,29 @@
                     	$(Dday).each(function(index,item){
                     		let dDaySplit = item.dDay.replace('월',',').split(',');
                     		let dDay = dDaySplit[2]+'/'+dDaySplit[0] + '/' +dDaySplit[1];
-               
-                    		$('#dDayList').append(`
-                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
-            						<div>
-            							<p class="titleText">\${item.title}</p>
-            							<p class="dateText">\${item.dDay}</p>
-            						</div>
-            						<div>
-            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
-            						</div>
-            					</div><br>`);
+               				if(Math.ceil((new Date(dDay)-new Date())/1000/60/60/24) > 0){
+	                    		$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+	            						</div>
+	            					</div><br>`);
+               				}else {
+               					$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">종료</p>
+	            						</div>
+	            					</div><br>`);
+               				}
                     		
                     		$('#ddayBox'+index).click(updateDday(item.dDayNo));
                     		
