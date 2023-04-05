@@ -58,7 +58,8 @@
 	    document.getElementById("home-logo").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath() %>";
 	    })
-	    
+	  
+  		
         <% if(loginUser == null) {%> 
         document.getElementById("login-btn").addEventListener("click",function(){
           
@@ -90,6 +91,11 @@
         document.getElementById("mypage-btn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
    		 })
+   		 
+   		   document.getElementById("message-btn").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
+  		}) 
+  		
     </script>
 </body>
 </html>

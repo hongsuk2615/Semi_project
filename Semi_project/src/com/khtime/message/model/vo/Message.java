@@ -22,6 +22,16 @@ public class Message {
 		this.sendDate = sendDate;
 	}
 
+	
+	
+	public Message(int sender, int receiver, String content, Date sendDate) {
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.content = content;
+		this.sendDate = sendDate;
+	}
+
 	public int getMessageNo() {
 		return messageNo;
 	}

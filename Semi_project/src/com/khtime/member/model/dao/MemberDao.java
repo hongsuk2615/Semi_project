@@ -390,4 +390,25 @@ public class MemberDao {
 	      
 	      return result;
 	   }
+	 
+	 public int changeProfileImg(Connection conn, UserProFileImg img) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		String sql = prop.getProperty("changeProfileImg");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, img.getOriginName());
+			pstmt.setString(2, img.getChangeName());
+			pstmt.setString(3, img.getFilePath());
+			pstmt.setInt(4, img.getRefUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	 }
 }

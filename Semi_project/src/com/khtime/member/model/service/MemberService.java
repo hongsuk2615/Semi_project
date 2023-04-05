@@ -192,4 +192,18 @@ public class MemberService {
 	     close(conn);
 	      return result;
 	   }
+	
+	public int changeProfileImg(UserProFileImg img) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new MemberDao().changeProfileImg(conn, img);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 }
