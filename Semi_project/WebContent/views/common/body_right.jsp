@@ -228,7 +228,7 @@
         		},
         		complete : function(){
         			close1();
-                    close();
+        			getDday();
         		}
         		
         	});
@@ -238,17 +238,13 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
         <script>
         function makeEvent(){
+        	$("#dDayTitle").val("");
+        	$("#datepicker").val("");
         	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
 	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
+	        
         } 
         
         
@@ -295,12 +291,12 @@
             							<p class="dateText">\${item.dDay}</p>
             						</div>
             						<div>
-            							<p class="ddayText">D-\${Math.floor((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
             						</div>
             					</div><br>`);
                     		
                     		$('#ddayBox'+index).click(updateDday(item.dDayNo));
-            					
+                    		
                     	})
                     	
                     	
@@ -311,6 +307,7 @@
     		})
     		
     	}
+    	
     
     </script>
     
@@ -342,6 +339,9 @@
     		complete : function(){
     			close2();
     			getDday();
+    			$("#changeTitle").val("");
+            	$("#datepicker1").val("");
+    			
     		}
     		
     	});
@@ -436,6 +436,7 @@
             const close1 = () => {
                 console.log('cdlose')
                 document.querySelector(".modal1").classList.add("hidden");
+                
             }
             document.querySelector(".openBtn1").addEventListener("click", open1);
             document.querySelector(".closeBtn1").addEventListener("click", close1);
