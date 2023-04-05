@@ -9,6 +9,7 @@
 	int cNo = (int) request.getAttribute("cNo");
 	int currentPage = (int)request.getAttribute("currentPage");
 %>    
+	   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +61,11 @@
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
       							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
            							<div id="createContent-check">
+
+    
+
                 						<div>첨부파일<input type="file" id="upfile" name="upfile" multiple></div>
+
                							<div>
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>

@@ -87,13 +87,13 @@
 	
 	<entry key="banUser">
 		UPDATE MEMBER
-		   SET IS_BANNED = 'Y'
+		   SET IS_BANNED = ?
 		 WHERE USER_ID = ?
 	</entry>
 	
 	<entry key="whitelistUser">
 		UPDATE MEMBER
-		   SET IS_WHITELIST = 'Y'
+		   SET IS_WHITELIST = ?
 		 WHERE USER_ID = ?
 	</entry>
 	
@@ -108,6 +108,22 @@
 		DELETE CATEGORY
 		 WHERE CATEGORY_NAME = ?
 	
+	</entry>
+	
+	<entry key="getFilteredUsers">
+		SELECT *
+		  FROM MEMBER
+		 WHERE IS_WHITELIST LIKE ?
+		   AND IS_BANNED LIKE ?
+		   AND AUTHORITY = ?
+		   AND USER_NAME LIKE ?
+		   AND REPORT_COUNT > ?
+	</entry>
+	
+	<entry key="getUser">
+		SELECT *
+		  FROM MEMBER
+		 WHERE USER_ID = ?
 	</entry>
 
 </properties>
