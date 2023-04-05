@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +83,7 @@
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
-							 alert(result);
+				
 							 if(result){
 								 if(confirm("친구 요청 하시겠습니까?")){
 									 location.href="<%=request.getContextPath() %>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결

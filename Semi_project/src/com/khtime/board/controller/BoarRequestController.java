@@ -47,6 +47,7 @@ public class BoarRequestController extends HttpServlet {
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());
+		System.out.println(result);
 	}
 
 }
