@@ -23,7 +23,7 @@
    
    <entry key="updateDday">
    		UPDATE D_DAY SET
-	  	D_DAY = ?
+	  	D_DAY = ?,
 	  	TITLE = ?
 	  		WHERE D_DAY_NO = ?
    

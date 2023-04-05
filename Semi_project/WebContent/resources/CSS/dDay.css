@@ -147,7 +147,7 @@ button {
 
 
 /* 디데이 설정 모달창 안에 있는 디데이 수정 박스 */
-.modalBox #ddayBox {
+.modalBox .openBtn2 {
     border: 1px dashed #c2deff;
     border-radius: 12px;
     background: #f5f9ff;
@@ -157,17 +157,17 @@ button {
     justify-content: space-between;
     align-items: center;
 }
-.modalBox #ddayBox .titleText {
+.modalBox .openBtn2 .titleText {
     color: #8fc2ff;
     font-weight: 700;
     font-size: 16px;
 }
-.modalBox #ddayBox .dateText {
+.modalBox .openBtn2 .dateText {
     color: #8fc2ff;
     font-weight: 400;
     font-size: 14px;
 }
-.modalBox #ddayBox .ddayText {
+.modalBox .openBtn2 .ddayText {
     color: #8fc2ff;
     font-weight: 400;
     font-size: 20px;
