@@ -228,7 +228,7 @@
         		},
         		complete : function(){
         			close1();
-                    close();
+        			getDday();
         		}
         		
         	});
@@ -240,8 +240,11 @@
         
         <script>
         function makeEvent(){
+        	$("#dDayTitle").val("");
+        	$("#datepicker").val("");
         	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
 	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
+	        
         } 
         
         
@@ -293,7 +296,7 @@
             					</div><br>`);
                     		
                     		$('#ddayBox'+index).click(updateDday(item.dDayNo));
-            					
+                    		
                     	})
                     	
                     	
@@ -304,6 +307,7 @@
     		})
     		
     	}
+    	
     
     </script>
     
@@ -335,6 +339,9 @@
     		complete : function(){
     			close2();
     			getDday();
+    			$("#changeTitle").val("");
+            	$("#datepicker1").val("");
+    			
     		}
     		
     	});
@@ -429,6 +436,7 @@
             const close1 = () => {
                 console.log('cdlose')
                 document.querySelector(".modal1").classList.add("hidden");
+                
             }
             document.querySelector(".openBtn1").addEventListener("click", open1);
             document.querySelector(".closeBtn1").addEventListener("click", close1);
