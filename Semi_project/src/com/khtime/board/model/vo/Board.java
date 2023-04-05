@@ -16,14 +16,32 @@ public class Board {
 	private Date enrollDate;
 	private String status;
 	private int replyCount;
-
+	private String userProfile;
 
 	public Board() {
 		super();
 	}
 	
 
-	
+	public Board(int boardNo, String title, String content, int categoryNo, String writer, String isQuestion,
+			String isAnonimous, int reportCount, int recommendCount, int scrapCount, Date enrollDate, String status,
+			int replyCount, String userProfile) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.categoryNo = categoryNo;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.reportCount = reportCount;
+		this.recommendCount = recommendCount;
+		this.scrapCount = scrapCount;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.replyCount = replyCount;
+		this.userProfile = userProfile;
+	}
 
 
 	public Board(int boardNo, String title, String content, int categoryNo, String writer, String isQuestion,
@@ -196,6 +214,15 @@ public class Board {
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
+	
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
 
 
 	@Override
