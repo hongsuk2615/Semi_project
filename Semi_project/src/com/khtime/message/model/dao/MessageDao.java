@@ -38,7 +38,6 @@ public class MessageDao {
 	   public int sendMessage(Connection conn, int sender, int receiver,String content) {
 			int result = 0;
 			PreparedStatement pstmt = null;
-			ResultSet rset = null;
 			String sql = prop.getProperty("sendMessage");
 
 			try {
@@ -46,14 +45,13 @@ public class MessageDao {
 				pstmt.setInt(1, sender);
 				pstmt.setInt(2, receiver);
 				pstmt.setString(3, content);
-	
+				result = pstmt.executeUpdate();
 				
-				rset = pstmt.executeQuery();
+				
 
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
 			return result;

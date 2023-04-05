@@ -45,14 +45,14 @@ public class SendMessageController extends HttpServlet {
 
 		String content = request.getParameter("content");
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int sender = Integer.parseInt(request.getParameter("receiver"));
-		int receiver = Integer.parseInt(request.getParameter("receiver"));
+		System.out.println(userNo);
+		int receiver = Integer.parseInt(request.getParameter("opponentNo"));
 	
 		
-		int result = new MessageService().sendMessage(content,userNo,receiver,content);
+		int result = new MessageService().sendMessage(userNo,receiver,content);
 		
 		if (result > 0) {
-			request.getSession().setAttribute("alertMsg", "쪽지보내기 성공");
+			request.getSession().setAttribute("alertMsg", "쪽지보내기a 성공");
 			response.sendRedirect(request.getContextPath() + "/msgbox.me" );
 		} else {
 			request.getSession().setAttribute("alertMsg", "게시글 작성 실패");

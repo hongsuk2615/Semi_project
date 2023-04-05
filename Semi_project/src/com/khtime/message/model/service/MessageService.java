@@ -11,19 +11,19 @@ import com.khtime.message.model.vo.Message;
 
 public class MessageService {
 	
-//	public int sendMessage(int sender,int receiver,String content) {
-//		Connection conn = getConnection();
-//
-//		int result = new MessageDao().sendMessage(conn, content, sender,receiver);
-//
-//		if(result > 0 ) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		} close(conn);
-//
-//		return result;
-//	}
+	public int sendMessage(int sender,int receiver,String content) {
+		Connection conn = getConnection();
+
+		int result = new MessageDao().sendMessage(conn, sender,receiver,content);
+
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		} close(conn);
+
+		return result;
+	}
 	
 	public ArrayList<Member> selectMessage(int userNo) {
 		Connection conn =getConnection();
@@ -40,4 +40,7 @@ public class MessageService {
 		close(conn);
 		return result;
 	}
+	
+	
+	
 }

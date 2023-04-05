@@ -6,12 +6,12 @@
       INSERT INTO MESSAGE(MESSAGE_NO,
                      SENDER,
                      RECEIVER,
-                     CONTENT,
+                     CONTENT
                				)
                VALUES (SEQ_MNO.NEXTVAL,
                      ?,
                      ?,
-                     ?,   
+                     ?   
                      )
     </entry>
     

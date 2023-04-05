@@ -56,113 +56,63 @@
                 <div id="content1">
                     <div id="messagebox3"> <b style="font-size: xx-large;">쪽지함</b></div>
                     <div id="messagecheck">
-                    	
+                    <script>
+                    let opponents = [];
+                    </script>
                         <%for(Member m : list) {%>
+                        <script>
+                        	opponents.push(<%=m.getUserNo()%>);
+                        </script>
+                        <div class = "opponents" >
                         <div id="date">
                             <div><%= m.getNickName() %></div>
                             
-                            <div><%= contents.get(m.getUserNo()).get(0).get(2) %></div>
+                            <div><%= contents.get(m.getUserNo()).get(0).get(2)
+                            %></div>
                         </div>
                         <div id="text"><%= contents.get(m.getUserNo()).get(0).get(1) %></div>
+                        </div>
                         <% } %>               
                     </div>
                 </div>
                 <div id="content2">
-                    <div id="messagesend">
-                    	<%for(Member m : list) { %>
-                        <div><b style="font-size: xx-large;"><%= m.getNickName() %></b></div>
-                        <% } %>
-                        <div id="newfix">
+                	<% for(Member m : list) {%>
+                    <div class="messagesend" style="display : none">
+                    	
+                        <div><b style="font-size: xx-large;"><%=m.getNickName() %></b></div>
+                      
+                        <div class="newfix">
                             <div><button class="openBtn">쪽지보내기</button></div>
                             <div><button>새로고침</button></div>
                         </div>
                     </div>
-                    <div id="messagecheck2">
-                        <div id="receivemessage">
+                    
+                    <div class="messagecheck2" style="display : none">
+                    	<% ArrayList<ArrayList<String>> userContents = contents.get(m.getUserNo()); %>
+                    	<% for(int i = 0 ; i < userContents.size(); i++){ %>
+                        <% if(userContents.get(i).get(0).equals("recieve")){ %>
+                        <div class="receivemessage">
                             <div>받은쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        
-                        <div id="receivetext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        
-                        <div id="sentmessage">
+                            <div><%= userContents.get(i).get(2) %></div>
+                        </div>   
+                             
+                        <div class="receivetext">
+                                <%= userContents.get(i).get(1) %>
+
+                        </div> 
+                        <% }else if(userContents.get(i).get(0).equals("send")){ %>                      
+                        <div class="sentmessage">
                             <div>보낸쪽지</div>
-                            <div>날짜</div>
+                            <div><%= userContents.get(i).get(2) %></div>
                         </div>
-                        <div id="sendtext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
+                        <div class="sendtext">
+                            <%= userContents.get(i).get(1) %>
                         </div>
-                        <div id="receivemessage">
-                            <div>받은쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="receivetext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="sentmessage">
-                            <div>보낸쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="sendtext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="receivemessage">
-                            <div>받은쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="receivetext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="sentmessage">
-                            <div>보낸쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="sendtext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="receivemessage">
-                            <div>받은쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="receivetext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="sentmessage">
-                            <div>보낸쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="sendtext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="receivemessage">
-                            <div>받은쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="receivetext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        <div id="sentmessage">
-                            <div>보낸쪽지</div>
-                            <div>날짜</div>
-                        </div>
-                        <div id="sendtext">
-                            내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용<br>
-                            내용내용내용내용내용내용내용내용내용내용내용공백포함최대60자
-                        </div>
-                        
+                        	<% } %>
+                  		<% }%>
                     </div>
-                </div>
+                    <% } %>
+                </div> 
                </div>
               </div>
               
@@ -173,6 +123,7 @@
             
       <!-- 쪽지보내기 모달창 -->
      <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
+     <input type="hidden" name="opponentNo" value="">
 	 <div class="modal hidden">
 		<div class="bg"></div>
 		<div class="modalBox">
@@ -202,16 +153,41 @@
     <script> <!--쪽지보내기모달 닫는 스크맆트-->
       const open = () => {
           document.querySelector(".modal").classList.remove("hidden");
+          
       }
       const close = () => {
           console.log('cdlose')
           document.querySelector(".modal").classList.add("hidden");
       }
-      document.querySelector(".openBtn").addEventListener("click", open);
+      $(".openBtn").each(function(index, item){
+    	  let value = opponents[index];
+    	  $(item).click(function(){
+    		  open();
+    		  $('input[name="opponentNo"]').val(value);
+    	  })
+    	  
+      })
       document.querySelector(".closeBtn").addEventListener("click", close);
       document.querySelector(".bg").addEventListener("click", close);
   </script>
   
+  <script> <!-- 상대방 블럭을 클릭 시 이벤트 -->
+  function hiddenMsg(){
+	  $('.messagecheck2').css('display','none');
+	  $('.messagesend').css('display','none')
+  }
+  
+  $('.opponents').each(function(index, item){
+	    $(item).click(function(){
+	  		hiddenMsg();      
+	  		$('.messagecheck2').eq(index).css('display','block');
+	  		$('.messagesend').eq(index).css('display','block');
+	    })
+	    
+	})
+  $('.messagecheck2').eq(0).css('display','block');
+  $('.messagesend').eq(0).css('display','block');
+  </script>
   </div>
 </body>
 
