@@ -93,7 +93,6 @@ public class ReplyDao {
 							);
 					list.add(r);
 				}
-				System.out.println(list);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -141,6 +140,32 @@ public class ReplyDao {
 					pstmt.setInt(1, rNo);
 					
 					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+				
+					JDBCTemplate.close(pstmt);
+				}
+				return result;
+			}
+		   
+		   public ArrayList<String> anonimousCount(Connection conn, int bNo) {
+			   
+			   ArrayList<String> result = new ArrayList<>();
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("anonimousCount");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, bNo);
+					
+					rset = pstmt.executeQuery();
+					while(rset.next()) {
+					result.add(rset.getString("WRITER"));
+					}
 
 				} catch (SQLException e) {
 					e.printStackTrace();

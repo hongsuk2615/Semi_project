@@ -195,10 +195,9 @@
 				data :{
 					bNo : "<%= b.getBoardNo() %>",
 					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
-					isAnonimous : $("#isAnonimous").val()
+					isAnonimous : $("#isAnonimous").prop('checked') ? 'Y' : 'N'
 				}, 
 				success : function(result){
-					console.log(result);
 					if(result > 0){
 						selectReplyList();
 						selectReplyCount();
@@ -221,16 +220,21 @@
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
+					console.log(list[0]);
+					console.log(list[1]);
+					let numberArray = 1;
 					let result  = "";
-					for(let i of list){ 
+					for(let i of list[0]){ 
+						if(i.isAnonimous == "N"){
 						result += 
+							
 						`
 						<li>
 						\${i.replyNo}
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
 						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-						 \${i.writer}
+						\${i.writer}
 						 </div>
 						 <div class='comments-right'>
 	                     대댓글 신고
@@ -245,12 +249,39 @@
 	                      \${i.recommendCount}
 	                     </li>
 	                     `
-                           
+						}else{
+					result += 
+						
+						`
+						<li>
+						\${i.replyNo}
+						 <div class='content-detail-comments'>
+						 <div class='comments-left'>
+						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30"> 대체이미지
+						 익명
+						
+						 \${list[1][i.writer]}
+						 
+						  </div> 
+						 <div class='comments-right'>
+	                     대댓글 신고
+	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
+	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+	                     </div>
+	                     </div>
+	                     \${i.content}
+	                     <br>
+	                     \${i.enrollDate}
+	                     <br>
+	                      \${i.recommendCount}
+	                     </li>
+	                     `
+						}
 					}
 					$("#comments-area").html(result);
 				},
 				error : function(){
-					console.log("게시글 목록조회 실패")
+					alert("게시글 목록조회 실패");
 				}
 			})
 		}
@@ -263,11 +294,10 @@
 					bNo : "<%= b.getBoardNo() %>"
 				}, 
 				success : function(result){
-					console.log("보드테이블 댓글개수:"+ result);
 						$("#replydiv").html(result);
 					
 				}, error : function(){
-					console.log("댓글개수 조회 실패")
+					alert("댓글개수 조회 실패");
 				}
 			
 			})

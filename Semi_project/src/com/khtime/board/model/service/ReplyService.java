@@ -80,4 +80,14 @@ public class ReplyService {
 		return result;
 	}
 	
+	public ArrayList<String> anonimousCount(int bNo) {
+		Connection conn = JDBCTemplate.getConnection();
+
+		ArrayList<String> result = new ReplyDao().anonimousCount(conn, bNo);
+
+		JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
 }

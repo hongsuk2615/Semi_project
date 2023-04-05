@@ -78,12 +78,12 @@
 										</div>
 										</div>
                							<div>
-               							<% if(b.getIsQuestion() == "Y") { %>
+               							<% if(b.getIsQuestion().equals("Y")){ %>
                							<div><input type="checkbox" checked="checked" id="isQuestion" name="isQuestion" value="Y">질문</div>
                							<% }else{ %>
                							<div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
                							<% } %>
-               							<% if(b.getIsAnonimous() == "Y") { %>
+               							<% if(b.getIsAnonimous().equals("Y")){ %>
 						                    <div><input type="checkbox" id="isAnonimous" checked="checked" name="isAnonimous" value="Y">익명</div>
 				                    	<% }else{ %>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
@@ -152,8 +152,8 @@
 				formData.append("cNo", <%=b.getCategoryNo()%>);
 				formData.append("title", $("#title").val());
 				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
-				formData.append("isQuestion", $("#isQuestion").val());
-				formData.append("isAnonimous", $("#isAnonimous").val());
+				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
+				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
 				formData.append("deleteImg", deleteImg);
 					
 			$.each( $('#upfile')[0].files , function(index , file){
