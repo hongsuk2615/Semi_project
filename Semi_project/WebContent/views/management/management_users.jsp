@@ -45,7 +45,7 @@
             <%@ include file="management_header.jsp" %>
 
                 <div id="body">
-                    <div id="body">
+                   
 
                         <div id="board-wrapper">
                             <div id="filter">
@@ -63,7 +63,7 @@
                             <table id="resultBoard">
                                 <thead>
                                     <tr>
-                                        <th colspan="9">유저 조회 결과</th>
+                                        <th colspan="10">유저 조회 결과</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,7 +81,7 @@
                         </div>
 
 
-                    </div>
+                    
                     <div id="footer"></div>
                     <div id="management-modal">
                         <div id="modal-content">
@@ -244,6 +244,7 @@
                                         if (result[i] != null) {
                                             $('#resultBoard tbody').append('<tr>' +
                                                 '<td>' + result[i].userId + '</td>' +
+                                                '<td>' + result[i].userName + '</td>' +
                                                 '<td>' + '신고횟수' + '</td>' +
                                                 '<td>' + result[i].reportCount + '</td>' +
                                                 '<td>' + '추천횟수' + '</td>' +
@@ -255,7 +256,7 @@
                                                 '</tr>');
                                         } else {
                                             $('#resultBoard tbody').append('<tr>' +
-                                                '<td colspan="7">' + '-' + '</td>' +
+                                                '<td colspan="10">' + '-' + '</td>' +
 
                                                 '</tr>');
                                         }
