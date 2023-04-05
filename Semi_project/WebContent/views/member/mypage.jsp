@@ -62,11 +62,12 @@
 						<br>
 						<div style="width: 100px; height: 100px;">
 							<label for="profile">
-								<div style="border: 1px solid red; max-width:100px; max-height: 100px;">
-									<img id="preview" style="max-width: 100px; max-height: 100px" />프로필사진업로드
+								<div style="border: 1px solid red; width:100px;">
+									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
 								</div>
-							</label> <input type="file" name="profile" id="profile"
-								style="display: none;" onchange="readURL(this);">
+								
+							</label><!--  <input type="file" name="profile" id="profile"
+								style="display: none;" onchange="readURL(this);"> -->
 						</div>
 						<br>
 						<br> <span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
@@ -78,8 +79,8 @@
 					<div id="community"
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
-						<a class="openBtn3">닉네임변경(모달)</a>
-						<a id="messageboxBtn">쪽지함(하이퍼링크)</a>
+						<a class="openBtn3">닉네임변경</a>
+						<a id="messageboxBtn">쪽지함</a>
 					    <a href="">게시글관리(하이퍼링크)</a>
 					</div>
 
@@ -278,7 +279,7 @@
 
 
 
-	<script> // 프로필사진 업로드 스크립트
+<!-- 	<script> // 프로필사진 업로드 스크립트
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -290,7 +291,7 @@ function readURL(input) {
     document.getElementById('preview').src = "";
   }
 }
-    </script>
+    </script> -->
     
     
 	<script> <!-- 로그아웃 버튼 스크립트-->

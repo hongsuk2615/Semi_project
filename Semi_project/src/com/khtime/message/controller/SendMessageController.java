@@ -52,10 +52,10 @@ public class SendMessageController extends HttpServlet {
 		int result = new MessageService().sendMessage(userNo,receiver,content);
 		
 		if (result > 0) {
-			request.getSession().setAttribute("alertMsg", "쪽지보내기a 성공");
+			request.getSession().setAttribute("alertMsg", "쪽지보내기 성공");
 			response.sendRedirect(request.getContextPath() + "/msgbox.me" );
 		} else {
-			request.getSession().setAttribute("alertMsg", "게시글 작성 실패");
+			request.getSession().setAttribute("alertMsg", "실패");
 			response.sendRedirect(request.getContextPath() + "/msgbox.me" );		
 			}
 	}
