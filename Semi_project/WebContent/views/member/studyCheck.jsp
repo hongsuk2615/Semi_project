@@ -82,7 +82,7 @@
                 <div class="historyContainer">
                     <div class="timearea">
                         <div>목표 공부시간을 설정해보세요.</div>
-                        <button>설정</button>
+                        <button id="tdl-btn-add">설정</button>
                     </div>
                     <div class="myHistory">
                         <div class="historyTitleText">나의 공부 기록</div>
@@ -143,21 +143,87 @@
         </div>
         
     </div>
+    
+    
+   <!--  <div class="modal hidden">
+            <div class="bg"></div>
+            <div class="modalBox">
+				<button class="closeBtn">X</button>
+				<div class="header">
+					<p>디데이 설정</p>
+				</div>
+				<div class="body">
+                    
+					<div class="openBtn2" id="ddayBox">
+						<div>
+							<p class="titleText">디데이 예시</p>
+							<p class="dateText">2023.09.09(일)</p>
+						</div>
+						<div>
+							<p class="ddayText">D-100</p>
+						</div>
+					</div>
+                
+				</div>
+				<div class="fotter">
+					<div class="openBtn1" id="blueBtn">
+						+ 추가
+					</div>
+					
+				</div>
+            </div>
+        </div> -->
+    
+    <div id="tdl-modal">
+                    <div id="modal-wrapper">
+                        <div id="modal-head">
+                            목표 설정
+                        </div>
+                        <div id="modal-body">
+                            
+                            <div id="modal-tdl-content">
+                                <div id="modal-tdl-text">
+                                    시간&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                </div>
+                                <div id="modal-tdl-text">
+                                    분&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    
+                                </div>
+                            </div>                            
+                        </div>
+                        <div id="modal-footer">
+                            <button type="button" id="cancel-btn">취소</button>
+                            <button type="button" id="add-btn">추가</button>
+                            
+                        </div>
+                    </div>
+
+                </div>
+    
+    <script>
+        document.getElementById('tdl-btn-add').addEventListener('click',function(){
+            document.getElementById('tdl-modal').style.visibility = 'visible';
+        })
+        document.getElementById('cancel-btn').addEventListener('click',function(){
+            document.getElementById('tdl-modal').style.visibility = 'hidden';
+        })
+    </script>  
         
-    <!-- <script>
-        const btnProgressElem = document.querySelector('.btn-progress');
-        const btnInitiateElem = document.querySelector('.btn-initiate');
-        const progressBarElem = document.querySelector('.progress-bar__bar');
-        btnProgressElem.addEventListener('click', () => {
-            progressBarElem.classList.add('active');
-        })
-        btnInitiateElem.addEventListener('click', () => {
-            progressBarElem.classList.remove('active');
-        })
-    </script> -->
+    
 
 
-
+	<!-- <script>
+	const open = () => {
+        document.querySelector(".modal").classList.remove("hidden");
+    }
+    const close = () => {
+		console.log('cdlose')
+        document.querySelector(".modal").classList.add("hidden");
+    }
+    document.querySelector(".openBtn").addEventListener("click", open); 
+    document.querySelector(".closeBtn").addEventListener("click", close); 
+    document.querySelector(".bg").addEventListener("click", close);
+        </script> -->
 
 
     
@@ -258,7 +324,17 @@
 
     </script>
 
-
+	<!-- <script>
+        const btnProgressElem = document.querySelector('.btn-progress');
+        const btnInitiateElem = document.querySelector('.btn-initiate');
+        const progressBarElem = document.querySelector('.progress-bar__bar');
+        btnProgressElem.addEventListener('click', () => {
+            progressBarElem.classList.add('active');
+        })
+        btnInitiateElem.addEventListener('click', () => {
+            progressBarElem.classList.remove('active');
+        })
+    </script> -->
 
 
 </body>
