@@ -9,6 +9,7 @@
             TITLE
         FROM D_DAY 
         WHERE USER_NO = ?
+        ORDER BY D_DAY
       
    </entry>
    
