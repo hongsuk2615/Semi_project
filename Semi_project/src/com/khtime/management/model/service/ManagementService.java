@@ -115,10 +115,10 @@ public class ManagementService {
 		return result;
 	}
 	
-	public int banUser(String userId) {
+	public int banUser(String userId, String isBanned) {
 		Connection conn = getConnection();
 		int result = 0;
-		result = new ManagementDao().banUser(conn,userId);
+		result = new ManagementDao().banUser(conn,userId, isBanned);
 		
 		if(result > 0) {
 			commit(conn);
@@ -129,10 +129,10 @@ public class ManagementService {
 		return result;	
 	}
 	
-	public int whitelistUser(String userId) {
+	public int whitelistUser(String userId, String isWhitelist) {
 		Connection conn = getConnection();
 		int result = 0;
-		result = new ManagementDao().whitelistUser(conn,userId);
+		result = new ManagementDao().whitelistUser(conn,userId,isWhitelist);
 		
 		if(result > 0) {
 			commit(conn);
@@ -169,6 +169,20 @@ public class ManagementService {
 		}
 		
 		return result;	
+	}
+	
+	public ArrayList<Member> getFilteredUsers(Member m){
+		Connection conn = getConnection();
+		ArrayList<Member> list = new ManagementDao().getFilteredUsers(conn, m);
+		close(conn);
+		return list;
+	}
+	
+	public Member getUser(String userId) {
+		Connection conn = getConnection();
+		Member m = new ManagementDao().getUser(conn, userId);
+		close(conn);
+		return m;
 	}
 	
 	
