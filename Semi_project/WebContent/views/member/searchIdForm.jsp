@@ -50,8 +50,9 @@
 					loginName :  $("#loginName").val(),
 					loginEmail :  $("#loginEmail").val()
 				}, 
-				success : function(r){
-					 if(r != ""){$("body").html(r); 
+				success : function(result){
+					 if(result != ""){
+						 $("body").html(result); 
 					 }else{
 						 alert("이름이나 이메일이 맞지 않습니다!");
 						 $("#loginName").val("");

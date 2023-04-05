@@ -1,16 +1,25 @@
 package com.khtime.dday.controller;
 
+import static com.khtime.common.StringToDate.transformDate;
+
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.khtime.dday.model.service.DdayService;
+import com.khtime.member.model.vo.Member;
+
+
 /**
  * Servlet implementation class ddayUpdateController
  */
-@WebServlet("/ddayUpdateController")
+@WebServlet("/updateDday.me")
 public class ddayUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +35,19 @@ public class ddayUpdateController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
+		System.out.println(request.getParameter("dDay"));
+		Date dDay = transformDate(request.getParameter("dDay"));
+		String title = request.getParameter("title");
+		System.out.println(dDayNo);
+		System.out.println(dDay);
+		System.out.println(title);
+	
+		
+		boolean result = new DdayService().updateDday(dDayNo,dDay, title);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 
 	/**

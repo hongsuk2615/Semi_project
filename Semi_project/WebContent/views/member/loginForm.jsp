@@ -32,7 +32,8 @@
            <p><b>환영합니다.</b></p>
            <p class="guide">KH TIME은 KH교육원 학생을 위한 지식 공유 플랫폼입니다.</p>
            <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요!" required> <br>
-           <input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호를 입력해주세요!" required> <br>
+           <input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호를 입력해주세요!" onkeyup="checkCapsLock(event)" required>
+           <div style="visibility : hidden" id='message'>Caps Lock이 켜져 있습니다</div>
            <button type="button" onclick="login()" class="btn btn-primary btn-sm" id="login-form-btn">로그인</button>
            
             <div id="searchId"><a href="<%= request.getContextPath() %>/searchId.me">아이디/비밀번호 찾기</a></div>
@@ -54,9 +55,8 @@
 					loginId :  $("#loginId").val(),
 					loginPwd :  $("#loginPwd").val()
 				}, 
-				success : function(r){
-					console.log(r);
-					switch(r){
+				success : function(result){
+					switch(result){
 					case '-1' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
 					case '0' : alert("승인되지않은 아이디입니다!"); break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
@@ -67,6 +67,13 @@
 			})
     	}
     	
+    	function checkCapsLock(event)  {
+	   		if (event.getModifierState("CapsLock")) {
+	   			$("#message").attr("style", "visibility : visible");
+	   		 }else {
+   				 $("#message").attr("style", "visibility : hidden");
+		    		}
+    		}
     
     </script>
 <script type="text/javascript" src="resources/JS/homelogo.js"></script>

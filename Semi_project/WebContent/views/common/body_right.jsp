@@ -45,7 +45,7 @@
             <% } else { %>
             <div id="loginuser-profile">
             	<div id="loginuser-profileimg">
-                    <img src="/Semi_project/resources/IMG/user.png" alt="로그인유저프사">
+                    <img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사">
                 </div>
                 <div id="loginuser-nickname"><%=loginUser.getNickName() %></div>
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
@@ -184,7 +184,7 @@
 				<div class="header">
 					<p>디데이 설정</p>
 				</div>
-				<div class="body">
+				<div class="body" id="dDayList" style="overflow: auto;">
                     
 					<div class="openBtn2" id="ddayBox">
 						<div>
@@ -204,47 +204,158 @@
 				</div>
             </div>
         </div>
+        <script >
+        function insertDday(){
+        	console.log("저장버튼클릭");
+        	
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+        		data : { "title" : $('#dDayTitle').val() ,      
+        				 "dDay" : $('#datepicker').val()
+        		},
+        		success : function(result){
+        			if(result){
+        				console.log(result);
+        				alert("저장 성공");
+        				
+        			}else{
+        				alert("저장 실패");
+        			}
+        			
+        		},
+        		error : function(result){
+        			
+        		},
+        		complete : function(){
+        			close1();
+                    close();
+        		}
+        		
+        	});
+        }
+        
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         <script>
         function makeEvent(){
-	        $('.closeBtn2').click(function(){
-	        	console.log("저장버튼클릭");
-	        	$.ajax({
-	        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
-	        		data : { "title" : $('#dDayTitle').val() ,      
-	        				 "dDay" : $('#datepicker').val()
-	        		},
-	        		success : function(result){
-	        			if(result){
-	        				console.log(result);
-	        				alert("저장 성공");
-	        				
-	        			}else{
-	        				alert("저장 실패");
-	        			}
-	        			
-	        		},
-	        		error : function(result){
-	        			
-	        		},
-	        		complete : function(){
-	        			close1();
-	                    close();
-	        		}
-	        		
-	        	});
-	        });
+        	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
+	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
         } 
         
         
     </script>
-        
+    
+    
+    
+    <!-- 디데이 자동 스크롤 스크립트 -->
+    <script>
+
+		$('#dDayList').scrollTop($('#dDayList').prop('scrollHeight'));
+
+	</script>
+
+    
+    <script>
+    	function getDday(){
+    		$.ajax({
+    			url : '<%=request.getContextPath()%>/dday.me',
+    			
+    			success : function(Dday){
+    				console.log(Dday);
+    				if(Dday.length == 0){
+                        $('#dDayList').html(`
+                        		<div class="openBtn2" id="ddayBox">
+        						<div>
+        							<p class="titleText">디데이 예시</p>
+        							<p class="dateText">2023.09.09(일)</p>
+        						</div>
+        						<div>
+        							<p class="ddayText">D-100</p>
+        						</div>
+        					</div>`);
+                    }else{
+                    	$('#dDayList').html('');
+                    	$(Dday).each(function(index,item){
+                    		let dDaySplit = item.dDay.replace('월',',').split(',');
+                    		let dDay = dDaySplit[2]+'/'+dDaySplit[0] + '/' +dDaySplit[1];
+               
+                    		$('#dDayList').append(`
+                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+            						<div>
+            							<p class="titleText">\${item.title}</p>
+            							<p class="dateText">\${item.dDay}</p>
+            						</div>
+            						<div>
+            							<p class="ddayText">D-\${Math.floor((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+            						</div>
+            					</div><br>`);
+                    		
+                    		$('#ddayBox'+index).click(updateDday(item.dDayNo));
+            					
+                    	})
+                    	
+                    	
+                    }
+    				
+    			}
+    			
+    		})
+    		
+    	}
+    
+    </script>
+    
+    
+    
+    <script>
+   
+    function updateEvent(){
+    	console.log("저장버튼클릭");
+    	$.ajax({
+    		url : '<%=request.getContextPath()%>/updateDday.me',
+    		data : { "title" : $('#changeTitle').val() ,      
+    				 "dDay" : $('#datepicker1').val(),
+    				 "dDayNo" : $('#dDayNo').val()
+    		},
+    		success : function(result){
+    			if(result){
+    				console.log(result);
+    				alert("저장 성공");
+    				
+    			}else{
+    				alert("저장 실패");
+    			}
+    			
+    		},
+    		error : function(result){
+    			
+    		},
+    		complete : function(){
+    			close2();
+    			getDday();
+    		}
+    		
+    	});
+    
+    }
+    
+    </script>
+    
 
         <!-- [디데이 설정] 모달창 스크립트 -->
         <script>
             const open = () => {
                 document.querySelector(".modal").classList.remove("hidden");
+                getDday();
             }
             const close = () => {
 				console.log('cdlose')
@@ -275,10 +386,10 @@
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
 						<div class="dayChipWrapper">
-							<button class="dayChip">30일 뒤</button>
-							<button class="dayChip">100일 뒤</button>
-							<button class="dayChip">180일 뒤</button>
-							<button class="dayChip">360일 뒤</button>
+							<button class="dayChip" id="plus30">30일 뒤</button>
+							<button class="dayChip" id="plus100">100일 뒤</button>
+							<button class="dayChip" id="plus180">180일 뒤</button>
+							<button class="dayChip" id="plus360">360일 뒤</button>
 						</div>
 						<input type="text" placeholder="디데이 날짜를 선택해주세요" class="inputField" id="datepicker"/>
 					</div>
@@ -288,6 +399,32 @@
 				</div>
             </div>
         </div>
+        
+        <!-- 새 디데이 날짜 플러스 버튼 스크립트 -->
+        <script>
+        	function makeDate(num){
+        		let inputDate = new Date();
+        		inputDate.setDate(inputDate.getDate() + num);
+        		console.log(inputDate);
+        		let result = inputDate.getFullYear() +'-' + (inputDate.getMonth()+1) + '-' + inputDate.getDate();
+        		return result;
+        	}
+        	$('#plus30').click(function(){
+        		$('#datepicker').val(makeDate(30));
+        	})
+        	
+        	$('#plus100').click(function(){
+        		$('#datepicker').val(makeDate(100));
+        	})
+        	$('#plus180').click(function(){
+        		$('#datepicker').val(makeDate(180));
+        	})
+        	$('#plus360').click(function(){
+        		$('#datepicker').val(makeDate(360));
+        	})
+        
+        
+        </script>
 
 
         <!-- [새 디데이] 모달창 스크립트 -->
@@ -326,15 +463,16 @@
 				<div class="addDdayBody">
 					<div class="inputBox">
 						<p class="inputLabel">디데이</p>
-						<input type="text" placeholder="디데이를 입력해주세요" class="inputField"/>
+						<input type="hidden" id = "dDayNo" name="dDayNo">
+						<input type="text" id="changeTitle" placeholder="디데이를 입력해주세요" class="inputField"/>
 					</div>
 					<div class="inputBox">
 						<p class="inputLabel">디데이 날짜</p>
 						<div class="dayChipWrapper">
-							<button class="dayChip">30일 뒤</button>
-							<button class="dayChip">100일 뒤</button>
-							<button class="dayChip">180일 뒤</button>
-							<button class="dayChip">360일 뒤</button>
+							<button class="dayChip" id="rplus30">30일 뒤</button>
+							<button class="dayChip" id="rplus100">100일 뒤</button>
+							<button class="dayChip" id="rplus180">180일 뒤</button>
+							<button class="dayChip" id="rplus360">360일 뒤</button>
 						</div>
 						<input type="text" placeholder="디데이 날짜를 선택해주세요" class="inputField" id="datepicker1"/>
 					</div>
@@ -345,18 +483,79 @@
             </div>
         </div>
 
+		<script>
+        function deleteEvent(){ //// 삭제버튼 이벤트함수
+        	let dDayNo = $('#dDayNo').val();
+            $.ajax({
+                url : '<%=request.getContextPath()%>/deleteDday.me',
+                data :{dDayNo},
+                success : function(result){
+                    if(result){
+                        alert("삭제성공");
+                        getDday();
+                        close2();
+                    }else{
+                        alert("삭제실패");
+                        getDday();
+                    }
+                },
+                error : function(){
+                console.log('Dday 삭제 ajax요청 실패')
+                }
+            })      
+        }
+        </script>
+        
+        
+        
+        <!-- 디데이 수정 날짜 플러스 버튼 스크립트 -->
+        <script>
+        	function CorrectionMakeDate(num){
+        		let inputDate = new Date();
+        		inputDate.setDate(inputDate.getDate() + num);
+        		console.log(inputDate);
+        		let result = inputDate.getFullYear() +'-' + (inputDate.getMonth()+1) + '-' + inputDate.getDate();
+        		return result;
+        	}
+        	$('#rplus30').click(function(){
+        		$('#datepicker1').val(makeDate(30));
+        	})
+        	
+        	$('#rplus100').click(function(){
+        		$('#datepicker1').val(makeDate(100));
+        	})
+        	$('#rplus180').click(function(){
+        		$('#datepicker1').val(makeDate(180));
+        	})
+        	$('#rplus360').click(function(){
+        		$('#datepicker1').val(makeDate(360));
+        	})
+        
+        
+        </script>
+
+
+
+
+
+
         <!-- [디데이 수정] 모달창 스크립트-->
         <script>
+        function updateDday(dDayNo){
             const open2 = () => {
                 document.querySelector(".modal2").classList.remove("hidden");
+                document.getElementById('dDayNo').value = dDayNo;
+                
             }
+            return open2;
+        }
             const close2 = () => {
                 console.log('cdlose')
                 document.querySelector(".modal2").classList.add("hidden");
             }
-            document.querySelector(".openBtn2").addEventListener("click", open2);
-            document.querySelector(".closeBtn3").addEventListener("click", close2);
-            document.querySelector(".deleteBtn").addEventListener("click", close2);
+            
+            document.querySelector(".closeBtn3").addEventListener("click", updateEvent);
+            document.querySelector(".deleteBtn").addEventListener("click", deleteEvent);
             document.querySelector(".closeBtn4").addEventListener("click", function(){
                 close1();
                 close2();
@@ -367,7 +566,12 @@
                 close();
             });
         </script>
-
+        
+        
+        
+ 
+        
+        
         <!-- 새 디데이 달력 스크립트 -->
         <script>
         $(function () {

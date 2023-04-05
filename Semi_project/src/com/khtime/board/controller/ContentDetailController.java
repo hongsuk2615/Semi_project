@@ -13,6 +13,7 @@ import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.service.ReplyService;
 import com.khtime.board.model.vo.Board;
+import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.board.model.vo.Reply;
 
 /**
@@ -39,10 +40,14 @@ public class ContentDetailController extends HttpServlet {
 		Board b = new BoardService().selectContent(bNo);
 		ArrayList<Reply> replyList = new ReplyService().selectReplyList(bNo);
 		String cName = new CategoryService().getCategoryName(b.getCategoryNo());
+		ArrayList<BoardAttachment> attachmentList = new BoardService().selectAttachmentList(bNo);
 		
-		request.setAttribute("replyList", replyList);
+		
 		request.setAttribute("b", b);
+		request.setAttribute("replyList", replyList);
 		request.setAttribute("cName", cName);
+		request.setAttribute("attachmentList", attachmentList);
+		
 		request.getRequestDispatcher("views/board/contentDetail.jsp").forward(request, response);
 	}
 
