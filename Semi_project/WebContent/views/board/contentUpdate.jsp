@@ -57,9 +57,7 @@
                         <div id="content-detail">
                             <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
-                                <form action="<%=request.getContextPath()%>/update.bo" method="post">
-                                <input type="hidden" name="bNo" value="<%= b.getBoardNo() %>">
-                                <input type="hidden" name="cNo" value="<%= b.getCategoryNo() %>">
+                                <form> 
                                 <div> 프로필: <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30"></div>
     								<div>
                                               <% if(b.getIsAnonimous().equals("N")) { %>
@@ -75,7 +73,7 @@
                 						<div>첨부파일<input type="file" id="upfile" name="upfile">
                 						<div id="attachment-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
-												<img id="updateImg<%=at.getFileNo()%>" onclick="deleteImg(this.id)" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100" height="100">
+												<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100" height="100">
 										<% } %>
 										</div>
 										</div>
@@ -90,7 +88,7 @@
 				                    	<% }else{ %>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
 						                    <% } %>
-						                    <div><button type="submit" id="update-content-btn">수정하기</button></div>
+						                    <div><button type="button" id="update-content-btn" onclick="updateContent()">수정하기</button></div>
 						                </div>
 						            </div>
 					           	</form>
@@ -116,78 +114,91 @@
 
         </div>
     </div>
-	<script>
-	
-	
-	function deleteImg(id){
-		let fNo = id.substr(9);
-		if(confirm("삭제하시겠습니까?")){
-			$.ajax({
-				url : "<%= request.getContextPath() %>/update.at",
-				data : {fNo: fNo},
-				success : function(result){
-					console.log(result);
-					
-					if(result > 0) {
-						alert("첨부파일 삭제 성공");
-						selectAttachmentList();
-						}
-					if(result == 0) alert("첨부파일 삭제 실패");
-					if(result < 0) alert("전송방식 잘못됨");
-					
-						
-					}
-		});
-	}
-	}
-	
-	function selectAttachmentList(){
-		$.ajax({
-			url : "<%=request.getContextPath()%>/select.at",
-			data : { bNo : "<%=b.getBoardNo() %>"},
-			success : function(list){
-				let result  = "";
-				for(let i of list){ 
-					result += 
-					`
-				<img id="updateImg\${i.fileNo}" onclick="deleteImg(this.id)" 
-				src="<%= request.getContextPath() %>\${i.filePath}\${i.changeName}"
-				width="100" height="100">
+         <script>
+         
+        let fNo = "";
+        let fileArr = new Array();
+        const files = $('#upfile')[0].files;
+        const dataTransfer = new DataTransfer();
+        let fileArray = Array.from(files);
+        let count = 0;
+        
+        function File(index, item){
+        	this.index = index; 
+        	this.item = item;
+        } 
+         
+        function hiddenImg(e){
+        	$(e).css('display', 'none');
+        	
+        	if($(e).hasClass("newImg") === true){
+        		fileArray.splice(e.id.substr(6), 1);
+        	}else{
+        		fNo += e.id.substr(9) + ","; 
+        	}
+        }
+        
+		function updateContent(){
+			
+			let formData = new FormData();
+			
+			if(files.length < 5){
 				
-                     `
-				}
-				$("#attachment-area").html(result);
-			},
-			error : function(){
-				console.log("게시글 첨부파일 조회 실패")
-			}
-		})
-	}
-	
-	$("#upfile").change(function(){
-		let formData = new FormData();
-		formData.append("upfile" , $("#upfile")[0].files[0]);
-		formData.append("bNo", <%=b.getBoardNo() %>);
-		$.ajax({
-			url : "<%= request.getContextPath() %>/insert.at",
-			data : formData,
-			type : "post",
-			processData : false,
-			contentType : false,
-			success : function(data){
-				if(data > 0) {
-					alert("첨부파일 추가 성공");
-					selectAttachmentList();
-					$("#upfile").val("");
+				fileArray.forEach(file => { dataTransfer.items.add(file); });
+				$('#upfile')[0].files = dataTransfer.files;
+				
+				let deleteImg = fNo.replace(/,\s*$/, "");
+				formData.append("bNo", <%=b.getBoardNo()%>);
+				formData.append("cNo", <%=b.getCategoryNo()%>);
+				formData.append("title", $("#title").val());
+				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("isQuestion", $("#isQuestion").val());
+				formData.append("isAnonimous", $("#isAnonimous").val());
+				formData.append("deleteImg", deleteImg);
+					
+			$.each( $('#upfile')[0].files , function(index , file){
+				formData.append("upfile"+index , file);
+			});
+			
+			
+			$.ajax({
+				url : "<%= request.getContextPath() %>/update.bo",
+				data : formData,
+				type : "post",
+				processData : false,
+				contentType : false,
+				success : function(data){
+					
+					if(data > 0) {
+						alert("수정성공");
+						<%-- location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=b.getCategoryNo()%>'; --%>
+						}
+					if(data == 0) alert("수정실패");
+					if(data < 0) alert("전송방식 잘못됨");
 					}
-				if(data == 0) alert("첨부파일 추가 실패");
-				if(data < 0) alert("전송방식 잘못됨");
-				}
-		});
-});
+			});
+			}else{
+				alert("첨부파일 개수 초과");
+				$("#upfile").val("");
+			}
+			
+		}
 	
 	
-	
+	$("#upfile").change(function(e){
+		
+	    fileArray.unshift(e.target.files[0]);
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		
+		reader.onload = function(e){
+		let url = e.target.result;
+		$("#attachment-area").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
+		$('#newImg'+count).attr("src",url);
+		count++;
+		}
+		$("#upfile").val("");
+	});
 
 	</script>
 </body>

@@ -46,12 +46,10 @@ public class ReplyDao {
 			
 			try {
 				pstmt = conn.prepareStatement(sql);
-				System.out.println("bno: " + r.getBoardNo());
 				pstmt.setInt(1, r.getBoardNo());
 				pstmt.setInt(2, userNo);
 				pstmt.setString(3, r.getContent());
 				pstmt.setString(4, r.getIsAnonimous());
-				System.out.println("dao:"+r.getIsAnonimous());
 				
 				result = pstmt.executeUpdate();
 				

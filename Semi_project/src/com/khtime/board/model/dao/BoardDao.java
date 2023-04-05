@@ -237,6 +237,7 @@ public class BoardDao {
 			int result = 0;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertBoard");
+			sql = sql.replace("$","SEQ_BONO.NEXTVAL");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
@@ -247,8 +248,8 @@ public class BoardDao {
 				pstmt.setString(5, b.getIsQuestion());
 				pstmt.setString(6, b.getIsAnonimous());
 				
-				
 				result = pstmt.executeUpdate();
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -258,36 +259,14 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int insertUpdateAttachment(Connection conn, int bNo, BoardAttachment at) {
-		   
-			int result = 0;
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("insertUpdateAttachment");
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, bNo);
-				pstmt.setString(2, at.getOriginName());
-				pstmt.setString(3, at.getChangeName());
-				pstmt.setString(4, at.getFilePath());
-				pstmt.setInt(5, bNo);
-				
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-			
-				JDBCTemplate.close(pstmt);
-			}
-			return result;
-		}
 	   
 	   public int insertAttachment(Connection conn, ArrayList<BoardAttachment> list) {
 		   
 			int result = 1;
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("insertAttachment");
-			System.out.println(list);
+			sql = sql.replace("$","SEQ_BONO.CURRVAL");
+			sql = sql.replace("^","?");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				for(BoardAttachment at : list) {
@@ -298,7 +277,6 @@ public class BoardDao {
 				
 				result *= pstmt.executeUpdate();
 				}
-				System.out.println("attresult:"+result);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -308,6 +286,35 @@ public class BoardDao {
 			return result;
 		}
 	   
+	   public int insertAttachment(Connection conn, ArrayList<BoardAttachment> list, Board b) {
+		   
+			int result = 1;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertAttachment");
+			String nextFileLevel = prop.getProperty("nextFileLevel");
+			
+			sql = sql.replace("$", "?");
+			sql = sql.replace("^", nextFileLevel);
+			System.out.println(sql);
+			try {
+				pstmt = conn.prepareStatement(sql);
+				for(BoardAttachment at : list) {
+				pstmt.setInt(1, b.getBoardNo());
+				pstmt.setString(2, at.getOriginName());
+				pstmt.setString(3, at.getChangeName());
+				pstmt.setString(4, at.getFilePath());
+				pstmt.setInt(5, b.getBoardNo());
+				
+				result *= pstmt.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
 	   
@@ -411,8 +418,9 @@ public class BoardDao {
 			int result = 1;
 			PreparedStatement pstmt = null;
 			
-			String sql = prop.getProperty("deleteAttachment");
-
+			String sql = prop.getProperty("updateAttachment");
+			sql = sql.replace("$","REF_BNO");
+			sql = sql.replace("^","=");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				
@@ -429,55 +437,7 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int updateAttachment(Connection conn, int fNo) {
-		   
-			int result = 0;
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("updateAttachment");
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, fNo);
-				
-				result = pstmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-			
-				JDBCTemplate.close(pstmt);
-			}
-			return result;
-		}
 	   
-	   
-	   public int updateBoard(Connection conn, Board b) {
-		   
-			int result = 0;
-			PreparedStatement pstmt = null;
-			
-			String sql = prop.getProperty("updateBoard");
-
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setString(1, b.getTitle());
-				pstmt.setString(2, b.getContent());
-				pstmt.setInt(3, b.getCategoryNo());
-				pstmt.setString(4, b.getIsQuestion());
-				pstmt.setString(5, b.getIsAnonimous());
-				pstmt.setInt(6, b.getBoardNo());
-				pstmt.setInt(7, Integer.valueOf(b.getWriter()));
-				
-				result = pstmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-			
-				JDBCTemplate.close(pstmt);
-			}
-			return result;
-		}
 	   
 	   public int recommendCountUp(Connection conn, int bNo) {
 		   
@@ -569,9 +529,54 @@ public class BoardDao {
 			return result;
 		}
 	   
+	   public int updateContent(Connection conn, Board b) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateContent");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				
+				pstmt.setString(1, b.getTitle());
+				pstmt.setString(2, b.getContent());
+				pstmt.setInt(3, b.getCategoryNo());
+				pstmt.setString(4, b.getIsQuestion());
+				pstmt.setString(5, b.getIsAnonimous());
+				pstmt.setInt(6, b.getBoardNo());
+				pstmt.setInt(7,Integer.valueOf(b.getWriter()));
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
-	   
+	   public int updateAttachment(Connection conn, String deleteImg) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("updateAttachment");
+			sql = sql.replace("$","FILE_NO");
+			sql = sql.replace("^","");
+			sql = sql.replace("?", "IN ("+deleteImg+")");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
 	   
