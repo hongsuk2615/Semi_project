@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.service.BoardService;
-import com.khtime.board.model.vo.Board;
+import com.google.gson.Gson;
 import com.khtime.dday.model.service.DdayService;
+import com.khtime.dday.model.vo.Dday;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class ddayController
  */
-@WebServlet("/ddayController")
+@WebServlet("/dday.me")
 public class ddayController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,21 +34,12 @@ public class ddayController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
-		String dDay = request.getParameter("dDay");
-		String title = request.getParameter("title");
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		ArrayList<Dday> list = new DdayService().getDday(userNo);
 		
-		
-		
-		ArrayList<Board> dDayList = new DdayService().dDaytList(dDayNo, dDay, title, userId);
-	      
-	      
-	      
-	    request.setAttribute("dDay",dDay);
-	    request.setAttribute("dDayNo", dDayNo);
-	    request.setAttribute("title", title);
-	    request.setAttribute("userId", userId);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(list,response.getWriter());
 	    
 		
 		

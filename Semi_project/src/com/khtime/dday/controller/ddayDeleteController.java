@@ -7,10 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.khtime.dday.model.service.DdayService;
+import com.khtime.member.model.vo.Member;
+import com.khtime.todolist.model.service.TodolistService;
+
 /**
  * Servlet implementation class ddayDeleteController
  */
-@WebServlet("/ddayDeleteController")
+@WebServlet("/deleteDday.me")
 public class ddayDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,8 +31,14 @@ public class ddayDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
+		
+		System.out.println("dDayNo: " + dDayNo);
+		
+		boolean result = new DdayService().deleteDday(dDayNo);
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 
 	/**
