@@ -177,23 +177,23 @@
                                             if (result.isBanned == 'Y') {
                                                 document.getElementById("ban-deny-btn").innerHTML = "정지해제";
                                                 document.getElementById("ban-deny-btn").addEventListener('click', function () {
-                                                    location.href = "<%=request.getContextPath()%>/banUser.do?userId=" + userId + "&isBanned=N";
+                                                    location.href = "<%=request.getContextPath()%>/banUser.do?userId=" + userId + "&isBanned=N&redirect=N";
                                                 });
                                             } else {
                                                 document.getElementById("ban-deny-btn").innerHTML = "정지";
                                                 document.getElementById("ban-deny-btn").addEventListener('click', function () {
-                                                    location.href = "<%=request.getContextPath()%>/banUser.do?userId=" + userId + "&isBanned=Y";
+                                                    location.href = "<%=request.getContextPath()%>/banUser.do?userId=" + userId + "&isBanned=Y&redirect=N";
                                                 });
                                             }
                                             if (result.isWhitelist == 'Y') {
                                                 document.getElementById("unban-approve-btn").innerHTML = "화이트리스트 해제";
                                                 document.getElementById("unban-approve-btn").addEventListener('click', function () {
-                                                    location.href = "<%=request.getContextPath()%>/whiteList.do?userId=" + userId + "&isWhitelist=N";
+                                                    location.href = "<%=request.getContextPath()%>/whiteList.do?userId=" + userId + "&isWhitelist=N&redirect=N";
                                                 });
                                             } else {
                                                 document.getElementById("unban-approve-btn").innerHTML = "화이트리스트 부여";
                                                 document.getElementById("unban-approve-btn").addEventListener('click', function () {
-                                                    location.href = "<%=request.getContextPath()%>/whiteList.do?userId=" + userId + "&isWhitelist=Y";
+                                                    location.href = "<%=request.getContextPath()%>/whiteList.do?userId=" + userId + "&isWhitelist=Y&redirect=N";
                                                 });
                                             }
 

@@ -30,6 +30,7 @@ public class UserBanManagementController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String isBanned = request.getParameter("isBanned");
+		String redirect = request.getParameter("redirect");
 		int result = new ManagementService().banUser(userId, isBanned);
 		if(result > 0) {
 			if(isBanned.equals("Y")) {
@@ -40,7 +41,11 @@ public class UserBanManagementController extends HttpServlet {
 		}else {
 			request.getSession().setAttribute("alertMsg", "계정정지/정지해제 실패");
 		}
-		response.sendRedirect(request.getContextPath()+"/management.do");
+		if(redirect.equals("Y")) {
+			response.sendRedirect(request.getContextPath()+"/management.do");
+		}else {
+			response.sendRedirect(request.getContextPath()+"/usermanagement.do");
+		}
 	}
 
 	/**

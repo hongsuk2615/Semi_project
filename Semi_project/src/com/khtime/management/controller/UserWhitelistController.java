@@ -30,6 +30,7 @@ public class UserWhitelistController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		String isWhitelist = request.getParameter("isWhitelist");
+		String redirect = request.getParameter("redirect");
 		int result = new ManagementService().whitelistUser(userId,isWhitelist);
 		if(result > 0) {
 			if(isWhitelist.equals("Y")) {
@@ -40,7 +41,11 @@ public class UserWhitelistController extends HttpServlet {
 		}else {
 			request.getSession().setAttribute("alertMsg", "화이트리스트 추가/해제 실패");
 		}
-		response.sendRedirect(request.getContextPath()+"/management.do");
+		if(redirect.equals("Y")) {
+			response.sendRedirect(request.getContextPath()+"/management.do");
+		}else {
+			response.sendRedirect(request.getContextPath()+"/usermanagement.do");
+		}
 	}
 
 	/**
