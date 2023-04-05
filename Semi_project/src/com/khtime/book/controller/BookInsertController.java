@@ -2,6 +2,7 @@ package com.khtime.book.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import com.khtime.book.model.service.BookService;
 import com.khtime.book.model.vo.Book;
 import com.khtime.book.model.vo.BookAttachment;
 import com.khtime.common.model.vo.MyFileRenamePolicy;
+import com.khtime.common.model.vo.PageInfo;
 import com.khtime.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -49,63 +51,68 @@ public class BookInsertController extends HttpServlet {
 
 			int maxSize = 1024 * 1024 * 10;
 			
-			String savePath = request.getSession().getServletContext().getRealPath("/resources/book_upfile/");
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/book/book_upfile/");
 
 			MultipartRequest multi = new MultipartRequest(request , savePath , maxSize, "UTF-8",
-			new MyFileRenamePolicy());
+					new MyFileRenamePolicy());
 			
 
 			String bookName = multi.getParameter("title");
 			String author = multi.getParameter("author");
 			String publisher = multi.getParameter("publisher");
-			int seller = ((Member)request.getSession().getAttribute("loginUserId")).getUserNo();
+			int seller = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 			String isNoted = multi.getParameter("isNoted");
 			int condition = Integer.parseInt(multi.getParameter("condition"));
 			String isDirect = multi.getParameter("isDirect");
 			String location = multi.getParameter("location");
+			int price = Integer.parseInt(multi.getParameter("price"));
+			System.out.println(author);
+			
 			
 			Book book = new Book();
-			
-			book.setBookName(bookName);
-			book.setAuthor(author);
-			book.setPublisher(publisher);
-			book.setSeller(seller);
-			book.setIsNoted(isNoted);
-			book.setCondition(condition);
-			book.setIsDirect(isDirect);
-			book.setLocation(location);
+			book.setBookName(multi.getParameter("title"));
+			book.setAuthor(multi.getParameter("author"));
+			book.setPublisher(multi.getParameter("publisher"));
+			book.setSeller(((Member)request.getSession().getAttribute("loginUser")).getUserNo());
+			book.setIsNoted(multi.getParameter("isNoted"));
+			book.setCondition(Integer.parseInt(multi.getParameter("condition")));
+			book.setIsDirect(multi.getParameter("isDirect"));
+			book.setLocation(multi.getParameter("location"));
+			book.setPrice(Integer.parseInt(multi.getParameter("price")));
 			
 			BookAttachment bat = null; 
 			
-			if(multi.getOriginalFileName("upfile") != null ) { 
-				bat = new BookAttachment();
-				bat.setOriginName( multi.getOriginalFileName("upfile") ); 
-				bat.setChangeName( multi.getFilesystemName("upfile")); 
-				bat.setFilePath("resources/book_upfiles/");
-			}
 			
+			ArrayList<BookAttachment> bList = new ArrayList<>();
 			
-			int result = new BookService().insertBook(book , bat);
-			
-			if(result > 0) { 
+			for(int i = 1; i <= 2; i++) {
 				
-				request.getSession().setAttribute("alertMsg", "게시글 작성 성공");
-				response.sendRedirect(request.getContextPath()+"/bookstore.do?currentPage=1");
-			} else {
+				String key = "upfiles"+i; 
 				
-				if(bat != null) {
+				if(multi.getOriginalFileName(key) != null) {
 					
-					new File(savePath+bat.getChangeName()).delete();
+					bat = new BookAttachment();
+					bat.setOriginName(multi.getOriginalFileName(key));
+					bat.setChangeName(multi.getFilesystemName(key));
+					bat.setFilePath("/resources/book/thumb_upfiles/");
+					bat.setFileLevel(i);
+					System.out.println(bat);
+					bList.add(bat);
 				}
-				request.setAttribute("errorMsg", "전송방법이 잘못 되었습니다.");
-				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			
-		} else {
-			request.setAttribute("errorMsg", "전송방법이 잘못 되었습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
-		
+			int result = new BookService().insertThumbnailBook(book, bList);
+			
+			System.out.println(result);
+			
+			if(result > 0) { // 성공 시 -> list.th를 요청
+				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
+				response.sendRedirect(request.getContextPath()+"/bookstore.do");
+			} else {
+				request.setAttribute("errorMsg", "사진 게시판 업로드 실패!");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			} 
+		} 
 	}
 }
 

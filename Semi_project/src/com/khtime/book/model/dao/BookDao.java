@@ -1,15 +1,20 @@
 package com.khtime.book.model.dao;
 
+import static com.khtime.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.book.model.vo.Book;
+import com.khtime.book.model.vo.BookAttachment;
 
 public class BookDao {
 	
@@ -28,16 +33,16 @@ public class BookDao {
 	      }
 	      
 	   }
-	   
-	   public int insertBook(Connection conn , Book book) {
-		   
-		   int result = 0;
-		   
-		   PreparedStatement pstmt = null;
-		   
-		   String sql = prop.getProperty("insertBook");
-		   
-		   try {
+	  
+	  public int insertThumbnailBook(Connection conn, Book book) {
+		  
+		  int result = 0;
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  String sql = prop.getProperty("insertThumbnailBook");
+		  
+		  try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, book.getSeller());
@@ -50,13 +55,74 @@ public class BookDao {
 			pstmt.setString(8, book.getIsDirect());
 			pstmt.setString(9, book.getLocation());
 			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		 return result; 
-	   }
-	   
-	   
+		  
+		  return result;
+	  }
+	  
+	  public int insertAttachmentList(Connection conn, ArrayList<BookAttachment> bList) {
+		  
+		  int result = 1;
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  String sql = prop.getProperty("insertAttachmentList");
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			for(BookAttachment bat : bList) {
+				pstmt.setString(1, bat.getOriginName());
+				pstmt.setString(2, bat.getChangeName());
+				pstmt.setString(3, bat.getFilePath());
+				pstmt.setInt(4, bat.getFileLevel());
+				
+				result *= pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		 return result;
+	  }
+	  
+	  public ArrayList<Book> selectThumbnailList(Connection conn) {
+		  
+		  ArrayList<Book> bList = new ArrayList<>();
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  ResultSet rset = null;
+		  
+		  String sql = prop.getProperty("selectThumbnailList");
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setPrice(rset.getInt("PRICE"));
+				
+				bList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		  return bList;
+	  }
 }

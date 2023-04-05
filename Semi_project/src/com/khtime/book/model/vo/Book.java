@@ -12,12 +12,22 @@ public class Book {
 	private String isDirect;
 	private String location;
 	private String isSoldout;
-	private String status;
+	private String status; 
+	
+	private String titleImg;
 	
 	public Book() {
 		super();
 	}
-
+	
+	public String getTitleImg() {
+		return titleImg;
+	}
+	
+	public void setTitleImg(String titleImg) {
+		this.titleImg = titleImg;
+	}
+	
 	public int getBookNo() {
 		return bookNo;
 	}
@@ -119,7 +129,7 @@ public class Book {
 		return "Book [bookNo=" + bookNo + ", seller=" + seller + ", bookName=" + bookName + ", price=" + price
 				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", condition=" + condition
 				+ ", isDirect=" + isDirect + ", location=" + location + ", isSoldout=" + isSoldout + ", status="
-				+ status + "]";
+				+ status + ", titleImg= " + titleImg + "]";
 	}
 	
 	

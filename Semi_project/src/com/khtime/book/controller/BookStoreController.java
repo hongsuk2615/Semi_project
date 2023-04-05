@@ -1,12 +1,17 @@
 package com.khtime.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.book.model.service.BookService;
+import com.khtime.book.model.vo.Book;
+import com.khtime.book.model.vo.BookAttachment;
 import com.khtime.common.model.vo.PageInfo;
 
 /**
@@ -55,9 +60,10 @@ public class BookStoreController extends HttpServlet {
 		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
-		
-		String bookname = request.getParameter("bookname");
-		request.setAttribute("bookname", bookname);
+		 
+		 ArrayList<Book> bList = new BookService().selectThumbnailList();
+		 
+		 request.setAttribute("bList", bList);
 		
 		
 		request.getRequestDispatcher("views/book/bookstore.jsp").forward(request, response);

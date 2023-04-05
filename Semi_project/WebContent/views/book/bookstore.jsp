@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.common.model.vo.*, com.khtime.board.model.vo.Board"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import= "java.util.ArrayList , com.khtime.common.model.vo.*, com.khtime.book.model.vo.*"
     pageEncoding="UTF-8"%>
 <%
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
@@ -8,7 +8,10 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage(); 
 	
+	/* Book book = (Book)request.getAttribute("book"); */
+	
 	String contextPath = request.getContextPath();
+	ArrayList<Book> bList = (ArrayList<Book>) request.getAttribute("bList");
 %>  
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +52,18 @@
             </div>
             <div id="book-body-content1">
                 <div id="book-inf">
+                	<% for(Book book : bList) { %>
+	                    <div id="book-img">
+	                        <img src=" <%= contextPath %><%= request.getAttribute("titleImg") %> ">
+	                    </div>
+	                    <%-- <div id="book-text">
+	                        <div><%= request.getParameter("author") %></div>
+	                        <div><%= book.getBookName() %></div>
+	                        <div><%= request.getAttribute("bookName") %></div>
+	                    </div> --%>
+                    <% } %>
+                </div>
+               <!-- <div id="book-inf">
                     <div id="book-img">
                         <img src="resources/IMG/책이미지.jfif">
                     </div>
@@ -75,20 +90,11 @@
                         <div>책 가격</div>
                     </div>
                 </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-            </div>
+            </div>  -->
 
             <hr><hr>
 
-            <div id="book-body-content2">
+            <!-- <div id="book-body-content2">
                 <div id="book-inf">
                     <div id="book-img">
                         <img src="resources/IMG/책이미지.jfif">
@@ -125,8 +131,9 @@
                         <div>책 가격</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
+    </div>
         <div id="book-footer">
             <div id="book-page">
             	<% if(currentPage != 1) { %>
@@ -191,6 +198,10 @@
     	
    		 document.getElementById("book-sell-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksell.do";
+   		 })
+   		 
+   		 document.getElementById("book-home-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
    		 
     </script>

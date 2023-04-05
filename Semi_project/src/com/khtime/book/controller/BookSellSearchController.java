@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.book.model.vo.Book;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class BookSellSearchController
@@ -72,6 +73,7 @@ public class BookSellSearchController extends HttpServlet {
 		
 		String thumbnail = request.getParameter("thumbnail");
 		String title = request.getParameter("title");
+		int seller = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		String author = request.getParameter("author");
 		String publisher = request.getParameter("publisher");
 		String datetime = request.getParameter("datetime");
