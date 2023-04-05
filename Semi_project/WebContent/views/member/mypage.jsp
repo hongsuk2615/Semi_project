@@ -53,7 +53,7 @@
 		<div id="body">
 			<div id="body-wrapper">
 				<div id="mypage-wrap">
-					<div id="myinfo" style="height: 270px; width: 500px;">
+					<div id="myinfo" style="height: 270px; width: 100%;">
 						<strong>내 정보</strong>
 						<div style="position: relative; left: 45%;">
 							<button type="button" class="openBtn">비밀번호변경</button>
