@@ -180,13 +180,13 @@
 
 
         </div>
-        <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
-		     <input type="hidden" name="opponentNo" value="">
+        <form action="<%= request.getContextPath() %>/sendMsgBoard.do" method="post">
+		     <input type="hidden" name="boardNo" id="BoardNo" value="<%=b.getBoardNo()%>">
 			 <div class="msg-modal hidden">
 				<div class="Msgbg"></div>
 				<div class="msg-modalBox">
 					<div class="header">
-						<h2>쪽지보내기</h2>
+						<h2>작성자에게 쪽지보내기</h2>
 					</div>
 						<div class="sendMsgBody">
 							<div class="inputBox">
