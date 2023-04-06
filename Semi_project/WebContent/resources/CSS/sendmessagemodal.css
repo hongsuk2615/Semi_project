@@ -1,7 +1,4 @@
-.modal,
-.modal1,
-.modal2,
-.modal3 {
+.msg-modal{
     position: fixed;
     top: 0;
     left: 0;
@@ -12,22 +9,14 @@
     align-items: center;
 }
 
-.modal .bg {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.bg1,
-.bg2,
-.bg3 {
+.msg-modal .Msgbg {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
 
-.modal .closeBtn {
+msg-modal .closeBtn {
 
     width: auto;
     top: 20px;
@@ -37,7 +26,7 @@
     font-size: 24px;
 }
 
-.modal .prevBtn {
+msg-modal .prevBtn {
     position: absolute;
     top: 20px;
     left: 30px;
@@ -46,15 +35,14 @@
     font-size: 24px;
 }
 
-.modalBox {
+.msg-modalBox {
     position: absolute;
     background-color: #fff;
     width: 400px;
-    height: 450px;
     border-radius: 16px;
 }
 
-.modalBox .header {
+.msg-modalBox .header {
     width: 100%;
     height: 64px;
     display: flex;
@@ -62,18 +50,18 @@
     align-items: center;
 }
 
-.modalBox .body {
+.msg-modalBox .body {
     width: 100%;
     height: 485px;
     padding: 20px 20px;
 }
 
-.modalBox .fotter {
+.msg-modalBox .fotter {
     width: 100%;
     padding: 20px 20px;
 }
 
-.modalBox .blueBtn {
+.msg-modalBox .blueBtn {
     border-radius: 8px;
     padding: 14px 0;
     background-color: #51a9fe;
@@ -87,7 +75,7 @@
     cursor: pointer;
 }
 
-.modalBox .ddayBox {
+.msg-modalBox .ddayBox {
     border: 1px dashed #c2deff;
     border-radius: 12px;
     background: #f5f9ff;
@@ -98,27 +86,26 @@
     align-items: center;
 }
 
-.modalBox .ddayBox .titleText {
+.msg-modalBox .ddayBox .titleText {
     color: #8fc2ff;
     font-weight: 700;
     font-size: 16px;
 }
 
-.modalBox .ddayBox .dateText {
+.msg-modalBox .ddayBox .dateText {
     color: #8fc2ff;
     font-weight: 400;
     font-size: 14px;
 }
 
-.modalBox .ddayBox .ddayText {
+.msg-modalBox .ddayBox .ddayText {
     color: #8fc2ff;
     font-weight: 400;
     font-size: 20px;
 }
 
-.modalBox .addDdayBody {
+.msg-modalBox .sendMsgBody {
     width: 100%;
-    height: 519px;
     padding: 20px 20px;
 }
 
@@ -130,7 +117,7 @@
     display: none;
 }
 
-.addDdayBody .inputField {
+.sendMsgBody .inputField {
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -144,19 +131,19 @@
     color: #333;
 }
 
-.addDdayBody .inputBox {
+.sendMsgBody .inputBox {
     width: 100%;
     height: 100;
     margin-bottom: 20px;
 
 }
 
-.addDdayBody .inputBox .dayChipWrapper {
+.sendMsgBody .inputBox .dayChipWrapper {
     display: flex;
     margin-bottom: 12px;
 }
 
-.addDdayBody .inputBox .dayChipWrapper .dayChip {
+.sendMsgBody .inputBox .dayChipWrapper .dayChip {
     padding: 6px 12px;
     border: 1px solid #e1e6ea;
     height: 38px;
@@ -168,10 +155,7 @@
 }
 
 
-#fullBlueBtn,
-#fullBlueBtn1,
-#fullBlueBtn2,
-#fullBlueBtn3 {
+#fullBlueBtn4{
     padding: 14px 0;
     background-color: #51a9fe;
     font-size: 16px;
