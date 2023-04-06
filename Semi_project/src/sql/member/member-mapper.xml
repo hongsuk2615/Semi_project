@@ -154,6 +154,15 @@
 		   SET STATUS = 'N'
 		 WHERE USER_ID = ?
 	</entry>
-
+	
+	<entry key="changeProfileImg">
+		UPDATE USER_PROFILE_IMG
+		   SET ORIGIN_NAME = ?
+		   	 , CHANGE_NAME = ?
+		  	 , FILE_PATH = ?
+		 	 , UPLOAD_DATE = SYSDATE
+		 WHERE REF_USERID = ? 
+	
+	</entry>
 
 </properties>

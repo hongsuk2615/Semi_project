@@ -1,27 +1,30 @@
-package com.khtime.member.controller;
+package com.khtime.message.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
+import com.khtime.message.model.service.MessageService;
+
 
 /**
- * Servlet implementation class DeleteMemberController
+ * Servlet implementation class messageController
  */
-@WebServlet("/deleteMember.me")
-public class DeleteMemberController extends HttpServlet {
+@WebServlet("/msgbox.me")
+public class SelectMessageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMemberController() {
+    public SelectMessageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +33,26 @@ public class DeleteMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		
-		int result =  new MemberService().deleteMember(userId);
-		
-		if(result > 0) {
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "탈퇴 성공. 그 동안 이용해주셔서 감사합니다.");
+		ArrayList<Member> list = new MessageService().selectMessage(userNo);
+		HashMap<Integer,ArrayList<ArrayList<String>>> contents = new HashMap<Integer, ArrayList<ArrayList<String>>>();
+		for(Member m : list) {
+			contents.put(m.getUserNo(), new MessageService().getContents(userNo, m.getUserNo()));
 		}
-		else {			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "탈퇴 실패.");
-		}
-
-		response.sendRedirect(request.getContextPath() + "/logout.me");
+		System.out.println(contents);
+		request.setAttribute("contents", contents);
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("views/member/messagebox.jsp").forward(request, response);
 	}
-		
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+
 	}
 
 }
