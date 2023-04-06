@@ -40,6 +40,17 @@ public class MessageService {
 		close(conn);
 		return result;
 	}
+	public int sendMsgBoard(int uNo, int bNo, String content) {
+		Connection conn = getConnection();
+		int result = new MessageDao().sendMsgBoard(conn, uNo, bNo, content);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 	
 	

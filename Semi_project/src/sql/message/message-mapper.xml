@@ -39,6 +39,23 @@
     
     
     </entry>
+    
+    <entry key="sendMsgBoard">
+    	INSERT INTO MESSAGE(MESSAGE_NO,
+                     SENDER,
+                     RECEIVER,
+                     CONTENT
+               				)
+               VALUES (SEQ_MNO.NEXTVAL,
+                     ?,
+                     (SELECT USER_NO
+                        FROM MEMBER
+                        JOIN BOARD ON (WRITER = USER_NO)
+                       WHERE BOARD_NO = ?),
+                     ?   
+                     )
+    
+    </entry>
 	
 	
 </properties>

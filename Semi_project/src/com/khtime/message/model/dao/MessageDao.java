@@ -20,99 +20,96 @@ import com.khtime.message.model.vo.Message;
 
 public class MessageDao {
 	private Properties prop = new Properties();
-	   
-	   
-	   public MessageDao() {
-	      try {
-	         prop.loadFromXML(new FileInputStream( MessageDao.class.getResource("/sql/message/message-mapper.xml").getPath()   ));
-	      } catch (InvalidPropertiesFormatException e) {
-	         e.printStackTrace();
-	      } catch (FileNotFoundException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      }
-	      
-	   }
-	   
-	   public int sendMessage(Connection conn, int sender, int receiver,String content) {
-			int result = 0;
-			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("sendMessage");
 
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, sender);
-				pstmt.setInt(2, receiver);
-				pstmt.setString(3, content);
-				result = pstmt.executeUpdate();
-				
-				
+	public MessageDao() {
+		try {
+			prop.loadFromXML(
+					new FileInputStream(MessageDao.class.getResource("/sql/message/message-mapper.xml").getPath()));
+		} catch (InvalidPropertiesFormatException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				JDBCTemplate.close(pstmt);
+	}
+
+	public int sendMessage(Connection conn, int sender, int receiver, String content) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("sendMessage");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sender);
+			pstmt.setInt(2, receiver);
+			pstmt.setString(3, content);
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Member> selectMessage(Connection conn, int userNo) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectMessage");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Member m = new Member();
+				m.setNickName(rset.getString("NICK_NAME"));
+				m.setUserNo(rset.getInt("USER_NO"));
+				list.add(m);
 			}
-			return result;
-	   }
-	   
-	   public ArrayList<Member> selectMessage(Connection conn,int userNo) {
-		   ArrayList<Member> list = new ArrayList<Member>();
-		   PreparedStatement pstmt = null;
-		   ResultSet rset = null;
-			
-		   String sql = prop.getProperty("selectMessage");
-			
-			
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, userNo);
-				pstmt.setInt(2, userNo);
-				
-				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					Member m = new Member();
-					m.setNickName(rset.getString("NICK_NAME"));
-					m.setUserNo(rset.getInt("USER_NO"));
-					list.add(m);
-				}
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
-			}
-			
-			return list;
-	   }
-	   
-	   public ArrayList<ArrayList<String>> getContents(Connection conn, int userNo, int opponentNo){
-		   ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-		   PreparedStatement pstmt = null;
-		   ResultSet rset = null;
-		   String sql = prop.getProperty("getContents");
-		   
-		   try {
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public ArrayList<ArrayList<String>> getContents(Connection conn, int userNo, int opponentNo) {
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getContents");
+
+		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, opponentNo);
 			pstmt.setInt(3, userNo);
 			pstmt.setInt(4, opponentNo);
 			rset = pstmt.executeQuery();
-			while(rset.next()) {
+			while (rset.next()) {
 				ArrayList<String> list = new ArrayList<String>();
-				if(rset.getInt("SENDER")== userNo) {
+				if (rset.getInt("SENDER") == userNo) {
 					list.add("send");
-				}else {
+				} else {
 					list.add("recieve");
 				}
 				list.add(rset.getString("CONTENT"));
-				list.add(rset.getString("SEND_DATE"));		
+				list.add(rset.getString("SEND_DATE"));
 				result.add(list);
-				
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,7 +118,25 @@ public class MessageDao {
 			close(rset);
 			close(pstmt);
 		}
-		   
-		   return result;
-	   }
+
+		return result;
+	}
+
+	public int sendMsgBoard(Connection conn, int uNo, int bNo, String content) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("sendMsgBoard");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, uNo);
+			pstmt.setInt(2, bNo);
+			pstmt.setString(3, content);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

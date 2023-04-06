@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
+    <link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
@@ -89,7 +90,8 @@
                                      	    })
                                         	</script>
                                         <% }else{ %>
-                                        쪽지 신고
+                                        	<button id="msgBoard">쪽지</button>
+                                        	<button id="reportBoard">신고</button>
 										<% } %>                                        
                                     </div>
                                 </div>
@@ -178,7 +180,49 @@
 
 
         </div>
+        <form action="<%= request.getContextPath() %>/sendMsgBoard.do" method="post">
+		     <input type="hidden" name="boardNo" id="BoardNo" value="<%=b.getBoardNo()%>">
+			 <div class="msg-modal hidden">
+				<div class="Msgbg"></div>
+				<div class="msg-modalBox">
+					<div class="header">
+						<h2>작성자에게 쪽지보내기</h2>
+					</div>
+						<div class="sendMsgBody">
+							<div class="inputBox">
+								<h4 class="inputLabel">쪽지보내기</h4>            
+		              			<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+						  </div>
+						<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
+						</div>
+				</div>
+			</div>
+	  </form>
     </div>
+    	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
+    function mykeydown() { 
+        if(window.event.keyCode==13) //enter 일 경우
+        {
+            sendServer();
+        }
+     }
+    </script>
+    <script> <!--쪽지보내기모달 닫는 스크맆트-->
+      const openMsg = () => {
+          document.querySelector(".msg-modal").classList.remove("hidden");
+          
+      }
+      const closeMsg = () => {
+          console.log('cdlose')
+          document.querySelector(".msg-modal").classList.add("hidden");
+      }
+      
+      document.querySelector(".closeBtn").addEventListener("click", closeMsg);
+      document.querySelector(".Msgbg").addEventListener("click", closeMsg);
+      document.getElementById('msgBoard').addEventListener("click", openMsg);
+  </script>
+    
+    
 		<script>
 		
 		function replyisEmpty(){
