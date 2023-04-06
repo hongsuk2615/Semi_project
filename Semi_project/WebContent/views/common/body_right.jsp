@@ -667,10 +667,17 @@
 	    })
         </script>
         <script> //애니메이션 테스트
-        $('#body-right').click(function(){
-            $(this).css('transition-duration','2s');
-            $(this).css('transform','translateY(300px)');//스크롤 y축 변화값 변수로 넣어버리기
+        $(window).scroll(function(){
+          console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
+
+            if($(window).scrollTop() > 290 && $('#main-banner').length > 0 ){
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-290)+'px)');
+            }else if($(window).scrollTop() > 57 && $('#main-banner').length == 0 ){
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-55)+'px)');
+            }
+      
         })
+      
 
 
 

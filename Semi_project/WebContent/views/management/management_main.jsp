@@ -553,11 +553,11 @@
                         });
                         document.getElementById("ban-deny-btn").innerHTML = "정지";
                         document.getElementById("ban-deny-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/banUser.do?userId="+reportedUser + "&redirect=Y";
+                            location.href="<%=request.getContextPath()%>/banUser.do?userId="+reportedUser + "&redirect=Y&isBanned=Y";
                         });
                         document.getElementById("unban-approve-btn").innerHTML = "화이트리스트";
                         document.getElementById("unban-approve-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/whiteList.do?userId="+reportedUser + "&redirect=Y";
+                            location.href="<%=request.getContextPath()%>/whiteList.do?userId="+reportedUser + "&redirect=Y&isWhitelist=Y";
                         });         
                     }                    
  
