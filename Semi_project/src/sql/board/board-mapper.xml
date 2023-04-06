@@ -199,6 +199,9 @@
 	  	STATUS = 'N'
 	  	WHERE BOARD_NO = ?
 	  	AND WRITER = ?
+        OR BOARD_NO = ?
+        AND ? = 0
+	  
 	</entry>
 	
 	<entry key="updateAttachment">
@@ -259,6 +262,15 @@
 	  		AND WRITER = ?
    </entry>
    
+   	<entry key="reportCountUp">
+	  UPDATE BOARD SET
+	  	REPORT_COUNT = REPORT_COUNT + 1
+	  	WHERE BOARD_NO = ?
+	  	AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
+	</entry>
    
    
 	

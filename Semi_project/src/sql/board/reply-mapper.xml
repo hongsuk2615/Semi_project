@@ -50,6 +50,16 @@
 	  		FROM REPLY
 	  		WHERE REPLY_NO = ?)
 	</entry>
+	
+		<entry key="reportCountUp">
+	  UPDATE REPLY SET
+	  	REPORT_COUNT = REPORT_COUNT + 1
+	  	WHERE REPLY_NO = ?
+	  	AND ? != (
+	  		SELECT WRITER
+	  		FROM REPLY
+	  		WHERE REPLY_NO = ?)
+	</entry>
 
 	 <entry key="selectCount">
 	      SELECT 

@@ -165,14 +165,15 @@
 	
 	</entry>
 	
-	<entry key="recommendUp">
+	<entry key="countUp">
      	  UPDATE MEMBER SET 
-     	  RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+     	  @_COUNT = @_COUNT + 1
 		 WHERE USER_NO = (
 		 SELECT WRITER
 		 FROM $
 		 WHERE ^ = ?)
    </entry>
-	
+   
+
 
 </properties>

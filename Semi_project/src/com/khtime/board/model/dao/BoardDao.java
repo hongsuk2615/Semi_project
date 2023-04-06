@@ -345,7 +345,6 @@ public class BoardDao {
 			
 			sql = sql.replace("$", "?");
 			sql = sql.replace("^", nextFileLevel);
-			System.out.println(sql);
 			try {
 				pstmt = conn.prepareStatement(sql);
 				for(BoardAttachment at : list) {
@@ -439,7 +438,7 @@ public class BoardDao {
 		}
 	   
 	   
-	   public int deleteContent(Connection conn, int bNo, int userNo) {
+	   public int deleteContent(Connection conn, int bNo,int authority, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -451,7 +450,8 @@ public class BoardDao {
 				
 				pstmt.setInt(1, bNo);
 				pstmt.setInt(2, userNo);
-				
+				pstmt.setInt(3, bNo);
+				pstmt.setInt(4, authority);
 				result = pstmt.executeUpdate();
 
 			} catch (SQLException e) {
@@ -632,7 +632,30 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   
+	   public int reportCountUp(Connection conn, int bNo, int userNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("reportCountUp");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				pstmt.setInt(2, userNo);
+				pstmt.setInt(3, bNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	   
 	   
 	   

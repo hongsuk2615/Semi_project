@@ -216,5 +216,15 @@ public class MemberService {
 		new MemberDao().recommendReplyUp(conn, rNo);
 		close(conn);
 	}
+	public void reportReplyUp(int rNo) {
+		Connection conn = getConnection();
+		new MemberDao().reportReplyUp(conn, rNo);
+		close(conn);
+	}
+	public void reportContentUp(int bNo) {
+		Connection conn = getConnection();
+		new MemberDao().reportContentUp(conn, bNo);
+		close(conn);
+	}
 
 }
