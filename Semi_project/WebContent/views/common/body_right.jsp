@@ -671,9 +671,9 @@
           console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
 
             if($(window).scrollTop() > 290 && $('#main-banner').length > 0 ){
-                $('#body-right').css('transform','translateY('+($(window).scrollTop()-290)+'px)');
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
             }else if($(window).scrollTop() > 57 && $('#main-banner').length == 0 ){
-                $('#body-right').css('transform','translateY('+($(window).scrollTop()-55)+'px)');
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-45)+'px)');
             }
       
         })
