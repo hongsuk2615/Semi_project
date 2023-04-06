@@ -1,5 +1,8 @@
 package com.khtime.board.model.service;
 
+import static com.khtime.common.JDBCTemplate.close;
+import static com.khtime.common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -65,20 +68,6 @@ public class ReplyService {
 		return result;
 	}
 	
-
-	public int recommendCountUp(int rNo, int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result = new ReplyDao().recommendCountUp(conn, rNo, userNo);
-
-		if(result > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result;
-	}
 	
 	public ArrayList<String> anonimousCount(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -86,6 +75,15 @@ public class ReplyService {
 		ArrayList<String> result = new ReplyDao().anonimousCount(conn, bNo);
 
 		JDBCTemplate.close(conn);
+
+		return result;
+	}
+	
+	public int recommendCount(int rNo) {
+		Connection conn = getConnection();
+
+		int result = new ReplyDao().recommendCount(conn, rNo);
+		close(conn);
 
 		return result;
 	}

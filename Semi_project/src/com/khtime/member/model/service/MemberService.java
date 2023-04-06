@@ -151,7 +151,6 @@ public class MemberService {
 		}
 
 		close(conn);
-		System.out.println("업데이트이메일 멤버" + m);
 		return m;
 	}
 
@@ -206,4 +205,16 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public void recommendContentUp(int bNo) {
+		Connection conn = getConnection();
+		new MemberDao().recommendContentUp(conn, bNo);
+		close(conn);
+	}
+	public void recommendReplyUp(int rNo) {
+		Connection conn = getConnection();
+		new MemberDao().recommendReplyUp(conn, rNo);
+		close(conn);
+	}
+
 }

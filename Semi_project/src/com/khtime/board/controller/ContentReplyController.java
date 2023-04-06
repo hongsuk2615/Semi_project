@@ -32,7 +32,7 @@ public class ContentReplyController extends HttpServlet {
 
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		
-		int result = new BoardService().selectReplyCount(bNo);
+		int result = new BoardService().replyCount(bNo);
 		response.setContentType("text/html charset=UTF-8");
 		response.getWriter().print(result);
 	

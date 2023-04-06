@@ -164,5 +164,15 @@
 		 WHERE REF_USERID = ? 
 	
 	</entry>
+	
+	<entry key="recommendUp">
+     	  UPDATE MEMBER SET 
+     	  RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+		 WHERE USER_NO = (
+		 SELECT WRITER
+		 FROM $
+		 WHERE ^ = ?)
+   </entry>
+	
 
 </properties>

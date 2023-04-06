@@ -55,22 +55,18 @@ public class LoginController extends HttpServlet {
 		String cookieId = request.getParameter("userId"); // userId 쿠키
 		Member loginUser = new MemberService().loginMember(userId, userPwd);
 		
-		int result = (loginUser == null) ? 0 : loginUser.getStatus().equals("N") ? 5 : loginUser.getAvailable().equals("N") ? 4 : 
-			loginUser.getIsBanned().equals("Y") ? 3 : loginUser.getIsWhitelist().equals("Y") ? 2 : 1;
+		int result = (loginUser == null) ? 0 : loginUser.getStatus().equals("N") ? 4 : loginUser.getAvailable().equals("N") ? 3 : 
+			loginUser.getIsBanned().equals("Y") ? 2 : 1;
 
 		
 		// 1: 로그인 성공
-		// 2: 화이트리스트인 유저
-		// 3: 밴인 유저
-		// 4: 승인되지 않은 유저
-		// 5: 탈퇴한 유저
+		// 2: 밴인 유저
+		// 3: 승인되지 않은 유저
+		// 4: 탈퇴한 유저
 		// 0: 아이디, 비번 틀림
 		
-		
-		
-		
 		// 로그인 & 화이트리스트
-		if (result == 1 || result == 2) {
+		if (result == 1) {
 			request.getSession().setAttribute("loginUser", loginUser);
 			if(keepId.equals("Y")) {
 				Cookie c = new Cookie("userId", loginUser.getUserId());

@@ -152,6 +152,31 @@ public class ReplyDao {
 				return result;
 			}
 		   
+		   public int recommendCount(Connection conn, int rNo) {
+			   
+				int result = 0;
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				String sql = prop.getProperty("selectCount");
+				sql = sql.replace("$", "RECOMMEND_COUNT");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, rNo);
+					rset = pstmt.executeQuery();
+					if(rset.next()) {
+					result = rset.getInt("COUNT");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					JDBCTemplate.close(rset);
+					JDBCTemplate.close(pstmt);
+				}
+				return result;
+			}
+		   
 		   public ArrayList<String> anonimousCount(Connection conn, int bNo) {
 			   
 			   ArrayList<String> result = new ArrayList<>();

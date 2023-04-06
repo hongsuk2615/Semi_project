@@ -404,11 +404,42 @@ public class MemberDao {
 			pstmt.setInt(4, img.getRefUserId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 		return result;
 	 }
+	 
+	 public void recommendContentUp(Connection conn, int bNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("recommendUp");
+			sql = sql.replace("$", "BOARD");
+			sql = sql.replace("^", "BOARD_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+	 
+	 public void recommendReplyUp(Connection conn, int rNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("recommendUp");
+			sql = sql.replace("$", "REPLY");
+			sql = sql.replace("^", "REPLY_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
 }

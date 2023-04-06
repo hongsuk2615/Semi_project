@@ -8,11 +8,7 @@ a {
     color: black;
 }
 
-#wrapper {
-    width: 100%;
-    min-width: 1180px;
-    background-color: #f1f4f9;
-}
+
 button {
     cursor: pointer;
 }

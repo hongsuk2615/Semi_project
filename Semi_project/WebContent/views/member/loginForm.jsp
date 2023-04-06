@@ -67,10 +67,10 @@
 					switch(result){
 					case '0' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : alert("화이트리스트 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '3' : alert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '4' : alert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '5' : alert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '2' : alert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '3' : alert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '4' : alert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
@@ -83,7 +83,7 @@
 	   			$("#message").attr("style", "visibility : visible");
 	   		 }else {
    				 $("#message").attr("style", "visibility : hidden");
-		    		}
+	    		}
     		}
     
     </script>
