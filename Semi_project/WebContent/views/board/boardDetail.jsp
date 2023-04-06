@@ -54,19 +54,19 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
+                            <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
                             <div id="createContent">
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
+      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용" ></textarea></div>
            							<div id="createContent-check">
 
     
 
                 						<div>첨부파일<input type="file" id="upfile" name="upfile"></div>
 
-               							<div>
+               							<div id="btns">
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
 						                    <div><button type="button" id="create-content-btn" onclick="createContent()">글 작성</button></div>
