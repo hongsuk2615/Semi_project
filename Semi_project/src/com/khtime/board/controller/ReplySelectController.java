@@ -2,6 +2,7 @@ package com.khtime.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,12 +33,22 @@ public class ReplySelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
-		ArrayList<Reply> list = new ReplyService().selectReplyList(bNo);
+		ArrayList<Reply> replyList = new ReplyService().selectReplyList(bNo);
+		ArrayList<String> writer = new ReplyService().anonimousCount(bNo);
+		System.out.println(writer);
+		System.out.println(writer.size());
+		HashMap<String, Integer> anonimous = new HashMap<>();
 		
+		for(int i = 1; i < writer.size()+1; i++) {
+			anonimous.put(writer.get(i-1), i);
+		}
 		
-		// Gson을 이용해서 응답 ArrayList- > JSONArray로 변환
+		ArrayList<Object> list = new ArrayList<>();
+		list.add(replyList);
+		list.add(anonimous);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list , response.getWriter());
 	}

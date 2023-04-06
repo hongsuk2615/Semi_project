@@ -128,19 +128,6 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	public int updateBoard(Board b) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result = new BoardDao().updateBoard(conn, b);
-
-		if(result > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result;
-	}
 	
 	public int recommendCountUp(int bNo) {
 		Connection conn = JDBCTemplate.getConnection();
@@ -170,6 +157,22 @@ public class BoardService {
 		return result;
 	}
 	
+
+	public int updateContent(Board b, ArrayList<BoardAttachment> list, String deleteImg) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result1 = new BoardDao().updateContent(conn, b);
+		int result2 = deleteImg.equals("") ? 1 : new BoardDao().updateAttachment(conn, deleteImg);
+		int result3 = list.isEmpty() ? 1 : new BoardDao().insertAttachment(conn, list, b);
+		
+		if(result1*result2*result3 > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result1*result2*result3;
+	}
 	
 	
 

@@ -7,6 +7,15 @@
 		VALUES (SEQ_RNO.NEXTVAL, ?, ?, ?, ?)		
 	</entry>
 	
+	<entry key="anonimousCount">
+		SELECT DISTINCT NICK_NAME AS WRITER
+		FROM REPLY R
+		JOIN MEMBER M ON (WRITER = USER_NO)
+		WHERE R.BOARD_NO = ?
+   		 AND R.IS_ANONIMOUS = 'Y'
+    
+	</entry>
+	
 	<entry key="selectReplyList">
 		SELECT R.REPLY_NO,
 			R.BOARD_NO,
@@ -18,6 +27,7 @@
 			R.IS_ANONIMOUS,
 			P_REPLY_NO,
 			FILE_PATH || CHANGE_NAME AS USERPROFILE
+			
 		FROM REPLY R
 		LEFT JOIN MEMBER ON (USER_NO = WRITER)
 		LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = WRITER)
@@ -35,6 +45,10 @@
 	  UPDATE REPLY SET
 	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE REPLY_NO = ?
+	  	AND WRITER != (
+	  		SELECT WRITER
+	  		FROM REPLY
+	  		WHERE REPLY_NO = ?)
 	</entry>
 
 	
