@@ -124,18 +124,18 @@
       <!-- 쪽지보내기 모달창 -->
      <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
      <input type="hidden" name="opponentNo" value="">
-	 <div class="modal hidden">
+	 <div class="msg-modal hidden">
 		<div class="bg"></div>
-		<div class="modalBox">
+		<div class="msg-modalBox">
 			<div class="header">
 				<h2>쪽지보내기</h2>
 			</div>
-				<div class="addDdayBody">
+				<div class="sendMsgBody">
 					<div class="inputBox">
 						<h4 class="inputLabel">쪽지보내기</h4>            
               			<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
 				  </div>
-				<button type="submit" class="closeBtn" id="fullBlueBtn1">보내기</button>			
+				<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 				</div>
 		</div>
 	</div>
@@ -152,12 +152,12 @@
     </script>
     <script> <!--쪽지보내기모달 닫는 스크맆트-->
       const open = () => {
-          document.querySelector(".modal").classList.remove("hidden");
+          document.querySelector(".msg-modal").classList.remove("hidden");
           
       }
       const close = () => {
           console.log('cdlose')
-          document.querySelector(".modal").classList.add("hidden");
+          document.querySelector(".msg-modal").classList.add("hidden");
       }
       $(".openBtn").each(function(index, item){
     	  let value = opponents[index];
