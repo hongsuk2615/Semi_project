@@ -127,7 +127,7 @@ public class ReplyDao {
 			return result;
 		}
 		
-		   public int recommendCountUp(Connection conn, int rNo) {
+		   public int recommendCountUp(Connection conn, int rNo, int userNo) {
 			   
 				int result = 0;
 				PreparedStatement pstmt = null;
@@ -138,7 +138,8 @@ public class ReplyDao {
 					pstmt = conn.prepareStatement(sql);
 					
 					pstmt.setInt(1, rNo);
-					pstmt.setInt(2, rNo);
+					pstmt.setInt(2, userNo);
+					pstmt.setInt(3, rNo);
 					
 					result = pstmt.executeUpdate();
 

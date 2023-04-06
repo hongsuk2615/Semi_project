@@ -439,7 +439,7 @@ public class BoardDao {
 	   
 	   
 	   
-	   public int recommendCountUp(Connection conn, int bNo) {
+	   public int recommendCountUp(Connection conn, int bNo, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;

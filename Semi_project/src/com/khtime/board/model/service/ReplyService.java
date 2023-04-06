@@ -66,10 +66,10 @@ public class ReplyService {
 	}
 	
 
-	public int recommendCountUp(int rNo) {
+	public int recommendCountUp(int rNo, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new ReplyDao().recommendCountUp(conn, rNo);
+		int result = new ReplyDao().recommendCountUp(conn, rNo, userNo);
 
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);

@@ -122,27 +122,25 @@
         const dataTransfer = new DataTransfer();
         let fileArray = Array.from(files);
         let count = 0;
-        
-        function File(index, item){
-        	this.index = index; 
-        	this.item = item;
-        } 
-         
+        let originLength = 0;
+       	$("img[id ^='updateImg']").each(function(){
+       		originLength++;
+       	})
         function hiddenImg(e){
         	$(e).css('display', 'none');
         	
         	if($(e).hasClass("newImg") === true){
         		fileArray.splice(e.id.substr(6), 1);
         	}else{
-        		fNo += e.id.substr(9) + ","; 
+        		fNo += e.id.substr(9) + ",";
+        		originLength--;
         	}
         }
         
 		function updateContent(){
-			
 			let formData = new FormData();
 			
-			if(files.length < 5){
+			if(fileArray.length + originLength < 6){
 				
 				fileArray.forEach(file => { dataTransfer.items.add(file); });
 				$('#upfile')[0].files = dataTransfer.files;
@@ -171,7 +169,7 @@
 					
 					if(data > 0) {
 						alert("수정성공");
-						<%-- location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=b.getCategoryNo()%>'; --%>
+						location.href='<%= request.getContextPath() %>/contentDetail.bo?bNo=<%=b.getBoardNo()%>';
 						}
 					if(data == 0) alert("수정실패");
 					if(data < 0) alert("전송방식 잘못됨");

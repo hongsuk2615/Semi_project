@@ -38,10 +38,14 @@ public class ReplyRecommendController extends HttpServlet {
 		int result = new RecommendService().recommendReply(rNo, userNo);
 		
 		if(result > 0 ) {
-			new ReplyService().recommendCountUp(rNo);
-			request.getSession().setAttribute("alertMsg", "공감성공");
+			result = new ReplyService().recommendCountUp(rNo, userNo);
+			if(result > 0 ) {
+				request.getSession().setAttribute("alertMsg", "공감성공");
+			}else {
+				request.getSession().setAttribute("alertMsg", "자추 불가");
+			}
 		}else {
-			request.getSession().setAttribute("alertMsg", "공감실패");
+			request.getSession().setAttribute("alertMsg", "중복 공감 불가");
 		}
 		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
 	}

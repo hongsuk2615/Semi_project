@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String alertMsg = (String)session.getAttribute("alertMsg"); %>    
+<% String alertMsg = (String)session.getAttribute("alertMsg");
+	String userId = (String)request.getAttribute("userId") == null ? "" : (String)request.getAttribute("userId");
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +33,15 @@
                 </div>
            <p><b>환영합니다.</b></p>
            <p class="guide">KH TIME은 KH교육원 학생을 위한 지식 공유 플랫폼입니다.</p>
-           <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요!" required> <br>
+           <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요!" value="<%=userId%>" required> <br>
            <input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호를 입력해주세요!" onkeyup="checkCapsLock(event)" required>
            <div style="visibility : hidden" id='message'><span style="color:red">Caps Lock이 켜져 있습니다!</span></div>
            <button type="button" onclick="login()" class="btn btn-primary btn-sm" id="login-form-btn">로그인</button>
-           
+           <% if(userId.isEmpty()) { %>
+           <input type="checkbox" id="keepId">로그인 유지
+           <% }else{ %>
+            <input type="checkbox" id="keepId" checked="checked">로그인 유지
+            <% } %>
             <div id="searchId"><a href="<%= request.getContextPath() %>/searchId.me">아이디/비밀번호 찾기</a></div>
            <br>
             <p class="guide">아직 회원이 아니신가요?</p>
@@ -53,13 +59,18 @@
 				type : "post",
 				data :{
 					loginId :  $("#loginId").val(),
-					loginPwd :  $("#loginPwd").val()
+					loginPwd :  $("#loginPwd").val(),
+					keepId : $("#keepId").prop('checked') ? 'Y' : 'N',
+					userId : "<%=userId%>"
 				}, 
 				success : function(result){
 					switch(result){
-					case '-1' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
-					case '0' : alert("승인되지않은 아이디입니다!"); break;
+					case '0' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
+					case '2' : alert("화이트리스트 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '3' : alert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '4' : alert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '5' : alert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
 					}
 				}, error : function(){
 					console.log("ajax통신실패")

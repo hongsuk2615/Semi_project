@@ -8,7 +8,7 @@
 		LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = USER_NO)
 		WHERE USER_ID = ?
 		AND USER_PWD = ?
-		AND M.STATUS = 'Y'
+		
 		
 	</entry>
 	

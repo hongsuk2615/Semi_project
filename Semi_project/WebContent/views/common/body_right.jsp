@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<% String userId = (String)request.getAttribute("userId") == null ? "" : (String)request.getAttribute("userId"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +29,7 @@
             <form >
                 <div id="id-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/idimg.png" alt="idimg" width="40" height="40">
-                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요">
+                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요" value="<%=userId%>">
                 </div>
                 <div id="pwd-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/pwdimg.png" alt="pwdimg" width="40" height="40">
@@ -40,6 +40,11 @@
                     <input type="button" onclick="login()" value="로그인">
 
                     <input type="button" value="회원가입">
+                     <% if(userId.isEmpty()) { %>
+			           <input type="checkbox" id="keepId">로그인 유지
+			         <% }else{ %>
+			           <input type="checkbox" id="keepId" checked="checked">로그인 유지
+			         <% } %>
                 </div>
             </form>
             <% } else { %>
@@ -630,14 +635,18 @@
 				type : "post",
 				data :{
 					loginId :  $("#loginId").val(),
-					loginPwd :  $("#loginPwd").val()
+					loginPwd :  $("#loginPwd").val(),
+					keepId : $("#keepId").prop('checked') ? 'Y' : 'N',
+					userId : "<%=userId%>"
 				}, 
-				success : function(r){
-					console.log(r);
-					switch(r){
-					case '-1' : location.href="<%= request.getContextPath()%>/login.me"; alert("아이디나 비번이 맞지 않습니다!"); break;
-					case '0' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+				success : function(result){
+					switch(result){
+					case '0' : alert("아이디나 비번이 맞지 않습니다!"); location.href="<%= request.getContextPath()%>/login.me"; break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
+					case '2' : alert("화이트리스트 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '3' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '4' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '5' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
