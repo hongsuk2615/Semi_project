@@ -138,6 +138,7 @@ public class ReplyDao {
 					pstmt = conn.prepareStatement(sql);
 					
 					pstmt.setInt(1, rNo);
+					pstmt.setInt(2, rNo);
 					
 					result = pstmt.executeUpdate();
 

@@ -450,6 +450,8 @@ public class BoardDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, bNo);
+				pstmt.setInt(2, userNo);
+				pstmt.setInt(3, bNo);
 				
 				result = pstmt.executeUpdate();
 

@@ -211,12 +211,17 @@
 	  UPDATE BOARD SET
 	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE BOARD_NO = ?
+	  		AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
 	</entry>
 	
 	<entry key="scrapCountUp">
 	  UPDATE BOARD SET
 	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
+	  
 	</entry>
 	
 	<entry key="getHotBestBoardlist">

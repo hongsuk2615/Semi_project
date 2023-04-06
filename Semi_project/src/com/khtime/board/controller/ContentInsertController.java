@@ -64,8 +64,8 @@ public class ContentInsertController extends HttpServlet {
 			int cNo = Integer.parseInt(multi.getParameter("cNo"));
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
-			String isQuestion = multi.getParameter("isQuestion") == null ? "N" : "Y";
-			String isAnonimous = multi.getParameter("isAnonimous") == null ? "N" : "Y";
+			String isQuestion = multi.getParameter("isQuestion").equals("Y") ? "Y" : "N";
+			String isAnonimous = multi.getParameter("isAnonimous").equals("Y") ? "Y" : "N";
 			
 			Board b = new Board();
 			b.setCategoryNo(cNo);
