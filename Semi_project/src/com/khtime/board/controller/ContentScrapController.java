@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.service.ScrapService;
 import com.khtime.member.model.vo.Member;
 
@@ -31,18 +32,17 @@ public class ContentScrapController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		
 		int result = new ScrapService().scrapContent(bNo, userNo);
 		
-		if(result > 0) { //성공
-			new BoardService().scrapCountUp(bNo);
-			request.getSession().setAttribute("alertMsg", "스크랩완료");
-		}else {
-			request.getSession().setAttribute("alertMsg", "이미 스크랩된 글입니다.");
-		}
+		if(result > 0) result = new BoardService().scrapCount(bNo);
 		
-		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
+		response.setContentType("text/html charset=UTF-8");
+		response.getWriter().print(result);
 		}
 
 	/**

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.service.RecommendService;
+import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
 
 /**
@@ -37,17 +38,13 @@ public class ContentRecommendController extends HttpServlet {
 		
 		int result = new RecommendService().recommendContent(bNo, userNo);
 		
-		if(result > 0) { //성공
-			result = new BoardService().recommendCountUp(bNo, userNo);
-			if(result > 0 ) {
-			request.getSession().setAttribute("alertMsg", "공감성공");
-			}else {
-			request.getSession().setAttribute("alertMsg", "자추 불가");
-			}
-		}else {
-			request.getSession().setAttribute("alertMsg", "이미 공감된 글입니다.");
+		if(result > 0) {
+			new MemberService().recommendContentUp(bNo);
+			result = new BoardService().recommendCount(bNo);
 		}
-		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
+		
+		response.setContentType("text/html charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 	/**

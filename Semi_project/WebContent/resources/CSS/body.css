@@ -111,6 +111,7 @@
 
 #body-right>div {
     margin: 7px 0px;
+   
 }
 
 
@@ -121,9 +122,9 @@
     display: flex;
 }
 
-#search>input {
+#search input {
     height: 40px;
-    width: 310px;
+    width: 280px;
     border: none;
     text-align: center;
 }
@@ -227,4 +228,8 @@
     text-align: left;
     background-color: #F44336;
     color: aliceblue;
+}
+#banner-wrapper{
+    width: 100%;
+    padding: 8px;
 }

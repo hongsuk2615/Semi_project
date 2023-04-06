@@ -32,7 +32,7 @@
 		LEFT JOIN MEMBER ON (USER_NO = WRITER)
 		LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = WRITER)
 		WHERE BOARD_NO = ?
-		ORDER BY ENROLL_DATE DESC, REPLY_NO DESC
+		ORDER BY ENROLL_DATE, REPLY_NO DESC
 	</entry>
 	
 	<entry key="deleteReply">
@@ -51,5 +51,11 @@
 	  		WHERE REPLY_NO = ?)
 	</entry>
 
+	 <entry key="selectCount">
+	      SELECT 
+	            $ AS COUNT
+	        FROM REPLY
+	       WHERE REPLY_NO = ?
+	   </entry>
 	
 </properties>

@@ -55,15 +55,32 @@ public class BoardService {
 		return b;
 	}
 	
-	public int selectReplyCount(int bNo) {
+	public int replyCount(int bNo) {
 		Connection conn = getConnection();
 
-		int result = new BoardDao().selectReplyCount(conn, bNo);
+		int result = new BoardDao().replyCount(conn, bNo);
+		close(conn);
+
+		return result;
+	}
+	
+	public int recommendCount(int bNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().recommendCount(conn, bNo);
 		close(conn);
 
 		return result;
 	}
 
+	public int scrapCount(int bNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().scrapCount(conn, bNo);
+		close(conn);
+
+		return result;
+	}
 
 	
 	public ArrayList<Board> bestList(int rcCount, PageInfo pi, String year) {
@@ -126,35 +143,6 @@ public class BoardService {
 		} JDBCTemplate.close(conn);
 
 		return result1 * result2;
-	}
-	
-	
-	public int recommendCountUp(int bNo, int userNo) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result = new BoardDao().recommendCountUp(conn, bNo, userNo);
-
-		if(result > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result;
-	}
-	
-	public int scrapCountUp(int bNo) {
-		Connection conn = JDBCTemplate.getConnection();
-
-		int result = new BoardDao().scrapCountUp(conn, bNo);
-
-		if(result > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result;
 	}
 	
 

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
+     <link rel="stylesheet" href="resources/CSS/base.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset = "UTF-8"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -643,10 +644,9 @@
 					switch(result){
 					case '0' : alert("아이디나 비번이 맞지 않습니다!"); location.href="<%= request.getContextPath()%>/login.me"; break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : alert("화이트리스트 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '3' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '4' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '5' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '2' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '3' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '4' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
@@ -666,6 +666,14 @@
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
         </script>
+        <script> //애니메이션 테스트
+        $('#body-right').click(function(){
+            $(this).css('transition-duration','2s');
+            $(this).css('transform','translateY(300px)');//스크롤 y축 변화값 변수로 넣어버리기
+        })
 
+
+
+        </script>
 </body>
 </html>
