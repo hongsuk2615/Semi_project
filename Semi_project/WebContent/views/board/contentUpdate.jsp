@@ -57,7 +57,7 @@
                         <div id="content-detail">
                             <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
-                                <form enctype="multipart/form-data">
+                                <form> 
                                 <div> 프로필: <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30"></div>
     								<div>
                                               <% if(b.getIsAnonimous().equals("N")) { %>
@@ -67,18 +67,28 @@
                                                 <% } %> 
                                             </div>
     								<div>등록일: <%= b.getEnrollDate() %></div>
-    								<div><input type="text" id="title" name="title" placeholder="글 제목"> <%= b.getTitle() %></div>
+    								<div><input type="text" id="title" name="title" placeholder="글 제목" value="<%=b.getTitle()%>"></div>
       							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"><%= b.getContent() %></textarea></div>
            							<div id="createContent-check">
-                						<div>첨부파일<input type="file" id="upfile" name="upfile" multiple>
-                						<div>
+                						<div>첨부파일<input type="file" id="upfile" name="upfile">
+                						<div id="attachment-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
-												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
-										<% } %></div></div>
+												<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100" height="100">
+										<% } %>
+										</div>
+										</div>
                							<div>
-						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+               							<% if(b.getIsQuestion().equals("Y")){ %>
+               							<div><input type="checkbox" checked="checked" id="isQuestion" name="isQuestion" value="Y">질문</div>
+               							<% }else{ %>
+               							<div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
+               							<% } %>
+               							<% if(b.getIsAnonimous().equals("Y")){ %>
+						                    <div><input type="checkbox" id="isAnonimous" checked="checked" name="isAnonimous" value="Y">익명</div>
+				                    	<% }else{ %>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-						                    <div><button type="button" id="create-content-btn" onclick="createContent()">수정하기</button></div>
+						                    <% } %>
+						                    <div><button type="button" id="update-content-btn" onclick="updateContent()">수정하기</button></div>
 						                </div>
 						            </div>
 					           	</form>
@@ -104,7 +114,93 @@
 
         </div>
     </div>
+         <script>
+         
+        let fNo = "";
+        let fileArr = new Array();
+        const files = $('#upfile')[0].files;
+        const dataTransfer = new DataTransfer();
+        let fileArray = Array.from(files);
+        let count = 0;
+        
+        function File(index, item){
+        	this.index = index; 
+        	this.item = item;
+        } 
+         
+        function hiddenImg(e){
+        	$(e).css('display', 'none');
+        	
+        	if($(e).hasClass("newImg") === true){
+        		fileArray.splice(e.id.substr(6), 1);
+        	}else{
+        		fNo += e.id.substr(9) + ","; 
+        	}
+        }
+        
+		function updateContent(){
+			
+			let formData = new FormData();
+			
+			if(files.length < 5){
+				
+				fileArray.forEach(file => { dataTransfer.items.add(file); });
+				$('#upfile')[0].files = dataTransfer.files;
+				
+				let deleteImg = fNo.replace(/,\s*$/, "");
+				formData.append("bNo", <%=b.getBoardNo()%>);
+				formData.append("cNo", <%=b.getCategoryNo()%>);
+				formData.append("title", $("#title").val());
+				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
+				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
+				formData.append("deleteImg", deleteImg);
+					
+			$.each( $('#upfile')[0].files , function(index , file){
+				formData.append("upfile"+index , file);
+			});
+			
+			
+			$.ajax({
+				url : "<%= request.getContextPath() %>/update.bo",
+				data : formData,
+				type : "post",
+				processData : false,
+				contentType : false,
+				success : function(data){
+					
+					if(data > 0) {
+						alert("수정성공");
+						<%-- location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=b.getCategoryNo()%>'; --%>
+						}
+					if(data == 0) alert("수정실패");
+					if(data < 0) alert("전송방식 잘못됨");
+					}
+			});
+			}else{
+				alert("첨부파일 개수 초과");
+				$("#upfile").val("");
+			}
+			
+		}
 	
+	
+	$("#upfile").change(function(e){
+		
+	    fileArray.unshift(e.target.files[0]);
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		
+		reader.onload = function(e){
+		let url = e.target.result;
+		$("#attachment-area").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
+		$('#newImg'+count).attr("src",url);
+		count++;
+		}
+		$("#upfile").val("");
+	});
+
+	</script>
 </body>
 
 </html>

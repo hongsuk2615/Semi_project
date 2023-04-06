@@ -24,13 +24,13 @@ import com.oreilly.servlet.MultipartRequest;
  * Servlet implementation class InsertBoardController
  */
 @WebServlet("/insert.bo")
-public class InsertBoardController extends HttpServlet {
+public class ContentInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public InsertBoardController() {
+	public ContentInsertController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -64,8 +64,8 @@ public class InsertBoardController extends HttpServlet {
 			int cNo = Integer.parseInt(multi.getParameter("cNo"));
 			String title = multi.getParameter("title");
 			String content = multi.getParameter("content");
-			String isQuestion = multi.getParameter("isQuestion") == null ? "N" : "Y";
-			String isAnonimous = multi.getParameter("isAnonimous") == null ? "N" : "Y";
+			String isQuestion = multi.getParameter("isQuestion").equals("Y") ? "Y" : "N";
+			String isAnonimous = multi.getParameter("isAnonimous").equals("Y") ? "Y" : "N";
 			
 			Board b = new Board();
 			b.setCategoryNo(cNo);
