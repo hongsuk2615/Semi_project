@@ -40,8 +40,11 @@
                     <input type="button" onclick="login()" value="로그인">
 
                     <input type="button" value="회원가입">
-                    
-                    <input type="checkbox" id="keepId">로그인 유지
+                     <% if(userId.isEmpty()) { %>
+			           <input type="checkbox" id="keepId">로그인 유지
+			         <% }else{ %>
+			           <input type="checkbox" id="keepId" checked="checked">로그인 유지
+			         <% } %>
                 </div>
             </form>
             <% } else { %>
