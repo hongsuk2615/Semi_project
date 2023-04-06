@@ -129,10 +129,10 @@ public class BoardService {
 	}
 	
 	
-	public int recommendCountUp(int bNo) {
+	public int recommendCountUp(int bNo, int userNo) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result = new BoardDao().recommendCountUp(conn, bNo);
+		int result = new BoardDao().recommendCountUp(conn, bNo, userNo);
 
 		if(result > 0 ) {
 			JDBCTemplate.commit(conn);

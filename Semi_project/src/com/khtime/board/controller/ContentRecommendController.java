@@ -38,8 +38,12 @@ public class ContentRecommendController extends HttpServlet {
 		int result = new RecommendService().recommendContent(bNo, userNo);
 		
 		if(result > 0) { //성공
-			new BoardService().recommendCountUp(bNo, userNo);
-			request.getSession().setAttribute("alertMsg", "공감완료");
+			result = new BoardService().recommendCountUp(bNo, userNo);
+			if(result > 0 ) {
+			request.getSession().setAttribute("alertMsg", "공감성공");
+			}else {
+			request.getSession().setAttribute("alertMsg", "자추 불가");
+			}
 		}else {
 			request.getSession().setAttribute("alertMsg", "이미 공감된 글입니다.");
 		}
