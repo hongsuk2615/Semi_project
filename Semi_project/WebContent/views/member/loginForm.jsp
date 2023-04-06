@@ -37,7 +37,11 @@
            <input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호를 입력해주세요!" onkeyup="checkCapsLock(event)" required>
            <div style="visibility : hidden" id='message'><span style="color:red">Caps Lock이 켜져 있습니다!</span></div>
            <button type="button" onclick="login()" class="btn btn-primary btn-sm" id="login-form-btn">로그인</button>
+           <% if(userId.isEmpty()) { %>
            <input type="checkbox" id="keepId">로그인 유지
+           <% }else{ %>
+            <input type="checkbox" id="keepId" checked="checked">로그인 유지
+            <% } %>
             <div id="searchId"><a href="<%= request.getContextPath() %>/searchId.me">아이디/비밀번호 찾기</a></div>
            <br>
             <p class="guide">아직 회원이 아니신가요?</p>
