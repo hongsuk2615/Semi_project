@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.service.ReplyService;
+import com.khtime.board.model.service.ScrapService;
+import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
 
 /**
@@ -37,18 +40,14 @@ public class ReplyRecommendController extends HttpServlet {
 		
 		int result = new RecommendService().recommendReply(rNo, userNo);
 		
-		if(result > 0 ) {
-			result = new ReplyService().recommendCountUp(rNo, userNo);
-			if(result > 0 ) {
-				request.getSession().setAttribute("alertMsg", "공감성공");
-			}else {
-				request.getSession().setAttribute("alertMsg", "자추 불가");
-			}
-		}else {
-			request.getSession().setAttribute("alertMsg", "중복 공감 불가");
+		if(result > 0) { 
+			new MemberService().recommendReplyUp(rNo);
+			result = new ReplyService().recommendCount(rNo);
 		}
-		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
-	}
+		response.setContentType("text/html charset=UTF-8");
+		response.getWriter().print(result);
+		}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

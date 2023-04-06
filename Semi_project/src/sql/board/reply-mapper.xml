@@ -51,5 +51,11 @@
 	  		WHERE REPLY_NO = ?)
 	</entry>
 
+	 <entry key="selectCount">
+	      SELECT 
+	            $ AS COUNT
+	        FROM REPLY
+	       WHERE REPLY_NO = ?
+	   </entry>
 	
 </properties>

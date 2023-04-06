@@ -105,9 +105,9 @@
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
 										<% } %></div>
                                 <div>
-                                    <div><%= b.getRecommendCount() %></div>
+                                    <div id="recommenddiv"><%= b.getRecommendCount() %></div>
                                     <div id="replydiv"><%= b.getReplyCount() %></div>
-                                    <div><%= b.getScrapCount() %></div>
+                                    <div id="scrapdiv"><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
                                     <button id="recommendbtn">공감</button>
@@ -139,7 +139,8 @@
 				                     <br>
 				                     <%= r.getEnrollDate() %>
 				                     <br>
-				                      <%= r.getRecommendCount() %>
+				                       공감수 : <div id="recommendCount<%= r.getReplyNo() %>">  <%= r.getRecommendCount() %></div>
+				                    
 			                     </li>
                                
                               	  <% } %>
@@ -246,7 +247,7 @@
 	                     <br>
 	                     \${i.enrollDate}
 	                     <br>
-	                      \${i.recommendCount}
+	                      공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
 	                     </li>
 	                     `
 						}else{
@@ -273,7 +274,7 @@
 	                     <br>
 	                     \${i.enrollDate}
 	                     <br>
-	                      \${i.recommendCount}
+	                     공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
 	                     </li>
 	                     `
 						}
@@ -302,27 +303,66 @@
 			
 			})
 		} 
-	
 		
 	
 		</script>
 		
 		<script>
+		
 		 document.getElementById("recommendbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/recommend.bo?bNo="+<%= b.getBoardNo() %>;
-  	        
-  	    })
+	  	    $.ajax({
+					url : "<%= request.getContextPath() %>/recommend.bo",
+					data : {bNo : <%= b.getBoardNo() %>},
+					success : function(data){
+						if(data > 0) {
+							alert("공감 성공!");
+							$("#recommenddiv").html(data);
+						}
+						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
+						if(data < 0) alert("이미 공감된 글입니다!");
+						}
+				});
+  	     })
+  	    
   	    
   	    document.getElementById("scrapbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
+	  	    $.ajax({
+					url : "<%= request.getContextPath() %>/scrap.bo",
+					data : {bNo : <%= b.getBoardNo() %>},
+					success : function(data){
+						if(data > 0) {
+							alert("스크랩 성공!");
+							$("#scrapdiv").html(data);
+						}
+						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
+						if(data < 0) alert("이미 스크랩된 글입니다!");
+						}
+				});
   	    })
+  	    
+  	     
   	   
   	    function deleteclick(id){
 			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
 		 }
 		 
 		 function recommendclick(id){
-			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
+			 let rNo = id.substr(12);
+			 $.ajax({
+					url : "<%= request.getContextPath() %>/recommend.re",
+					data : {
+						bNo : <%= b.getBoardNo() %>,
+						rNo : rNo
+						},
+					success : function(data){
+						if(data > 0) {
+							alert("공감 성공!");
+							$("#recommendCount"+rNo).html(data);
+						}
+						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
+						if(data < 0) alert("이미 공감된 글입니다!");
+						}
+				});
 		 }
 	</script>
 

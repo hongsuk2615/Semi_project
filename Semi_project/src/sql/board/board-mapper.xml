@@ -63,9 +63,9 @@
          AND B.STATUS = 'Y'
    </entry>
    
-    <entry key="selectReplyCount">
+    <entry key="selectCount">
       SELECT 
-            REPLY_COUNT AS COUNT
+            $ AS COUNT
         FROM BOARD
        WHERE BOARD_NO = ?
    </entry>
@@ -221,6 +221,10 @@
 	  UPDATE BOARD SET
 	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
+	  	AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
 	  
 	</entry>
 	

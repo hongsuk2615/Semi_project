@@ -207,12 +207,13 @@ public class BoardDao {
 			}
 			return b;
 		}
-	   public int selectReplyCount(Connection conn, int bNo) {
+	   public int replyCount(Connection conn, int bNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
 			ResultSet rset = null;
-			String sql = prop.getProperty("selectReplyCount");
+			String sql = prop.getProperty("selectCount");
+			sql = sql.replace("$", "REPLY_COUNT");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
@@ -230,6 +231,55 @@ public class BoardDao {
 			}
 			return result;
 		}
+	   
+	   public int recommendCount(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectCount");
+			sql = sql.replace("$", "RECOMMEND_COUNT");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+				result = rset.getInt("COUNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int scrapCount(Connection conn, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("selectCount");
+			sql = sql.replace("$", "SCRAP_COUNT");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+				result = rset.getInt("COUNT");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				JDBCTemplate.close(rset);
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 	   
 	   
 	   public int insertBoard(Connection conn, Board b, int userNo ) {
@@ -466,7 +516,7 @@ public class BoardDao {
 	   
 	
 	   
-	   public int scrapCountUp(Connection conn, int bNo) {
+	   public int scrapCountUp(Connection conn, int bNo, int userNo) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -477,6 +527,8 @@ public class BoardDao {
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setInt(1, bNo);
+				pstmt.setInt(2, userNo);
+				pstmt.setInt(3, bNo);
 				
 				result = pstmt.executeUpdate();
 
