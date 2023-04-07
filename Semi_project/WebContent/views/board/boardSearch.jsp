@@ -87,7 +87,7 @@
 			let searchBoard = document.getElementById("searchBoard").value;
 			
 			$.ajax({
-				url : "<%= request.getContextPath()%>/board.me",
+				url : "<%= request.getContextPath()%>/search.bo",
 			})
 		}
 			

@@ -18,7 +18,7 @@ import com.khtime.member.model.vo.Member;
 /**
  * Servlet implementation class BoardSearchController
  */
-@WebServlet("/board.me")
+@WebServlet("/search.bo")
 public class BoardPageMove extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

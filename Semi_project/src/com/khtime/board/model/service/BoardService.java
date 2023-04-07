@@ -174,20 +174,20 @@ public class BoardService {
 		return cn;
 	}
 	
-	public int boardRequest( String loginUserId,String boardTitle, String reason , int loginUserNo) {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result1 = new BoardDao().boardRequest(conn,loginUserId,boardTitle,reason);
-		int result2 = new BoardDao().boardCategoryreq(conn,boardTitle,loginUserNo);
-		if(result1 > 0 && result2 > 0 ) {
-			JDBCTemplate.commit(conn);
-		}else {
-			JDBCTemplate.rollback(conn);
-		} JDBCTemplate.close(conn);
-
-		return result1*result2;
-	}
+	/*
+	 * public int boardRequest( String loginUserId,String boardTitle, String reason
+	 * , int loginUserNo) {
+	 * 
+	 * Connection conn = JDBCTemplate.getConnection();
+	 * 
+	 * int result1 = new
+	 * BoardDao().boardRequest(conn,loginUserId,boardTitle,reason); int result2 =
+	 * new BoardDao().boardCategoryreq(conn,boardTitle,loginUserNo); if(result1 > 0
+	 * && result2 > 0 ) { JDBCTemplate.commit(conn); }else {
+	 * JDBCTemplate.rollback(conn); } JDBCTemplate.close(conn);
+	 * 
+	 * return result1*result2; }
+	 */
 	
 	
 	
