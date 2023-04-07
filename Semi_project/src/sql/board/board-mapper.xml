@@ -24,21 +24,13 @@
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
                WHERE CATEGORY_NO = ?
                  AND B.STATUS = 'Y'
-               ORDER BY ENROLL_DATE DESC
+               ORDER BY B.BOARD_NO DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
         
    </entry>
    
-
-   <entry key="boardListCount">
-      SELECT COUNT(*) AS COUNT
-        FROM BOARD
-       WHERE CATEGORY_NO = ?
-         AND STATUS = 'Y'
-   </entry>
-
 
    <entry key="selectContent">
       SELECT 
@@ -199,6 +191,9 @@
 	  	STATUS = 'N'
 	  	WHERE BOARD_NO = ?
 	  	AND WRITER = ?
+        OR BOARD_NO = ?
+        AND ? = 0
+	  
 	</entry>
 	
 	<entry key="updateAttachment">
@@ -284,6 +279,15 @@
            )	
    </entry>
    
+   	<entry key="reportCountUp">
+	  UPDATE BOARD SET
+	  	REPORT_COUNT = REPORT_COUNT + 1
+	  	WHERE BOARD_NO = ?
+	  	AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
+	</entry>
    
    
 	

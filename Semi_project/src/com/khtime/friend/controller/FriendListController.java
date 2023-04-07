@@ -32,6 +32,7 @@ public class FriendListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		ArrayList<Member> list = new FriendService().friendlist(loginUserNo);
 		request.setAttribute("list", list);//친구목록
@@ -45,9 +46,10 @@ public class FriendListController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int sendName = Integer.parseInt(request.getSession().getAttribute("sendName"));
 		int result = new FriendService().friendaccept(loginUserNo,sendName);
-	}			
+	}
 }

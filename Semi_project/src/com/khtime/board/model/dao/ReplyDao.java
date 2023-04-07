@@ -152,6 +152,31 @@ public class ReplyDao {
 				return result;
 			}
 		   
+		   public int reportCountUp(Connection conn, int rNo, int userNo) {
+			   
+				int result = 0;
+				PreparedStatement pstmt = null;
+				
+				String sql = prop.getProperty("reportCountUp");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, rNo);
+					pstmt.setInt(2, userNo);
+					pstmt.setInt(3, rNo);
+					
+					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+				
+					JDBCTemplate.close(pstmt);
+				}
+				return result;
+			}
+		   
 		   public int recommendCount(Connection conn, int rNo) {
 			   
 				int result = 0;
