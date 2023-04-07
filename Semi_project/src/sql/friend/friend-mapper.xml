@@ -45,12 +45,18 @@
 	
 	<entry key="friendlist3">
 		SELECT USER_NAME
-		FROM MEMBER
-		WHERE USER_NO IN( SELECT SENDER
-        FROM FRIEND
-        WHERE RECEIVER = ?
-        AND IS_AGREE = 'N')
+			FROM MEMBER
+			WHERE USER_NO IN( SELECT SENDER
+       		FROM FRIEND
+       		WHERE RECEIVER = ?
+       		AND IS_AGREE = 'N')
 	</entry>
 	
+	<entry key="friendaccept">
+		UPDATE FRIEND SET
+		IS_AGREE = 'Y'
+		WHERE SENDER = ?
+		AND RECEIVER = ?
+	</entry>
 	
 </properties>
