@@ -47,6 +47,10 @@
 </head>
 <body>
     <div id="wrapper">
+    <!-- 위로 가기 버튼 -->
+    <div><button type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);">위로가기</button></div>
+    
+    <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
         <div id="body">
             
@@ -186,6 +190,46 @@
                                  <% } %>
                                   </ul>
 						<script>
+						
+						
+						function loadBoard(){
+							let count = 1;
+							$.ajax({
+								url : "<%=request.getContextPath()%>/boardDetail.bo",
+								type : "post",
+								data :{
+									cNo : <%=cNo %>,
+									currentPage : count
+								}, 
+								success : function(list){
+									console.log("loadBoard");
+									console.log(list);
+									count++;
+									let result  = "";
+									for(let i of list){ 
+										result += 
+										`
+										<li><div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+		                                \${i.title}<br>
+		                                    \${i.content} <br>
+		                                   \${i.enrollDate} &nbsp; \${i.writer}<br>
+		                                    <div id="board-detail-comment">
+                                        
+                                        <div>\${i.recommendCount}</div>
+                                        <div>\${i.replyCount}</div>
+                                    </div>
+                                </li>
+					                     `
+									}
+										$("#content-area").append(result);
+									
+								}, error : function(){
+									alert("게시글 조회 실패");
+								}
+							
+							})
+						}
+						
 									$(function(){
 										$("#board-detail li").click(function(){
 											let bNo = $(this).children().eq(0).text();
@@ -202,7 +246,7 @@
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
                         
-		<div align="center" class="paging-area">
+		<%-- <div align="center" class="paging-area">
 			
 			<% if( currentPage != 1) { %>
 				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
@@ -212,7 +256,7 @@
 				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
 			<% } %>
 			
-		</div>
+		</ div> --%>
                         </div>
                     </div>
                     </div>
@@ -233,6 +277,36 @@
    
 
      <script>
+     window.onscroll = function(e) {
+    	 console.log("scroll");
+         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+           setTimeout(loadBoard, 1000) ; 
+         }
+       }
+     //
+     
+     /*  window.addEventListener("scroll", infiniteScroll);
+
+     let isUpdateList = true;    
+
+     function infiniteScroll(){
+         const currentScroll = window.scrollY;
+         const windowHeight = window.innerHeight;
+         const bodyHeight = document.body.clientHeight;
+         const paddingBottom = 200;
+          if(currentScroll + windowHeight + paddingBottom >= bodyHeight){ 
+       	 if(currentScroll >= 1000){
+         
+        	 loadBoard();
+         
+             if(isUpdateList){
+                 isUpdateList = false;
+                 
+                  -- after fetch API --
+                 isUpdateList = true; 
+             }
+         }
+     }  */
     </script>
 
 

@@ -25,6 +25,7 @@
 <body>
 
     <div id="wrapper">
+    
         <%@ include file="header.jsp" %>
         
         <div id="body">
