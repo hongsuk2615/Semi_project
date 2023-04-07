@@ -209,7 +209,7 @@ li .time {
 }
 
 #modal-wrapper{
-    width: 430px;
+    width: 400px;
     height: 150px;
     background-color: white;
     border-radius: 10px;
@@ -251,11 +251,12 @@ li .time {
 }
 
 #modal-body input[type='text']{
-    width: 110px;
+    width: 70px;
     height: 30px;
     background-color : rgb(218, 219, 220);
     
 }
+
 #modal-tdl-title>div{
     width: 50%;
 }

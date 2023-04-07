@@ -183,17 +183,17 @@
                             
                             <div id="modal-tdl-content">
                                 <div id="modal-tdl-text">
-                                    시간&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
                                 </div>
                                 <div id="modal-tdl-text">
-                                    분&nbsp;<input type="text" maxlength="2" placeholder="0">
-                                    
+                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
                                 </div>
                             </div>                            
                         </div>
                         <div id="modal-footer">
                             <button type="button" id="cancel-btn">취소</button>
                             <button type="button" id="add-btn">추가</button>
+                            
                             
                         </div>
                     </div>
