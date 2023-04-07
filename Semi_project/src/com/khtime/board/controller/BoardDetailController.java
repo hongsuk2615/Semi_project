@@ -47,13 +47,10 @@ public class BoardDetailController extends HttpServlet {
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-		int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-		listCount = new BoardService().boardListCount(cNo);
 		currentPage = Integer
 				.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
-		boardLimit = 15;
-		maxPage = (int) Math.ceil(((double) listCount / boardLimit));
-		PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
+		boardLimit = 10;
+		PageInfo pi = new PageInfo(currentPage, boardLimit);
 
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);
@@ -80,13 +77,10 @@ public class BoardDetailController extends HttpServlet {
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-		int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-		listCount = new BoardService().boardListCount(cNo);
 		currentPage = Integer
 				.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
-		boardLimit = 15;
-		maxPage = (int) Math.ceil(((double) listCount / boardLimit));
-		PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
+		boardLimit = 10;
+		PageInfo pi = new PageInfo(currentPage, boardLimit);
 
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);

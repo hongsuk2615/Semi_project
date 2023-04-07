@@ -35,16 +35,6 @@ public class BoardService {
 
 		return attachmentList;
 	}
-
-	public int boardListCount(int cNo) {
-		Connection conn = getConnection();
-
-		int result = new BoardDao().boardListCount(conn, cNo);
-
-		close(conn);
-
-		return result;
-	}
 	
 	public Board selectContent(int bNo) {
 		Connection conn = getConnection();

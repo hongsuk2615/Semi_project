@@ -176,7 +176,10 @@
                             <ul id="content-area">
                            
                             	<% for(Board b : boardList) { %>
-                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
+                            	
+                                <li>
+                                글 번호: <%= b.getBoardNo() %>
+                                <div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
                                 <%= b.getTitle() %><br>
                                     <%= b.getContent() %> <br>
                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
@@ -191,25 +194,28 @@
                                   </ul>
 						<script>
 						
-						
+						let boardCount = 1;
 						function loadBoard(){
-							let count = 1;
+							boardCount = boardCount + 1;
+							
 							$.ajax({
 								url : "<%=request.getContextPath()%>/boardDetail.bo",
 								type : "post",
 								data :{
 									cNo : <%=cNo %>,
-									currentPage : count
+									currentPage : boardCount
 								}, 
 								success : function(list){
 									console.log("loadBoard");
 									console.log(list);
-									count++;
+									console.log(count);
 									let result  = "";
 									for(let i of list){ 
 										result += 
 										`
-										<li><div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+										<li>
+										글번호: \${i.boardNo}
+										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
 		                                \${i.title}<br>
 		                                    \${i.content} <br>
 		                                   \${i.enrollDate} &nbsp; \${i.writer}<br>
@@ -230,13 +236,22 @@
 							})
 						}
 						
-									$(function(){
-										$("#board-detail li").click(function(){
-											let bNo = $(this).children().eq(0).text();
-											location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
-											
-										});
-									});
+						$(function(){
+							$("#board-detail li").click(function(){
+								let bNo = $(this).children().eq(0).text();
+								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+								
+							});
+						});
+						
+
+					     window.onscroll = function(e) {
+					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+					           setTimeout(loadBoard, 500); 
+					         }
+					       }
+								     
+								    
 								</script>
                             
                             
@@ -246,17 +261,7 @@
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
                         
-		<%-- <div align="center" class="paging-area">
-			
-			<% if( currentPage != 1) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
-			<% } %>
-			
-			<% if(currentPage != pi.getMaxPage()) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
-			<% } %>
-			
-		</ div> --%>
+		
                         </div>
                     </div>
                     </div>
@@ -276,38 +281,7 @@
     </div>
    
 
-     <script>
-     window.onscroll = function(e) {
-    	 console.log("scroll");
-         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
-           setTimeout(loadBoard, 1000) ; 
-         }
-       }
-     //
-     
-     /*  window.addEventListener("scroll", infiniteScroll);
 
-     let isUpdateList = true;    
-
-     function infiniteScroll(){
-         const currentScroll = window.scrollY;
-         const windowHeight = window.innerHeight;
-         const bodyHeight = document.body.clientHeight;
-         const paddingBottom = 200;
-          if(currentScroll + windowHeight + paddingBottom >= bodyHeight){ 
-       	 if(currentScroll >= 1000){
-         
-        	 loadBoard();
-         
-             if(isUpdateList){
-                 isUpdateList = false;
-                 
-                  -- after fetch API --
-                 isUpdateList = true; 
-             }
-         }
-     }  */
-    </script>
 
 
 

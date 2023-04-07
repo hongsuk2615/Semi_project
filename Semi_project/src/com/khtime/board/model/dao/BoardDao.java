@@ -144,30 +144,6 @@ public class BoardDao {
 			return attachmentList;
 		}
 	   
-	   public int boardListCount(Connection conn, int cNo) {
-		   
-			int result = 0;
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			String sql = prop.getProperty("boardListCount");
-
-			try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, cNo);
-				rset = pstmt.executeQuery();
-
-				if(rset.next()) {
-					result = rset.getInt("COUNT");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
-			}
-			return result;
-		}
-	   
 	   
 	   public Board selectContent(Connection conn, int bNo) {
 		   
@@ -740,5 +716,5 @@ public class BoardDao {
             JDBCTemplate.close(pstmt);
          }
          return result;
-	   
+	    }
 }

@@ -51,5 +51,5 @@ public class FriendListController extends HttpServlet {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int sendName = Integer.parseInt(request.getSession().getAttribute("sendName"));
 		int result = new FriendService().friendaccept(loginUserNo,sendName);
-				
+	}
 }

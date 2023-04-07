@@ -24,21 +24,13 @@
                JOIN MEMBER M ON (B.WRITER = M.USER_NO)
                WHERE CATEGORY_NO = ?
                  AND B.STATUS = 'Y'
-               ORDER BY ENROLL_DATE DESC
+               ORDER BY B.BOARD_NO DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
         
    </entry>
    
-
-   <entry key="boardListCount">
-      SELECT COUNT(*) AS COUNT
-        FROM BOARD
-       WHERE CATEGORY_NO = ?
-         AND STATUS = 'Y'
-   </entry>
-
 
    <entry key="selectContent">
       SELECT 

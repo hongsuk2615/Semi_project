@@ -204,7 +204,7 @@
 	$(window).on("unload", erase);
 	
 	function erase(){
-	    $("#title").val("");
+	    $("#title").val("<%= b.getTitle()%>");
 		$("#content").val("");
 		$("#upfile").val("");
 		$("#isQuestion").val("");
