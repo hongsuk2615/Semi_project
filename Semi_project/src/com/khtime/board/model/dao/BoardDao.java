@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -631,12 +632,92 @@ public class BoardDao {
 			}
 			return result;
 		}
+
+		public ArrayList<Category> categoryTitle(Connection conn, String searchTitle){
+		   Category c = null;
+		   
+		   ArrayList<Category> cn = new ArrayList<>();
+		   
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("categoryTitle");
+			System.out.println(searchTitle);
+			
+			ResultSet rset = null;
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, "%"+searchTitle+"%");
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					c =new Category();
+		
+					c.setCategoryName(rset.getString("CATEGORY_NAME"));
+					c.setCategoryNo(rset.getInt("CATEGORY_NO"));
+			
+					cn.add(c);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return cn;
+	   }
 	   
+	   public int boardRequest(Connection conn,String loginUserId,String boardTitle, String reason) {
+			int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("boardRequest");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, boardTitle);
+				pstmt.setString(2, loginUserId);
+				pstmt.setString(3, reason);
+						
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+	   }
 	   
-	   
-	   
-	   
-	   
-	   
+	   public int boardCategoryreq(Connection conn,String boardTitle, int loginUserNo) {
+		  
+		    int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("boardCategoryreq");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, boardTitle);
+				pstmt.setInt(2, loginUserNo);
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+	   }
 	   
 }

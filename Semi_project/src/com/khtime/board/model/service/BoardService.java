@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -160,6 +161,32 @@ public class BoardService {
 		} JDBCTemplate.close(conn);
 
 		return result1*result2*result3;
+	}
+
+	public ArrayList<Category> categoryTitle( String searchTitle){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Category> cn = new  BoardDao().categoryTitle(conn , searchTitle);
+	
+		close(conn); 
+		
+		return cn;
+	}
+	
+	public int boardRequest( String loginUserId,String boardTitle, String reason , int loginUserNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result1 = new BoardDao().boardRequest(conn,loginUserId,boardTitle,reason);
+		int result2 = new BoardDao().boardCategoryreq(conn,boardTitle,loginUserNo);
+		if(result1 > 0 && result2 > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result1*result2;
 	}
 	
 	
