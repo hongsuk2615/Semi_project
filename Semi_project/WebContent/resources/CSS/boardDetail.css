@@ -50,8 +50,9 @@
     justify-content: space-between;
 }
 #content-area >li {
+	border: 1px solid skyblue;
     background: rgb(255, 255, 255);
-    border-radius: 2px; 
+    border-radius: 10px; 
     margin-top: 2px;
 }
 
@@ -72,9 +73,7 @@
 #createContent div{
     width: 100%;
 }
-body * {
-    color :rgb(107, 110, 153);
-}
+
 
 #title, #content{
     width: 100%;
