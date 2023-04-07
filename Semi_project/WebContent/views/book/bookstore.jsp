@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div id="book-body-content1">
-                <div id="book-inf">
+                <div class="book-inf">
                 <% if(bList.size() > 8) {
 	                	length = 8;
 	                }else {
@@ -60,13 +60,13 @@
 	                }
                 %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div id="book-wrap">
-                		<div id="book-img">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
+                		<div class="book-img">
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
-	                    <div id="book-text">
-	                        <div id="book-title"><%= bList.get(i).getBookName() %></div><br>
-	                        <div id="book-price">가격 : <%= bList.get(i).getPrice() %></div>
+	                    <div class="book-text">
+	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
+	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
                     <% } %>
@@ -175,9 +175,14 @@
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
    		 
-   		 document.getElementById("book-wrap").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookdetail.do";
-   		 })
+   		 $('.book-wrap').each(function(index,item){
+			    let bkno = $(item).attr('data-bkno');
+			    $(item).click(function(){
+			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
+			    });
+		});
+   	
+        	
     </script>
 </body>
 </html>

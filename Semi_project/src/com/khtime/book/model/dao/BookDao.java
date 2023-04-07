@@ -55,6 +55,8 @@ public class BookDao {
 			pstmt.setInt(7, book.getCondition());
 			pstmt.setString(8, book.getIsDirect());
 			pstmt.setString(9, book.getLocation());
+			pstmt.setString(10, book.getPublicationDate());
+			pstmt.setString(11, book.getApiImg());
 			
 			result = pstmt.executeUpdate();
 			
@@ -130,5 +132,79 @@ public class BookDao {
 			close(pstmt);
 		}
 		  return bList;
+	  }
+	  
+	  public Book selectBook(Connection conn ,int bkno) {
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  String sql = prop.getProperty("selectBook");
+		  
+		  ResultSet rset = null;
+		  
+		  Book book = null;
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bkno);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				book = new Book();
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setAuthor(rset.getString("AUTHOR"));
+				book.setPublisher(rset.getString("PUBLISHER"));
+				book.setPublicationDate(rset.getString("PUBLICATION_DATE"));
+				book.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				book.setIsNoted(rset.getString("IS_NOTED"));
+				book.setIsDirect(rset.getString("IS_DIRECT"));
+				book.setLocation(rset.getString("LOCATION"));
+				book.setApiImg(rset.getString("API_IMG"));
+				book.setPrice(rset.getInt("PRICE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		  return book;
+	  }
+	  
+	  public ArrayList<BookAttachment> selectThumbnail(Connection conn , int bkno){
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  ArrayList<BookAttachment> bList = new ArrayList<BookAttachment>();
+		  
+		  String sql = prop.getProperty("selectThumbnail");
+		  
+		  ResultSet rset = null;
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bkno);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BookAttachment bat = new BookAttachment();
+				bat.setOriginName(rset.getString("ORIGIN_NAME"));
+				bat.setChangeName(rset.getString("CHANGE_NAME"));
+				bat.setFilePath(rset.getString("FILE_PATH"));
+				
+				bList.add(bat);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		 return bList;
 	  }
 }

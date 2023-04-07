@@ -79,6 +79,9 @@ public class BookInsertController extends HttpServlet {
 			book.setIsDirect(multi.getParameter("isDirect"));
 			book.setLocation(multi.getParameter("location"));
 			book.setPrice(Integer.parseInt(multi.getParameter("price")));
+			book.setPublicationDate(multi.getParameter("publicationDate"));
+			book.setApiImg(multi.getParameter("thumbnail"));
+			
 			
 			BookAttachment bat = null; 
 			

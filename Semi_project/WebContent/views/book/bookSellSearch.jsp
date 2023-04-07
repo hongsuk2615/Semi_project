@@ -188,7 +188,7 @@
                         		title : res.documents[<%= i %>].title,
                         		author : res.documents[<%= i %>].authors,
                         		publisher : res.documents[<%= i %>].publisher,
-                        		datetime : res.documents[<%= i %>].datetime,
+                        		datetime : res.documents[<%= i %>].datetime.substring(0,10),
                         		contents : res.documents[<%= i %>].contents
                         };
                         

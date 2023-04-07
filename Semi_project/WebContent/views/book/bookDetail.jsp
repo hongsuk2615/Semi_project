@@ -1,7 +1,11 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.common.model.vo.*, com.khtime.board.model.vo.Board"
-    pageEncoding="UTF-8"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.book.model.vo.* , java.util.ArrayList"
+    pageEncoding="UTF-8"%>
+<% 
+	Book book = (Book)request.getAttribute("book");	
+	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>)request.getAttribute("bList");
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,12 +36,13 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1>도서 제목</h1>
+                <h1><%= book.getBookName() %></h1>
                 <div id="book-inf">
-                    <p>저자 : 홍길동</p>
-                    <p>출판사 : 꿈나무출판사</p>
-                    <p>출판일 : 2023/03/20</p>
-                    <p style="font-size: x-large; color: red; font-weight: 1000;">10,000 원</p>
+                	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
+                    <p><%= book.getAuthor() %></p>
+                    <p><%= book.getPublisher() %></p>
+                    <p><%= book.getPublicationDate() %></p>
+                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %></p>
                 </div>
             </div>
 
@@ -48,10 +53,10 @@
                     <h1>판매 정보</h1>
                 </div>
                 <div>
-                    <p>2023 . 03 . 20</p>
+                    <p>게시일 : <%= book.getEnrollDate() %></p>
                 </div>
                 <div>
-                    <button id="send-mesage">판매자에게 쪽지 보내기.<img src="/resources/IMG/letters.png"></button>
+                    <button id="send-message">판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지함.png" style="width: 25px; height: 25px;"></button>
                 </div>
             </div>
 
@@ -76,13 +81,15 @@
 
             <div id="book-status">
                 <div id="book-status">
-                    <h1>책 상태</h1>
-                    <p>밑줄 흔적 : 없음   &nbsp;  연필/샤프 &nbsp; 볼펜/형광펜</p>
-                    <p>필기 흔적 : 있음   &nbsp;  연필/샤프 &nbsp; 볼펜/형광펜</p>
-                    <p>겉 표지 : 깨끗함</p>
-                    <p>이름 기입 : 없음</p>
-                    <div id="book-status-img1">이미지</div>
-                    <div id="book-status-img2">이미지</div>
+                    <h1>도서 이미지</h1>
+                    <% for(int i = 0; i < bList.size(); i++ ) { %>
+                    <div class="book-status-img">
+                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>">
+                    </div>
+                    <% } %>
+                    <h1>필기 여부</h1>
+                    있음 <input type="radio" disabled <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
+                    없음 <input type="radio" disabled <%= book.getIsNoted().equals("N") ? "checked" : "" %>>
                 </div>
             </div>
 
@@ -91,9 +98,11 @@
             <div id="book-trade">
                 <div>
                     <h1>거래 방법</h1>
-                    <p>택배 : 가능 / 불가능</p>
-                    <p>직거래 : 가능 / 불가능</p>
+                    <p><%= book.getIsDirect().equals("N") ? "택배" : book.getIsDirect().equals("Y") ? "직거래" : "직거래 , 택배"  %></p>
+                    <h2>지역</h2>
+                    <p><%= book.getLocation() %></p>
                 </div>
+                <button id="back-btn">돌아가기</button>
             </div>
         </div> 
     </div>
@@ -109,12 +118,22 @@
             document.querySelector(".closeBtn").addEventListener("click", close);
             document.querySelector(".bg").addEventListener("click", close);
 
-            $(function() {
-            $("#book-home-btn-img").click(function(){
-                open("http://127.0.0.1:3000/bookMain.jsp")
-            })
-        })
-
+    </script>
+    
+    <script>
+    
+    	document.getElementById("book-sell-btn").addEventListener("click",function(){
+    		location.href = "<%= request.getContextPath() %>/booksell.do";
+		})
+		 
+		document.getElementById("book-home-btn").addEventListener("click",function(){
+    		location.href = "<%= request.getContextPath() %>/bookstore.do";
+		})
+		 
+		document.getElementById("back-btn").addEventListener("click",function(){
+    	location.href = "<%= request.getContextPath() %>/bookstore.do";
+		}) 
+		
     </script>
 </body>
 </html>

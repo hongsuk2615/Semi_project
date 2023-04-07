@@ -65,13 +65,13 @@
 #book-home-btn-img:hover ,
 #book-sell-btn-img:hover ,
 #search-btn:hover ,
-#book-page-btn1,
-#book-page-btn2,
-#book-page-btn3,
-#book-page-btn4,
-#message-btn,
-#mypage-btn,
-#book-wrap {
+#book-page-btn1:hover ,
+#book-page-btn2:hover ,
+#book-page-btn3:hover ,
+#book-page-btn4:hover ,
+#message-btn:hover ,
+#mypage-btn:hover ,
+.book-wrap:hover {
    cursor: pointer;   
 }
 
@@ -167,14 +167,14 @@
     background-repeat: no-repeat;
 }
 
-#book-inf {
+.book-inf {
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 }
 
-#book-text {
+.book-text {
 	display: flex;
 	flex-direction: column;
     align-items: center;
@@ -182,15 +182,15 @@
     height: 100px;
 }
 
-#book-title {
+.book-title {
 	font-size: large;
 }
 
-#book-price {
+.book-price {
 	font-size: large;
 	color: red;
 }
-#book-wrap {
+.book-wrap {
 	display: flex;
 	align-items: center;
 	flex-direction: column;

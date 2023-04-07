@@ -1,5 +1,7 @@
 package com.khtime.book.model.vo;
 
+import java.sql.Date;
+
 public class Book {
 	private int bookNo;
 	private int seller;
@@ -13,6 +15,9 @@ public class Book {
 	private String location;
 	private String isSoldout;
 	private String status; 
+	private String publicationDate;
+	private Date enrollDate;
+	private String apiImg;
 	
 	private String titleImg;
 	
@@ -123,16 +128,39 @@ public class Book {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(String publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+	
+	public String getApiImg() {
+		return apiImg;
+	}
+
+	public void setApiImg(String apiImg) {
+		this.apiImg = apiImg;
+	}
 
 	@Override
 	public String toString() {
 		return "Book [bookNo=" + bookNo + ", seller=" + seller + ", bookName=" + bookName + ", price=" + price
-				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", condition=" + condition
-				+ ", isDirect=" + isDirect + ", location=" + location + ", isSoldout=" + isSoldout + ", status="
-				+ status + ", titleImg= " + titleImg + "]";
+				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", condition="
+				+ condition + ", isDirect=" + isDirect + ", location=" + location + ", isSoldout=" + isSoldout
+				+ ", status=" + status + ", publicationDate=" + publicationDate + ", enrollDate=" + enrollDate
+				+ ", apiImg=" + apiImg + ", titleImg=" + titleImg + "]";
 	}
-	
-	
 	
 	
 }

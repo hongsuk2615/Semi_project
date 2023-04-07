@@ -42,4 +42,26 @@ public class BookService {
 		
 	}
 	
+	public Book selectBook(int bkno) {
+		
+		Connection conn = getConnection();
+		
+		Book book = new BookDao().selectBook(conn , bkno);
+		
+		close(conn);
+		
+		return book;
+	}
+	
+	public ArrayList<BookAttachment> selectThumbnail(int bkno) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<BookAttachment> bList = new BookDao().selectThumbnail(conn, bkno);
+		
+		close(conn);
+		
+		return bList;
+	}
+	
 }

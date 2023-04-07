@@ -77,7 +77,7 @@
     					<p>출판사 : <%= request.getParameter("publisher") %></p>
      					<input type="hidden" value="<%= request.getParameter("publisher") %>" name="publisher">
     					<p>출간일 : <%= request.getAttribute("datetime") %></p>
-    					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="datetime">
+    					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="publicationDate">
     				</div>
     				<div id="book-next1">
                         <button type="button" id="next1">다음</button>
