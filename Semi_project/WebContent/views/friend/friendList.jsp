@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,13 +21,14 @@
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
-    /* * {
+    /*  {
         border: 1px solid rgba(128, 128, 128, 0.568);
     } */
 
     div {
         display: inline-block;
         box-sizing: border-box;
+       
     }
 
     a {
@@ -59,12 +61,23 @@
                         <br>
                     </div>
                     <br>
-                    <div id="keyword">
-                        <div id="checkid"></div>
-                    </div>
-					<% for(Member m : list){ %>		
-							<%=m.getUserName() %><br>			
-					<% } %>
+                    <div id="keyword"   style="display: flex; width: 500px;  ">
+              <%--     <% if(list != null) {%> --%>
+                   <div><% for(Member m : list){ %>		
+					
+							<%=m.getUserName() %>			
+					<% } %></div>
+				 	<%-- <%}else {%>
+					<div><% for(Member m : list){ %>		
+					
+							<%=m.getUserName() %>			
+					</div>
+					<div>님의 친구 요청</div> <div><button type="button" id="admit" onclick="admit();">수락</button></div>
+						<div><button type='button' onclick='deleteDiv()'>거절</button>
+					</div>
+					<%} %>  --%>
+					
+				
                 </form>
             </div>
         </div>
@@ -82,7 +95,7 @@
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
-							 console.log(result);
+				       
 							 if(result){
 								 if(confirm("친구 요청 하시겠습니까?")){
 									 location.href="<%=request.getContextPath() %>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결
@@ -95,6 +108,29 @@
 						 }	 
 					 });
 				 }
+				 
+				 function admit(){
+		
+					  $.ajax({
+						 url : "<%= request.getContextPath()%>/friend.me",
+						 method : "post",
+						 success : function(result){
+							 if(result){
+								 alert("친구가 됬습니다.");
+							 }else{ 
+								 alert("친구가 안됬습니다.");
+							 }
+							 
+						 }	 
+					 });
+				 }
+				 
+				    function deleteDiv() {
+  						const div = document.getElementById('keyword');
+  
+  							div.remove();
+						} 
+				
         </script>
 
 

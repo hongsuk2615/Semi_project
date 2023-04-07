@@ -289,8 +289,6 @@
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
-					console.log(list[0]);
-					console.log(list[1]);
 					let numberArray = 1;
 					let result  = "";
 					for(let i of list[0]){ 

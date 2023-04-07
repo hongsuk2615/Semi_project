@@ -1,4 +1,4 @@
-package com.khtime.friend.controller;
+package com.khtime.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.vo.Board;
 import com.khtime.friend.model.service.FriendService;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class FreindListController
+ * Servlet implementation class BoardSearchController
  */
-@WebServlet("/friend.me")
-public class FriendListController extends HttpServlet {
+@WebServlet("/board.me")
+public class BoardPageMove extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendListController() {
+    public BoardPageMove() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +34,15 @@ public class FriendListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		ArrayList<Member> list = new FriendService().friendlist(loginUserNo);
-		request.setAttribute("list", list);
-	    request.getRequestDispatcher("views/friend/friendList.jsp").forward(request, response);	
-	
+		request.getRequestDispatcher("views/board/categorySearch.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 	}
+
 }

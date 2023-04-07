@@ -199,12 +199,15 @@
 		$("#upfile").val("");
 	});
 	
-     
+	/* $("#title").val("");
+	$("#content").val("");
+	$("#upfile").val("");
+	$("#isQuestion").val("");
+	$("#isAnonimous").val(""); */
 	$(window).on("beforeunload", callback);
 	 
 	function callback(){
 	    console.log("beforeunload callback !");
-	    alert("callback함수 실행")
 	    return "changes will be lost!";
 	}
 	 

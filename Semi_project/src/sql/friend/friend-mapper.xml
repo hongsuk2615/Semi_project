@@ -33,7 +33,7 @@
   			   FROM FRIEND 
  			   WHERE RECEIVER = ? AND IS_AGREE='Y')
 	</entry>
-	
+
 	
 	
 </properties>
