@@ -25,6 +25,7 @@
 
 #board-detail li {
     list-style-type: none;
+    
    
 }
 
@@ -52,8 +53,9 @@
 #content-area >li {
 	border: 1px solid skyblue;
     background: rgb(255, 255, 255);
-    border-radius: 10px; 
+    border-radius: 0px 0px 5px 5px; 
     margin-top: 2px;
+    border: 1px solid skyblue;
 }
 
 #category {
@@ -65,7 +67,7 @@
 
 #createContent{
     background: rgb(255, 255, 255);
-    border-radius: 10px;
+    border-radius: 5px 5px 0px 0px;
     border: 1px solid skyblue;
     margin-top: 2px;
     

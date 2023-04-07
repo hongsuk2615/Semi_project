@@ -1,0 +1,18 @@
+#message-btn{
+    margin-right: 5px;
+    height: 100%;
+    width: 40px;
+    background-color: transparent;
+    background-image: url(../IMG/쪽지함.png);  
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#mypage-btn{
+    margin-left: 5px;
+    height: 100%;
+    width: 40px;
+    background-color: transparent;
+    background-image: url(../IMG/마이페이지.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}

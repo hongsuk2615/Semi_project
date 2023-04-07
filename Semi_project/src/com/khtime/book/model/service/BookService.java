@@ -1,42 +1,67 @@
 package com.khtime.book.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
-import com.khtime.board.model.dao.BoardDao;
 import com.khtime.book.model.dao.BookDao;
 import com.khtime.book.model.vo.Book;
 import com.khtime.book.model.vo.BookAttachment;
+import com.khtime.common.model.vo.PageInfo;
+
 import static com.khtime.common.JDBCTemplate.*;
 
 public class BookService {
 	
-	public int insertBook(Book book , BookAttachment bat) {
-		
+	public int insertThumbnailBook(Book book, ArrayList<BookAttachment> bList) {
 		Connection conn = getConnection();
 		
-		int result1 = new BookDao().insertBook(conn , book);
-		
-		int result2 = 1;
-		
-		if(bat != null) {
-			
-			result2 = new BoardDao().insertAttachment(conn, bat);
-			
-		}
-		
-		if(result1 > 0 && result2 > 0 ) {
-			// 첨부파일이 없는 경우 insert가 성공했을 때 도 result2는 여전히 0이기 때문에 rollback처리가 될 수 있음.
-			// 따라서 애초에 result2의 값을 1로 초기화 시켜줘야 한다.
+		int result1 = new BookDao().insertThumbnailBook(conn, book);
+		System.out.println(result1);
+		int result2 = new BookDao().insertAttachmentList(conn, bList);
+		System.out.println(result2);
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
-			
 		} else {
 			rollback(conn);
 		}
-				
+		
 		close(conn);
 		
-		return result1*result2;
+		return result1 * result2;
+	}
+	
+	public ArrayList<Book> selectThumbnailList(PageInfo pi) {
 		
+		Connection conn = getConnection();
+		
+		ArrayList<Book> bList = new BookDao().selectThumbnailList(conn , pi);
+		
+		close(conn);
+		
+		return bList;
+		
+	}
+	
+	public Book selectBook(int bkno) {
+		
+		Connection conn = getConnection();
+		
+		Book book = new BookDao().selectBook(conn , bkno);
+		
+		close(conn);
+		
+		return book;
+	}
+	
+	public ArrayList<BookAttachment> selectThumbnail(int bkno) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<BookAttachment> bList = new BookDao().selectThumbnail(conn, bkno);
+		
+		close(conn);
+		
+		return bList;
 	}
 	
 }

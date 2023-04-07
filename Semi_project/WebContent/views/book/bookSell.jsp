@@ -10,6 +10,8 @@
 	String author = (String)request.getParameter("author");
 	String publisher = (String)request.getParameter("publisher");
 	System.out.println(book);
+	
+	String contextPath = request.getContextPath();
 
 %>
 <!DOCTYPE html>
@@ -40,19 +42,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <div id="book-header">
-            <div id="book-header-content">
-                <div id="home-logo">
-                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
-                </div>
-                <div id="book-logo">
-                    <img src="resources/IMG/book.png" alt="" style="height: 120px; width: 160px;">중고 책방
-                </div>
-                <div id="book-header-right">
-                    로그인 된 회원 정보
-                </div>
-            </div>
-        </div>
+    <%@ include file="/views/common/book_header.jsp" %>
         <div id="book-navbar">
             <div id="book-btn">
                 <button id="book-home-btn">
@@ -62,7 +52,7 @@
         </div>
 
         <div id="book-body">
-            <form action="" id="" enctype="multipart/form-data">
+            <form action="<%= contextPath %>/bookinsert.do" id="enroll-form" method="post" enctype="multipart/form-data">
                 <div id="book-sell">
                     <div id="book-sell-header">
                         <img src="resources/IMG/glass.png" id="glass">
@@ -87,7 +77,7 @@
     					<p>출판사 : <%= request.getParameter("publisher") %></p>
      					<input type="hidden" value="<%= request.getParameter("publisher") %>" name="publisher">
     					<p>출간일 : <%= request.getAttribute("datetime") %></p>
-    					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="datetime">
+    					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="publicationDate">
     				</div>
     				<div id="book-next1">
                         <button type="button" id="next1">다음</button>
@@ -98,7 +88,7 @@
     			
                 <div id="book-price">
                     <div id="book-price-input">
-                        <input type="text" id="price" placeholder="가격을 입력하세요.">
+                        <input type="number" id="price" name="price" placeholder="가격을 입력하세요.">
                         <div id="book-next2">
                             <button type="button" id="next2">다음</button>
                         </div>
@@ -110,21 +100,28 @@
                 <div id="book-status">
                     <div id="book-status-check">
                         <h1>책 상태</h1>
-                        <p>밑줄 흔적 : <input type="radio" name="use">있음 /<input type="radio" name="use">없음   &nbsp;
+                        <input type="radio" name="condition" value="3" checked> 상
+                        <input type="radio" name="condition" value="2"> 중
+                        <input type="radio" name="condition" value="1"> 하
+                        <h1>필기흔적</h1>
+                        <input type="radio" name="isNoted" value="Y" checked> 있음
+                        <input type="radio" name="isNoted" value="N"> 없음
+                    <!--     <p>밑줄 흔적 : <input type="radio" name="use" value="Y">있음 /<input type="radio" name="use" value="N">없음   &nbsp;
                                       <input type="radio" name="pencil">연필 /<input type="radio" name="pencil">샤프   &nbsp; 
                                       <input type="radio" name="pen">볼펜 /<input type="radio" name="pen">형광펜</p> <hr>
                         <p>필기 흔적 : <input type="radio" name="use2">있음 /<input type="radio" name="use2">없음   &nbsp;
                                       <input type="radio" name="pencil2">연필 /<input type="radio" name="pencil2">샤프   &nbsp; 
                                       <input type="radio" name="pen2">볼펜 /<input type="radio" name="pen2">형광펜</p> <hr>
                         <p>겉 표지 :  <input type="radio" name="clean">깨끗함 /<input type="radio" name="clean">사용감</p> <hr>
-                        <p>이름 기입 : <input type="radio" name="name">있음 /<input type="radio" name="name">없음</p>
+                        <p>이름 기입 : <input type="radio" name="name">있음 /<input type="radio" name="name">없음</p> -->
                     </div>
                 </div>
     
                 <hr>
     
                 <div id="book-img-upload">
-                    <input type="file" name="upfiles" multiple max='2' >
+                    <input type="file" name="upfiles1">
+                    <input type="file" name="upfiles2">
                     <div id="book-next3">
                         <button type="button" id="next3">다음</button>
                     </div>
@@ -135,16 +132,19 @@
                 <div id="book-trade">
                     <div>
                         <h1>거래 방법</h1>
-                        <p>택배 : <input type="radio" name="delivery">가능 /<input type="radio" name="delivery">불가능</p>
-                        <p>직거래 : <input type="radio" name="meet">가능 /<input type="radio" name="meet">불가능</p>
-                        <p>지역 : <input type="text" name="direct"></p>
+                        <input type="radio" name="isDirect" value="Y"> 직거래
+                        <input type="radio" name="isDirect" value="N"> 택배
+                        <input type="radio" name="isDirect" value="B"> 둘다
+                        <!-- <p>택배 : <input type="radio" name="delivery">가능 /<input type="radio" name="delivery">불가능</p>
+                        <p>직거래 : <input type="radio" name="meet">가능 /<input type="radio" name="meet">불가능</p>-->
+                        <p>지역 : <input type="text" name="location"></p> 
                     </div>
                 </div>
     
                 <hr>
     
                 <div id="book-board-upload">
-                    <button type="button" id="upload">게시하기</button>
+                    <button type="submit" id="upload">게시하기</button>
                 </div>
             </form>
         </div>
@@ -192,9 +192,12 @@
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
    		 })
    		 
-   		 document.getElementById("upload").addEventListener("click",function(){
-   			 alert("판매글 등록에 성공했습니다!");
-        	location.href = "<%= request.getContextPath() %>/bookstore.do?bookname="+document.getElementById("book-name-search").value;
+   		<%--  document.getElementById("upload").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookinsert.do?bookname="+document.getElementById("book-name-search").value;
+   		 }) --%>
+   		 
+   		 document.getElementById("book-home-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
     </script>
     
