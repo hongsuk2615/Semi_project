@@ -3,29 +3,73 @@
 <properties>
 
 	
-	<entry key="insertBook">
+	<entry key="insertThumbnailBook">
 		INSERT INTO BOOK (BOOK_NO , 
 						  SELLER , 
 						  BOOK_NAME , 
 						  PRICE , 
 						  AUTHOR , 
 						  PUBLISHER , 
-						  IS_NOTIED , 
+						  IS_NOTED , 
 						  CONDITION , 
 						  IS_DIRECT , 
-						  LOCATION)
+						  LOCATION ,
+						  PUBLICATION_DATE,
+						  API_IMG)
 				  VALUES (SEQ_BKNO.NEXTVAL,
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ? , 
-				  		   ?)
+				  		  ?,
+				  		  ?, 
+				  		  ?,
+				  		  ?, 
+				  		  ?,
+				  		  ?,
+				  		  ?,
+				  		  ?,
+				  		  ?,
+				  		  ?,
+				  		  ?)
 	</entry>
 	
+	<entry key="insertAttachmentList">
+		INSERT INTO BOOK_ATTACHMENT(FILE_NO ,
+			 					   BOOK_NO , 
+			 					   ORIGIN_NAME , 
+			 					   CHANGE_NAME , 
+			 					   FILE_PATH , 
+			 					   FILE_LEVEL)
+		VALUES (SEQ_BKFNO.NEXTVAL , SEQ_BKNO.CURRVAL , ? , ? , ? , ?)
+	</entry>
 	
+	<entry key="selectThumbnailList">
+		SELECT *    
+      FROM(
+            SELECT ROWNUM RNUM , A.*
+            FROM (
+               SELECT BOOK_NO ,
+			   BOOK_NAME ,
+			   PRICE ,
+			   FILE_PATH || CHANGE_NAME AS TITLEIMG
+			FROM BOOK B
+			LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
+			WHERE B.STATUS = 'Y'
+			AND FILE_LEVEL = 1
+            ) A
+         )
+      WHERE RNUM BETWEEN ? AND ?
+	</entry>
 	
+	<entry key="selectBook">
+		SELECT *
+		FROM BOOK
+		WHERE BOOK_NO = ? 
+	</entry>
+	
+	<entry key="selectThumbnail">
+		SELECT ORIGIN_NAME ,
+			   CHANGE_NAME ,
+			   FILE_PATH
+		FROM BOOK_ATTACHMENT
+		WHERE BOOK_NO = ?
+		AND STATUS = 'Y'
+	</entry>
 </properties>

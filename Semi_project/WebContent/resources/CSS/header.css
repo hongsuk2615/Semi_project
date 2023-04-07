@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "semi_font";
+    src: url("../Fonts/SB\ 어그로\ L.ttf") format("truetype");
+    font-weight: normal;
+  }
+* {
+    font-family: 'semi_font';
+}
 #header {
     height: 120px;
     width: 100%;
@@ -20,6 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
+    font-size: 20px;
 }
 #navbar > div {
     padding: 20px 0px;
@@ -73,9 +82,11 @@
 #home-logo {
     height: 100%;
     width: 120px;
+    cursor: pointer;
 }
 
 #home-logo>img {
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
