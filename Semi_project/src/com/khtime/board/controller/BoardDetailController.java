@@ -44,7 +44,6 @@ public class BoardDetailController extends HttpServlet {
 		
 		int cNo = Integer.valueOf(request.getParameter("cNo"));
 		
-		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
 		currentPage = Integer
@@ -55,10 +54,8 @@ public class BoardDetailController extends HttpServlet {
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);
 		
-		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("cNo", cNo);
 		request.setAttribute("cName", cName);
-		request.setAttribute("pi", pi);
 		request.setAttribute("boardList", boardList);
 		
 		request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
@@ -74,7 +71,6 @@ public class BoardDetailController extends HttpServlet {
 		
 		int cNo = Integer.valueOf(request.getParameter("cNo"));
 		
-		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
 		currentPage = Integer
@@ -85,11 +81,6 @@ public class BoardDetailController extends HttpServlet {
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);
 		
-		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("cNo", cNo);
-		request.setAttribute("cName", cName);
-		request.setAttribute("pi", pi);
-		request.setAttribute("boardList", boardList);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(boardList , response.getWriter());

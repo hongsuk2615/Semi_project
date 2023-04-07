@@ -117,10 +117,10 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	public int deleteContent(int bNo, int userNo,int authority, int aC) {
+	public int deleteContent(int bNo, int userNo,int authority, int aC, String isQuestion) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result1 = new BoardDao().deleteContent(conn, bNo,authority, userNo);
+		int result1 = new BoardDao().deleteContent(conn, bNo,authority, userNo, isQuestion);
 		int result2 = 1;
 		
 		if(aC > 0) {

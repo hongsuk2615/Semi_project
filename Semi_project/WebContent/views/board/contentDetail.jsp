@@ -85,7 +85,7 @@
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
                                         		 if(confirm("정말 삭제하시겠습니까?")){ 
-                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>";
+                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
                                         		 }
                                      	    })
                                         			

@@ -415,7 +415,7 @@ public class BoardDao {
 		}
 	   
 	   
-	   public int deleteContent(Connection conn, int bNo,int authority, int userNo) {
+	   public int deleteContent(Connection conn, int bNo,int authority, int userNo, String isQuestion) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -427,8 +427,10 @@ public class BoardDao {
 				
 				pstmt.setInt(1, bNo);
 				pstmt.setInt(2, userNo);
-				pstmt.setInt(3, bNo);
+				pstmt.setString(3, isQuestion);
 				pstmt.setInt(4, authority);
+				pstmt.setInt(5, userNo);
+				pstmt.setInt(6, bNo);
 				result = pstmt.executeUpdate();
 
 			} catch (SQLException e) {

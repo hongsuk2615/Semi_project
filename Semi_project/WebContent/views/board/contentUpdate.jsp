@@ -5,6 +5,8 @@
 	Board b =(Board) request.getAttribute("b"); 
 	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	String cName = (String) request.getAttribute("cName");
+	String isQuestion = b.getIsQuestion().equals("Y") ? "checked" : "" ;
+	String isAnonimous = b.getIsAnonimous().equals("Y") ? "checked" : "" ;
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -78,17 +80,9 @@
 										</div>
 										</div>
                							<div>
-               							<% if(b.getIsQuestion().equals("Y")){ %>
-               							<div><input type="checkbox" checked="checked" id="isQuestion" name="isQuestion" value="Y">질문</div>
-               							<% }else{ %>
-               							<div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
-               							<% } %>
-               							<% if(b.getIsAnonimous().equals("Y")){ %>
-						                    <div><input type="checkbox" id="isAnonimous" checked="checked" name="isAnonimous" value="Y">익명</div>
-				                    	<% }else{ %>
-						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-						                    <% } %>
-						                    <div><button type="button" id="update-content-btn" onclick="updateContent()">수정하기</button></div>
+               							<div><input type="checkbox" <%= isQuestion %> id="isQuestion" name="isQuestion" value="Y">질문</div>
+						                <div><input type="checkbox" id="isAnonimous" <%= isAnonimous %> name="isAnonimous" value="Y">익명</div>
+						                <div><button type="button" id="update-content-btn" onclick="updateContent()">수정하기</button></div>
 						                </div>
 						            </div>
 					           	</form>
@@ -115,7 +109,7 @@
         </div>
     </div>
          <script>
-         
+         // 글 수정 버튼 이벤트
         let fNo = "";
         let fileArr = new Array();
         const files = $('#upfile')[0].files;
@@ -136,7 +130,7 @@
         		originLength--;
         	}
         }
-        
+    
 		function updateContent(){
 			
 			let formData = new FormData();
@@ -183,7 +177,7 @@
 			
 		}
 	
-	
+		// 파일 추가
 	$("#upfile").change(function(e){
 		
 	    fileArray.unshift(e.target.files[0]);
@@ -199,30 +193,15 @@
 		$("#upfile").val("");
 	});
 	
-	
+	// 수정 중 다른 페이지로 나갈 때 alert
 	$(window).on("beforeunload", callback);
-	$(window).on("unload", erase);
-	
-	function erase(){
-	    $("#title").val("<%= b.getTitle()%>");
-		$("#content").val("");
-		$("#upfile").val("");
-		$("#isQuestion").val("");
-		$("#isAnonimous").val("");
-	    return "changes will be lost!";
-	}
-	// 원래 형태로 바꿔주기 -> 뒤로가기했을 때
 	function callback(){
-	    console.log("beforeunload callback !");
 	    return "changes will be lost!";
 	}
-	 
 	function off(){
-	    console.log("beforeunload turn off !");
 	    $(window).off("beforeunload");
 	}
-	
-	document.querySelector('#update-content-btn').addEventListner('click', () => off());
+	document.querySelector('#update-content-btn').addEventListener('click', () => off());
 	  
 
 	</script>

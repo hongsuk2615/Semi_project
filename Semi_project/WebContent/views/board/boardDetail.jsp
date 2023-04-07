@@ -4,10 +4,8 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
-	int currentPage = (int)request.getAttribute("currentPage");
 %>    
 	   
 <!DOCTYPE html>
@@ -256,14 +254,7 @@
                             
                             
                     </div>
-                    <div id="board-detail-search">
-                       
-                        <div>검색창</div>
-                        <div id="board-detail-search-pagebtn">
-                        
-		
-                        </div>
-                    </div>
+                   
                     </div>
     
                 </div>
@@ -279,7 +270,35 @@
 
         </div>
     </div>
+   <script>
+	// 수정 중 다른 페이지로 나갈 때 alert
+	document.querySelector('#title').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+		
+	});
+	
+	document.querySelector('#content').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+	});
+	
+	function callback(){
+	    return "changes will be lost!";
+	}
+		function off(){
+		    $(window).off("beforeunload");
+		}
+		document.querySelector('#create-content-btn').addEventListener('click',off);
+		  
    
+   </script>
 
 
 
