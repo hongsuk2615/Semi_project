@@ -12,28 +12,13 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
+    <link rel="stylesheet" href="resources/CSS/base.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
     * {
          /* border: 1px solid rgba(128, 128, 128, 0.568);  */
-    }
-
-    div {
-        display: inline-block;
-        box-sizing: border-box;
-    }
-	
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    #wrapper {
-        width: 100%;
-        min-width: 1180px;
-        background-color: #f1f4f9;
     }
 </style>
 
@@ -43,8 +28,10 @@
         <%@ include file="header.jsp" %>
         
         <div id="body">
-            <div id="main-banner">
+            <div id = "banner-wrapper">
+                <div id="main-banner">
 
+                </div>
             </div>
             <div id="body-wrapper">
                 <div id="body-left">

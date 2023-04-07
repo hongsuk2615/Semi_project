@@ -7,10 +7,13 @@
     width: 300px;
     margin: 10px;
     border-radius: 15px;
+    height: 800px;
 }
 
 #content2{
     margin: 10px;
+    width: 650px;
+    height: 800px;
 }
 
 #messagecheck{
@@ -23,7 +26,7 @@
     overflow-x: hidden;
 }
 
-#messagecheck2{
+.messagecheck2{
     width: 100%;
     overflow: scroll;
     width: 100%;
@@ -36,10 +39,10 @@
     display: flex;
     justify-content: space-between;
     border-radius: 5px;
-    border : 1px solid lightgray;
+    border-top : 1px solid lightgray;
 }
 
-#messagesend{
+.messagesend{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -47,20 +50,28 @@
     border: 1px solid lightgray;
 }
 
-#newfix{
+.newfix{
     display: flex;
     align-items: center;
 }
 
-#sentmessage{
+.sentmessage{
     display: flex;
     justify-content: space-between;
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
-    
+    border-top: 1px solid lightgray;
+    color:rgb(17, 225, 69)
 }
 
+.receivemessage{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 5px;
+    border-top: 1px solid lightgray;
+    color:rgb(231, 207, 31)
+}
 #messagebox3{
     width: 100%;
     border-radius: 5px;
@@ -70,11 +81,25 @@
 #text{
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-top: 20px;
 }
 
-#text2{
+.receivetext{
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin-top: 10px;
+    color:rgb(231, 207, 31)
+}
+
+.sendtext{
+    width: 100%;
+    border-radius: 5px;
+    border-bottom: 1px solid lightgray;
+    margin-top: 10px;
+    color:rgb(17, 225, 69);
+}
+.opponents {
+	width : 100%;
 }

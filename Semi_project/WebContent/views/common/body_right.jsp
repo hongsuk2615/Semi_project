@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<% String userId = (String)request.getAttribute("userId") == null ? "" : (String)request.getAttribute("userId"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
+     <link rel="stylesheet" href="resources/CSS/base.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset = "UTF-8"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -29,7 +30,7 @@
             <form >
                 <div id="id-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/idimg.png" alt="idimg" width="40" height="40">
-                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요">
+                    <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력하세요" value="<%=userId%>">
                 </div>
                 <div id="pwd-wrapper">
                     <img src="<%=request.getContextPath()%>/resources/IMG/pwdimg.png" alt="pwdimg" width="40" height="40">
@@ -40,6 +41,11 @@
                     <input type="button" onclick="login()" value="로그인">
 
                     <input type="button" value="회원가입">
+                     <% if(userId.isEmpty()) { %>
+			           <input type="checkbox" id="keepId">로그인 유지
+			         <% }else{ %>
+			           <input type="checkbox" id="keepId" checked="checked">로그인 유지
+			         <% } %>
                 </div>
             </form>
             <% } else { %>
@@ -228,7 +234,7 @@
         		},
         		complete : function(){
         			close1();
-                    close();
+        			getDday();
         		}
         		
         	});
@@ -238,17 +244,13 @@
         
         
         
-        
-        
-        
-        
-        
-        
-        
         <script>
         function makeEvent(){
+        	$("#dDayTitle").val("");
+        	$("#datepicker").val("");
         	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
 	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
+	        
         } 
         
         
@@ -287,20 +289,32 @@
                     	$(Dday).each(function(index,item){
                     		let dDaySplit = item.dDay.replace('월',',').split(',');
                     		let dDay = dDaySplit[2]+'/'+dDaySplit[0] + '/' +dDaySplit[1];
-               
-                    		$('#dDayList').append(`
-                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
-            						<div>
-            							<p class="titleText">\${item.title}</p>
-            							<p class="dateText">\${item.dDay}</p>
-            						</div>
-            						<div>
-            							<p class="ddayText">D-\${Math.floor((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
-            						</div>
-            					</div><br>`);
+               				if(Math.ceil((new Date(dDay)-new Date())/1000/60/60/24) > 0){
+	                    		$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+	            						</div>
+	            					</div><br>`);
+               				}else {
+               					$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">종료</p>
+	            						</div>
+	            					</div><br>`);
+               				}
                     		
                     		$('#ddayBox'+index).click(updateDday(item.dDayNo));
-            					
+                    		
                     	})
                     	
                     	
@@ -311,6 +325,7 @@
     		})
     		
     	}
+    	
     
     </script>
     
@@ -342,6 +357,9 @@
     		complete : function(){
     			close2();
     			getDday();
+    			$("#changeTitle").val("");
+            	$("#datepicker1").val("");
+    			
     		}
     		
     	});
@@ -436,6 +454,7 @@
             const close1 = () => {
                 console.log('cdlose')
                 document.querySelector(".modal1").classList.add("hidden");
+                
             }
             document.querySelector(".openBtn1").addEventListener("click", open1);
             document.querySelector(".closeBtn1").addEventListener("click", close1);
@@ -629,14 +648,17 @@
 				type : "post",
 				data :{
 					loginId :  $("#loginId").val(),
-					loginPwd :  $("#loginPwd").val()
+					loginPwd :  $("#loginPwd").val(),
+					keepId : $("#keepId").prop('checked') ? 'Y' : 'N',
+					userId : "<%=userId%>"
 				}, 
-				success : function(r){
-					console.log(r);
-					switch(r){
-					case '-1' : location.href="<%= request.getContextPath()%>/login.me"; alert("아이디나 비번이 맞지 않습니다!"); break;
-					case '0' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+				success : function(result){
+					switch(result){
+					case '0' : alert("아이디나 비번이 맞지 않습니다!"); location.href="<%= request.getContextPath()%>/login.me"; break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
+					case '2' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '3' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					case '4' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
@@ -656,6 +678,21 @@
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
         </script>
+        <script> //애니메이션 테스트
+        $(window).scroll(function(){
+          console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
 
+            if($(window).scrollTop() > 290 && $('#main-banner').length > 0 ){
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
+            }else if($(window).scrollTop() > 57 && $('#main-banner').length == 0 ){
+                $('#body-right').css('transform','translateY('+($(window).scrollTop()-45)+'px)');
+            }
+      
+        })
+      
+
+
+
+        </script>
 </body>
 </html>

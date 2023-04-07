@@ -5,14 +5,12 @@
 
 #board-detail {
     width: 100%;
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
 }
 
 #board-detail >*{
     width: 100%;
-    border: 1px solid black;
     min-height : 40px;
 	vertical-align : middle;
 	padding: 10px;
@@ -22,12 +20,12 @@
 #board-detail li {
     
     list-style-type: none;
-    border-top: 1px solid black;
     
 }
 
 #board-detail li {
     list-style-type: none;
+    
    
 }
 
@@ -46,10 +44,62 @@
 
 #createContent > div, #createContent {
     width: 100%;
-    border: 1px solid black;
 }
 
 #createContent-check {
     display: flex;
     justify-content: space-between;
+}
+#content-area >li {
+    background: rgb(255, 255, 255);
+    border-radius: 0px 0px 5px 5px; 
+    margin-top: 2px;
+    border: 1px solid skyblue;
+}
+
+#category {
+    border: 1px solid skyblue;
+    border-radius: 10px;
+    background: skyblue;
+    color : white;
+}
+
+#createContent{
+    background: rgb(255, 255, 255);
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid skyblue;
+    margin-top: 2px;
+    
+}
+#createContent div{
+    width: 100%;
+}
+body * {
+    color :rgb(107, 110, 153);
+}
+
+#title, #content{
+    width: 100%;
+    border: 1px solid skyblue;
+    border-radius: 3px;
+    border-color: rgb(158, 152, 152);
+    outline-color: skyblue;
+    outline-width: 1.5px;
+}
+#title{
+    height: 25px;
+    margin-bottom: 5px;
+}
+#content{
+    height: 200px;
+    resize: none;
+}
+#btns{
+    display: flex;
+    width: 250px;
+    justify-content: end;
+}
+#btns>div{
+    width: auto;
+    margin-left: 5px;
 }

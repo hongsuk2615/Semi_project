@@ -9,6 +9,7 @@
 	int cNo = (int) request.getAttribute("cNo");
 	int currentPage = (int)request.getAttribute("currentPage");
 %>    
+	   
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,15 +54,19 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
+                            <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
                             <div id="createContent">
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"></textarea></div>
+      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용" ></textarea></div>
            							<div id="createContent-check">
-                						<div>첨부파일<input type="file" id="upfile" name="upfile" multiple></div>
-               							<div>
+
+    
+
+                						<div>첨부파일<input type="file" id="upfile" name="upfile"></div>
+
+               							<div id="btns">
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
 						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
 						                    <div><button type="button" id="create-content-btn" onclick="createContent()">글 작성</button></div>
@@ -69,18 +74,32 @@
 						            </div>
 					           	</form>
                             <script>
+                            //
+        let fileArr = new Array();
+        const files = $('#upfile')[0].files;
+        const dataTransfer = new DataTransfer();
+        let fileArray = Array.from(files);
+        let count = 0;
+        
+        function hiddenImg(e){
+        	$(e).css('display', 'none');
+        	fileArray.splice(e.id.substr(6), 1);
+        }
+        
 		function createContent(){
-			
 			let formData = new FormData();
 			
-			if($("#upfile")[0].files.length < 5){
+			if(fileArray.length < 6){
+				fileArray.forEach(file => { dataTransfer.items.add(file); });
+				$('#upfile')[0].files = dataTransfer.files;
+				
 				formData.append("cNo", <%= request.getAttribute("cNo")%>);
 				formData.append("title", $("#title").val());
-				formData.append("content", $("#content").val().replace(/(\n|\r\n)/g, '<br>'));
-				formData.append("isQuestion", $("#isQuestion").val());
-				formData.append("isAnonimous", $("#isAnonimous").val());
-				
-			$.each( $("#upfile")[0].files , function(index , file){
+				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
+				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
+					
+			$.each( $('#upfile')[0].files , function(index , file){
 				formData.append("upfile"+index , file);
 			});
 			
@@ -92,10 +111,8 @@
 				processData : false,
 				contentType : false,
 				success : function(data){
-					console.log(data);
-					
 					if(data > 0) {
-						alert("업로드성공");
+						alert("작성성공");
 						selectBoardList();
 						$("#title").val("");
 						$("#content").val("");
@@ -103,20 +120,37 @@
 						$("#isQuestion").val("");
 						$("#isAnonimous").val("");
 						}
-					if(data == 0) alert("업로드실패");
-					if(data < 0) alert("전송방식 잘못됨");
-					$("#upfile").val("");
+						location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>';
 						
+					if(data == 0) alert("작성실패");
+					if(data < 0) alert("전송방식 잘못됨");
 					}
-				
 			});
-			}else{
+			 }else{ 
 				alert("첨부파일 개수 초과");
 				$("#upfile").val("");
-			}
+			 } 
 			
 		}
+	
+	
+	$("#upfile").change(function(e){
 		
+	    fileArray.push(e.target.files[0]);
+	    
+		let reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		
+		reader.onload = function(e){
+		let url = e.target.result;
+		$("#createContent-check").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
+		$('#newImg'+count).attr("src",url);
+		count++;
+		}
+		$("#upfile").val("");
+	});
+
+                            //
 
 		function selectBoardList(){
 			let replycount = 0;

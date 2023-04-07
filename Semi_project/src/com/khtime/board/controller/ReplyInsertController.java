@@ -35,7 +35,7 @@ public class ReplyInsertController extends HttpServlet {
 		String content = request.getParameter("content");
 		System.out.println("content: "+content);
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		String isAnonimous = request.getParameter("isAnonimous")=="Y" ? "Y":"N";
+		String isAnonimous = request.getParameter("isAnonimous").equals("Y") ? "Y":"N";
 		
 		Reply r = new Reply();
 		r.setContent(content);

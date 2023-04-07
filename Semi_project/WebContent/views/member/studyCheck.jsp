@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/studyCheck.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -23,8 +24,31 @@
 </style>
 
 <body>
-    <div id="wrapper">
+    
             <%@ include file="../common/header.jsp" %>
+
+
+      <div id="wrapper">
+        <div id="header">
+            <div id="header-content">
+                <div id="home-logo">
+                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
+                </div>
+                <div id="navbar">
+                    <div>게시판</div>
+                    <div>친구목록</div>
+                    <div>중고책방</div>
+                    <div>To Do List</div>
+                    <div>관리</div>
+                </div>
+                <div id="header-right">
+                    <button id="login-btn">로그인</button>
+                    <button id="enrollment-btn">회원가입</button>
+                </div>
+            </div>
+
+
+        </div>
 
 
         <div id="body">
@@ -38,7 +62,9 @@
                         </div>
                         <div class="timeBox">
                             <div class="title">공부 시간</div>
-                            <div class="timeText">00 : 00 : 00</div>
+                            <div id='timerBox' class="timerBox">
+                                <div id="time" class="time">00:00:00</div>
+                            </div>
                         </div>
                         <div class="timeBox">
                             <div class="title">전체 공부 시간</div>
@@ -46,9 +72,9 @@
                         </div>
                     </div>
                     <div class="buttonWrapper">
-                        <button class="openBtn">시작</button>
-                        <button>중단</button>
-                        <button>종료</button>
+                        <button class="btn-progress" id="startbtn" class="fa fa-play" aria-hidden="true">시작</button>
+                        <button id="pausebtn" class="fa fa-pause" aria-hidden="true">중단</button>
+                        <button class="btn-initiate" id="stopbtn" class="fa fa-stop" aria-hidden="true">종료</button>
                     </div>
                 </div>
             </div>
@@ -56,7 +82,7 @@
                 <div class="historyContainer">
                     <div class="timearea">
                         <div>목표 공부시간을 설정해보세요.</div>
-                        <button>설정</button>
+                        <button id="tdl-btn-add">설정</button>
                     </div>
                     <div class="myHistory">
                         <div class="historyTitleText">나의 공부 기록</div>
@@ -80,7 +106,12 @@
                                     <td>1</td>
                                     <td>07 : 00 : 00</td>
                                     <td>04 : 42 : 13</td>
-                                    <td>65%</td>
+                                    <td>
+                                        <div class="progress-bar">
+                                             <!-- <div class="progress-bar__bar"></div>  -->
+                                            
+                                        </div>  
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -110,55 +141,200 @@
 
 
         </div>
-
-
-        <div id="footer">
-
-
-
-        </div>
+        
     </div>
-
-
-    <div class="modal hidden">
-        <div class="bg"></div>
-        <div class="modalBox">
-            <div class="header">
-                <h2>공부 시작</h2>
+    
+    
+   <!--  <div class="modal hidden">
+            <div class="bg"></div>
+            <div class="modalBox">
+				<button class="closeBtn">X</button>
+				<div class="header">
+					<p>디데이 설정</p>
+				</div>
+				<div class="body">
+                    
+					<div class="openBtn2" id="ddayBox">
+						<div>
+							<p class="titleText">디데이 예시</p>
+							<p class="dateText">2023.09.09(일)</p>
+						</div>
+						<div>
+							<p class="ddayText">D-100</p>
+						</div>
+					</div>
+                
+				</div>
+				<div class="fotter">
+					<div class="openBtn1" id="blueBtn">
+						+ 추가
+					</div>
+					
+				</div>
             </div>
-            <div class="addDdayBody">
-                <div class="inputBox">
-                    <h4>공부를 시작하시겠습니까?</h4>
-                    <div id="fullBlueBtn">
-                        <button id="startBtn">확인</button>
-                        <button class="closeBtn" id="cancelltBtn">취소</button>
+        </div> -->
+    
+    <div id="tdl-modal">
+                    <div id="modal-wrapper">
+                        <div id="modal-head">
+                            목표 설정
+                        </div>
+                        <div id="modal-body">
+                            
+                            <div id="modal-tdl-content">
+                                <div id="modal-tdl-text">
+                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                </div>
+                                <div id="modal-tdl-text">
+                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                </div>
+                            </div>                            
+                        </div>
+                        <div id="modal-footer">
+                            <button type="button" id="cancel-btn">취소</button>
+                            <button type="button" id="add-btn">추가</button>
+                            
+                            
+                        </div>
                     </div>
+
                 </div>
-            </div>
-            
-        </div>
-    </div>
+    
+    <script>
+        document.getElementById('tdl-btn-add').addEventListener('click',function(){
+            document.getElementById('tdl-modal').style.visibility = 'visible';
+        })
+        document.getElementById('cancel-btn').addEventListener('click',function(){
+            document.getElementById('tdl-modal').style.visibility = 'hidden';
+        })
+    </script>  
+        
+    
 
 
-
+	<!-- <script>
+	const open = () => {
+        document.querySelector(".modal").classList.remove("hidden");
+    }
+    const close = () => {
+		console.log('cdlose')
+        document.querySelector(".modal").classList.add("hidden");
+    }
+    document.querySelector(".openBtn").addEventListener("click", open); 
+    document.querySelector(".closeBtn").addEventListener("click", close); 
+    document.querySelector(".bg").addEventListener("click", close);
+        </script> -->
 
 
     
     <script>
-        const open = () => {
-            document.querySelector(".modal").classList.remove("hidden");
+        var time = 0;
+        var starFlag = true;
+        $(document).ready(function(){
+        buttonEvt();
+        });
+
+        function init(){
+        document.getElementById("time").innerHTML = "00:00:00";
         }
-        const close = () => {
-            console.log('cdlose')
-            document.querySelector(".modal").classList.add("hidden");
+
+        function buttonEvt(){
+        var hour = 0;
+        var min = 0;
+        var sec = 0;
+        var timer;
+
+        // start btn
+        $("#startbtn").click(function(){
+
+            if(starFlag){
+            $(".fa").css("color","#FAED7D")
+            this.style.color = "#4C4C4C";
+            starFlag = false;
+
+            if(time == 0){
+                init();
+            }
+            let purposetime = 60;
+            let basetime = 10;
+            timer = setInterval(function(){
+                time++;
+                basetime++;
+                // let ratio = basetime/purposetime*100;
+                // console.log(ratio);
+                // document.getElementsByClassName("progress-bar")[0].style.width = ratio + "%";
+
+                
+                min = Math.floor(time/60);
+                hour = Math.floor(min/60);
+                sec = time%60;
+                min = min%60;
+
+                var th = hour;
+                var tm = min;
+                var ts = sec;
+                if(th<10){
+                th = "0" + hour;
+                }
+                if(tm < 10){
+                tm = "0" + min;
+                }
+                if(ts < 10){
+                ts = "0" + sec;
+                }
+
+                document.getElementById("time").innerHTML = th + ":" + tm + ":" + ts;
+            }, 1000);
+            }
+        });
+
+        // pause btn
+        $("#pausebtn").click(function(){
+            if(time != 0){
+            $(".fa").css("color","#FAED7D")
+            this.style.color = "#4C4C4C";
+            clearInterval(timer);
+            starFlag = true;
+            }
+        });
+
+        // stop btn
+        $("#stopbtn").click(function(){
+            if(time != 0){
+            $(".fa").css("color","#FAED7D")
+            this.style.color = "#4C4C4C";
+            clearInterval(timer);
+            starFlag = true;
+            time = 0;
+            init();
+            }
+        });
         }
-        document.querySelector(".openBtn").addEventListener("click", open); 
-        document.querySelector(".closeBtn").addEventListener("click", close); 
-        document.querySelector(".bg").addEventListener("click", close); 
 
     </script>
 
+    <script>
+        // $("#startbtn").click(function(){
+        //     $("progress-bar").addClass(".")
 
+
+        // })
+       
+
+
+    </script>
+
+	<!-- <script>
+        const btnProgressElem = document.querySelector('.btn-progress');
+        const btnInitiateElem = document.querySelector('.btn-initiate');
+        const progressBarElem = document.querySelector('.progress-bar__bar');
+        btnProgressElem.addEventListener('click', () => {
+            progressBarElem.classList.add('active');
+        })
+        btnInitiateElem.addEventListener('click', () => {
+            progressBarElem.classList.remove('active');
+        })
+    </script> -->
 
 
 </body>

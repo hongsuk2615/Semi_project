@@ -50,7 +50,7 @@ public class MemberUpdateNickNameController extends HttpServlet {
 		
 		if(m == null) {
 			session.setAttribute("alertMsg", "닉네임변경 성공");
-					s
+					
 		}else {		
 			session.setAttribute("alertMsg", "닉네임변경 실패");
 			session.setAttribute("loginUser", m); 

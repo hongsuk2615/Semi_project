@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
+    <link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
@@ -89,24 +90,26 @@
                                      	    })
                                         	</script>
                                         <% }else{ %>
-                                        쪽지 신고
+                                        	<button id="msgBoard">쪽지</button>
+                                        	<button id="reportBoard">신고</button>
 										<% } %>                                        
                                     </div>
                                 </div>
                                 <div>
-                                    <%= b.getTitle() %>
+                                    글 번호:<%= b.getBoardNo()%> , <%= b.getTitle() %>
                                 </div>
                                 <div>
                                    <%= b.getContent() %>
                                 </div>
                                 <div>
                                         <% for(BoardAttachment at : attachmentList){ %>
+                                        		파일 번호: <%= at.getFileNo() %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
 										<% } %></div>
                                 <div>
-                                    <div><%= b.getRecommendCount() %></div>
+                                    <div id="recommenddiv"><%= b.getRecommendCount() %></div>
                                     <div id="replydiv"><%= b.getReplyCount() %></div>
-                                    <div><%= b.getScrapCount() %></div>
+                                    <div id="scrapdiv"><%= b.getScrapCount() %></div>
                                 </div>
                                 <div>
                                     <button id="recommendbtn">공감</button>
@@ -138,7 +141,8 @@
 				                     <br>
 				                     <%= r.getEnrollDate() %>
 				                     <br>
-				                      <%= r.getRecommendCount() %>
+				                       공감수 : <div id="recommendCount<%= r.getReplyNo() %>">  <%= r.getRecommendCount() %></div>
+				                    
 			                     </li>
                                
                               	  <% } %>
@@ -177,7 +181,49 @@
 
 
         </div>
+        <form action="<%= request.getContextPath() %>/sendMsgBoard.do" method="post">
+		     <input type="hidden" name="boardNo" id="BoardNo" value="<%=b.getBoardNo()%>">
+			 <div class="msg-modal hidden">
+				<div class="Msgbg"></div>
+				<div class="msg-modalBox">
+					<div class="header">
+						<h2>작성자에게 쪽지보내기</h2>
+					</div>
+						<div class="sendMsgBody">
+							<div class="inputBox">
+								<h4 class="inputLabel">쪽지보내기</h4>            
+		              			<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+						  </div>
+						<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
+						</div>
+				</div>
+			</div>
+	  </form>
     </div>
+    	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
+    function mykeydown() { 
+        if(window.event.keyCode==13) //enter 일 경우
+        {
+            sendServer();
+        }
+     }
+    </script>
+    <script> <!--쪽지보내기모달 닫는 스크맆트-->
+      const openMsg = () => {
+          document.querySelector(".msg-modal").classList.remove("hidden");
+          
+      }
+      const closeMsg = () => {
+          console.log('cdlose')
+          document.querySelector(".msg-modal").classList.add("hidden");
+      }
+      
+      document.querySelector(".closeBtn").addEventListener("click", closeMsg);
+      document.querySelector(".Msgbg").addEventListener("click", closeMsg);
+      document.getElementById('msgBoard').addEventListener("click", openMsg);
+  </script>
+    
+    
 		<script>
 		
 		function replyisEmpty(){
@@ -194,10 +240,9 @@
 				data :{
 					bNo : "<%= b.getBoardNo() %>",
 					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
-					isAnonimous : $("#isAnonimous").val()
+					isAnonimous : $("#isAnonimous").prop('checked') ? 'Y' : 'N'
 				}, 
 				success : function(result){
-					console.log(result);
 					if(result > 0){
 						selectReplyList();
 						selectReplyCount();
@@ -220,16 +265,21 @@
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
+					console.log(list[0]);
+					console.log(list[1]);
+					let numberArray = 1;
 					let result  = "";
-					for(let i of list){ 
+					for(let i of list[0]){ 
+						if(i.isAnonimous == "N"){
 						result += 
+							
 						`
 						<li>
 						\${i.replyNo}
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
 						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-						 \${i.writer}
+						\${i.writer}
 						 </div>
 						 <div class='comments-right'>
 	                     대댓글 신고
@@ -241,15 +291,42 @@
 	                     <br>
 	                     \${i.enrollDate}
 	                     <br>
-	                      \${i.recommendCount}
+	                      공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
 	                     </li>
 	                     `
-                           
+						}else{
+					result += 
+						
+						`
+						<li>
+						\${i.replyNo}
+						 <div class='content-detail-comments'>
+						 <div class='comments-left'>
+						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30"> 대체이미지
+						 익명
+						
+						 \${list[1][i.writer]}
+						 
+						  </div> 
+						 <div class='comments-right'>
+	                     대댓글 신고
+	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
+	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+	                     </div>
+	                     </div>
+	                     \${i.content}
+	                     <br>
+	                     \${i.enrollDate}
+	                     <br>
+	                     공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
+	                     </li>
+	                     `
+						}
 					}
 					$("#comments-area").html(result);
 				},
 				error : function(){
-					console.log("게시글 목록조회 실패")
+					alert("게시글 목록조회 실패");
 				}
 			})
 		}
@@ -262,36 +339,74 @@
 					bNo : "<%= b.getBoardNo() %>"
 				}, 
 				success : function(result){
-					console.log("보드테이블 댓글개수:"+ result);
 						$("#replydiv").html(result);
 					
 				}, error : function(){
-					console.log("댓글개수 조회 실패")
+					alert("댓글개수 조회 실패");
 				}
 			
 			})
 		} 
-	
 		
 	
 		</script>
 		
 		<script>
+		
 		 document.getElementById("recommendbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/recommend.bo?bNo="+<%= b.getBoardNo() %>;
-  	        
-  	    })
+	  	    $.ajax({
+					url : "<%= request.getContextPath() %>/recommend.bo",
+					data : {bNo : <%= b.getBoardNo() %>},
+					success : function(data){
+						if(data > 0) {
+							alert("공감 성공!");
+							$("#recommenddiv").html(data);
+						}
+						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
+						if(data < 0) alert("이미 공감된 글입니다!");
+						}
+				});
+  	     })
+  	    
   	    
   	    document.getElementById("scrapbtn").addEventListener("click",function(){
-  	        location.href = "<%= request.getContextPath() %>/scrap.bo?bNo="+<%= b.getBoardNo() %>;
+	  	    $.ajax({
+					url : "<%= request.getContextPath() %>/scrap.bo",
+					data : {bNo : <%= b.getBoardNo() %>},
+					success : function(data){
+						if(data > 0) {
+							alert("스크랩 성공!");
+							$("#scrapdiv").html(data);
+						}
+						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
+						if(data < 0) alert("이미 스크랩된 글입니다!");
+						}
+				});
   	    })
+  	    
+  	     
   	   
   	    function deleteclick(id){
 			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
 		 }
 		 
 		 function recommendclick(id){
-			 location.href = "<%= request.getContextPath() %>/recommend.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(12);
+			 let rNo = id.substr(12);
+			 $.ajax({
+					url : "<%= request.getContextPath() %>/recommend.re",
+					data : {
+						bNo : <%= b.getBoardNo() %>,
+						rNo : rNo
+						},
+					success : function(data){
+						if(data > 0) {
+							alert("공감 성공!");
+							$("#recommendCount"+rNo).html(data);
+						}
+						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
+						if(data < 0) alert("이미 공감된 글입니다!");
+						}
+				});
 		 }
 	</script>
 
