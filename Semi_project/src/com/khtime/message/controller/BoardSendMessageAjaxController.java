@@ -1,27 +1,27 @@
-package com.khtime.member.controller;
+package com.khtime.message.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
+import com.khtime.message.model.service.MessageService;
 
 /**
- * Servlet implementation class MemberUpdateNickNameController
+ * Servlet implementation class BoardSendMessageAjaxController
  */
-@WebServlet("/updateNickName.me")
-public class MemberUpdateNickNameController extends HttpServlet {
+@WebServlet("/sendMsgBoard.do")
+public class BoardSendMessageAjaxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberUpdateNickNameController() {
+    public BoardSendMessageAjaxController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,25 +38,17 @@ public class MemberUpdateNickNameController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String updateNickName = request.getParameter("updateNickName");
-		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
-		String userNickName = ((Member)request.getSession().getAttribute("loginUser")).getNickName();
-
-		System.out.println(userNickName);
-		Member m = new MemberService().updateNickName(updateNickName,userId);
-		
-		HttpSession session = request.getSession();
-		
-		if(m == null) {
-			session.setAttribute("alertMsg", "닉네임변경 성공");
-					
-		}else {		
-			session.setAttribute("alertMsg", "닉네임변경 실패");
-			session.setAttribute("loginUser", m); 
-			
+		int uNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int bNo = Integer.parseInt(request.getParameter("boardNo"));
+		String content = request.getParameter("content");
+		int result = new MessageService().sendMsgBoard(uNo,bNo, content);
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "쪽지전송완료");
+			response.sendRedirect(request.getContextPath()+"/msgbox.me");
+		}else {
+			request.getSession().setAttribute("alertMsg", "쪽지전송실패");
+			response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo"+bNo);
 		}
-		response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
 
 }

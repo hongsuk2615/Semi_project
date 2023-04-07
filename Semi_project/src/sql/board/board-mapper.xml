@@ -63,9 +63,9 @@
          AND B.STATUS = 'Y'
    </entry>
    
-    <entry key="selectReplyCount">
+    <entry key="selectCount">
       SELECT 
-            REPLY_COUNT AS COUNT
+            $ AS COUNT
         FROM BOARD
        WHERE BOARD_NO = ?
    </entry>
@@ -78,7 +78,7 @@
    
    <entry key="insertBoard">
       INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER, IS_QUESTION, IS_ANONIMOUS)
-      VALUES(SEQ_BONO.NEXTVAL
+      VALUES($
            ,?
            ,?
            ,?
@@ -91,12 +91,18 @@
     <entry key="insertAttachment">
       INSERT INTO BOARD_ATTACHMENT (FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
       VALUES(SEQ_BFNO.NEXTVAL
-           ,SEQ_BONO.CURRVAL
+           ,$
            ,?
            ,?
            ,?
-           ,?
+           ,^
            )
+   </entry>
+   
+   <entry key="nextFileLevel">
+     NVL((SELECT MAX(FILE_LEVEL)
+		FROM BOARD_ATTACHMENT
+		WHERE REF_BNO = ?)+1, 0)
    </entry>
    
     <entry key="selectAttachmentList">
@@ -104,6 +110,8 @@
            FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL, STATUS
         FROM BOARD_ATTACHMENT
        WHERE REF_BNO = ?
+       	AND STATUS = 'Y'
+       	ORDER BY FILE_LEVEL
    </entry>
    
    
@@ -193,33 +201,31 @@
 	  	AND WRITER = ?
 	</entry>
 	
-	<entry key="deleteAttachment">
+	<entry key="updateAttachment">
 	  UPDATE BOARD_ATTACHMENT SET
 	  	STATUS = 'N'
-	  	WHERE REF_BNO = ?
-	</entry>
-	
-	<entry key="updateBoard">
-	  UPDATE BOARD SET
-	  	TITLE = ?,
-	  	CONTENT = ?,
-	  	CATEGORY_NO = ?,
-	  	IS_QUESTION = ?,
-	  	IS_ANONIMOUS = ?
-	  		WHERE BOARD_NO = ?
-	  		AND USER_NO = ?
+	  	WHERE $ ^ ?
 	</entry>
 	
 	<entry key="recommendCountUp">
 	  UPDATE BOARD SET
 	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
 	  	WHERE BOARD_NO = ?
+	  		AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
 	</entry>
 	
 	<entry key="scrapCountUp">
 	  UPDATE BOARD SET
 	  	SCRAP_COUNT = SCRAP_COUNT + 1
 	  	WHERE BOARD_NO = ?
+	  	AND ? != (
+	  		SELECT WRITER
+	  		FROM BOARD
+	  		WHERE BOARD_NO = ?)
+	  
 	</entry>
 	
 	<entry key="getHotBestBoardlist">
@@ -241,6 +247,19 @@
 	  		REPLY_COUNT = REPLY_COUNT - 1
 	  	WHERE BOARD_NO = ?
    </entry>
+   
+   <entry key="updateContent">
+      UPDATE BOARD SET
+	  		TITLE = ?,
+	  		CONTENT = ?,
+	  		CATEGORY_NO = ?,
+	  		IS_QUESTION = ?,
+	  		IS_ANONIMOUS = ?
+	  	WHERE BOARD_NO = ?
+	  		AND WRITER = ?
+   </entry>
+   
+   
    
 	
 </properties>

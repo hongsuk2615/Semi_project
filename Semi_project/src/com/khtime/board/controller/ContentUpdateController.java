@@ -1,7 +1,9 @@
 package com.khtime.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,11 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.common.model.MyFileRenamePolicy;
 import com.khtime.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class ContentUpdateController
@@ -47,36 +53,64 @@ public class ContentUpdateController extends HttpServlet {
 		request.setAttribute("attachmentList", attachmentList);
 		
 		request.getRequestDispatcher("views/board/contentUpdate.jsp").forward(request, response);
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//
+		int result = -1;
 		
-		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int cNo = Integer.parseInt(request.getParameter("cNo"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		String isQuestion = request.getParameter("isQuestion") == null ? "N" : "Y";
-		String isAnonimous = request.getParameter("isAnonimous")  == null ? "N" : "Y";;
+		if (ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String savePath = request.getSession().getServletContext().getRealPath("/resources/board/");
+			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+					new MyFileRenamePolicy());
+
+			int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+			int bNo = Integer.parseInt(multi.getParameter("bNo"));
+			int cNo = Integer.parseInt(multi.getParameter("cNo"));
+			String title = multi.getParameter("title");
+			String content = multi.getParameter("content");
+			String isQuestion = multi.getParameter("isQuestion").equals("Y") ? "Y" : "N";
+			String isAnonimous = multi.getParameter("isAnonimous").equals("Y") ? "Y" : "N";
+			String deleteImg = multi.getParameter("deleteImg");
 		
-		Board b = new Board();
-		b.setWriter(String.valueOf(userNo));
-		b.setCategoryNo(cNo);
-		b.setTitle(title);
-		b.setContent(content);
-		b.setIsQuestion(isQuestion);
-		b.setIsAnonimous(isAnonimous);
-		
-		int result = new BoardService().updateBoard(b);
-		System.out.println(result);
-		if(result > 0 ) {
+			Board b = new Board();
+			b.setWriter(String.valueOf(userNo));
+			b.setBoardNo(bNo);
+			b.setCategoryNo(cNo);
+			b.setTitle(title);
+			b.setContent(content);
+			b.setIsQuestion(isQuestion);
+			b.setIsAnonimous(isAnonimous);
 			
-			request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
-		}else {
-			System.out.println("실패");
-		}
+			BoardAttachment at = null;
+			ArrayList<BoardAttachment> list = new ArrayList<>();
+			Enumeration e = multi.getFileNames();
+			while(e.hasMoreElements()) {
+				at = new BoardAttachment();
+				String fileName = (String) e.nextElement();
+				at.setOriginName(multi.getOriginalFileName(fileName));
+				at.setChangeName(multi.getFilesystemName(fileName));
+				at.setFilePath("/resources/board/");
+				list.add(at);
+				
+			}
+			
+			result = new BoardService().updateContent(b, list, deleteImg);
+			response.setContentType("text/html; charset=UTF-8");
+			
+			if (result <= 0 && at != null) {
+				new File(savePath+at.getChangeName()).delete();
+			} 
+				
+		} 
+		response.getWriter().print(result);
+	
 	}
 
 }

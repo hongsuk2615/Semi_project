@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/mypage.css">
 <link rel="stylesheet" href="resources/CSS/base.css">
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
@@ -52,7 +53,7 @@
 		<div id="body">
 			<div id="body-wrapper">
 				<div id="mypage-wrap">
-					<div id="myinfo" style="height: 270px; width: 500px;">
+					<div id="myinfo" style="height: 270px; width: 100%;">
 						<strong>내 정보</strong>
 						<div style="position: relative; left: 45%;">
 							<button type="button" class="openBtn">비밀번호변경</button>
@@ -62,11 +63,12 @@
 						<br>
 						<div style="width: 100px; height: 100px;">
 							<label for="profile">
-								<div style="border: 1px solid red; max-width:100px; max-height: 100px;">
-									<img id="preview" style="max-width: 100px; max-height: 100px" />프로필사진업로드
+								<div style="border: 1px solid red; width:100px;">
+									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
 								</div>
-							</label> <input type="file" name="profile" id="profile"
-								style="display: none;" onchange="readURL(this);">
+								
+							</label><!--  <input type="file" name="profile" id="profile"
+								style="display: none;" onchange="readURL(this);"> -->
 						</div>
 						<br>
 						<br> <span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
@@ -78,8 +80,9 @@
 					<div id="community"
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
-						<a class="openBtn3">닉네임변경(모달)</a>
-						<a href="">쪽지함(하이퍼링크)</a>
+						<a class="openBtn3">닉네임변경</a>
+						<a class="openBtn4">프로필사진변경</a>
+						<a id="messageboxBtn">쪽지함</a>
 					    <a href="">게시글관리(하이퍼링크)</a>
 					</div>
 
@@ -199,7 +202,102 @@
 		</script>
 	</div>
 
+	
+	
+	<!-- [프로필사진변경 모달창] -->
 
+	<div class="modal4 hidden">
+		<div class="bg4"></div>
+		<div class="modalBox" style="height:430px;">
+			<div class="header">
+				<h2>프로필사진 변경</h2>
+			</div>
+				<div class="addDdayBody">
+					<div class="inputBox">
+						<div id="enrollimg">
+                            이미지나 사진을 등록해주세요.<br><br>
+                            <div>
+                                <img id="titleImg" width="150" height="150">
+                            </div><br>
+                            <div id="file-area" style="border: 1px solid black">
+                               <input type="file" id="file1" name="file" onchange="loadImg(this, 1);"> 
+                            </div>
+                        </div>
+				  </div>
+				<button type="button" class="closeBtn4" id="fullBlueBtn4" onclick="changeProfileImg();">변경하기</button>			
+			</div>
+   		 </div>
+   	</div>
+   
+   	<script>
+        $(function() {
+            $("#titleImg").click(function() {
+                $("#file1").click();
+            })
+        });
+
+        
+        function loadImg(inputFile, num) {
+            // inputFile : 현재 변화가 생긴 input type="file" 요소
+            // num : 몇번째 input 요소인지 확인 후 해당영역에 미리보기하기위한 변수
+            console.log(inputFile.files[0]);
+            /*
+                파일 선택시 length = 1, 파일선택 취소시 배열안의 내용이 비어있게됨
+                length 값을 가지고 파일의 존재유무를 알수가 있다.
+                files속성은 업로드된 파일의 정보들을  "배열"형식으로 여러개 묶어서 반환, length 그 배열의 크기를 의미
+             */
+            if(inputFile.files.length != 0){
+                //선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 그 영역에 맞는 곳에 미리보기 추가
+                //파일을 읽어들일 FileReader 객체 생성
+                let reader = new FileReader();
+                
+                // 파일을 읽어들이는 메서드 -> 어느파일을 읽을지 매개변수에 제시해줘야함.
+                // 0번째 인덱스에 담긴 파일정보를 제시
+                // -> 해당파일을 읽어들이는 순간 해당파일만의 고유한 url부여됨.
+                // -> 해당 url을 src 속성값으로 제시
+                reader.readAsDataURL(inputFile.files[0]);
+                
+                // 파일 읽기가 완료되었을때 실행할 함수 정의
+                reader.onload = function(e){// e.target.result에 고유한 url부여됨.
+                    //각 영역에 맞춰서 이미지 미리보기 기능 제시.
+                    let url = e.target.result;
+                
+                    switch(num){
+                    case 1: $("#titleImg").attr("src",url);break;
+                    }
+                }
+            }else{
+                // 선택된 파일이 없을 경우 미리보기도 함께 사라지게끔 작업.
+                switch(num){
+                case 1: $("#titleImg").removeAttr("src"); break;
+            }
+        }
+    }
+        function changeProfileImg(){
+        	let form = new FormData();
+        	form.append("profileImg",$('#file1')[0].files[0]);
+        	
+        	$.ajax({
+        		url : "/Semi_project/changProfileImg.me",
+        		data : form,
+        		type : "post",
+        		processData : false,
+        		contentType : false,
+        		success : function(){
+        			
+        		},
+        		error : function(){
+        			
+        		}
+        	})
+        		
+        	
+        }
+    </script>
+   	
+   	
+	
+	
 	<!-- [닉네임 변경] 모달창 -->
 	<div class="modal3 hidden">
 		<div class="bg3"></div>
@@ -247,7 +345,6 @@
 	<!-- [회원 탈퇴] 모달창 -->
 	<div class="modal2 hidden" id="deleteModal">
 		<div class="bg2"></div>
-		
 		<div class="modalBox" style="height: 300px;">
 			<div class="header">
 				<h2>회원탈퇴</h2>
@@ -265,7 +362,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<script>
 			$(function(){
 				$('#yes').click(function(){
@@ -276,22 +372,6 @@
 	</div>
 
 
-
-
-	<script> // 프로필사진 업로드 스크립트
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById('preview').src = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
-  } else {
-    document.getElementById('preview').src = "";
-  }
-}
-    </script>
-    
     
 	<script> <!-- 로그아웃 버튼 스크립트-->
         function btn(){
@@ -360,7 +440,26 @@ function readURL(input) {
     document.querySelector(".openBtn3").addEventListener("click", open3);
     document.querySelector(".closeBtn3").addEventListener("click", close3);
     document.querySelector(".bg3").addEventListener("click", close3);
-</script>
+	</script>
+	
+	<script> <!--프로필사진변경 스크맆트-->
+    const open4 = () => {
+        document.querySelector(".modal4").classList.remove("hidden");
+    }
+    const close4 = () => {
+        console.log('cdlose')
+        document.querySelector(".modal4").classList.add("hidden");
+    }
+    document.querySelector(".openBtn4").addEventListener("click", open4);
+    document.querySelector(".closeBtn4").addEventListener("click", close4);
+    document.querySelector(".bg4").addEventListener("click", close4);
+	</script>
+	
+	<script>  <!-- 쪽지함jsp로 이동시키는 스크맆트-->
+  		document.getElementById("messageboxBtn").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
+  		}) 
+  	</script>
 
 
 

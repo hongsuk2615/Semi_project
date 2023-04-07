@@ -39,9 +39,6 @@ public class DeleteMemberController extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "탈퇴 성공. 그 동안 이용해주셔서 감사합니다.");
-			
-			
-			
 		}
 		else {			
 			HttpSession session = request.getSession();
