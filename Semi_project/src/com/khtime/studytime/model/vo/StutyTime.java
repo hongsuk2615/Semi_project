@@ -4,21 +4,23 @@ import java.sql.Date;
 
 public class StutyTime {
 	private int studyTimeNo;
-	private String userId;
-	private Date timeAmount;
-	private Date date;
+	private int userNo;
+	private int timeAmount;
+	private Date studyDate;
+	private int targetTime;
 	
 	public StutyTime() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public StutyTime(int studyTimeNo, String userId, Date timeAmount, Date date) {
+	public StutyTime(int studyTimeNo, int userNo, int timeAmount, Date studyDate, int targetTime) {
 		super();
 		this.studyTimeNo = studyTimeNo;
-		this.userId = userId;
+		this.userNo = userNo;
 		this.timeAmount = timeAmount;
-		this.date = date;
+		this.studyDate = studyDate;
+		this.targetTime = targetTime;
 	}
 
 	public int getStudyTimeNo() {
@@ -29,35 +31,45 @@ public class StutyTime {
 		this.studyTimeNo = studyTimeNo;
 	}
 
-	public String getUserId() {
-		return userId;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public Date getTimeAmount() {
+	public int getTimeAmount() {
 		return timeAmount;
 	}
 
-	public void setTimeAmount(Date timeAmount) {
+	public void setTimeAmount(int timeAmount) {
 		this.timeAmount = timeAmount;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStudyDate() {
+		return studyDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStudyDate(Date studyDate) {
+		this.studyDate = studyDate;
+	}
+
+	public int getTargetTime() {
+		return targetTime;
+	}
+
+	public void setTargetTime(int targetTime) {
+		this.targetTime = targetTime;
 	}
 
 	@Override
 	public String toString() {
-		return "StutyTime [studyTimeNo=" + studyTimeNo + ", userId=" + userId + ", timeAmount=" + timeAmount + ", date="
-				+ date + "]";
+		return "StutyTime [studyTimeNo=" + studyTimeNo + ", userNo=" + userNo + ", timeAmount=" + timeAmount
+				+ ", studyDate=" + studyDate + ", targetTime=" + targetTime + "]";
 	}
+
+	
 	
 	
 }

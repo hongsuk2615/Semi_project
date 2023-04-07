@@ -10,7 +10,6 @@
         FROM STUDY_TIME
         WHERE USER_NO = ?
         ORDER BY STUDY_DATE
-      
    </entry>
 	
 	<entry key="insertStudyTime">

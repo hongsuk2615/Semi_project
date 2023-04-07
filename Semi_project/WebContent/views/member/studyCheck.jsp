@@ -266,8 +266,8 @@
 			}
 			
             if(starFlag){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            $(".fa").css("color","white")
+            this.style.color = "white";
             starFlag = false;
 
             if(time == 0){
@@ -280,7 +280,7 @@
                 // let ratio = basetime/purposetime*100;
                 // console.log(ratio);
                 // document.getElementsByClassName("progress-bar")[0].style.width = ratio + "%";
-
+				
                 document.cookie='time='+time;
                 min = Math.floor(time/60);
                 hour = Math.floor(min/60);
@@ -308,8 +308,8 @@
         // pause btn
         $("#pausebtn").click(function(){
             if(time != 0){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            $(".fa").css("color","white")
+            this.style.color = "white";
             clearInterval(timer);
             starFlag = true;
             }
@@ -317,14 +317,26 @@
 
         // stop btn
         $("#stopbtn").click(function(){
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/timeSave.bo',
+        		data : 
+        		
+        		
+        		
+        	});
+        	
             if(time != 0){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            $(".fa").css("color","white")
+            this.style.color = "white";
             clearInterval(timer);
             starFlag = true;
             time = 0;
             init();
             }
+            
+            
+            
+            
         });
         }
 		
