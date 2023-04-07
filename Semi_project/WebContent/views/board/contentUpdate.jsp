@@ -199,13 +199,19 @@
 		$("#upfile").val("");
 	});
 	
-	/* $("#title").val("");
-	$("#content").val("");
-	$("#upfile").val("");
-	$("#isQuestion").val("");
-	$("#isAnonimous").val(""); */
+	
 	$(window).on("beforeunload", callback);
-	 
+	$(window).on("unload", erase);
+	
+	function erase(){
+	    $("#title").val("");
+		$("#content").val("");
+		$("#upfile").val("");
+		$("#isQuestion").val("");
+		$("#isAnonimous").val("");
+	    return "changes will be lost!";
+	}
+	// 원래 형태로 바꿔주기 -> 뒤로가기했을 때
 	function callback(){
 	    console.log("beforeunload callback !");
 	    return "changes will be lost!";
