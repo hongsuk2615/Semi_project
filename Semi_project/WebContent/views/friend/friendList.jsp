@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); %>
-
+<% ArrayList<Member> list2 = (ArrayList<Member>)request.getAttribute("list2"); %>
+<% ArrayList<Member> list3 = (ArrayList<Member>)request.getAttribute("list3"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,23 +62,33 @@
                         <br>
                     </div>
                     <br>
-                    <div id="keyword"   style="display: flex; width: 500px;  ">
-              <%--     <% if(list != null) {%> --%>
-                   <div><% for(Member m : list){ %>		
+                    <div id="keyword">
+                 	
+                 	<!-- 친구 목록-->
+					<% for(Member m : list){ %>		
+							<div><%=m.getUserName() %></div><br>			
+					<% } %>
 					
-							<%=m.getUserName() %>			
-					<% } %></div>
-				 	<%-- <%}else {%>
-					<div><% for(Member m : list){ %>		
 					
-							<%=m.getUserName() %>			
-					</div>
-					<div>님의 친구 요청</div> <div><button type="button" id="admit" onclick="admit();">수락</button></div>
-						<div><button type='button' onclick='deleteDiv()'>거절</button>
-					</div>
-					<%} %>  --%>
+					<!-- 친구  요청 목록-->
 					
-				
+					<% for(Member m : list2){ %>		
+							<div><%=m.getUserName() %>님에게 친구요청을 보냈습니다.</div><br>	
+								
+					<% } %>
+					
+					
+					<!-- 친구  요청 받은 목록-->
+					
+					<% for(Member m : list3){ %>		
+							<div style="display: flex; justify-content: space-around;">
+							<div><%=m.getUserName() %>님이 친구 요청을 했습니다.</div>
+							<div><button type="button" class="accept" onclick="accept();" >수락</button>
+							<button>거절</button></div>
+						    </div>
+					<% } %>
+					 
+                    </div>
                 </form>
             </div>
         </div>
@@ -95,7 +106,7 @@
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
-				       
+				
 							 if(result){
 								 if(confirm("친구 요청 하시겠습니까?")){
 									 location.href="<%=request.getContextPath() %>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결
@@ -109,28 +120,29 @@
 					 });
 				 }
 				 
-				 function admit(){
-		
+				 function accept(){
+					 
+					
 					  $.ajax({
-						 url : "<%= request.getContextPath()%>/friend.me",
-						 method : "post",
-						 success : function(result){
-							 if(result){
-								 alert("친구가 됬습니다.");
-							 }else{ 
-								 alert("친구가 안됬습니다.");
-							 }
-							 
-						 }	 
-					 });
+						  
+							 url : "<%= request.getContextPath()%>/friend.me",
+							 data : {sendName:a},
+							 method : "post",
+							 success : function(result){
+					
+								 if(sendName){
+										alert("친구가 됬습니다.");
+										location.reload();
+									 }
+								 }else{
+										alert("친구가 안됬습니다.");
+								 }
+								 
+							 }	 
+						 });
+					 }
+					 
 				 }
-				 
-				    function deleteDiv() {
-  						const div = document.getElementById('keyword');
-  
-  							div.remove();
-						} 
-				
         </script>
 
 

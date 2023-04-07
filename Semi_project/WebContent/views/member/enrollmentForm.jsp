@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String alertMsg = (String)request.getSession().getAttribute("alertMsg"); %>   
 <!DOCTYPE html>
 <html lang="en">
 	
@@ -60,7 +61,14 @@
 </head>
 
 <body>
-    
+    <% if(alertMsg != null){ %>
+    	
+    	<script>
+    		alert("<%= alertMsg %>");
+    	</script>
+    	<% session.removeAttribute("alertMsg");%>
+    	
+    <% } %>
     <div id="wrapper">
      <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto"  style="display:flex; justify-content: center;">

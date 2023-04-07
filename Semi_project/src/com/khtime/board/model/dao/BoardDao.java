@@ -632,34 +632,8 @@ public class BoardDao {
 			}
 			return result;
 		}
-	   
-	   public int reportCountUp(Connection conn, int bNo, int userNo) {
-		   
-			int result = 0;
-			PreparedStatement pstmt = null;
-			
-			String sql = prop.getProperty("reportCountUp");
 
-			try {
-				pstmt = conn.prepareStatement(sql);
-				
-				pstmt.setInt(1, bNo);
-				pstmt.setInt(2, userNo);
-				pstmt.setInt(3, bNo);
-				
-				result = pstmt.executeUpdate();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-			
-				JDBCTemplate.close(pstmt);
-			}
-			return result;
-		}
-	   
-	   // 아래는 준석씨 작업 부분입니다.
-	   public ArrayList<Category> categoryTitle(Connection conn, String searchTitle){
+		public ArrayList<Category> categoryTitle(Connection conn, String searchTitle){
 		   Category c = null;
 		   
 		   ArrayList<Category> cn = new ArrayList<>();
@@ -721,26 +695,50 @@ public class BoardDao {
 			return result;
 	   }
 	   
-	  
-		/*
-		 * public int boardCategoryreq(Connection conn,String boardTitle, int
-		 * loginUserNo) {
-		 * 
-		 * int result = 0;
-		 * 
-		 * PreparedStatement pstmt = null;
-		 * 
-		 * String sql = prop.getProperty("boardCategoryreq");
-		 * 
-		 * try { pstmt = conn.prepareStatement(sql);
-		 * 
-		 * pstmt.setString(1, boardTitle); pstmt.setInt(2, loginUserNo);
-		 * 
-		 * result = pstmt.executeUpdate();
-		 * 
-		 * }
-		 */
-	   
-	   
+	   public int boardCategoryreq(Connection conn,String boardTitle, int loginUserNo) {
+		  
+		    int result = 0;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("boardCategoryreq");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, boardTitle);
+				pstmt.setInt(2, loginUserNo);
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+	   }
+
+	    public int reportCountUp(Connection conn, int bNo, int userNo) {
+         
+         int result = 0;
+         PreparedStatement pstmt = null;
+         
+         String sql = prop.getProperty("reportCountUp");
+         try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, bNo);
+            pstmt.setInt(2, userNo);
+            pstmt.setInt(3, bNo);
+            result = pstmt.executeUpdate();
+
+         } catch (SQLException e) {
+            e.printStackTrace();
+         } finally {
+         
+            JDBCTemplate.close(pstmt);
+         }
+         return result;
 	   
 }

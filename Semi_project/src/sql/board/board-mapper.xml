@@ -261,6 +261,31 @@
 	  	WHERE BOARD_NO = ?
 	  		AND WRITER = ?
    </entry>
+
+   <entry key="categoryTitle">
+   		SELECT CATEGORY_NAME
+   			 , CATEGORY_NO
+		FROM CATEGORY
+		WHERE CATEGORY_NAME LIKE ?
+		AND AVAILABLE = 'Y'
+   </entry>
+   
+   <entry key="boardRequest">
+   		INSERT INTO BOARD_REQ(BOARD_NAME,USER_ID,REASON)
+   		 VALUES(
+            ?
+           ,?
+           ,?
+           )	
+   </entry>
+   
+    <entry key="boardCategoryreq">
+   		INSERT INTO CATEGORY(CATEGORY_NO,CATEGORY_NAME,REQ_USER)
+   		 VALUES(SEQ_CNO.NEXTVAL
+           ,?
+           ,?
+           )	
+   </entry>
    
    	<entry key="reportCountUp">
 	  UPDATE BOARD SET
