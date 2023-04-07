@@ -237,16 +237,34 @@
         function init(){
         document.getElementById("time").innerHTML = "00:00:00";
         }
+        function get_cookie(key) { 
+            let cookie_list = document.cookie.split("; ");
+            console.log(cookie_list);
+            for(i of cookie_list){
+            	console.log("i:" + i);
+            	   if(i.split("=")[0] == key){
+            	          return(i.split("=")[1]);
+            	      }
+            	   
+            }
+            return "";
+        }
 
         function buttonEvt(){
         var hour = 0;
         var min = 0;
         var sec = 0;
         var timer;
-
+		
+        
         // start btn
         $("#startbtn").click(function(){
-
+			if(get_cookie('time')==''){
+				document.cookie = 'time=0';
+			}else{
+				time = get_cookie('time');
+			}
+			
             if(starFlag){
             $(".fa").css("color","#FAED7D")
             this.style.color = "#4C4C4C";
@@ -255,16 +273,15 @@
             if(time == 0){
                 init();
             }
-            let purposetime = 60;
-            let basetime = 10;
+            
             timer = setInterval(function(){
                 time++;
-                basetime++;
+                
                 // let ratio = basetime/purposetime*100;
                 // console.log(ratio);
                 // document.getElementsByClassName("progress-bar")[0].style.width = ratio + "%";
 
-                
+                document.cookie='time='+time;
                 min = Math.floor(time/60);
                 hour = Math.floor(min/60);
                 sec = time%60;
@@ -282,7 +299,7 @@
                 if(ts < 10){
                 ts = "0" + sec;
                 }
-
+	
                 document.getElementById("time").innerHTML = th + ":" + tm + ":" + ts;
             }, 1000);
             }
@@ -310,7 +327,7 @@
             }
         });
         }
-
+		
     </script>
 
     <script>

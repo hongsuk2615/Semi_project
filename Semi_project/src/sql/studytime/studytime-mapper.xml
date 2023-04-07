@@ -7,8 +7,6 @@
             STUDY_TIME_NO,
             TIME_AMOUNT,
             STUDY_DATE
-            
-            
         FROM STUDY_TIME
         WHERE USER_NO = ?
         ORDER BY STUDY_DATE

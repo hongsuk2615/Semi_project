@@ -1,19 +1,19 @@
-package com.khtime.studytime.vo;
+package com.khtime.studytime.model.vo;
 
-import oracle.sql.DATE;
+import java.sql.Date;
 
 public class StutyTime {
 	private int studyTimeNo;
 	private String userId;
-	private DATE timeAmount;
-	private DATE date;
+	private Date timeAmount;
+	private Date date;
 	
 	public StutyTime() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public StutyTime(int studyTimeNo, String userId, DATE timeAmount, DATE date) {
+	public StutyTime(int studyTimeNo, String userId, Date timeAmount, Date date) {
 		super();
 		this.studyTimeNo = studyTimeNo;
 		this.userId = userId;
@@ -37,19 +37,19 @@ public class StutyTime {
 		this.userId = userId;
 	}
 
-	public DATE getTimeAmount() {
+	public Date getTimeAmount() {
 		return timeAmount;
 	}
 
-	public void setTimeAmount(DATE timeAmount) {
+	public void setTimeAmount(Date timeAmount) {
 		this.timeAmount = timeAmount;
 	}
 
-	public DATE getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(DATE date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
