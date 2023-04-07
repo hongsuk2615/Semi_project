@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.khtime.board.model.service.BoardService;
-import com.khtime.category.vo.Category;
+import com.khtime.board.model.vo.Category;
 
 /**
  * Servlet implementation class CategoryNameSearchController

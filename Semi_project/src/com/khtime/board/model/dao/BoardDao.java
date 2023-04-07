@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 

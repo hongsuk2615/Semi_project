@@ -1,4 +1,4 @@
-package com.khtime.category.vo;
+package com.khtime.board.model.vo;
 
 public class Category {
 	private int categoryNo;

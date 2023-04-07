@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
