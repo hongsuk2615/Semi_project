@@ -138,10 +138,11 @@
         }
         
 		function updateContent(){
+			
 			let formData = new FormData();
 			
 			if(fileArray.length + originLength < 6){
-				
+				off();
 				fileArray.forEach(file => { dataTransfer.items.add(file); });
 				$('#upfile')[0].files = dataTransfer.files;
 				
@@ -197,6 +198,23 @@
 		}
 		$("#upfile").val("");
 	});
+	
+     
+	$(window).on("beforeunload", callback);
+	 
+	function callback(){
+	    console.log("beforeunload callback !");
+	    alert("callback함수 실행")
+	    return "changes will be lost!";
+	}
+	 
+	function off(){
+	    console.log("beforeunload turn off !");
+	    $(window).off("beforeunload");
+	}
+	
+	document.querySelector('#update-content-btn').addEventListner('click', () => off());
+	  
 
 	</script>
 </body>
