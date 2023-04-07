@@ -1,5 +1,5 @@
 #book-title {
-    height: 300px;
+    height: 100%;
     background: lightgray;
 }
 
@@ -10,6 +10,8 @@
 
 #book-direct {
     background: lightgray;
+    display: flex;
+    flex-direction: column
 }
 
 #send-btn {
@@ -20,4 +22,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#send-message {
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#back-btn:hover ,
+#send-message:hover {
+	cursor: pointer;
 }

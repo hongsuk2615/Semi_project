@@ -42,19 +42,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <div id="book-header">
-            <div id="book-header-content">
-                <div id="home-logo">
-                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
-                </div>
-                <div id="book-logo">
-                    <img src="resources/IMG/book.png" alt="" style="height: 120px; width: 160px;">중고 책방
-                </div>
-                <div id="book-header-right">
-                    로그인 된 회원 정보
-                </div>
-            </div>
-        </div>
+    	<%@ include file="/views/common/book_header.jsp" %>
         <div id="book-navbar">
             <div id="book-btn">
                 <button id="book-home-btn">
@@ -200,7 +188,7 @@
                         		title : res.documents[<%= i %>].title,
                         		author : res.documents[<%= i %>].authors,
                         		publisher : res.documents[<%= i %>].publisher,
-                        		datetime : res.documents[<%= i %>].datetime,
+                        		datetime : res.documents[<%= i %>].datetime.substring(0,10),
                         		contents : res.documents[<%= i %>].contents
                         };
                         
@@ -248,6 +236,10 @@
 		document.getElementById("book-sell-btn-img").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/booksell.do"
 		})
+		
+		document.getElementById("book-home-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookstore.do";
+   		 })
     </script>
     
     <script>
