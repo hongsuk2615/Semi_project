@@ -55,4 +55,24 @@ public class FriendService {
 		
 		return list;
 	}
+	public ArrayList<Member> friendlist2(int loginUserNo){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> list2 = new FriendDao().friendlist2(conn, loginUserNo);
+		
+		close(conn); 
+		
+		return list2;
+	}
+	public ArrayList<Member> friendlist3(int loginUserNo){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> list3 = new FriendDao().friendlist3(conn, loginUserNo);
+		
+		close(conn); 
+		
+		return list3;
+	}
 }

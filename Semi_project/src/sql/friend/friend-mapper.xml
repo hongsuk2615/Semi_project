@@ -34,6 +34,23 @@
  			   WHERE RECEIVER = ? AND IS_AGREE='Y')
 	</entry>
 	
+	<entry key="friendlist2">
+	SELECT USER_NAME
+		FROM MEMBER
+		WHERE USER_NO IN( SELECT RECEIVER
+        FROM FRIEND
+        WHERE SENDER = ?
+        AND IS_AGREE = 'N')
+	</entry>
+	
+	<entry key="friendlist3">
+		SELECT USER_NAME
+		FROM MEMBER
+		WHERE USER_NO IN( SELECT SENDER
+        FROM FRIEND
+        WHERE RECEIVER = ?
+        AND IS_AGREE = 'N')
+	</entry>
 	
 	
 </properties>

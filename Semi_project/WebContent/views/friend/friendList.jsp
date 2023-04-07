@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list"); %>
-
+<% ArrayList<Member> list2 = (ArrayList<Member>)request.getAttribute("list2"); %>
+<% ArrayList<Member> list3 = (ArrayList<Member>)request.getAttribute("list3"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,11 +62,29 @@
                     </div>
                     <br>
                     <div id="keyword">
-                        <div id="checkid"></div>
-                    </div>
+                 	
+                 	<!-- 친구 목록-->
 					<% for(Member m : list){ %>		
-							<%=m.getUserName() %><br>			
+							<div><%=m.getUserName() %></div><br>			
 					<% } %>
+					
+					
+					<!-- 친구  요청 목록-->
+					
+					<% for(Member m : list2){ %>		
+							<div><%=m.getUserName() %>님에게 친구요청을 보냈습니다.</div><br>	
+								
+					<% } %>
+					
+					
+					<!-- 친구  요청 받은 목록-->
+					
+					<% for(Member m : list3){ %>		
+							<div><%=m.getUserName() %>님이 친구 요청을 했습니다.</div><br>
+					
+					<% } %>
+					
+                    </div>
                 </form>
             </div>
         </div>
