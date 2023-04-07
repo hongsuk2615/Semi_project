@@ -7,21 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.service.BoardService;
-import com.khtime.board.model.vo.Board;
+import com.khtime.board.model.service.ReportService;
+import com.khtime.member.model.service.MemberService;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ContentDeleteController
+ * Servlet implementation class ContentReportController
  */
-@WebServlet("/delete.bo")
-public class ContentDeleteController extends HttpServlet {
+@WebServlet("/report.bo")
+public class ContentReportController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContentDeleteController() {
+    public ContentReportController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +31,23 @@ public class ContentDeleteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int cNo = Integer.valueOf(request.getParameter("cNo"));
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int authority = ((Member)request.getSession().getAttribute("loginUser")).getAuthority();
-		int aC = Integer.valueOf(request.getParameter("aC"));
-		int result = new BoardService().deleteContent(bNo, userNo, authority, aC);
-		if(result > 0) {
-			request.getSession().setAttribute("alertMsg", "삭제 성공!");
-			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
-		}else {
-			request.getSession().setAttribute("alertMsg", "삭제 실패!");
-			response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
-		}
+		
+		int result = new ReportService().reportContent(bNo, userNo);
+		
+		if(result > 0) new MemberService().reportContentUp(bNo);
+			
+		response.setContentType("text/html charset=UTF-8");
+		response.getWriter().print(result);
 		
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
