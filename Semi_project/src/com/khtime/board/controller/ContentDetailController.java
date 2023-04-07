@@ -42,7 +42,6 @@ public class ContentDetailController extends HttpServlet {
 		String cName = new CategoryService().getCategoryName(b.getCategoryNo());
 		ArrayList<BoardAttachment> attachmentList = new BoardService().selectAttachmentList(bNo);
 		
-		
 		request.setAttribute("b", b);
 		request.setAttribute("replyList", replyList);
 		request.setAttribute("cName", cName);

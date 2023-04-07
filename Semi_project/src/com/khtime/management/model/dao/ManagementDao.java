@@ -300,14 +300,15 @@ public class ManagementDao {
 		
 	}
 	
-	public int banUser(Connection conn, String userId) {
+	public int banUser(Connection conn, String userId, String isBanned) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("banUser");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setString(1, isBanned);
+			pstmt.setString(2, userId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -320,14 +321,15 @@ public class ManagementDao {
 		
 	}
 	
-	public int whitelistUser(Connection conn, String userId) {
+	public int whitelistUser(Connection conn, String userId, String isWhitelist) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("whitelistUser");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setString(1, isWhitelist);
+			pstmt.setString(2, userId);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -376,6 +378,79 @@ public class ManagementDao {
 		}
 		
 		return result;
+	}
+	public ArrayList<Member> getFilteredUsers(Connection conn, Member m){
+		ArrayList<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getFilteredUsers");
+		ResultSet rset = null;
+		System.out.println("%"+m.getIsWhitelist()+"%");
+		System.out.println(m);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+m.getIsWhitelist()+"%");
+			pstmt.setString(2, "%"+m.getIsBanned()+"%");
+			pstmt.setInt(3, m.getAuthority());
+			pstmt.setString(4, "%"+m.getUserName()+"%");
+			pstmt.setInt(5, m.getReportCount());
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Member filteredUser = new Member();
+				filteredUser.setUserId(rset.getString("USER_ID"));
+				filteredUser.setUserName(rset.getString("USER_NAME"));
+				filteredUser.setNickName(rset.getString("NICK_NAME"));
+				filteredUser.setUserClass(rset.getString("USER_CLASS"));
+				filteredUser.setEmail(rset.getString("EMAIL"));
+				filteredUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				filteredUser.setIsWhitelist(rset.getString("IS_WHITELIST"));
+				filteredUser.setIsBanned(rset.getString("IS_BANNED"));
+				filteredUser.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
+				filteredUser.setReportCount(rset.getInt("REPORT_COUNT"));
+				filteredUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				list.add(filteredUser);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public Member getUser(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getUser");
+		ResultSet rset = null;
+		Member m = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setUserName(rset.getString("USER_NAME"));
+				m.setNickName(rset.getString("NICK_NAME"));
+				m.setUserClass(rset.getString("USER_CLASS"));
+				m.setEmail(rset.getString("EMAIL"));
+				m.setIsWhitelist(rset.getString("IS_WHITELIST"));
+				m.setIsBanned(rset.getString("IS_BANNED"));
+				m.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
+				m.setReportCount(rset.getInt("REPORT_COUNT"));
+				m.setEnrollDate(rset.getDate("ENROLL_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+		
 	}
 
 }

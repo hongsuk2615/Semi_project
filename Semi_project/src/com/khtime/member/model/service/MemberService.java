@@ -151,7 +151,6 @@ public class MemberService {
 		}
 
 		close(conn);
-		System.out.println("업데이트이메일 멤버" + m);
 		return m;
 	}
 
@@ -192,4 +191,30 @@ public class MemberService {
 	     close(conn);
 	      return result;
 	   }
+	
+	public int changeProfileImg(UserProFileImg img) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new MemberDao().changeProfileImg(conn, img);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	public void recommendContentUp(int bNo) {
+		Connection conn = getConnection();
+		new MemberDao().recommendContentUp(conn, bNo);
+		close(conn);
+	}
+	public void recommendReplyUp(int rNo) {
+		Connection conn = getConnection();
+		new MemberDao().recommendReplyUp(conn, rNo);
+		close(conn);
+	}
+
 }

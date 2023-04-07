@@ -390,4 +390,56 @@ public class MemberDao {
 	      
 	      return result;
 	   }
+	 
+	 public int changeProfileImg(Connection conn, UserProFileImg img) {
+		PreparedStatement pstmt = null;
+		int result = 0 ;
+		String sql = prop.getProperty("changeProfileImg");
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, img.getOriginName());
+			pstmt.setString(2, img.getChangeName());
+			pstmt.setString(3, img.getFilePath());
+			pstmt.setInt(4, img.getRefUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	 }
+	 
+	 public void recommendContentUp(Connection conn, int bNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("recommendUp");
+			sql = sql.replace("$", "BOARD");
+			sql = sql.replace("^", "BOARD_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+	 
+	 public void recommendReplyUp(Connection conn, int rNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("recommendUp");
+			sql = sql.replace("$", "REPLY");
+			sql = sql.replace("^", "REPLY_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
 }
