@@ -170,29 +170,11 @@
                             </div>
                            <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
-                           <% }else{ %>
-                            <ul id="content-area">
-                           
-                            	<% for(Board b : boardList) { %>
-                            	
-                                <li>
-                                글 번호: <%= b.getBoardNo() %>
-                                <div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
-                                <%= b.getTitle() %><br>
-                                    <%= b.getContent() %> <br>
-                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
-                                    <div id="board-detail-comment">
-                                        
-                                        <div><%= b.getRecommendCount() %></div>
-                                        <div><%= b.getReplyCount() %></div>
-                                    </div>
-                                </li>
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
+                           <% } %>
+                            <ul id="content-area"></ul>
 						<script>
 						
-						let boardCount = 1;
+						let boardCount = 0;
 						function loadBoard(){
 							boardCount = boardCount + 1;
 							
@@ -204,9 +186,6 @@
 									currentPage : boardCount
 								}, 
 								success : function(list){
-									console.log("loadBoard");
-									console.log(list);
-									console.log(count);
 									let result  = "";
 									for(let i of list){ 
 										result += 
@@ -226,6 +205,7 @@
 					                     `
 									}
 										$("#content-area").append(result);
+										selectContent();
 									
 								}, error : function(){
 									alert("게시글 조회 실패");
@@ -234,13 +214,13 @@
 							})
 						}
 						
-						$(function(){
+						function selectContent(){
 							$("#board-detail li").click(function(){
 								let bNo = $(this).children().eq(0).text();
 								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
 								
 							});
-						});
+						}
 						
 
 					     window.onscroll = function(e) {
@@ -297,7 +277,8 @@
 		}
 		document.querySelector('#create-content-btn').addEventListener('click',off);
 		  
-   
+	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
+	window.onload = loadBoard;
    </script>
 
 

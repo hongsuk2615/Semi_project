@@ -52,15 +52,10 @@ public class BoardDetailSearchController extends HttpServlet {
 
 	      ArrayList<Board> searchList = new SearchService().searchList( pi, keyword);
 	      
-	      
 	      request.setAttribute("pi", pi);
 	      request.setAttribute("searchList", searchList);
 	      request.setAttribute("keyword", keyword);
 	      
-	      System.out.println(pi);
-	      System.out.println(searchList);
-	      System.out.println(keyword);
-		
 		request.getRequestDispatcher("views/board/boardDetailSearch.jsp").forward(request, response);
 	}
 

@@ -142,36 +142,8 @@
 
                             <!-- 댓글 -->
                             
-                         <ul id="comments-area">
-                            <% if(replyList.isEmpty()) { %>
-                           	<li>글이 없습니다,,</li>
-                           <% }else{ %>
-                            	<% for(Reply r : replyList) { %>
-                               <li>
-									<%= r.getReplyNo() %>
-									 <div class='content-detail-comments'>
-									 <div class='comments-left'>
-									 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
-									 <%= r.getWriter() %>
-									 </div>
-									 <div class='comments-right'>
-				                     대댓글 
-				                     <button id="reportbtn<%= r.getReplyNo() %>" onclick="reportclick(this.id)">신고</button>
-				                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
-				                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
-				                     </div>
-				                     </div>
-				                     <%= r.getContent() %>
-				                     <br>
-				                     <%= r.getEnrollDate() %>
-				                     <br>
-				                       공감수 : <div id="recommendCount<%= r.getReplyNo() %>">  <%= r.getRecommendCount() %></div>
-				                    
-			                     </li>
-                               
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
+                         <ul id="comments-area"></ul>
+                         
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
@@ -448,6 +420,8 @@
 					});
 	  	     }
 	  	    
+		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
+		window.onload = selectReplyList;
 	</script>
 
 

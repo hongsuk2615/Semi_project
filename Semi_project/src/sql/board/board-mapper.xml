@@ -31,7 +31,13 @@
         
    </entry>
    
-
+   <entry key="boardListCount">
+      SELECT COUNT(*) AS COUNT
+        FROM BOARD
+       WHERE CATEGORY_NO = ?
+         AND STATUS = 'Y'
+   </entry>
+   
    <entry key="selectContent">
       SELECT 
             B.BOARD_NO,
