@@ -80,10 +80,13 @@
 					<!-- 친구  요청 받은 목록-->
 					
 					<% for(Member m : list3){ %>		
-							<div><%=m.getUserName() %>님이 친구 요청을 했습니다.</div><br>
-					
+							<div style="display: flex; justify-content: space-around;">
+							<div><%=m.getUserName() %>님이 친구 요청을 했습니다.</div>
+							<div><button type="button" class="accept" onclick="accept();" >수락</button>
+							<button>거절</button></div>
+						    </div>
 					<% } %>
-					
+					 
                     </div>
                 </form>
             </div>
@@ -114,6 +117,30 @@
 							 
 						 }	 
 					 });
+				 }
+				 
+				 function accept(){
+					 
+					
+					  $.ajax({
+						  
+							 url : "<%= request.getContextPath()%>/friend.me",
+							 data : {sendName:a},
+							 method : "post",
+							 success : function(result){
+					
+								 if(sendName){
+										alert("친구가 됬습니다.");
+										location.reload();
+									 }
+								 }else{
+										alert("친구가 안됬습니다.");
+								 }
+								 
+							 }	 
+						 });
+					 }
+					 
 				 }
         </script>
 

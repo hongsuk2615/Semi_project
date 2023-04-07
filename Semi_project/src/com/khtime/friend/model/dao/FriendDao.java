@@ -159,7 +159,8 @@ public class FriendDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, loginUserNo);
-
+			
+			
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
@@ -179,4 +180,23 @@ public class FriendDao {
 		}
 		return list3;
 	}
+	public int friendaccept(Connection conn,int loginUserNo,int sendName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("friendaccept");
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, loginUserNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

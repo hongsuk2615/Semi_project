@@ -75,4 +75,21 @@ public class FriendService {
 		
 		return list3;
 	}
+	
+	public int friendaccept(int loginUserNo,int sendName) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = new FriendDao().friendaccept(conn, loginUserNo, sendName );
+	
+		if (result > 0) { // 성공
+			// 커밋
+			commit(conn);
+		} else { // 실패
+			// 롤백
+			rollback(conn);
+		}
+		// 사용한 자원 반납. conn.close();
+		close(conn);
+		// 컨트롤러에게 결과값 반환
+		return result;
+	}
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.khtime.friend.model.service.FriendService;
 import com.khtime.member.model.vo.Member;
 
@@ -45,7 +46,8 @@ public class FriendListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int sendName = Integer.parseInt(request.getSession().getAttribute("sendName"));
+		int result = new FriendService().friendaccept(loginUserNo,sendName);
+				
 }
