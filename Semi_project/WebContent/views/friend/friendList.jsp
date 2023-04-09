@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/requestfriend.css">
 <link rel="stylesheet" href="resources/CSS/base.css">
+<link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -84,7 +85,7 @@ a {
 							<div><%=m.getUserName()%></div>
 							<div>				
 							<button type="button" class="delete" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >삭제</button>
-							<button type="button" class="sendMessage" onclick="Message(this);" data-userNo=<%=m.getUserNo() %> >쪽지보내기</button>
+							<button type="button" class="sendMessage" data-userNo=<%=m.getUserNo() %> >쪽지보내기</button>
 							</div>	
 						</div>
 					<%
@@ -136,8 +137,51 @@ a {
 			</form>
 		</div>
 	</div>
-	<div id="footer"></div>
+		<div id="footer"></div>
+		<form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
+			<input type="hidden" name="opponentNo" id="friendNo" value="">
+			<div class="msg-modal hidden">
+			   <div class="Msgbg"></div>
+			   <div class="msg-modalBox">
+				   <div class="header">
+					   <h2>작성자에게 쪽지보내기</h2>
+				   </div>
+					   <div class="sendMsgBody">
+						   <div class="inputBox">
+							   <h4 class="inputLabel">쪽지보내기</h4>            
+								 <input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+						 </div>
+					   <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
+					   </div>
+			   </div>
+		   </div>
+	 </form>
 	</div>
+	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
+		function mykeydown() { 
+			if(window.event.keyCode==13) //enter 일 경우
+			{
+				sendServer();
+			}
+		 }
+		</script>
+		<script> <!--쪽지보내기모달 닫는 스크맆트-->
+		  const openMsg = () => {
+			  document.querySelector(".msg-modal").classList.remove("hidden");
+			  
+		  }
+		  const closeMsg = () => {
+			  console.log('cdlose')
+			  document.querySelector(".msg-modal").classList.add("hidden");
+		  }
+		  
+		  document.querySelector(".closeBtn").addEventListener("click", closeMsg);
+		  document.querySelector(".Msgbg").addEventListener("click", closeMsg);
+		  $('.sendMessage').click(function(){
+			openMsg();
+			$('#friendNo').val($(this).attr('data-userNo'));
+		  });
+	  </script>
 	<script>
             
 				 function idCheck2(){

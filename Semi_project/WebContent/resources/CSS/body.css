@@ -87,7 +87,7 @@
 
 #board-wrapper>table {
     margin: 5px;
-    width: 48%;
+    min-width: 48%;
     border-radius: 5px;
 }
 

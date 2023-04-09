@@ -48,34 +48,36 @@
                    
 
                         <div id="board-wrapper">
-                            <div id="filter">
-                                <input type="checkbox" value="Y" id="whitelist" name="filter">
-                                <label for="whitelist">화이트리스트</label>
-                                <input type="checkbox" value="Y" id="banned" name="filter">
-                                <label for="banned">밴 유저</label>
-                                <input type="checkbox" value="Y" id="reported" name="filter">
-                                <label for="reported">신고 당한 유저</label>
-                                <input type="radio" value="1" name="authority" id="student" checked>
-                                <label for="student">학생</label>
-                                <input type="radio" value="2" name="authority" id="teacher">
-                                <label for="teacher">강사</label>
-                            </div>
-                            <table id="resultBoard">
-                                <thead>
-                                    <tr>
-                                        <th colspan="10">유저 조회 결과</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div>
+                                <div id="filter">
+                                    <input type="checkbox" value="Y" id="whitelist" name="filter">
+                                    <label for="whitelist">화이트리스트</label>
+                                    <input type="checkbox" value="Y" id="banned" name="filter">
+                                    <label for="banned">밴 유저</label>
+                                    <input type="checkbox" value="Y" id="reported" name="filter">
+                                    <label for="reported">신고 당한 유저</label>
+                                    <input type="radio" value="1" name="authority" id="student" checked>
+                                    <label for="student">학생</label>
+                                    <input type="radio" value="2" name="authority" id="teacher">
+                                    <label for="teacher">강사</label>
+                                </div>
+                                <table id="resultBoard">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="10">유저 조회 결과</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
-                            <div id="body-footer">
-                                <input id="search-user" type="search" placeholder="이름으로 검색">
-                                <div id="page-btn">
-                                    <div id="back-btn"></div>
-                                    <div id="next-btn"></div>
+                                </table>
+                                <div id="body-footer">
+                                    <input id="search-user" type="search" placeholder="이름으로 검색">
+                                    <div id="page-btn">
+                                        <div id="back-btn"></div>
+                                        <div id="next-btn"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
