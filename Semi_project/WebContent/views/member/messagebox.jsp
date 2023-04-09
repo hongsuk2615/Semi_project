@@ -54,7 +54,7 @@
         <div id="body">
             <div id="content">
                 <div id="content1">
-                    <div id="messagebox3"> <b style="font-size: xx-large;">쪽지함</b></div>
+                    <div id="messagebox3" class="title-text"> 쪽지함</div>
                     <div id="messagecheck">
                     <script>
                     let opponents = [];
@@ -64,13 +64,13 @@
                         	opponents.push(<%=m.getUserNo()%>);
                         </script>
                         <div class = "opponents" >
-                        <div id="date">
-                            <div><%= m.getNickName() %></div>
+                        <div class="date">
+                            <div class="opponent-name"><%= m.getNickName() %></div>
                             
-                            <div><%= contents.get(m.getUserNo()).get(0).get(2)
+                            <div class="msgdate"><%= contents.get(m.getUserNo()).get(0).get(2)
                             %></div>
                         </div>
-                        <div id="text"><%= contents.get(m.getUserNo()).get(0).get(1) %></div>
+                        <div class="text"><%= contents.get(m.getUserNo()).get(0).get(1) %></div>
                         </div>
                         <% } %>               
                     </div>
@@ -79,7 +79,7 @@
                 	<% for(Member m : list) {%>
                     <div class="messagesend" style="display : none">
                     	
-                        <div><b style="font-size: xx-large;"><%=m.getNickName() %></b></div>
+                        <div class="title-text"><%=m.getNickName() %></div>
                       
                         <div class="newfix">
                             <div><button class="openBtn">쪽지보내기</button></div>
@@ -93,7 +93,7 @@
                         <% if(userContents.get(i).get(0).equals("recieve")){ %>
                         <div class="receivemessage">
                             <div>받은쪽지</div>
-                            <div><%= userContents.get(i).get(2) %></div>
+                            <div class="msgdate"><%= userContents.get(i).get(2) %></div>
                         </div>   
                              
                         <div class="receivetext">
@@ -103,7 +103,7 @@
                         <% }else if(userContents.get(i).get(0).equals("send")){ %>                      
                         <div class="sentmessage">
                             <div>보낸쪽지</div>
-                            <div><%= userContents.get(i).get(2) %></div>
+                            <div class="msgdate"><%= userContents.get(i).get(2) %></div>
                         </div>
                         <div class="sendtext">
                             <%= userContents.get(i).get(1) %>
@@ -125,7 +125,7 @@
      <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
      <input type="hidden" name="opponentNo" value="">
 	 <div class="msg-modal hidden">
-		<div class="bg"></div>
+		<div class="Msgbg"></div>
 		<div class="msg-modalBox">
 			<div class="header">
 				<h2>쪽지보내기</h2>
@@ -168,7 +168,7 @@
     	  
       })
       document.querySelector(".closeBtn").addEventListener("click", close);
-      document.querySelector(".bg").addEventListener("click", close);
+      document.querySelector(".Msgbg").addEventListener("click", close);
   </script>
   
   <script> <!-- 상대방 블럭을 클릭 시 이벤트 -->
@@ -181,12 +181,18 @@
 	    $(item).click(function(){
 	  		hiddenMsg();      
 	  		$('.messagecheck2').eq(index).css('display','block');
-	  		$('.messagesend').eq(index).css('display','block');
+	  		$('.messagesend').eq(index).css('display','flex');
+            $('.opponents').each(function(index, item){
+                $(item).css('backgroundColor','white');
+                $(item).children().css('color','#a6a6a6').children().css('color','black').eq(1).css('color','#a6a6a6');
+            })
+            $(this).css('backgroundColor','#42A5F5').css('color','white').children().css('color','white').children().css('color','white');
 	    })
 	    
 	})
+  $('.opponents').eq(0).css('backgroundColor','#42A5F5').css('color','white').children().css('color','white').children().css('color','white');
   $('.messagecheck2').eq(0).css('display','block');
-  $('.messagesend').eq(0).css('display','block');
+  $('.messagesend').eq(0).css('display','flex');
   </script>
   </div>
 </body>
