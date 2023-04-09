@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="resources/CSS/body.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/requestfriend.css">
+<link rel="stylesheet" href="resources/CSS/base.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -56,7 +57,7 @@ a {
 		<%@ include file="../common/header.jsp"%>
 	</div>
 	<div id="body">
-		<div id="main-banner"></div>
+		
 
 		<div id="content">
 			<form id="boardmake">
@@ -72,51 +73,65 @@ a {
 				<div id="keyword">
 
 					<!-- 친구 목록-->
-					<%
-						for (Member m : list) {
-					%>
-					<div><%=m.getUserName()%></div>
-					<div>				
-					<button type="button" class="delete" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >삭제</button>
-					<button type="button" class="sendMessage" onclick="Message(this);" data-userNo=<%=m.getUserNo() %> >쪽지보내기</button>
-					</div>	
-					
+						<div id="friends">
+						<% if(list.size() == 0){ %>
+							친구를 추가해보세요!
+						<%}%>
+						<%
+							for (Member m : list) {
+						%>
+						<div>
+							<div><%=m.getUserName()%></div>
+							<div>				
+							<button type="button" class="delete" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >삭제</button>
+							<button type="button" class="sendMessage" onclick="Message(this);" data-userNo=<%=m.getUserNo() %> >쪽지보내기</button>
+							</div>	
+						</div>
 					<%
 						}
 					%>
-
-
-					<!-- 친구  요청 목록-->
-
-					<%
-						for (Member m : list2) {
-					%>
-					<div><%=m.getUserName()%>님에게 친구요청을 보냈습니다.
 					</div>
-					<br>
 
-					<%
-						}
-					%>
+						<div id="friendsSend">
+							<% if(list2.size() == 0){ %>
+								친구 요청 목록이 없습니다.
+							<%}%>
+						<!-- 친구  요청 목록-->
 
+						<%
+							for (Member m : list2) {
+						%>
+						<div>
+							<div style="color: rgb(71, 174, 192);"><%=m.getUserName()%></div>님에게 친구요청을 보냈습니다.
+						</div>	
+						
 
+						<%
+							}
+						%>
+
+					</div>
 					<!-- 친구  요청 받은 목록-->
 
+					<div id="friendsReq">
+						<% if(list3.size() == 0){ %>
+							요청받은 목록이 없습니다.
+						<%}%>
 					<%
 						for (Member m : list3) {
 					%>
-					<div style="display: flex; justify-content: space-around;">
-						<div class="sendName" ><%=m.getUserName()%></div>
-						님이 친구요청을 했습니다.
+						<div>
+							<div class="sendName" style="color :rgb(71, 93, 192)" ><%=m.getUserName()%></div>님이 친구요청을 했습니다.
+						</div>	
 						<div>
 							<button type="button" class="accept" onclick="accept(this);" data-userNo=<%=m.getUserNo() %> >수락</button>
 							<button type="button" class="deny" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >거절</button>
 						</div>
-					</div>
+					
 					<%
 						}
 					%>
-
+					</div>
 				</div>
 			</form>
 		</div>
