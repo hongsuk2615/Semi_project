@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="reportReply">
+		INSERT INTO REPLY_REPORT (REPLY_NO, USER_NO)
+		VALUES
+	 	 (?, ?)
+	</entry>
+	
+	<entry key="reportContent">
+		INSERT INTO BOARD_REPORT (BOARD_NO, USER_NO)
+		VALUES
+	 	 (?, ?)
+	</entry>
+	
+	
+</properties>

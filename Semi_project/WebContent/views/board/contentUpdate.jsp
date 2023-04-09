@@ -138,10 +138,11 @@
         }
         
 		function updateContent(){
+			
 			let formData = new FormData();
 			
 			if(fileArray.length + originLength < 6){
-				
+				off();
 				fileArray.forEach(file => { dataTransfer.items.add(file); });
 				$('#upfile')[0].files = dataTransfer.files;
 				
@@ -197,6 +198,32 @@
 		}
 		$("#upfile").val("");
 	});
+	
+	
+	$(window).on("beforeunload", callback);
+	$(window).on("unload", erase);
+	
+	function erase(){
+	    $("#title").val("<%= b.getTitle()%>");
+		$("#content").val("");
+		$("#upfile").val("");
+		$("#isQuestion").val("");
+		$("#isAnonimous").val("");
+	    return "changes will be lost!";
+	}
+	// 원래 형태로 바꿔주기 -> 뒤로가기했을 때
+	function callback(){
+	    console.log("beforeunload callback !");
+	    return "changes will be lost!";
+	}
+	 
+	function off(){
+	    console.log("beforeunload turn off !");
+	    $(window).off("beforeunload");
+	}
+	
+	document.querySelector('#update-content-btn').addEventListner('click', () => off());
+	  
 
 	</script>
 </body>

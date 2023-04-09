@@ -47,6 +47,10 @@
 </head>
 <body>
     <div id="wrapper">
+    <!-- 위로 가기 버튼 -->
+    <div><button type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);">위로가기</button></div>
+    
+    <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
         <div id="body">
             
@@ -172,7 +176,10 @@
                             <ul id="content-area">
                            
                             	<% for(Board b : boardList) { %>
-                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
+                            	
+                                <li>
+                                글 번호: <%= b.getBoardNo() %>
+                                <div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
                                 <%= b.getTitle() %><br>
                                     <%= b.getContent() %> <br>
                                    <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
@@ -186,13 +193,65 @@
                                  <% } %>
                                   </ul>
 						<script>
-									$(function(){
-										$("#board-detail li").click(function(){
-											let bNo = $(this).children().eq(0).text();
-											location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
-											
-										});
-									});
+						
+						let boardCount = 1;
+						function loadBoard(){
+							boardCount = boardCount + 1;
+							
+							$.ajax({
+								url : "<%=request.getContextPath()%>/boardDetail.bo",
+								type : "post",
+								data :{
+									cNo : <%=cNo %>,
+									currentPage : boardCount
+								}, 
+								success : function(list){
+									console.log("loadBoard");
+									console.log(list);
+									console.log(count);
+									let result  = "";
+									for(let i of list){ 
+										result += 
+										`
+										<li>
+										글번호: \${i.boardNo}
+										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+		                                \${i.title}<br>
+		                                    \${i.content} <br>
+		                                   \${i.enrollDate} &nbsp; \${i.writer}<br>
+		                                    <div id="board-detail-comment">
+                                        
+                                        <div>\${i.recommendCount}</div>
+                                        <div>\${i.replyCount}</div>
+                                    </div>
+                                </li>
+					                     `
+									}
+										$("#content-area").append(result);
+									
+								}, error : function(){
+									alert("게시글 조회 실패");
+								}
+							
+							})
+						}
+						
+						$(function(){
+							$("#board-detail li").click(function(){
+								let bNo = $(this).children().eq(0).text();
+								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+								
+							});
+						});
+						
+
+					     window.onscroll = function(e) {
+					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+					           setTimeout(loadBoard, 500); 
+					         }
+					       }
+								     
+								    
 								</script>
                             
                             
@@ -202,17 +261,7 @@
                         <div>검색창</div>
                         <div id="board-detail-search-pagebtn">
                         
-		<div align="center" class="paging-area">
-			
-			<% if( currentPage != 1) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
-			<% } %>
-			
-			<% if(currentPage != pi.getMaxPage()) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
-			<% } %>
-			
-		</div>
+		
                         </div>
                     </div>
                     </div>
@@ -232,8 +281,7 @@
     </div>
    
 
-     <script>
-    </script>
+
 
 
 

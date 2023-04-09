@@ -31,7 +31,7 @@
 <title>KH_TIME 메인페이지</title>
 </head>
 <style>
-/* * {
+    /*  {
         border: 1px solid rgba(128, 128, 128, 0.568);
     } */
 div {
