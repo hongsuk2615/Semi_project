@@ -1,6 +1,11 @@
 #content{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    background-color: white;
+    width: 900px;
+}
+#body{
+    align-items: center;
 }
 
 #content1{
