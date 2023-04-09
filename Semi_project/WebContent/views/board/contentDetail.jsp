@@ -85,7 +85,7 @@
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
                                         		 if(confirm("정말 삭제하시겠습니까?")){ 
-                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>";
+                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
                                         		 }
                                      	    })
                                         			
@@ -142,36 +142,8 @@
 
                             <!-- 댓글 -->
                             
-                         <ul id="comments-area">
-                            <% if(replyList.isEmpty()) { %>
-                           	<li>글이 없습니다,,</li>
-                           <% }else{ %>
-                            	<% for(Reply r : replyList) { %>
-                               <li>
-									<%= r.getReplyNo() %>
-									 <div class='content-detail-comments'>
-									 <div class='comments-left'>
-									 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
-									 <%= r.getWriter() %>
-									 </div>
-									 <div class='comments-right'>
-				                     대댓글 
-				                     <button id="reportbtn<%= r.getReplyNo() %>" onclick="reportclick(this.id)">신고</button>
-				                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
-				                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
-				                     </div>
-				                     </div>
-				                     <%= r.getContent() %>
-				                     <br>
-				                     <%= r.getEnrollDate() %>
-				                     <br>
-				                       공감수 : <div id="recommendCount<%= r.getReplyNo() %>">  <%= r.getRecommendCount() %></div>
-				                    
-			                     </li>
-                               
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
+                         <ul id="comments-area"></ul>
+                         
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
@@ -182,7 +154,7 @@
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
                             </div>
                             <div>
-                                <button onclick="replyisEmpty()">글작성 버튼</button>
+                                <button onclick="insertReply()">글작성 버튼</button>
                             </div>
                         </div>
                     </div>
@@ -250,13 +222,13 @@
     
 		<script>
 		/* 댓글 입력, 조회, 댓글개수 증가 */
-		function replyisEmpty(){
+		/* function replyisEmpty(){
 			if(document.getElementById("replyContent").value.trim().length == 0){ 
 				alert("댓글 입력해주세요");
 			}else{
 				insertReply();
 			}
-		}
+		} */
 		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
@@ -275,7 +247,14 @@
 					}else{
 						alert("댓글작성에 실패했습니다.");	
 					}
-				}, error : function(){
+				},
+				beforeSend : function(){
+					if(document.getElementById("replyContent").value.trim().length == 0){ 
+						alert("댓글을 입력해주세요!");
+						return false;
+					}
+				},
+					error : function(){
 					console.log("댓글작성실패")
 				}
 			})
@@ -448,6 +427,8 @@
 					});
 	  	     }
 	  	    
+		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
+		window.onload = selectReplyList;
 	</script>
 
 

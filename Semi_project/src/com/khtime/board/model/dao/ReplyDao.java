@@ -88,7 +88,6 @@ public class ReplyDao {
 							rset.getInt("REPORT_COUNT"),
 							rset.getDate("ENROLL_DATE"),
 							rset.getString("IS_ANONIMOUS"),
-							rset.getInt("P_REPLY_NO"),
 							rset.getString("USERPROFILE")
 							);
 					list.add(r);
@@ -227,5 +226,5 @@ public class ReplyDao {
 				}
 				return result;
 			}
-		
+	
 }

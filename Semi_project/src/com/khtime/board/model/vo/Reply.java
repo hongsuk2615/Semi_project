@@ -2,8 +2,6 @@ package com.khtime.board.model.vo;
 
 import java.util.Date;
 
-import oracle.sql.DATE;
-
 public class Reply {
 	private int replyNo;
 	private int boardNo;
@@ -13,20 +11,15 @@ public class Reply {
 	private int reportCount;
 	private Date enrollDate;
 	private String isAnonimous;
-	private int pReplyNo;
 	private String userProfile;
 	
-	
-
-
 	public Reply() {
 		super();
 	}
 
-	
-	
+
 	public Reply(int replyNo, int boardNo, String writer, String content, int recommendCount, int reportCount,
-			Date enrollDate, String isAnonimous, int pReplyNo, String userProfile) {
+			Date enrollDate, String isAnonimous, String userProfile) {
 		super();
 		this.replyNo = replyNo;
 		this.boardNo = boardNo;
@@ -36,32 +29,9 @@ public class Reply {
 		this.reportCount = reportCount;
 		this.enrollDate = enrollDate;
 		this.isAnonimous = isAnonimous;
-		this.pReplyNo = pReplyNo;
 		this.userProfile = userProfile;
 	}
 
-
-
-	public Reply(int replyNo, String writer, String content, Date enrollDate, String isAnonimous, int pReplyNo) {
-		super();
-		this.replyNo = replyNo;
-		this.writer = writer;
-		this.content = content;
-		this.enrollDate = enrollDate;
-		this.isAnonimous = isAnonimous;
-		this.pReplyNo = pReplyNo;
-	}
-
-	public Reply(int replyNo, String content, String writer, Date enrollDate, String isAnonimous) {
-		super();
-		this.replyNo = replyNo;
-		this.content = content;
-		this.writer = writer;
-		this.enrollDate = enrollDate;
-		this.isAnonimous = isAnonimous;
-	}
-
-	
 
 	public int getRecommendCount() {
 		return recommendCount;
@@ -134,15 +104,6 @@ public class Reply {
 	public void setIsAnonimous(String isAnonimous) {
 		this.isAnonimous = isAnonimous;
 	}
-
-	public int getpReplyNo() {
-		return pReplyNo;
-	}
-
-	public void setpReplyNo(int pReplyNo) {
-		this.pReplyNo = pReplyNo;
-	}
-	
 	public String getUserProfile() {
 		return userProfile;
 	}
@@ -157,7 +118,7 @@ public class Reply {
 	public String toString() {
 		return "Reply [replyNo=" + replyNo + ", boardNo=" + boardNo + ", writer=" + writer + ", content=" + content
 				+ ", recommendCount=" + recommendCount + ", reportCount=" + reportCount + ", enrollDate=" + enrollDate
-				+ ", isAnonimous=" + isAnonimous + ", pReplyNo=" + pReplyNo + "]";
+				+ ", isAnonimous=" + isAnonimous+ "]";
 	}
 	
 }

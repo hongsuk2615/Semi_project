@@ -3,292 +3,412 @@
 <properties>
 
 
-   <entry key="selectBoard">
-      SELECT *    
-      FROM(
-            SELECT ROWNUM RNUM , A.*
-            FROM (
-               SELECT DISTINCT
-                     BOARD_NO,
-                     TITLE,
-                     CONTENT,
-                     B.CATEGORY_NO,
-                     M.NICK_NAME AS WRITER,
-                     IS_QUESTION,
-                          IS_ANONIMOUS,
-                     B.RECOMMEND_COUNT,
-                     B.ENROLL_DATE,
-                     REPLY_COUNT
-                                         
-               FROM BOARD B
-               JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE CATEGORY_NO = ?
-                 AND B.STATUS = 'Y'
-               ORDER BY B.BOARD_NO DESC
-            ) A
-         )
-      WHERE RNUM BETWEEN ? AND ?
-        
-   </entry>
-   
+	<entry key="selectBoard">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		B.CATEGORY_NO,
+		M.NICK_NAME AS WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
 
-   <entry key="selectContent">
-      SELECT 
-            B.BOARD_NO,
-            TITLE,
-            CONTENT,
-            M.NICK_NAME AS WRITER,
-            B.CATEGORY_NO,
-            IS_QUESTION,
-            IS_ANONIMOUS,
-            B.REPORT_COUNT,
-            B.RECOMMEND_COUNT,
-            B.SCRAP_COUNT,
-            B.ENROLL_DATE,
-            B.STATUS,
-            REPLY_COUNT,
-            FILE_PATH || CHANGE_NAME AS USERPROFILE
-        FROM BOARD B
-        LEFT JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-        LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = B.WRITER)
-       WHERE BOARD_NO = ?
-         AND B.STATUS = 'Y'
-   </entry>
-   
-    <entry key="selectCount">
-      SELECT 
-            $ AS COUNT
-        FROM BOARD
-       WHERE BOARD_NO = ?
-   </entry>
-   
-   <entry key="test">
-     (SELECT COUNT(*)
-                          FROM REPLY R
-                          WHERE R.BOARD_NO = B.BOARD_NO)  
-   </entry>
-   
-   <entry key="insertBoard">
-      INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER, IS_QUESTION, IS_ANONIMOUS)
-      VALUES($
-           ,?
-           ,?
-           ,?
-           ,?
-           ,?
-           ,?
-           )
-   </entry>
-   
-    <entry key="insertAttachment">
-      INSERT INTO BOARD_ATTACHMENT (FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
-      VALUES(SEQ_BFNO.NEXTVAL
-           ,$
-           ,?
-           ,?
-           ,?
-           ,^
-           )
-   </entry>
-   
-   <entry key="nextFileLevel">
-     NVL((SELECT MAX(FILE_LEVEL)
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE CATEGORY_NO = ?
+		AND B.STATUS = 'Y'
+		ORDER BY B.BOARD_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+
+	<entry key="boardListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE CATEGORY_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+
+	<entry key="selectContent">
+		SELECT
+		B.BOARD_NO,
+		TITLE,
+		CONTENT,
+		M.NICK_NAME AS WRITER,
+		B.CATEGORY_NO,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.REPORT_COUNT,
+		B.RECOMMEND_COUNT,
+		B.SCRAP_COUNT,
+		B.ENROLL_DATE,
+		B.STATUS,
+		REPLY_COUNT,
+		FILE_PATH || CHANGE_NAME AS USERPROFILE
+		FROM BOARD B
+		LEFT JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = B.WRITER)
+		WHERE BOARD_NO = ?
+		AND B.STATUS = 'Y'
+	</entry>
+
+	<entry key="selectCount">
+		SELECT
+		$ AS COUNT
+		FROM BOARD
+		WHERE BOARD_NO = ?
+	</entry>
+
+	<entry key="test">
+		(SELECT COUNT(*)
+		FROM REPLY R
+		WHERE R.BOARD_NO = B.BOARD_NO)
+	</entry>
+
+	<entry key="insertBoard">
+		INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, CATEGORY_NO, WRITER,
+		IS_QUESTION, IS_ANONIMOUS)
+		VALUES($
+		,?
+		,?
+		,?
+		,?
+		,?
+		,?
+		)
+	</entry>
+
+	<entry key="insertAttachment">
+		INSERT INTO BOARD_ATTACHMENT (FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME,
+		FILE_PATH, FILE_LEVEL)
+		VALUES(SEQ_BFNO.NEXTVAL
+		,$
+		,?
+		,?
+		,?
+		,^
+		)
+	</entry>
+
+	<entry key="nextFileLevel">
+		NVL((SELECT MAX(FILE_LEVEL)
 		FROM BOARD_ATTACHMENT
 		WHERE REF_BNO = ?)+1, 0)
-   </entry>
-   
-    <entry key="selectAttachmentList">
-      SELECT 
-           FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL, STATUS
-        FROM BOARD_ATTACHMENT
-       WHERE REF_BNO = ?
-       	AND STATUS = 'Y'
-       	ORDER BY FILE_LEVEL
-   </entry>
-   
-   
-   <entry key="searchList">
-      SELECT *    
-      FROM(
-            SELECT ROWNUM RNUM , A.*
-            FROM (
-               SELECT DISTINCT
-                     BOARD_NO,
-                     TITLE,
-                     CONTENT,
-                     WRITER,
-                     IS_QUESTION,
-                     IS_ANONIMOUS,
-                     B.RECOMMEND_COUNT,
-                     B.ENROLL_DATE,
-                     REPLY_COUNT
-                                         
-               FROM BOARD B
-               JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE B.TITLE LIKE  ?
-                  OR B.CONTENT LIKE ?
-                 AND B.STATUS = 'Y'
-               ORDER BY ENROLL_DATE DESC
-            ) A
-         )
-      WHERE RNUM BETWEEN ? AND ?
-        
-   </entry>
-   
-   
-   
-   <entry key="keywordListCount">
-      SELECT COUNT(*) AS COUNT
-        FROM BOARD
-       WHERE TITLE LIKE  ?
-                  OR CONTENT LIKE ?
-         AND STATUS = 'Y'
-   </entry>
-   
-   
-   
-   
-   <entry key="bestList">
-      SELECT *    
-      FROM(
-            SELECT ROWNUM RNUM , A.*
-            FROM (
-               SELECT DISTINCT
-                     BOARD_NO,
-                     TITLE,
-                     CONTENT,
-                     B.CATEGORY_NO,
-                     M.NICK_NAME AS WRITER,
-                     IS_QUESTION,
-                          IS_ANONIMOUS,
-                     B.RECOMMEND_COUNT,
-                     B.ENROLL_DATE,
-                     REPLY_COUNT
-                                         
-               FROM BOARD B
-               JOIN MEMBER M ON (B.WRITER = M.USER_NO)
-               WHERE B.RECOMMEND_COUNT > ?
-               AND TO_CHAR(B.ENROLL_DATE,'YYYY') = ?
-                 AND B.STATUS = 'Y'
-               ORDER BY B.RECOMMEND_COUNT DESC
-            ) A
-         )
-      WHERE RNUM BETWEEN ? AND ?
-        
-   </entry>
-   
+	</entry>
+
+	<entry key="selectAttachmentList">
+		SELECT
+		FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE,
+		FILE_LEVEL, STATUS
+		FROM BOARD_ATTACHMENT
+		WHERE REF_BNO = ?
+		AND STATUS = 'Y'
+		ORDER BY FILE_LEVEL
+	</entry>
+
+
+	<entry key="searchList">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
+
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE B.TITLE LIKE ?
+		OR B.CONTENT LIKE ?
+		AND B.STATUS = 'Y'
+		ORDER BY ENROLL_DATE DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+
+
+
+	<entry key="keywordListCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE TITLE LIKE ?
+		OR CONTENT LIKE ?
+		AND STATUS = 'Y'
+	</entry>
+
+
+
+
+	<entry key="bestList">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		B.CATEGORY_NO,
+		M.NICK_NAME AS WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
+
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE B.RECOMMEND_COUNT > ?
+		AND TO_CHAR(B.ENROLL_DATE,'YYYY') = ?
+		AND B.STATUS = 'Y'
+		ORDER BY B.RECOMMEND_COUNT DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+
 
 	<entry key="bestListCount">
 		SELECT COUNT(*) AS COUNT
-		  FROM BOARD
-		 WHERE RECOMMEND_COUNT > ?
-		   AND STATUS = 'Y'
-		   
+		FROM BOARD
+		WHERE RECOMMEND_COUNT > ?
+		AND STATUS = 'Y'
+
 	</entry>
 
 	<entry key="deleteContent">
-	  UPDATE BOARD SET
-	  	STATUS = 'N'
-	  	WHERE BOARD_NO = ?
-	  	AND WRITER = ?
-        OR BOARD_NO = ?
-        AND ? = 0
-	  
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
+		AND ( WRITER = ? AND ? = 'N'
+		OR ? = 0
+		OR WRITER = ? AND 0 = (SELECT REPLY_COUNT FROM BOARD WHERE BOARD_NO = ?)
+		)
+
 	</entry>
-	
+
 	<entry key="updateAttachment">
-	  UPDATE BOARD_ATTACHMENT SET
-	  	STATUS = 'N'
-	  	WHERE $ ^ ?
+		UPDATE BOARD_ATTACHMENT SET
+		STATUS = 'N'
+		WHERE $ ^ ?
 	</entry>
-	
+
 	<entry key="recommendCountUp">
-	  UPDATE BOARD SET
-	  	RECOMMEND_COUNT = RECOMMEND_COUNT + 1
-	  	WHERE BOARD_NO = ?
-	  		AND ? != (
-	  		SELECT WRITER
-	  		FROM BOARD
-	  		WHERE BOARD_NO = ?)
+		UPDATE BOARD SET
+		RECOMMEND_COUNT = RECOMMEND_COUNT + 1
+		WHERE BOARD_NO = ?
+		AND ? != (
+		SELECT WRITER
+		FROM BOARD
+		WHERE BOARD_NO = ?)
 	</entry>
-	
+
 	<entry key="scrapCountUp">
-	  UPDATE BOARD SET
-	  	SCRAP_COUNT = SCRAP_COUNT + 1
-	  	WHERE BOARD_NO = ?
-	  	AND ? != (
-	  		SELECT WRITER
-	  		FROM BOARD
-	  		WHERE BOARD_NO = ?)
-	  
+		UPDATE BOARD SET
+		SCRAP_COUNT = SCRAP_COUNT + 1
+		WHERE BOARD_NO = ?
+		AND ? != (
+		SELECT WRITER
+		FROM BOARD
+		WHERE BOARD_NO = ?)
+
 	</entry>
-	
+
 	<entry key="getHotBestBoardlist">
 		SELECT BOARD_NO
-		     , TITLE
-		  FROM BOARD
-		 WHERE RECOMMEND_COUNT > ?
-		   AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
+		, TITLE
+		FROM BOARD
+		WHERE RECOMMEND_COUNT > ?
+		AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
 	</entry>
-	
-	 <entry key="replyCountUp">
-      UPDATE BOARD SET
-	  		REPLY_COUNT = REPLY_COUNT + 1
-	  	WHERE BOARD_NO = ?
-   </entry>
-   
-   <entry key="replyCountDown">
-      UPDATE BOARD SET
-	  		REPLY_COUNT = REPLY_COUNT - 1
-	  	WHERE BOARD_NO = ?
-   </entry>
-   
-   <entry key="updateContent">
-      UPDATE BOARD SET
-	  		TITLE = ?,
-	  		CONTENT = ?,
-	  		CATEGORY_NO = ?,
-	  		IS_QUESTION = ?,
-	  		IS_ANONIMOUS = ?
-	  	WHERE BOARD_NO = ?
-	  		AND WRITER = ?
-   </entry>
 
-   <entry key="categoryTitle">
-   		SELECT CATEGORY_NAME
-   			 , CATEGORY_NO
+	<entry key="replyCountUp">
+		UPDATE BOARD SET
+		REPLY_COUNT = REPLY_COUNT + 1
+		WHERE BOARD_NO = ?
+	</entry>
+
+	<entry key="replyCountDown">
+		UPDATE BOARD SET
+		REPLY_COUNT = REPLY_COUNT - 1
+		WHERE BOARD_NO = ?
+	</entry>
+
+	<entry key="updateContent">
+		UPDATE BOARD SET
+		TITLE = ?,
+		CONTENT = ?,
+		CATEGORY_NO = ?,
+		IS_QUESTION = ?,
+		IS_ANONIMOUS = ?
+		WHERE BOARD_NO = ?
+		AND WRITER = ?
+	</entry>
+
+	<entry key="categoryTitle">
+		SELECT CATEGORY_NAME
+		, CATEGORY_NO
 		FROM CATEGORY
 		WHERE CATEGORY_NAME LIKE ?
 		AND AVAILABLE = 'Y'
-   </entry>
-   
-   <entry key="boardRequest">
-   		INSERT INTO BOARD_REQ(BOARD_NAME,USER_ID,REASON)
-   		 VALUES(
-            ?
-           ,?
-           ,?
-           )	
-   </entry>
-   
-    <entry key="boardCategoryreq">
-   		INSERT INTO CATEGORY(CATEGORY_NO,CATEGORY_NAME,REQ_USER)
-   		 VALUES(SEQ_CNO.NEXTVAL
-           ,?
-           ,?
-           )	
-   </entry>
-   
-   	<entry key="reportCountUp">
-	  UPDATE BOARD SET
-	  	REPORT_COUNT = REPORT_COUNT + 1
-	  	WHERE BOARD_NO = ?
-	  	AND ? != (
-	  		SELECT WRITER
-	  		FROM BOARD
-	  		WHERE BOARD_NO = ?)
 	</entry>
-   
-   
+
+	<entry key="boardRequest">
+		INSERT INTO BOARD_REQ(BOARD_NAME,USER_ID,REASON)
+		VALUES(
+		?
+		,?
+		,?
+		)
+	</entry>
+
+	<entry key="boardCategoryreq">
+		INSERT INTO CATEGORY(CATEGORY_NO,CATEGORY_NAME,REQ_USER)
+		VALUES(SEQ_CNO.NEXTVAL
+		,?
+		,?
+		)
+	</entry>
+
+	<entry key="reportCountUp">
+		UPDATE BOARD SET
+		REPORT_COUNT = REPORT_COUNT + 1
+		WHERE BOARD_NO = ?
+		AND ? != (
+		SELECT WRITER
+		FROM BOARD
+		WHERE BOARD_NO = ?)
+	</entry>
+
+
+	<entry key="listCount">
+		SELECT COUNT(*) AS COUNT
+		FROM BOARD
+		WHERE WRITER = ?
+		AND
+		STATUS = 'Y'
+	</entry>
 	
+	
+	<entry key="userWriting">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		B.CATEGORY_NO,
+		M.NICK_NAME AS WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE B.WRITER = ?
+		AND B.STATUS = 'Y'
+		ORDER BY B.BOARD_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+
+	<entry key="listCountReply">
+		SELECT COUNT(*) COUNT
+		FROM BOARD B
+		JOIN REPLY R ON (
+		R.BOARD_NO = B.BOARD_NO)
+		WHERE R.WRITER = ?
+		AND STATUS = 'Y';
+	</entry>
+	
+	<entry key="userComments">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		B.CATEGORY_NO,
+		M.NICK_NAME AS WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE BOARD_NO IN ( SELECT DISTINCT BOARD_NO
+        FROM REPLY
+       WHERE WRITER = ?)
+		AND B.STATUS = 'Y'
+		ORDER BY B.BOARD_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
+	
+	<entry key="listCountScrap">
+		SELECT COUNT(*) COUNT
+		FROM BOARD B
+		JOIN SCRAP S ON (
+		S.BOARD_NO = B.BOARD_NO)
+		WHERE USER_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="userScrap">
+		SELECT *
+		FROM(
+		SELECT ROWNUM RNUM , A.*
+		FROM (
+		SELECT DISTINCT
+		BOARD_NO,
+		TITLE,
+		CONTENT,
+		B.CATEGORY_NO,
+		M.NICK_NAME AS WRITER,
+		IS_QUESTION,
+		IS_ANONIMOUS,
+		B.RECOMMEND_COUNT,
+		B.ENROLL_DATE,
+		REPLY_COUNT
+		FROM BOARD B
+		JOIN MEMBER M ON (B.WRITER = M.USER_NO)
+		WHERE BOARD_NO IN ( SELECT BOARD_NO
+        FROM SCRAP
+       WHERE USER_NO = ?)
+		AND B.STATUS = 'Y'
+		ORDER BY B.BOARD_NO DESC
+		) A
+		)
+		WHERE RNUM BETWEEN ? AND ?
+
+	</entry>
 </properties>

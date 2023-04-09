@@ -4,10 +4,8 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
-	int currentPage = (int)request.getAttribute("currentPage");
 %>    
 	   
 <!DOCTYPE html>
@@ -172,29 +170,11 @@
                             </div>
                            <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
-                           <% }else{ %>
-                            <ul id="content-area">
-                           
-                            	<% for(Board b : boardList) { %>
-                            	
-                                <li>
-                                글 번호: <%= b.getBoardNo() %>
-                                <div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
-                                <%= b.getTitle() %><br>
-                                    <%= b.getContent() %> <br>
-                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
-                                    <div id="board-detail-comment">
-                                        
-                                        <div><%= b.getRecommendCount() %></div>
-                                        <div><%= b.getReplyCount() %></div>
-                                    </div>
-                                </li>
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
+                           <% } %>
+                            <ul id="content-area"></ul>
 						<script>
 						
-						let boardCount = 1;
+						let boardCount = 0;
 						function loadBoard(){
 							boardCount = boardCount + 1;
 							
@@ -206,9 +186,6 @@
 									currentPage : boardCount
 								}, 
 								success : function(list){
-									console.log("loadBoard");
-									console.log(list);
-									console.log(count);
 									let result  = "";
 									for(let i of list){ 
 										result += 
@@ -228,6 +205,7 @@
 					                     `
 									}
 										$("#content-area").append(result);
+										selectContent();
 									
 								}, error : function(){
 									alert("게시글 조회 실패");
@@ -236,13 +214,13 @@
 							})
 						}
 						
-						$(function(){
+						function selectContent(){
 							$("#board-detail li").click(function(){
 								let bNo = $(this).children().eq(0).text();
 								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
 								
 							});
-						});
+						}
 						
 
 					     window.onscroll = function(e) {
@@ -256,14 +234,7 @@
                             
                             
                     </div>
-                    <div id="board-detail-search">
-                       
-                        <div>검색창</div>
-                        <div id="board-detail-search-pagebtn">
-                        
-		
-                        </div>
-                    </div>
+                   
                     </div>
     
                 </div>
@@ -279,7 +250,36 @@
 
         </div>
     </div>
-   
+   <script>
+	// 수정 중 다른 페이지로 나갈 때 alert
+	document.querySelector('#title').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+		
+	});
+	
+	document.querySelector('#content').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+	});
+	
+	function callback(){
+	    return "changes will be lost!";
+	}
+		function off(){
+		    $(window).off("beforeunload");
+		}
+		document.querySelector('#create-content-btn').addEventListener('click',off);
+		  
+	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
+	window.onload = loadBoard;
+   </script>
 
 
 
