@@ -46,22 +46,24 @@ a {
 
 		<div id="body">
 			<div id="board-wrapper">
-				<table id="board-2">
-					<thead>
-						<tr>
-							<th colspan="7">신고 게시물</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
+				<div>
+					<table id="board-2">
+						<thead>
+							<tr>
+								<th colspan="7">신고 게시물</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
 
-				</table>
-				<div id="body-footer">
-					<input id="search-user" type="search" placeholder="제목 및 내용 키워드로 검색">
-					<div id="page-btn">
-						<div id="back-btn"></div>
-						<div id="next-btn"></div>
+					</table>
+					<div id="body-footer">
+						<input id="search-user" type="search" placeholder="제목 및 내용 키워드로 검색">
+						<div id="page-btn">
+							<div id="back-btn"></div>
+							<div id="next-btn"></div>
+						</div>
 					</div>
 				</div>
 			</div>
