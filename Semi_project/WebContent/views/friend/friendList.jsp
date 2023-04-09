@@ -76,7 +76,11 @@ a {
 						for (Member m : list) {
 					%>
 					<div><%=m.getUserName()%></div>
-					<br>
+					<div>				
+					<button type="button" class="delete" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >삭제</button>
+					<button type="button" class="sendMessage" onclick="Message(this);" data-userNo=<%=m.getUserNo() %> >쪽지보내기</button>
+					</div>	
+					
 					<%
 						}
 					%>
@@ -167,6 +171,7 @@ a {
 						 }
 					
 				 function deny(e){
+						if(confirm("친구를 삭제하시겠습니까?")){
 						console.log(e);
 						console.log($(e).attr('data-userNo'));
 						let senderUserNo =  $(e).attr('data-userNo');
@@ -178,16 +183,21 @@ a {
 								 success : function(result){
 								console.log(result);
 									 if(result>0){
+										 	if($(e).attr('class') == "deny"){
 											alert("친구 신청을 거절했습니다.");
 											location.reload();
-										 
+										 	}
+										 	else{
+										 		alert("친구를 삭제했습니다.");
+										 		location.reload();
+										 	}
 									 }else{
 											alert("친구요청 거절을 실패했습니다.");
 									 }
 								 }
 								 });	 
 							 }
-					 
+				 }
 				 
         </script>
 

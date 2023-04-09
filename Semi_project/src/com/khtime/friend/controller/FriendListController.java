@@ -33,6 +33,7 @@ public class FriendListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+
 		ArrayList<Member> list = new FriendService().friendlist(loginUserNo);
 		request.setAttribute("list", list);//친구목록
 		ArrayList<Member> list2 = new FriendService().friendlist2(loginUserNo);

@@ -23,7 +23,7 @@
 		
 	<entry key = "friendlist">
 		
-		SELECT USER_NAME
+		SELECT USER_NAME , USER_NO
  			   FROM MEMBER
  			   WHERE USER_NO IN (SELECT RECEIVER AS FRIENDS
   			   FROM FRIEND

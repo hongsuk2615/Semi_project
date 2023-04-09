@@ -96,7 +96,7 @@ public class FriendDao {
 				m = new Member();
 
 				m.setUserName(rset.getString("USER_NAME"));
-
+				m.setUserNo(rset.getInt("USER_NO"));
 				list.add(m);
 			}
 

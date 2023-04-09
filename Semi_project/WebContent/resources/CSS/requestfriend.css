@@ -21,10 +21,16 @@
 
 #keyword>div{
     display: flex;
-    flex-direction: column;
-    width: 500px;
-    border: 1px solid lightgray; 
+   
+   
 }
+#keyword{
+	 display: flex;
+	 justify-content : space-between;
+	 width : 400px;
+	  border: 1px solid lightgray; 
+}
+
 
 #boardmake input{
     width: 500px;
