@@ -677,6 +677,18 @@
 	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
 	    })
+	    
+	     document.getElementById("user-boards").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myWriting.bo?bType=1";
+	    })
+	    
+	     document.getElementById("user-replys").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myComments.bo?bType=2";
+	    })
+	    
+	     document.getElementById("user-scraps").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myScrap.bo?bType=3";
+	    })
         </script>
         <script> //애니메이션 테스트
         $(window).scroll(function(){

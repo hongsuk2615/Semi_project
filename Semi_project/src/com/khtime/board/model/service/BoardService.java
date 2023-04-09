@@ -179,5 +179,66 @@ public class BoardService {
 	}
 	
 	
+	public int listCount(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCount(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userWriting(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userWriting(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountReply(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountReply(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userComments(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userComments(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountScrap(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountScrap(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userScrap(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userScrap(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	
 
 }

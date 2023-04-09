@@ -154,7 +154,7 @@
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
                             </div>
                             <div>
-                                <button onclick="replyisEmpty()">글작성 버튼</button>
+                                <button onclick="insertReply()">글작성 버튼</button>
                             </div>
                         </div>
                     </div>
@@ -222,13 +222,13 @@
     
 		<script>
 		/* 댓글 입력, 조회, 댓글개수 증가 */
-		function replyisEmpty(){
+		/* function replyisEmpty(){
 			if(document.getElementById("replyContent").value.trim().length == 0){ 
 				alert("댓글 입력해주세요");
 			}else{
 				insertReply();
 			}
-		}
+		} */
 		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
@@ -247,7 +247,14 @@
 					}else{
 						alert("댓글작성에 실패했습니다.");	
 					}
-				}, error : function(){
+				},
+				beforeSend : function(){
+					if(document.getElementById("replyContent").value.trim().length == 0){ 
+						alert("댓글을 입력해주세요!");
+						return false;
+					}
+				},
+					error : function(){
 					console.log("댓글작성실패")
 				}
 			})
