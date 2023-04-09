@@ -47,14 +47,15 @@
 
 #header-right>button {
     height: 40px;
-    border: 1px solid #d6d6d6;
+    border: 1px solid transparent;
     border-radius: 5px;
 }
 
 #login-btn{
     margin: 2px;
     width: 67px;
-    background-color: rgb(57, 189, 235);
+    background-color: #42A5F5;
+    color: white;
 }
 #enrollment-btn {
     margin: 2px;

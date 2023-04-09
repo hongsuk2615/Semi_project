@@ -43,8 +43,6 @@
      <%@ include file="../common/header.jsp" %>
 
         <div id="body">
-            <div id="main-banner">
-            </div>
             <div id="content">
                 <form id="boardmake">
                     <div>
