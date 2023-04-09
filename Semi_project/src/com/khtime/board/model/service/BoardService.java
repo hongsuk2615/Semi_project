@@ -117,10 +117,10 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	public int deleteContent(int bNo, int userNo,int authority, int aC) {
+	public int deleteContent(int bNo, int userNo,int authority, int aC, String isQuestion) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result1 = new BoardDao().deleteContent(conn, bNo,authority, userNo);
+		int result1 = new BoardDao().deleteContent(conn, bNo,authority, userNo, isQuestion);
 		int result2 = 1;
 		
 		if(aC > 0) {
@@ -176,6 +176,67 @@ public class BoardService {
 		} JDBCTemplate.close(conn);
 
 		return result1*result2;
+	}
+	
+	
+	public int listCount(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCount(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userWriting(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userWriting(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountReply(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountReply(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userComments(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userComments(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountScrap(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountScrap(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userScrap(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userScrap(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
 	}
 	
 	

@@ -35,8 +35,12 @@ public class ContentDeleteController extends HttpServlet {
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int authority = ((Member)request.getSession().getAttribute("loginUser")).getAuthority();
-		int aC = Integer.valueOf(request.getParameter("aC"));
-		int result = new BoardService().deleteContent(bNo, userNo, authority, aC);
+		int aC = Integer.valueOf(request.getParameter("aC")); // 첨부파일 개수
+		String isQuestion = request.getParameter("isQ").equals("Y") ? "Y" : "N";
+		
+		
+		int result = new BoardService().deleteContent(bNo, userNo, authority, aC, isQuestion);
+		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "삭제 성공!");
 			response.sendRedirect(request.getContextPath()+"/boardDetail.bo?cNo="+cNo);
