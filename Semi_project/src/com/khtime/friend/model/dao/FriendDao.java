@@ -96,7 +96,7 @@ public class FriendDao {
 				m = new Member();
 
 				m.setUserName(rset.getString("USER_NAME"));
-
+				m.setUserNo(rset.getInt("USER_NO"));
 				list.add(m);
 			}
 
@@ -167,7 +167,7 @@ public class FriendDao {
 				m = new Member();
 
 				m.setUserName(rset.getString("USER_NAME"));
-
+				m.setUserNo(rset.getInt("USER_NO"));
 				list3.add(m);
 			}
 
@@ -180,7 +180,7 @@ public class FriendDao {
 		}
 		return list3;
 	}
-	public int friendaccept(Connection conn,int loginUserNo,int sendName) {
+	public int friendaccept(Connection conn,int loginUserNo,int senderUserNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("friendaccept");
@@ -188,7 +188,26 @@ public class FriendDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, loginUserNo);
-			pstmt.setInt(2, loginUserNo);
+			pstmt.setInt(2, senderUserNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int friendDeny(Connection conn,int loginUserNo,int senderUserNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("friendDeny");
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, senderUserNo);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
