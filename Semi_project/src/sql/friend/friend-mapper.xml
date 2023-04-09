@@ -44,7 +44,7 @@
 	</entry>
 	
 	<entry key="friendlist3">
-		SELECT USER_NAME
+		SELECT USER_NAME,USER_NO
 			FROM MEMBER
 			WHERE USER_NO IN( SELECT SENDER
        		FROM FRIEND
@@ -55,8 +55,14 @@
 	<entry key="friendaccept">
 		UPDATE FRIEND SET
 		IS_AGREE = 'Y'
-		WHERE SENDER = ?
-		AND RECEIVER = ?
+		WHERE RECEIVER = ?
+		AND  SENDER= ?
+	</entry>
+	
+	<entry key="friendDeny">
+		DELETE FROM FRIEND
+		WHERE RECEIVER = ?
+		AND SENDER = ?
 	</entry>
 	
 </properties>
