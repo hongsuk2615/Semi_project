@@ -2,9 +2,10 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	
-	<entry key="selectStudyTime">
+	<entry key="getStudyTime">
          SELECT 
             STUDY_TIME_NO,
+            TARGET_TIME,
             TIME_AMOUNT,
             STUDY_DATE
         FROM STUDY_TIME
@@ -21,6 +22,11 @@
            )
    </entry>
 	
+	<entry key="sumStudyTime">
+		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT
+			FROM STUDY_TIME
+			WHERE USER_NO = ?
+	</entry>
 	
 
 

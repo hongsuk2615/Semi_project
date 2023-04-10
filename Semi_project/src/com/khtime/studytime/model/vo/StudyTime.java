@@ -2,19 +2,19 @@ package com.khtime.studytime.model.vo;
 
 import java.sql.Date;
 
-public class StutyTime {
+public class StudyTime {
 	private int studyTimeNo;
 	private int userNo;
 	private int timeAmount;
 	private Date studyDate;
 	private int targetTime;
 	
-	public StutyTime() {
+	public StudyTime() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public StutyTime(int studyTimeNo, int userNo, int timeAmount, Date studyDate, int targetTime) {
+	public StudyTime(int studyTimeNo, int userNo, int timeAmount, Date studyDate, int targetTime) {
 		super();
 		this.studyTimeNo = studyTimeNo;
 		this.userNo = userNo;

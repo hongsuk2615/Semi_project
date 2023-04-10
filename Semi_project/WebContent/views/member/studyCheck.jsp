@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.khtime.studytime.model.vo.StudyTime" %> 
+<% 
+	ArrayList <StudyTime> list  = (ArrayList<StudyTime>) request.getAttribute("list");
+	int timeAmount = (Integer)request.getAttribute("timeAmount");																			
+																			
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +75,7 @@
                         </div>
                         <div class="timeBox">
                             <div class="title">전체 공부 시간</div>
-                            <div class="timeText">00 : 00 : 00</div>
+                            <div class="timeText" id="mytimeAmount"></div>
                         </div>
                     </div>
                     <div class="buttonWrapper">
@@ -208,6 +215,16 @@
             document.getElementById('tdl-modal').style.visibility = 'hidden';
         })
     </script>  
+    
+    
+    <script>
+    	function targetStudyTime(){
+    		$.ajax
+    	}
+    
+    
+    
+    </script>
         
     
 
@@ -317,13 +334,21 @@
 
         // stop btn
         $("#stopbtn").click(function(){
-        	$.ajax({
+        	<%-- $.ajax({
         		url : '<%=request.getContextPath()%>/timeSave.bo',
-        		data : 
+        		data : {time : get_cookie('time')},
+        		success : function(){
+        			
+        			
+        		}
+        			
+        			
+        			
+        			
         		
         		
         		
-        	});
+        	}); --%>
         	
             if(time != 0){
             $(".fa").css("color","white")
@@ -364,6 +389,34 @@
             progressBarElem.classList.remove('active');
         })
     </script> -->
+    <script> // 초단위 숫자값을 넣어주면 00:00:00문자열로 변환 해주는 함수
+    	function makeTime(timeAmount){
+    	let totalTime = timeAmount;
+    	console.log(totalTime);
+    	let hour = Math.floor(totalTime/60/60)+'';
+    	let min = Math.floor(totalTime%3600/60)+'';
+    	console.log(hour);
+    	console.log(hour.length);
+    	let sec = totalTime%60+'';
+    	if(hour.length == 1){
+    		hour = '0'+hour;
+    	}
+    	if(min.length == 1){
+    		min = '0'+min;
+    	}
+    	if(sec.length == 1){
+    		sec = '0'+sec;
+    	}
+    	console.log(hour +':'+min +':'+sec);
+    	return hour +':'+min +':'+sec;
+    
+    }
+    $('#mytimeAmount').html(makeTime(<%=timeAmount%>));
+    
+    
+    
+    
+    </script>
 
 
 </body>

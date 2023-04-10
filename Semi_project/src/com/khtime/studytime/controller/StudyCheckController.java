@@ -1,11 +1,19 @@
-package com.khtime.member.controller;
+package com.khtime.studytime.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.khtime.member.model.vo.Member;
+import com.khtime.studytime.model.service.StudyTimeService;
+import com.khtime.studytime.model.vo.StudyTime;
+import static com.khtime.common.StringToDate.transformDate;
 
 /**
  * Servlet implementation class StudyCheckController
@@ -26,6 +34,19 @@ public class StudyCheckController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int timeAmount = new StudyTimeService().sumStudy(userNo);
+		
+		System.out.println(userNo);
+		ArrayList<StudyTime> list = new StudyTimeService().getStudy(userNo);
+		
+		request.setAttribute("timeAmount", timeAmount);
+		System.out.println(timeAmount);
+		request.setAttribute("list", list);
+		
+		
+		
 		
 		request.getRequestDispatcher("views/member/studyCheck.jsp").forward(request, response);
 	}
