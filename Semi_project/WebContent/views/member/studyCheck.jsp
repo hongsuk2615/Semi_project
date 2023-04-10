@@ -149,34 +149,7 @@
     </div>
     
     
-   <!--  <div class="modal hidden">
-            <div class="bg"></div>
-            <div class="modalBox">
-				<button class="closeBtn">X</button>
-				<div class="header">
-					<p>디데이 설정</p>
-				</div>
-				<div class="body">
-                    
-					<div class="openBtn2" id="ddayBox">
-						<div>
-							<p class="titleText">디데이 예시</p>
-							<p class="dateText">2023.09.09(일)</p>
-						</div>
-						<div>
-							<p class="ddayText">D-100</p>
-						</div>
-					</div>
-                
-				</div>
-				<div class="fotter">
-					<div class="openBtn1" id="blueBtn">
-						+ 추가
-					</div>
-					
-				</div>
-            </div>
-        </div> -->
+   
     
     <div id="tdl-modal">
                     <div id="modal-wrapper">
@@ -185,12 +158,12 @@
                         </div>
                         <div id="modal-body">
                             
-                            <div id="modal-tdl-content">
+                            <div class="timeSet"  id="modal-tdl-content">
                                 <div id="modal-tdl-text">
-                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="hourSet">
                                 </div>
                                 <div id="modal-tdl-text">
-                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="minSet">
                                 </div>
                             </div>                            
                         </div>
@@ -207,38 +180,58 @@
     <script>
         document.getElementById('tdl-btn-add').addEventListener('click',function(){
             document.getElementById('tdl-modal').style.visibility = 'visible';
+            
         })
         document.getElementById('cancel-btn').addEventListener('click',function(){
             document.getElementById('tdl-modal').style.visibility = 'hidden';
         })
     </script>  
     
-    
-    <script>
-    	function targetStudyTime(){
-    		$.ajax
-    	}
-    
-    
-    
-    </script>
+   <!-- <script>
+        function makeEvent(){
+        	$("#dDayTitle").val("");
+        	$("#datepicker").val("");
+        	document.getElementsByClassName('closeBtn2')[0].removeEventListener('click',insertDday);
+	        document.getElementsByClassName('closeBtn2')[0].addEventListener('click',insertDday);
+	        
+        } 
         
-    
+        
+    </script> -->
 
 
-	<!-- <script>
-	const open = () => {
-        document.querySelector(".modal").classList.remove("hidden");
-    }
-    const close = () => {
-		console.log('cdlose')
-        document.querySelector(".modal").classList.add("hidden");
-    }
-    document.querySelector(".openBtn").addEventListener("click", open); 
-    document.querySelector(".closeBtn").addEventListener("click", close); 
-    document.querySelector(".bg").addEventListener("click", close);
-        </script> -->
-
+	
+	
+	
+	<script>
+        function insertStudy(){
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/ddayInsert.bo',
+        		data : { "hour" : $('#hourSet').val() ,      
+        				 "min" : $('#minSet').val()
+        		},
+        		success : function get_cookie(key) { 
+                    let cookie_list = document.cookie.split("; ");
+                    console.log(cookie_list);
+                    for(i of cookie_list){
+                    	console.log("i:" + i);
+                    	   if(i.split("=")[0] == key){
+                    	          return(i.split("=")[1]);
+                    	      }
+                    	   
+                    }
+                    return "";
+                },
+        		error :
+        		complete : function(){
+        			close1();
+        			
+        		}
+        		
+        	});
+        }
+        
+        </script>
 
     
     <script>
@@ -339,11 +332,6 @@
         			
         		}
         			
-        			
-        			
-        			
-        		
-        		
         		
         	}); --%>
         	
@@ -364,28 +352,8 @@
 		
     </script>
 
-    <script>
-        // $("#startbtn").click(function(){
-        //     $("progress-bar").addClass(".")
-
-
-        // })
-       
-
-
-    </script>
-
-	<!-- <script>
-        const btnProgressElem = document.querySelector('.btn-progress');
-        const btnInitiateElem = document.querySelector('.btn-initiate');
-        const progressBarElem = document.querySelector('.progress-bar__bar');
-        btnProgressElem.addEventListener('click', () => {
-            progressBarElem.classList.add('active');
-        })
-        btnInitiateElem.addEventListener('click', () => {
-            progressBarElem.classList.remove('active');
-        })
-    </script> -->
+    
+	
     <script> // 초단위 숫자값을 넣어주면 00:00:00문자열로 변환 해주는 함수
     	function makeTime(timeAmount){
     	let totalTime = timeAmount;
