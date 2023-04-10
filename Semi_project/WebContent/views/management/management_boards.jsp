@@ -59,7 +59,7 @@ a {
 
 					</table>
 					<div id="body-footer">
-						<input id="search-user" type="search" placeholder="제목 및 내용 키워드로 검색">
+						<input id="search-reportedBoard" type="search" placeholder="제목 및 내용 키워드로 검색">
 						<div id="page-btn">
 							<div id="back-btn"></div>
 							<div id="next-btn"></div>
@@ -118,6 +118,52 @@ a {
         
       </script>
 
+<script> // 신고게시물 검색 이벤트
+    $('#search-reportedBoard').keyup(function () {
+        if (window.event.keyCode == 13) {
+            let keyword = $(this).val();
+            $.ajax({
+                url : '<%=request.getContextPath()%>/filteredReportedBoard.get',
+                type : 'get',
+                data : {keyword},
+                success : function(result){
+                    $('#board-2 tbody').html('');
+                    if(result.length == 0 ){
+							$('#board-2 tbody').append('<tr>'+
+															'<td>' + '신고된 게시판이 없습니다.' + '</td>'+
+													   '</tr>');
+						} else {
+							for(let i = 0; i < 10 ; i++){
+								if(result[i] != null){
+									$('#board-2 tbody').append('<tr>'+
+																	'<td>' + result[i].title + '</td>'+
+																	'<td>' + '신고횟수' + '</td>'+
+																	'<td>' + result[i].reportCount + '</td>'+
+																	'<td>' + '추천횟수' + '</td>'+
+																	'<td>' + result[i].recommendCount + '</td>'+
+																	'<td>' + '스크랩횟수' + '</td>'+
+																	'<td>' + result[i].scrapCount + '</td>'+
+															  '</tr>');
+                                    $('#board-2 tbody>tr').eq(i).click(function(){
+                                        location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
+                                    })
+								}else {
+									$('#board-2 tbody').append('<tr>'+
+																	'<td colspan="7">' + '-'+ '</td>'+
+	
+															  '</tr>');
+								}
+							}	
+					  }
+                  modalEvent();	
+                }
+
+
+
+            });
+        }
+    });
+    </script>
 
 </body>
 </html>

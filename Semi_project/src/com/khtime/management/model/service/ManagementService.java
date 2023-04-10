@@ -192,6 +192,20 @@ public class ManagementService {
 		return list;
 	}
 	
+	public ArrayList<Board> getFilteredReportedBoards(String keyword){
+		Connection conn = getConnection();
+		ArrayList<Board> list = new ManagementDao().getFilteredReportedBoards(conn, keyword);
+		close(conn);	
+		return list;
+	}
+	
+	public ArrayList<Member> getFilteredEnrollmentReqs(String name){
+		Connection conn = getConnection();
+		ArrayList<Member> list = new ManagementDao().getFilteredEnrollmentReqs(conn, name);
+		close(conn);
+		return list;
+	}
+	
 	
 	
 	

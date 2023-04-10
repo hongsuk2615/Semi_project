@@ -133,5 +133,31 @@
 		 WHERE C.AVAILABLE = 'N'
 		   AND CATEGORY_NAME LIKE ? 
 	</entry>
+	
+	<entry key="getFilteredReportedBoards">
+		SELECT BOARD_NO
+			 , TITLE
+			 , CATEGORY_NO
+			 , USER_NAME
+			 , B.RECOMMEND_COUNT
+			 , SCRAP_COUNT
+			 , B.REPORT_COUNT
+		  FROM BOARD B
+		  JOIN MEMBER ON (WRITER = USER_NO)
+		 WHERE B.REPORT_COUNT > 0
+		   AND B.STATUS = 'Y'
+		   AND (TITLE LIKE ? OR CONTENT LIKE ?)
+		    
+	
+	</entry>
+	
+	<entry key="getFilteredEnrollmentReqs">
+		SELECT *
+		  FROM MEMBER
+		 WHERE AVAILABLE = 'N'
+		   AND USER_NAME LIKE ?
+	
+	
+	</entry>
 
 </properties>
