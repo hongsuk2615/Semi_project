@@ -72,4 +72,14 @@
 		WHERE BOOK_NO = ?
 		AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectBookList">
+		SELECT FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+			   PRICE ,
+			   BOOK_NO
+		FROM BOOK B
+		LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
+		WHERE B.BOOK_NAME = ?
+		AND B.STATUS = 'Y'
+	</entry>
 </properties>

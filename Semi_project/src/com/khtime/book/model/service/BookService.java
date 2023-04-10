@@ -64,4 +64,15 @@ public class BookService {
 		return bList;
 	}
 	
+	public ArrayList<Book> selectBook(String bookname) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Book> bList = new BookDao().selectBook(conn, bookname);
+		
+		close(conn);
+		
+		return bList;
+		
+	}
 }

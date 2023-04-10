@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/CSS/book_main.css">
+<!-- <link rel="stylesheet" href="resources/CSS/book_main.css"> -->
 <link rel="stylesheet" href="resources/CSS/book_header.css">
 </head>
 <body>

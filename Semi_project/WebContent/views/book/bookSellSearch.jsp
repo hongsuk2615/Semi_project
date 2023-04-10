@@ -96,7 +96,7 @@
 
             <hr><hr>
 
-            <div id="book-body-content2">
+            <div id="book-body-content2" style="display: flex; justify-content: space-evenly;">
                 <div id="book-inf4">
                     <div id="book-img4"></div>
                     <div class="book-text">

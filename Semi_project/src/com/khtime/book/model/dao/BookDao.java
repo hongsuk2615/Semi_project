@@ -207,4 +207,38 @@ public class BookDao {
 		}
 		 return bList;
 	  }
+	  
+	  public ArrayList<Book> selectBook(Connection conn , String bookname) {
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  ArrayList<Book> bList = new ArrayList<Book>();
+		  
+		  String sql = prop.getProperty("selectBookList");
+		  
+		  ResultSet rset = null;
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bookname);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				
+				bList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		  return bList;
+	  }
 }

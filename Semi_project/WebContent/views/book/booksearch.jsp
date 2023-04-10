@@ -38,6 +38,11 @@
     		flex-direction: column;
     		text-align: center;
         }
+        
+        #book-body-content2 {
+        	display: flex;
+    		justify-content: space-evenly;
+        }
     </style>
 </head>
 <body>

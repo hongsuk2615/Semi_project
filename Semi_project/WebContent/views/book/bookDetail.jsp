@@ -3,6 +3,7 @@
 <% 
 	Book book = (Book)request.getAttribute("book");	
 	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>)request.getAttribute("bList");
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
