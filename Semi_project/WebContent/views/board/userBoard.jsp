@@ -1,10 +1,12 @@
 <%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
    ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
    PageInfo pi = (PageInfo)request.getAttribute("pi");
    int currentPage = pi.getCurrentPage();
+   int maxPage = pi.getMaxPage() == 0 ? 1 : pi.getMaxPage();
    int bType = (int)request.getAttribute("bType");
 %>    
 <!DOCTYPE html>
@@ -52,13 +54,13 @@
                     <div id="board-wrapper">
                         <div id="board-detail">
                          <c:choose>
-                        	<c:when bType == 1>
+                        	<c:when test="${bType eq 1 }">
                         		<div>내가 쓴 게시글</div>
                        		</c:when>
-                            <c:when bType == 2>
+                            <c:when test="${bType eq 2 }">
                         		<div>내가 쓴 댓글</div>
                        		</c:when>
-                       		<c:when bType == 3>
+                       		<c:when test="${bType eq 3 }">
                         		<div>내가 스크랩한 글</div>
                        		</c:when>
                          </c:choose> 
@@ -102,17 +104,17 @@
                         
       <div align="center" class="paging-area">
           <c:choose>
-		   	<c:when bType == 1>
+		   	<c:when test="${bType eq 1 }">
 		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myWriting.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != pi.getMaxPage()) { %><button onclick="location.href = '<%=request.getContextPath() %>/myWriting.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
+         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myWriting.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
 		  		</c:when>
-		       <c:when bType == 2>
+		       <c:when test="${bType eq 2 }">
 		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myComments.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != pi.getMaxPage()) { %><button onclick="location.href = '<%=request.getContextPath() %>/myComments.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
+         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myComments.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
 		  		</c:when>
-		  		<c:when bType == 3>
+		  		<c:when test="${bType eq 3 }">
 		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myScrap.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != pi.getMaxPage()) { %><button onclick="location.href = '<%=request.getContextPath() %>/myScrap.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
+         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myScrap.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
 		  		</c:when>
 		    </c:choose> 
       </div>
