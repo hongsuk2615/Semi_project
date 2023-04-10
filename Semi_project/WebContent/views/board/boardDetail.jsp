@@ -4,10 +4,8 @@
     pageEncoding="UTF-8"%>
 <% 
 	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
-	int currentPage = (int)request.getAttribute("currentPage");
 %>    
 	   
 <!DOCTYPE html>
@@ -47,6 +45,10 @@
 </head>
 <body>
     <div id="wrapper">
+    <!-- 위로 가기 버튼 -->
+    <div><button type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);">위로가기</button></div>
+    
+    <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
         <div id="body">
             
@@ -168,53 +170,71 @@
                             </div>
                            <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
-                           <% }else{ %>
-                            <ul id="content-area">
-                           
-                            	<% for(Board b : boardList) { %>
-                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
-                                <%= b.getTitle() %><br>
-                                    <%= b.getContent() %> <br>
-                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
-                                    <div id="board-detail-comment">
+                           <% } %>
+                            <ul id="content-area"></ul>
+						<script>
+						
+						let boardCount = 0;
+						function loadBoard(){
+							boardCount = boardCount + 1;
+							
+							$.ajax({
+								url : "<%=request.getContextPath()%>/boardDetail.bo",
+								type : "post",
+								data :{
+									cNo : <%=cNo %>,
+									currentPage : boardCount
+								}, 
+								success : function(list){
+									let result  = "";
+									for(let i of list){ 
+										result += 
+										`
+										<li>
+										글번호: \${i.boardNo}
+										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+		                                \${i.title}<br>
+		                                    \${i.content} <br>
+		                                   \${i.enrollDate} &nbsp; \${i.writer}<br>
+		                                    <div id="board-detail-comment">
                                         
-                                        <div><%= b.getRecommendCount() %></div>
-                                        <div><%= b.getReplyCount() %></div>
+                                        <div>\${i.recommendCount}</div>
+                                        <div>\${i.replyCount}</div>
                                     </div>
                                 </li>
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
-						<script>
-									$(function(){
-										$("#board-detail li").click(function(){
-											let bNo = $(this).children().eq(0).text();
-											location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
-											
-										});
-									});
+					                     `
+									}
+										$("#content-area").append(result);
+										selectContent();
+									
+								}, error : function(){
+									alert("게시글 조회 실패");
+								}
+							
+							})
+						}
+						
+						function selectContent(){
+							$("#board-detail li").click(function(){
+								let bNo = $(this).children().eq(0).text();
+								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+								
+							});
+						}
+						
+
+					     window.onscroll = function(e) {
+					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+					           setTimeout(loadBoard, 500); 
+					         }
+					       }
+								     
+								    
 								</script>
                             
                             
                     </div>
-                    <div id="board-detail-search">
-                       
-                        <div>검색창</div>
-                        <div id="board-detail-search-pagebtn">
-                        
-		<div align="center" class="paging-area">
-			
-			<% if( currentPage != 1) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%= currentPage -1 %>'">이전</button>
-			<% } %>
-			
-			<% if(currentPage != pi.getMaxPage()) { %>
-				<button onclick="location.href = '<%=request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
-			<% } %>
-			
-		</div>
-                        </div>
-                    </div>
+                   
                     </div>
     
                 </div>
@@ -230,10 +250,38 @@
 
         </div>
     </div>
-   
+   <script>
+	// 수정 중 다른 페이지로 나갈 때 alert
+	document.querySelector('#title').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+		
+	});
+	
+	document.querySelector('#content').addEventListener('keyup', function(){
+		if($("#title").val() != '' || $("#content").val() != '' ){
+			$(window).on("beforeunload", callback);
+		}else{
+			off();
+		}
+	});
+	
+	function callback(){
+	    return "changes will be lost!";
+	}
+		function off(){
+		    $(window).off("beforeunload");
+		}
+		document.querySelector('#create-content-btn').addEventListener('click',off);
+		  
+	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
+	window.onload = loadBoard;
+   </script>
 
-     <script>
-    </script>
+
 
 
 

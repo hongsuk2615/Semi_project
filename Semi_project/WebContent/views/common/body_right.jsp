@@ -289,17 +289,29 @@
                     	$(Dday).each(function(index,item){
                     		let dDaySplit = item.dDay.replace('월',',').split(',');
                     		let dDay = dDaySplit[2]+'/'+dDaySplit[0] + '/' +dDaySplit[1];
-               
-                    		$('#dDayList').append(`
-                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
-            						<div>
-            							<p class="titleText">\${item.title}</p>
-            							<p class="dateText">\${item.dDay}</p>
-            						</div>
-            						<div>
-            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
-            						</div>
-            					</div><br>`);
+               				if(Math.ceil((new Date(dDay)-new Date())/1000/60/60/24) > 0){
+	                    		$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">D-\${Math.ceil((new Date(dDay)-new Date())/1000/60/60/24)}일</p>
+	            						</div>
+	            					</div><br>`);
+               				}else {
+               					$('#dDayList').append(`
+	                    				<div class="openBtn2" id="ddayBox\${index}" data-dno="\${item.dDayNo}">
+	            						<div>
+	            							<p class="titleText">\${item.title}</p>
+	            							<p class="dateText">\${item.dDay}</p>
+	            						</div>
+	            						<div>
+	            							<p class="ddayText">종료</p>
+	            						</div>
+	            					</div><br>`);
+               				}
                     		
                     		$('#ddayBox'+index).click(updateDday(item.dDayNo));
                     		
@@ -664,6 +676,18 @@
 	    
 	  	 document.getElementById("mypagebtn").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/myPage.me";
+	    })
+	    
+	     document.getElementById("user-boards").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myWriting.bo?bType=1";
+	    })
+	    
+	     document.getElementById("user-replys").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myComments.bo?bType=2";
+	    })
+	    
+	     document.getElementById("user-scraps").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myScrap.bo?bType=3";
 	    })
         </script>
         <script> //애니메이션 테스트

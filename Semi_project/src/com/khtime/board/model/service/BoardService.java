@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
+import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -33,16 +34,6 @@ public class BoardService {
 		close(conn);
 
 		return attachmentList;
-	}
-
-	public int boardListCount(int cNo) {
-		Connection conn = getConnection();
-
-		int result = new BoardDao().boardListCount(conn, cNo);
-
-		close(conn);
-
-		return result;
 	}
 	
 	public Board selectContent(int bNo) {
@@ -126,10 +117,10 @@ public class BoardService {
 		return result1 * result2;
 	}
 	
-	public int deleteContent(int bNo, int userNo, int aC) {
+	public int deleteContent(int bNo, int userNo,int authority, int aC, String isQuestion) {
 		Connection conn = JDBCTemplate.getConnection();
 
-		int result1 = new BoardDao().deleteContent(conn, bNo, userNo);
+		int result1 = new BoardDao().deleteContent(conn, bNo,authority, userNo, isQuestion);
 		int result2 = 1;
 		
 		if(aC > 0) {
@@ -160,6 +151,92 @@ public class BoardService {
 		} JDBCTemplate.close(conn);
 
 		return result1*result2*result3;
+	}
+	public ArrayList<Category> categoryTitle( String searchTitle){
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Category> cn = new  BoardDao().categoryTitle(conn , searchTitle);
+	
+		close(conn); 
+		
+		return cn;
+	}
+	
+	public int boardRequest( String loginUserId,String boardTitle, String reason , int loginUserNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result1 = new BoardDao().boardRequest(conn,loginUserId,boardTitle,reason);
+		int result2 = new BoardDao().boardCategoryreq(conn,boardTitle,loginUserNo);
+		if(result1 > 0 && result2 > 0 ) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		} JDBCTemplate.close(conn);
+
+		return result1*result2;
+	}
+	
+	
+	public int listCount(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCount(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userWriting(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userWriting(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountReply(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountReply(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userComments(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userComments(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
+	}
+	
+	public int listCountScrap(int userNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().listCountScrap(conn, userNo);
+
+		close(conn);
+
+		return result;
+	}
+	
+	public ArrayList<Board> userScrap(PageInfo pi, int userNo) {
+		Connection conn = getConnection();
+
+		ArrayList<Board> boardList = new BoardDao().userScrap(conn, pi, userNo);
+
+		close(conn);
+
+		return boardList;
 	}
 	
 	

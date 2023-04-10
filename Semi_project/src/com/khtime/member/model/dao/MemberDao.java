@@ -413,7 +413,8 @@ public class MemberDao {
 	 
 	 public void recommendContentUp(Connection conn, int bNo) {
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("recommendUp");
+			String sql = prop.getProperty("countUp");
+			sql = sql.replace("@", "RECOMMEND");
 			sql = sql.replace("$", "BOARD");
 			sql = sql.replace("^", "BOARD_NO");
 			try {
@@ -429,12 +430,47 @@ public class MemberDao {
 	 
 	 public void recommendReplyUp(Connection conn, int rNo) {
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("recommendUp");
+			String sql = prop.getProperty("countUp");
+			sql = sql.replace("@", "RECOMMEND");
 			sql = sql.replace("$", "REPLY");
 			sql = sql.replace("^", "REPLY_NO");
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, rNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+	 
+	 public void reportReplyUp(Connection conn, int rNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("countUp");
+			sql = sql.replace("@", "REPORT");
+			sql = sql.replace("$", "REPLY");
+			sql = sql.replace("^", "REPLY_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rNo);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		}
+	 
+	 public void reportContentUp(Connection conn, int bNo) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("countUp");
+			sql = sql.replace("@", "REPORT");
+			sql = sql.replace("$", "BOARD");
+			sql = sql.replace("^", "BOARD_NO");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bNo);
 				pstmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();

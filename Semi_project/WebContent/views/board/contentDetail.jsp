@@ -78,13 +78,17 @@
                                         </div>
                                         </div>
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
-                                        <%if( request.getSession().getAttribute("loginUser") != null &&((Member)request.getSession().getAttribute("loginUser")).getNickName().equals(b.getWriter())){ %>
+                                        <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
+                                        		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
                                         	<button id="deleteBoard">삭제</button>
                                         	<button id="updateBoard">수정</button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                     	        location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&aC=<%=attachmentList.size()%>";
+                                        		 if(confirm("정말 삭제하시겠습니까?")){ 
+                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
+                                        		 }
                                      	    })
+                                        			
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
                                      	        location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
                                      	    })
@@ -92,6 +96,25 @@
                                         <% }else{ %>
                                         	<button id="msgBoard">쪽지</button>
                                         	<button id="reportBoard">신고</button>
+                                        	<script>
+                                        
+                                        	
+                                        	
+                                        	document.getElementById("reportBoard").addEventListener("click",function(){
+                                        		if(confirm("정말 신고하시겠습니까?")){ 
+                                    	  	    $.ajax({
+                                    					url : "<%= request.getContextPath() %>/report.bo",
+                                    					data : {bNo : <%= b.getBoardNo() %>},
+                                    					success : function(data){
+                                    						if(data > 0) alert("신고 성공!");
+                                    						if(data < 0) alert("이미 신고된 글입니다!");
+                                    						}
+                                    				});
+                                        		}
+                                      	    })
+                                      	    
+                                        	
+                                        	</script>
 										<% } %>                                        
                                     </div>
                                 </div>
@@ -119,35 +142,8 @@
 
                             <!-- 댓글 -->
                             
-                         <ul id="comments-area">
-                            <% if(replyList.isEmpty()) { %>
-                           	<li>글이 없습니다,,</li>
-                           <% }else{ %>
-                            	<% for(Reply r : replyList) { %>
-                               <li>
-									<%= r.getReplyNo() %>
-									 <div class='content-detail-comments'>
-									 <div class='comments-left'>
-									 <img src="<%= request.getContextPath() %><%= r.getUserProfile() %>" width="30" height="30">
-									 <%= r.getWriter() %>
-									 </div>
-									 <div class='comments-right'>
-				                     대댓글 신고
-				                     <button id="recommendbtn<%= r.getReplyNo() %>" onclick="recommendclick(this.id)">공감</button>
-				                     <button id="deletebtn<%= r.getReplyNo() %>" onclick="deleteclick(this.id)">삭제</button>
-				                     </div>
-				                     </div>
-				                     <%= r.getContent() %>
-				                     <br>
-				                     <%= r.getEnrollDate() %>
-				                     <br>
-				                       공감수 : <div id="recommendCount<%= r.getReplyNo() %>">  <%= r.getRecommendCount() %></div>
-				                    
-			                     </li>
-                               
-                              	  <% } %>
-                                 <% } %>
-                                  </ul>
+                         <ul id="comments-area"></ul>
+                         
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
@@ -158,7 +154,7 @@
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
                             </div>
                             <div>
-                                <button onclick="replyisEmpty()">글작성 버튼</button>
+                                <button onclick="insertReply()">글작성 버튼</button>
                             </div>
                         </div>
                     </div>
@@ -225,15 +221,15 @@
     
     
 		<script>
-		
-		function replyisEmpty(){
+		/* 댓글 입력, 조회, 댓글개수 증가 */
+		/* function replyisEmpty(){
 			if(document.getElementById("replyContent").value.trim().length == 0){ 
 				alert("댓글 입력해주세요");
 			}else{
 				insertReply();
 			}
-		}
-		
+		} */
+		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
 				url : "<%=request.getContextPath()%>/insert.re",
@@ -251,22 +247,27 @@
 					}else{
 						alert("댓글작성에 실패했습니다.");	
 					}
-				}, error : function(){
+				},
+				beforeSend : function(){
+					if(document.getElementById("replyContent").value.trim().length == 0){ 
+						alert("댓글을 입력해주세요!");
+						return false;
+					}
+				},
+					error : function(){
 					console.log("댓글작성실패")
 				}
 			})
 			}
 			
 		
-	
+		 /* 댓글 조회 */
 		function selectReplyList(){
 			let replycount = 0;
 			$.ajax({
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
-					console.log(list[0]);
-					console.log(list[1]);
 					let numberArray = 1;
 					let result  = "";
 					for(let i of list[0]){ 
@@ -282,7 +283,8 @@
 						\${i.writer}
 						 </div>
 						 <div class='comments-right'>
-	                     대댓글 신고
+	                     대댓글
+	                     <button id="reportbtn\${i.replyNo}" onclick="reportclick(this.id)">신고</button>
 	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
 	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
 	                     </div>
@@ -309,7 +311,8 @@
 						 
 						  </div> 
 						 <div class='comments-right'>
-	                     대댓글 신고
+	                     대댓글
+	                     <button id="reportbtn\${i.replyNo}" onclick="reportclick(this.id)">신고</button>
 	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
 	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
 	                     </div>
@@ -330,7 +333,7 @@
 				}
 			})
 		}
-		
+		/* 댓글개수 증가 */
 		function selectReplyCount(){
 			
 			$.ajax({
@@ -352,7 +355,7 @@
 		</script>
 		
 		<script>
-		
+		 /* 게시글 추천, 삭제  */
 		 document.getElementById("recommendbtn").addEventListener("click",function(){
 	  	    $.ajax({
 					url : "<%= request.getContextPath() %>/recommend.bo",
@@ -385,7 +388,7 @@
   	    })
   	    
   	     
-  	   
+  	   /* 댓글 삭제, 추천, 신고  */
   	    function deleteclick(id){
 			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
 		 }
@@ -408,6 +411,24 @@
 						}
 				});
 		 }
+		 
+		 function reportclick(id){
+			 let rNo = id.substr(9);
+		  	    $.ajax({
+						url : "<%= request.getContextPath() %>/report.re",
+						data : {bNo : <%= b.getBoardNo() %>,
+								rNo : rNo
+								},
+						success : function(data){
+							if(data > 0) alert("신고 성공!");
+							if(data == 0) alert("본인이 작성한 댓글은 신고 불가능합니다!");
+							if(data < 0) alert("이미 신고된 글입니다!");
+							}
+					});
+	  	     }
+	  	    
+		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
+		window.onload = selectReplyList;
 	</script>
 
 

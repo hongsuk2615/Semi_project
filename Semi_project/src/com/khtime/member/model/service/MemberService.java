@@ -1,6 +1,10 @@
 package com.khtime.member.model.service;
 
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.util.Base64;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -66,10 +70,10 @@ public class MemberService {
 		if (result) {
 
 			int random = (int) (Math.random() * 5 + 10);
-			String newPwd = CommonMethod.getRamdomPassword(random);
-
-			result = new MemberDao().updatePwd(conn, userId, newPwd);
-			CommonMethod.sendNewPwd(userEmail, newPwd);
+			String newPwd = CommonMethod.getRamdomPassword(random); // 랜덤 임시비밀번호 생성
+			String encPwd = CommonMethod.getSHA512(newPwd); // 임시비밀번호 암호화
+			result = new MemberDao().updatePwd(conn, userId, encPwd); // 임시비밀번호 DB commit
+			CommonMethod.sendNewPwd(userEmail, newPwd); // 임시번호 이메일 보내기
 			close(conn);
 			return result;
 
@@ -214,6 +218,16 @@ public class MemberService {
 	public void recommendReplyUp(int rNo) {
 		Connection conn = getConnection();
 		new MemberDao().recommendReplyUp(conn, rNo);
+		close(conn);
+	}
+	public void reportReplyUp(int rNo) {
+		Connection conn = getConnection();
+		new MemberDao().reportReplyUp(conn, rNo);
+		close(conn);
+	}
+	public void reportContentUp(int bNo) {
+		Connection conn = getConnection();
+		new MemberDao().reportContentUp(conn, bNo);
 		close(conn);
 	}
 
