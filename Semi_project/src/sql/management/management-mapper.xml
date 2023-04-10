@@ -125,5 +125,13 @@
 		  FROM MEMBER
 		 WHERE USER_ID = ?
 	</entry>
+	
+	<entry key="getBoardFilteredReq">
+		SELECT *
+		  FROM CATEGORY C
+		  JOIN MEMBER ON(REQ_USER=USER_NO)
+		 WHERE C.AVAILABLE = 'N'
+		   AND CATEGORY_NAME LIKE ? 
+	</entry>
 
 </properties>

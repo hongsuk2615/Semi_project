@@ -452,5 +452,32 @@ public class ManagementDao {
 		return m;
 		
 	}
+	
+	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(Connection conn, String categoryName) {
+		ArrayList<HashMap<String,Member>> list = new ArrayList<HashMap<String,Member>>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getBoardFilteredReq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+categoryName+"%");
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HashMap<String,Member> req = new HashMap<String, Member>();
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
+				req.put(rset.getString("CATEGORY_NAME"), m);
+				list.add(req);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 }

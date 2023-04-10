@@ -185,6 +185,13 @@ public class ManagementService {
 		return m;
 	}
 	
+	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(String categoryName){
+		Connection conn = getConnection();
+		ArrayList<HashMap<String,Member>> list = new ManagementDao().getBoardFilteredReq(conn, categoryName);
+		close(conn);
+		return list;
+	}
+	
 	
 	
 	
