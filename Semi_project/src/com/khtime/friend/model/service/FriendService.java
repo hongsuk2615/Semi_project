@@ -109,4 +109,13 @@ public class FriendService {
 		// 컨트롤러에게 결과값 반환
 		return result;
 	}
+	public boolean isFriend(String loginUserId,String userId) {
+		Connection conn = JDBCTemplate.getConnection();
+		boolean result = false;
+		result = new FriendDao().friendId(conn, loginUserId, userId);
+		JDBCTemplate.close(conn);
+		
+		return result;
+
+	}
 }

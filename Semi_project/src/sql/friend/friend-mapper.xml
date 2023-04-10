@@ -57,12 +57,16 @@
 		IS_AGREE = 'Y'
 		WHERE RECEIVER = ?
 		AND  SENDER= ?
+		OR SENDER = ?
+		AND RECEIVER = ?
 	</entry>
 	
 	<entry key="friendDeny">
 		DELETE FROM FRIEND
 		WHERE RECEIVER = ?
-		AND SENDER = ?
+		AND SENDER = ? 
+		OR SENDER = ?
+		AND RECEIVER = ?
 	</entry>
 	
 </properties>
