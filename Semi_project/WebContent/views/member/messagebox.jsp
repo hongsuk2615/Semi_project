@@ -147,9 +147,9 @@
 				<h2>쪽지보내기</h2>
 			</div>
 				<div class="sendMsgBody">
-					<div class="inputBox">
+					<div class="inputBox">	
 						<h4 class="inputLabel">쪽지보내기</h4>            
-              			<textarea style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /></textarea><br>
+              			<textarea style="height: 130px;  resize:none;" name="content" placeholder="공백포함 최대60자" class="inputField" required /></textarea><br>
 				  </div>
 				<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 				</div>

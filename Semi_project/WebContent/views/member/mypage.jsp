@@ -84,7 +84,7 @@
 						<a class="openBtn3">닉네임변경</a>
 						<a class="openBtn4">프로필사진변경</a>
 						<a id="messageboxBtn">쪽지함</a>
-					    <a href="">게시글관리(하이퍼링크)</a>
+					    <a id="user-boards">게시글관리</a>
 					</div>
 
 					<div id="infouse"
@@ -92,7 +92,7 @@
 						<strong>이용안내</strong> 
 						<a href="/askpage.jsp">문의하기</a> 
 						<a href="">공지사항</a> 
-						<a href="">서비스약관</a> 
+						<a href="views/member/termsOfUseForm.jsp">서비스약관</a> 
 						<a href="">개인정보 처리방침</a> 
 						<a href="">청소년 보호정책</a>
 					</div>
@@ -456,10 +456,14 @@
     document.querySelector(".bg4").addEventListener("click", close4);
 	</script>
 	
-	<script>  <!-- 쪽지함jsp로 이동시키는 스크맆트-->
+	<script>  <!-- 쪽지함jsp, 내게시글,댓글로 이동시키는 스크맆트-->
   		document.getElementById("messageboxBtn").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
   		}) 
+  		
+  		 document.getElementById("user-boards").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myWriting.bo?bType=1";
+	    })
   	</script>
 
 
