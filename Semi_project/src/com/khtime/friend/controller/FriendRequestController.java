@@ -56,7 +56,7 @@ public class FriendRequestController extends HttpServlet {
 		boolean  isId = new  FriendService().friendId(loginUserId,userId);  // 입력한 아이디가 로그인한 아이디가 아니고 존재하는 아이디인지 판별
 		// 3. 중복된 아이디가 존재하는 케이스. 않는 케이스별로 데이터 전달
 		boolean isFriend = new FriendService().isFriend(loginUserId,userId);
-		boolean result = isId&&!isFriend;
+		boolean result = isId&&isFriend;
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());

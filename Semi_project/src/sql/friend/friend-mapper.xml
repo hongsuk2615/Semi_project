@@ -68,5 +68,18 @@
 		OR SENDER = ?
 		AND RECEIVER = ?
 	</entry>
-	
+	<entry key="isFriend">
+		SELECT USER_NAME
+		FROM MEMBER
+		WHERE IN ( SELECT IS_AGREE = 'N'
+		FROM FRIEND
+		AND
+		RECEIVER = ?
+		AND
+		AND SENDER = ? 
+		SENDER = ?
+		OR
+		RECEIVER = ?)
+		
+	</entry>
 </properties>

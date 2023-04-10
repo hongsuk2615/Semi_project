@@ -234,6 +234,8 @@ public class FriendDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, loginUserId);
+			pstmt.setString(3, userId);
+			pstmt.setString(4, loginUserId);
 			rset = pstmt.executeQuery();
 			result = rset.next();
 		} catch (SQLException e) {
