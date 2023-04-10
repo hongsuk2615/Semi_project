@@ -29,7 +29,7 @@
    
 }
 
-#board-detail-comment{
+.board-detail-comment{
     display: flex;
     justify-content: end;
    
@@ -55,7 +55,7 @@
     background: rgb(255, 255, 255);
     border-radius: 0px 0px 5px 5px; 
     margin-top: 2px;
-    border: 1px solid skyblue;
+    padding: 5px;
 }
 
 #category {
@@ -101,4 +101,59 @@
 #btns>div{
     width: auto;
     margin-left: 5px;
+}
+
+#file-area img{
+    margin-right: 10px;
+    max-width: fit-content;
+}
+
+#content-area h3, #content-area p{
+    padding: 0;
+    margin: 0;
+    text-overflow:ellipsis;
+    white-space : nowrap;
+    overflow: hidden;
+}
+
+.board-detail-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.board-detail-commend{
+    display: flex;
+}
+
+.board-detail-commend{
+    padding-right: 10px;
+}
+
+.recommendImg {
+    padding-right: 2px;
+}
+#content-area >li:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#gototop{
+    background: none;
+    border: none;
+}
+
+.divhidden{
+    display: none;
+}
+
+#contentdiv {
+    position: relative;
+}
+#QuestionContent {
+    position: absolute;
+    bottom: -15px;
+    border: 1px solid red;
+}
+
+#file-area {
+    padding-top: 20px;
 }

@@ -1,5 +1,5 @@
 
-<%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board" %>
+<%@ page import="com.khtime.common.model.vo.PageInfo, java.util.ArrayList, com.khtime.board.model.vo.Board, java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
@@ -46,7 +46,7 @@
 <body>
     <div id="wrapper">
     <!-- 위로 가기 버튼 -->
-    <div><button type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);">위로가기</button></div>
+    <div class="gototopdiv divhidden"><button id="gototop" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
     
     <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
@@ -61,12 +61,15 @@
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용" ></textarea></div>
-           							<div id="createContent-check">
+      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="기본 설명 내용" ></textarea>
+										<div id="QuestionContent" class="divhidden"><div>#주의 질문글입니다!</div></div>
+									</div>
+									<div id="file-area"></div>
+									<div id="createContent-check">
 
-    
+										
 
-                						<div>첨부파일<input type="file" id="upfile" name="upfile"></div>
+                						<div>첨부파일(최대 5개)<input type="file" id="upfile" name="upfile"></div>
 
                							<div id="btns">
 						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
@@ -145,7 +148,7 @@
 		
 		reader.onload = function(e){
 		let url = e.target.result;
-		$("#createContent-check").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
+		$("#file-area").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
 		$('#newImg'+count).attr("src",url);
 		count++;
 		}
@@ -178,6 +181,7 @@
 						function loadBoard(){
 							boardCount = boardCount + 1;
 							
+							  $("#gototopdiv").css('display', 'none');
 							$.ajax({
 								url : "<%=request.getContextPath()%>/boardDetail.bo",
 								type : "post",
@@ -188,20 +192,25 @@
 								success : function(list){
 									let result  = "";
 									for(let i of list){ 
+									
+									console.log("list.stringDate"+i.stringDate);
 										result += 
 										`
 										<li>
-										글번호: \${i.boardNo}
 										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
-		                                \${i.title}<br>
-		                                    \${i.content} <br>
-		                                   \${i.enrollDate} &nbsp; \${i.writer}<br>
-		                                    <div id="board-detail-comment">
-                                        
-                                        <div>\${i.recommendCount}</div>
-                                        <div>\${i.replyCount}</div>
-                                    </div>
-                                </li>
+		                                <h3>\${i.title}</h3>
+		                                    <p>\${i.content}</p><br>
+											<div class="board-detail-footer">
+											<div>\${i.writer} \${dayStringMaker(i.stringDate)} </div>
+		                                    <div class="board-detail-comment">
+												<div class="board-detail-commend"> <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
+													<span>\${i.recommendCount}</span></div>
+													
+													<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
+													<span>\${i.replyCount}</span></div>
+											</div>
+										</div>
+                                		</li>
 					                     `
 									}
 										$("#content-area").append(result);
@@ -279,7 +288,48 @@
 		  
 	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
 	window.onload = loadBoard;
+	 
+	
+	 window.addEventListener("scroll",function(){
+	 if(window.scrollY > 800){
+		 $(".gototopdiv").removeClass('divhidden');
+		 $(".gototopdiv").fadeIn();
+	 }else{
+		 $(".gototopdiv").fadeOut();
+	 }
+	 })
+
+	 document.getElementById("isQuestion").addEventListener('click',function(){
+		$("#QuestionContent").removeClass('divhidden');
+	 })
    </script>
+   <script>
+	   	function dayStringMaker(Day){
+	   		let sysdate = new Date();
+	   		let enrollDate = new Date(Day);
+	   		let result ='';
+	   		let diff = sysdate - enrollDate;
+	   		console.log(diff);
+	   		if(diff<3600000){
+	   			result =   Math.ceil(diff/1000/60) + '분전';
+	   		}else if(diff<86400000){
+	   			result = Math.floor(diff/1000/60/60) + '시간전';
+	   		}else if(diff<2592000000){
+	   			result = Math.floor(diff/1000/60/60/24) + '일전';
+	   		}else if(diff<31104000000){
+	   			result = Math.floor(diff/1000/60/60/24/30) + '개월전';
+	   		}else {
+	   			result = Math.floor(diff/1000/60/60/24/30/12) + '년전';
+	   		}
+	   		
+	   		
+	   		return result;
+	   		
+	   	}
+	   
+   
+   </script>
+   
 
 
 

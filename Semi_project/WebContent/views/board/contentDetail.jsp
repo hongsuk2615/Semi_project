@@ -124,10 +124,10 @@
                                 <div>
                                    <%= b.getContent() %>
                                 </div>
-                                <div>
+								
+                                <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
-                                        		파일 번호: <%= at.getFileNo() %>
-												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="200" height="150">
+												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100%" height="100%">
 										<% } %></div>
                                 <div>
                                     <div id="recommenddiv"><%= b.getRecommendCount() %></div>

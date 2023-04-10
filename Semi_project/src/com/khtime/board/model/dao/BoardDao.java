@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.board.model.vo.Category;
+import com.khtime.common.CommonMethod;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -90,10 +91,9 @@ public class BoardDao {
 								rset.getString("IS_QUESTION"),
 								rset.getString("IS_ANONIMOUS"),
 								rset.getInt("RECOMMEND_COUNT"),
-								rset.getDate("ENROLL_DATE"),
-								rset.getInt("REPLY_COUNT")
+								rset.getInt("REPLY_COUNT"),
+								rset.getString("ENROLL_DATE")
 							);
-					
 					boardList.add(b);
 				}		
 				
