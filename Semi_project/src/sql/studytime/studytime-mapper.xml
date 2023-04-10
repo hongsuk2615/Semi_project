@@ -10,7 +10,7 @@
             STUDY_DATE
         FROM STUDY_TIME
         WHERE USER_NO = ?
-        ORDER BY STUDY_DATE
+        ORDER BY STUDY_DATE DESC
    </entry>
 	
 	<entry key="insertStudyTime">

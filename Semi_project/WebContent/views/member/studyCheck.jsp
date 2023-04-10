@@ -109,17 +109,14 @@
                                 </tr>
                             </thead> 
                             <tbody>
+                            <% for(StudyTime s : list) { %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>07 : 00 : 00</td>
-                                    <td>04 : 42 : 13</td>
-                                    <td>
-                                        <div class="progress-bar">
-                                             <!-- <div class="progress-bar__bar"></div>  -->
-                                            
-                                        </div>  
-                                    </td>
+                                    <td class="timeNo"><%= s.getStudyTimeNo() %></td>
+                                    <td class="studyTarget"><%= s.getTargetTime() %></td>
+                                    <td class="studyAmount"><%= s.getTimeAmount() %></td>
+                                    <td class="studyPercent"></td>
                                 </tr>
+                                 <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -416,6 +413,15 @@
     
     
     
+    </script>
+    
+    <script>
+    $('.studyTarget').each(function(index,item){
+    	$(item).html(makeTime($(item).html()));
+    })
+    $('.studyAmount').each(function(index,item){
+    	$(item).html(makeTime($(item).html()));
+    })
     </script>
 
 
