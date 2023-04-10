@@ -201,52 +201,50 @@
 	          delay: 3000,
 	        },
 	      });
-	$(function(){
-        function getBoardlist(cName, num){
-            $.ajax({
-                url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
-                type : 'get',
-                success : function(result){
-                        $('#board-'+num+' thead th').html(cName+' 게시판');
-                        $('#board-'+num+' thead').click(function(){
-                            location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo="+(num-1);
-                        })
-                    if(result.length == 0 ){
-                        $('#board-'+num+' tbody').append('<tr>'+
-                                                        '<td style="text-align:center">' + 
-                                                        '조회된 게시물이 없습니다' + '</td>'+
-                                                          '</tr>');
-                    } else {
-                        for(let i = 0; i < 6 ; i++){
-                            if(result[i] != null){
-                                $('#board-'+num+' tbody').append('<tr>'+
-                                                                '<td>' + 
-                                                                result[i].title + '</td>'+
-                                                          '</tr>');
-                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+ result[i].boardNo;})
-										} else {
-											$('#board-' + num + ' tbody')
-													.append('<tr>'
-															+ '<td style="text-align:center">'
-															+ '-'
-															+ '</td>'
-															+'</tr>');
-										}
-									}
-								}
-							},
-							error : function() {
-								console.log("ajax통신 실패");
-							}
-						});
-			}
-			getBoardlist('질문답변', 2);
-			getBoardlist('프로젝트 및 스터디 모집', 3);
-			getBoardlist('수료생', 4);
-			getBoardlist('건의사항', 5);
-			getBoardlist('공지사항', 6);
-		});
+	   $(function(){
+	        function getBoardlist(cName, num){
+	            $.ajax({
+	                url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
+	                type : 'get',
+	                success : function(result){
+	                        $('#board-'+num+' thead th').html(cName+' 게시판');
+	                        $('#board-'+num+' thead').click(function(){
+	                            location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo="+(num-1);
+	                        })
+	                    if(result.length == 0 ){
+	                        $('#board-'+num+' tbody').append('<tr>'+
+	                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
+	                                                   '</tr>');
+	                    } else {
+	                        for(let i = 0; i < 6 ; i++){
+	                            if(result[i] != null){
+	                                $('#board-'+num+' tbody').append('<tr>'+
+	                                                                '<td>' + result[i].title + '</td>'+
+	                                                          '</tr>');
+	                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
+	                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
+	                                })
+	                            }else {
+	                                $('#board-'+num+' tbody').append('<tr>'+
+	                                                                '<td style="text-align:center">' + '-'+ '</td>'+
+
+	                                                          '</tr>');
+	                            }
+	                        }   
+	                  }         
+	            },
+	            error : function(){
+	                console.log("ajax통신 실패");
+	            }            
+	        });         
+	    }
+	        getBoardlist('질문답변',2);
+	        getBoardlist('프로젝트 및 스터디 모집',3);
+	        getBoardlist('수료생',4);
+	        getBoardlist('건의사항',5);
+	        getBoardlist('공지사항',6);
+	 });
+
 
 	</script>
 
