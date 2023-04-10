@@ -1,7 +1,7 @@
 #content{
     display: flex;
     justify-content: space-between;
-    background-color: white;
+    background-color: trasparent;
     width: 900px;
     border-radius: 15px;
 }
@@ -26,21 +26,30 @@
     overflow: scroll;
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid #4d67c2;
     overflow-x: hidden;
     height: 600px;
     margin-top: 5px;
 }
 
+#messagecheck::-webkit-scrollbar {
+  display: none;
+}
+	
 .messagecheck2{
     width: 100%;
     overflow: scroll;
     height: 578px;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid #4d67c2;
     overflow-x: hidden;
     margin-top: 5px;
 }
+
+.messagecheck2::-webkit-scrollbar {
+  display: none;
+}
+
 .messagecheck2>div{
     padding: 10px;
 }
@@ -49,7 +58,7 @@
     display: flex;
     justify-content: space-between;
     border-radius: 5px;
-    border-top : 1px solid lightgray;
+    border-top : 1px solid #4d67c2;
     padding: 5px;
 }
 
@@ -58,7 +67,7 @@
     justify-content: space-between;
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid #4d67c2;
     padding: 5px;
 }
 
@@ -72,7 +81,7 @@
     justify-content: space-between;
     width: 100%;
     border-radius: 5px;
-    border-top: 1px solid lightgray;
+    border-top: 1px solid #4d67c2;
     color:#0ca5af;
 }
 .msgdate{
@@ -89,19 +98,19 @@
     justify-content: space-between;
     width: 100%;
     border-radius: 5px;
-    border-top: 1px solid lightgray;
+    border-top: 1px solid #4d67c2;
     color:rgb(231, 207, 31)
 }
 #messagebox3{
     width: 100%;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    border: 1px solid #4d67c2;
 }
 
 .text{
     width: 100%;
     border-radius: 5px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #4d67c2;
     margin-top: 5px;
     font-size: 15px;
     color: #a6a6a6;
@@ -112,14 +121,30 @@
 .sendtext{
     width: 100%;
     border-radius: 5px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #4d67c2;
     margin-top: 5px;
     color:black;
 }
-.opponents {
-	width : 100%;
+.opponents1 {
+	background-color: rgba(66, 165, 245,0.1);
+	width:100%
 }
 .title-text{
     font-size: 30px;
     padding: 5px;
 }
+
+.openBtn{
+    background-image: url(../IMG/sendMessage.png);
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+  
+}
+
