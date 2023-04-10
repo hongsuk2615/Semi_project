@@ -35,14 +35,20 @@ public class BookDetailController extends HttpServlet {
 		
 		int bkno = Integer.parseInt(request.getParameter("bkno"));
 		
-		Book book = new BookService().selectBook(bkno);
-		
-		request.setAttribute("book", book);
-		System.out.println(book);
-		
+		ArrayList<Object> book = new BookService().selectBook(bkno);
+		if(book.size()>1) {
+			request.setAttribute("seller", (String)book.get(0));
+			request.setAttribute("book", (Book)book.get(1));
+			System.out.println(book);
+		}else {
+			request.setAttribute("seller", "");
+			request.setAttribute("book", "");
+		}
 		ArrayList<BookAttachment> bList = new BookService().selectThumbnail(bkno);
 		
 		request.setAttribute("bList", bList);
+		
+		
 		request.getRequestDispatcher("views/book/bookDetail.jsp").forward(request, response);
 		
 	}

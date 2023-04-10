@@ -60,8 +60,9 @@
 	
 	<entry key="selectBook">
 		SELECT *
-		FROM BOOK
-		WHERE BOOK_NO = ? 
+		FROM BOOK B
+		JOIN MEMBER M ON (B.SELLER = M.USER_NO)
+		WHERE BOOK_NO = ?
 	</entry>
 	
 	<entry key="selectThumbnail">

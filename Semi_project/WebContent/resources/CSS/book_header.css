@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "semi_font";
+    src: url("../Fonts/SB\ 어그로\ L.ttf") format("truetype");
+    font-weight: normal;
+  }
+* {
+    font-family: 'semi_font';
+}
+
 #message-btn{
     margin-right: 5px;
     height: 100%;

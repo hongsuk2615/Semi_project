@@ -42,11 +42,11 @@ public class BookService {
 		
 	}
 	
-	public Book selectBook(int bkno) {
+	public ArrayList<Object> selectBook(int bkno) {
 		
 		Connection conn = getConnection();
 		
-		Book book = new BookDao().selectBook(conn , bkno);
+		ArrayList<Object> book = new BookDao().selectBook(conn , bkno);
 		
 		close(conn);
 		

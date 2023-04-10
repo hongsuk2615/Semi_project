@@ -8,13 +8,21 @@
     margin-top: 50px;
 }
 
+#book-status {
+	background: lightgray;
+}
+
+#book-trade {
+	background: lightgray;
+}
+
 #book-direct {
     background: lightgray;
     display: flex;
     flex-direction: column
 }
 
-#send-btn {
+.send-btn {
     width: 500px;
     height: 40px;
     background: rgb(57, 189, 235);
@@ -24,6 +32,13 @@
     justify-content: center;
 }
 
+.bg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
 #send-message {
 	display: flex;
     flex-direction: row;
@@ -31,6 +46,32 @@
 }
 
 #back-btn:hover ,
-#send-message:hover {
+.send-message:hover ,
+.d-Img:hover {
 	cursor: pointer;
 }
+
+.hidden {
+   display: none;
+}
+
+.modal {
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalBox {
+    position: absolute;
+    background-color: #fff;
+    width: 400px;
+    height: 635px;
+    border-radius: 16px;
+    z-index: 2;
+}
+

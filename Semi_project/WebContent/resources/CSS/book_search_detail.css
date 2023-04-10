@@ -90,9 +90,9 @@
 #book-home-btn-img:hover ,
 #book-sell-btn-img:hover ,
 #search-btn:hover ,
-#book-page-btn1,
-#book-page-btn2,
-#book-page-btn3,
+#book-page-btn1 ,
+#book-page-btn2 ,
+#book-page-btn3 ,
 #book-page-btn4 {
    cursor: pointer;   
 }
