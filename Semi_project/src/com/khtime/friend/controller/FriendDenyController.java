@@ -1,4 +1,4 @@
-package com.khtime.board.controller;
+package com.khtime.friend.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.khtime.friend.model.service.FriendService;
+import com.khtime.member.model.vo.Member;
+
 /**
- * Servlet implementation class BoardSearchController
+ * Servlet implementation class FriendDenyController
  */
-@WebServlet("/board.me")
-public class BoardSearchController extends HttpServlet {
+@WebServlet("/frienddeny.me")
+public class FriendDenyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardSearchController() {
+    public FriendDenyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +30,14 @@ public class BoardSearchController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/board/boardSearch.jsp").forward(request, response);
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int senderUserNo = Integer.parseInt(request.getParameter("senderUserNo"));
+		int result = new FriendService().friendDeny(loginUserNo,senderUserNo);
+		System.out.println(result);
+		Gson gson = new Gson();
+		response.setContentType("application/json; charset=UTF-8");
+		gson.toJson(result,response.getWriter());
+		System.out.println(result);
 	}
 
 	/**

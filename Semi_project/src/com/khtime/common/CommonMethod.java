@@ -1,5 +1,9 @@
 package com.khtime.common;
 
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -58,6 +62,23 @@ public class CommonMethod {
 		}
 
 		return sb.toString();
+	}
+	
+	public static String getSHA512(String val) {
+		String encPwd = "";
+		MessageDigest md = null;
+		
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		byte[] bytes = val.getBytes(Charset.forName("UTF-8"));
+		md.update(bytes);
+		encPwd = Base64.getEncoder().encodeToString(md.digest());
+		
+		return encPwd;
 	}
 
 }

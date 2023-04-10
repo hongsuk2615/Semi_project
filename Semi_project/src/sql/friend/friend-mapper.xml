@@ -23,7 +23,7 @@
 		
 	<entry key = "friendlist">
 		
-		SELECT USER_NAME
+		SELECT USER_NAME , USER_NO
  			   FROM MEMBER
  			   WHERE USER_NO IN (SELECT RECEIVER AS FRIENDS
   			   FROM FRIEND
@@ -34,6 +34,35 @@
  			   WHERE RECEIVER = ? AND IS_AGREE='Y')
 	</entry>
 	
+	<entry key="friendlist2">
+	SELECT USER_NAME
+		FROM MEMBER
+		WHERE USER_NO IN( SELECT RECEIVER
+        FROM FRIEND
+        WHERE SENDER = ?
+        AND IS_AGREE = 'N')
+	</entry>
 	
+	<entry key="friendlist3">
+		SELECT USER_NAME,USER_NO
+			FROM MEMBER
+			WHERE USER_NO IN( SELECT SENDER
+       		FROM FRIEND
+       		WHERE RECEIVER = ?
+       		AND IS_AGREE = 'N')
+	</entry>
+	
+	<entry key="friendaccept">
+		UPDATE FRIEND SET
+		IS_AGREE = 'Y'
+		WHERE RECEIVER = ?
+		AND  SENDER= ?
+	</entry>
+	
+	<entry key="friendDeny">
+		DELETE FROM FRIEND
+		WHERE RECEIVER = ?
+		AND SENDER = ?
+	</entry>
 	
 </properties>

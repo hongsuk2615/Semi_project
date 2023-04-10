@@ -1,5 +1,4 @@
 #content{
-    border: 1px solid black;
     width: 900px;
     height: 600px;
 }
@@ -14,21 +13,28 @@
     align-items: center;
     justify-content: center;
     width: 700px;
-    height: 500px;
+    min-height: 500px;
     border-radius: 15px;
     border: 2px solid lightgray;
+    background-color: white;
 }
 
 #keyword>div{
     display: flex;
-    flex-direction: column;
-    width: 500px;
-    border: 1px solid lightgray; 
+   
+   
 }
+#keyword{
+	 display: flex;
+     flex-direction: column;
+	 justify-content : space-between;
+	 width : 80%;
+}
+
 
 #boardmake input{
     width: 500px;
-    height: 30px;
+    height: 37px;
     border-radius: 5px;
     border: 2px solid lightgray;
     text-align: center;
@@ -39,6 +45,54 @@
     display: flex;
     justify-content: center;
 }
+#friends, #friendsSend, #friendsReq {
+    border: 2px solid cornflowerblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0px;
+}
 
 
+#friendsReq{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#friendsSend{
+    display: flex;
+    flex-direction: column;
+    border-color: rgb(71, 174, 192);
+}
 
+#friends{
+    border-color: rgb(212, 221, 128);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#friends>div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+#friends button, #friendsReq button {
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+
+.delete, .deny{
+    background-color: #F44336;
+    text-align: center;
+    color: white;
+}
+.sendMessage{
+    background-color: #889140b9;
+    text-align: center;
+    color: white;
+}
+.accept{
+    background-color: #007bff;
+    text-align: center;
+    color: white;
+}

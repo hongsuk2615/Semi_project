@@ -14,12 +14,19 @@ public class PageInfo {
 		super();
 	}
 	
-	public PageInfo(int listCount, int currentPage, int boardLimit, int maxPage) {
+	public PageInfo(int listCount, int currentPage, int boardLimit,int maxPage) {
 		super();
 		this.listCount = listCount;
 		this.currentPage = currentPage;
 		this.boardLimit = boardLimit;
 		this.maxPage = maxPage;
+		
+	}
+	public PageInfo(int currentPage, int boardLimit) {
+		super();
+		this.currentPage = currentPage;
+		this.boardLimit = boardLimit;
+		
 	}
 
 	public PageInfo(int listCount, int currentPage, int pageLimit, int boardLimit, int maxPage, int startPage,

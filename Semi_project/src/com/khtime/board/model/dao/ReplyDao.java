@@ -88,7 +88,6 @@ public class ReplyDao {
 							rset.getInt("REPORT_COUNT"),
 							rset.getDate("ENROLL_DATE"),
 							rset.getString("IS_ANONIMOUS"),
-							rset.getInt("P_REPLY_NO"),
 							rset.getString("USERPROFILE")
 							);
 					list.add(r);
@@ -133,6 +132,31 @@ public class ReplyDao {
 				PreparedStatement pstmt = null;
 				
 				String sql = prop.getProperty("recommendCountUp");
+
+				try {
+					pstmt = conn.prepareStatement(sql);
+					
+					pstmt.setInt(1, rNo);
+					pstmt.setInt(2, userNo);
+					pstmt.setInt(3, rNo);
+					
+					result = pstmt.executeUpdate();
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+				
+					JDBCTemplate.close(pstmt);
+				}
+				return result;
+			}
+		   
+		   public int reportCountUp(Connection conn, int rNo, int userNo) {
+			   
+				int result = 0;
+				PreparedStatement pstmt = null;
+				
+				String sql = prop.getProperty("reportCountUp");
 
 				try {
 					pstmt = conn.prepareStatement(sql);
@@ -202,5 +226,5 @@ public class ReplyDao {
 				}
 				return result;
 			}
-		
+	
 }
