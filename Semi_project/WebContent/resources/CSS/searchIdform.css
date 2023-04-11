@@ -1,4 +1,11 @@
- 
+ @font-face {
+    font-family: "semi_font";
+    src: url("../Fonts/SB\ 어그로\ L.ttf") format("truetype");
+    font-weight: normal;
+  }
+* {
+    font-family: 'semi_font';
+}
 #searchId-form {
 	 display: flex;
     justify-content: center;
@@ -46,10 +53,9 @@
 
   body {
        width:100%;
-       height:800px;
+       height:100vh;
        display:flex;
         justify-content: center;
-        font-family: "Nanum Gothic", arial, helvetica, sans-serif;
         background-repeat: no-repeat;
         background:linear-gradient(to bottom right, white, #6BA8D1);
    }

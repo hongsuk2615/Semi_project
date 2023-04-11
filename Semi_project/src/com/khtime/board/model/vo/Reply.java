@@ -5,25 +5,28 @@ import java.util.Date;
 public class Reply {
 	private int replyNo;
 	private int boardNo;
-	private String writer;
+	private int writer;
 	private String content;
 	private int recommendCount;
 	private int reportCount;
 	private Date enrollDate;
 	private String isAnonimous;
 	private String userProfile;
+	private String stringDate;
+	private String nickName;
 	
 	public Reply() {
 		super();
 	}
 
 
-	public Reply(int replyNo, int boardNo, String writer, String content, int recommendCount, int reportCount,
+	public Reply(int replyNo, int boardNo, int writer, String nickName, String content, int recommendCount, int reportCount,
 			Date enrollDate, String isAnonimous, String userProfile) {
 		super();
 		this.replyNo = replyNo;
 		this.boardNo = boardNo;
 		this.writer = writer;
+		this.nickName = nickName;
 		this.content = content;
 		this.recommendCount = recommendCount;
 		this.reportCount = reportCount;
@@ -73,11 +76,11 @@ public class Reply {
 		this.boardNo = boardNo;
 	}
 
-	public String getWriter() {
+	public int getWriter() {
 		return writer;
 	}
 
-	public void setWriter(String writer) {
+	public void setWriter(int writer) {
 		this.writer = writer;
 	}
 
@@ -112,6 +115,23 @@ public class Reply {
 		this.userProfile = userProfile;
 	}
 
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
+
+
+	public String getNickName() {
+		return nickName;
+	}
+
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
 
 	@Override

@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.board.model.vo.Category;
+import com.khtime.common.CommonMethod;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
 
@@ -90,10 +91,9 @@ public class BoardDao {
 								rset.getString("IS_QUESTION"),
 								rset.getString("IS_ANONIMOUS"),
 								rset.getInt("RECOMMEND_COUNT"),
-								rset.getDate("ENROLL_DATE"),
-								rset.getInt("REPLY_COUNT")
+								rset.getInt("REPLY_COUNT"),
+								rset.getString("ENROLL_DATE")
 							);
-					
 					boardList.add(b);
 				}		
 				
@@ -198,6 +198,8 @@ public class BoardDao {
 							rset.getInt("REPLY_COUNT"),
 							rset.getString("USERPROFILE")
 							);
+					b.setStringDate(rset.getString("STRING_DATE"));
+					b.setUserNo(rset.getInt("USER_NO"));
 					
 				}
 			} catch (SQLException e) {
@@ -800,7 +802,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
-						
+						b.setStringDate(rset.getString("STRING_DATE"));
 						boardList.add(b);
 					}		
 					
@@ -868,7 +870,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
-						
+						b.setStringDate(rset.getString("STRING_DATE"));
 						boardList.add(b);
 					}		
 					
@@ -937,6 +939,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
+						b.setStringDate(rset.getString("STRING_DATE"));
 						
 						boardList.add(b);
 					}		
@@ -949,5 +952,27 @@ public class BoardDao {
 				}
 				return boardList;
 			}
+	    
+	    public int scrapCountDown(Connection conn, int bNo, int userNo) {
+			   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("scrapCountDown");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	    
 }

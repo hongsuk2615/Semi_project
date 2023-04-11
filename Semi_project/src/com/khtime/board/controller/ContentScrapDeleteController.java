@@ -8,20 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.board.model.service.ReplyService;
+import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.RecommendService;
+import com.khtime.board.model.service.ScrapService;
 import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class ReplyDeleteController
+ * Servlet implementation class ContentScrapController
  */
-@WebServlet("/delete.re")
-public class ReplyDeleteController extends HttpServlet {
+@WebServlet("/deletescrap.bo")
+public class ContentScrapDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyDeleteController() {
+    public ContentScrapDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,14 +32,18 @@ public class ReplyDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		int rNo = Integer.valueOf(request.getParameter("rNo"));
+		
+		
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int result = new ReplyService().deleteReply(rNo, bNo, userNo);
+		
+		int result = new ScrapService().scrapDelete(bNo, userNo);
+		
+		if(result > 0) result = new BoardService().scrapCount(bNo);
+		
 		response.setContentType("text/html charset=UTF-8");
 		response.getWriter().print(result);
-	}
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
