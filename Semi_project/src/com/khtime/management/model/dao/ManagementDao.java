@@ -452,5 +452,93 @@ public class ManagementDao {
 		return m;
 		
 	}
+	
+	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(Connection conn, String categoryName) {
+		ArrayList<HashMap<String,Member>> list = new ArrayList<HashMap<String,Member>>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getBoardFilteredReq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+categoryName+"%");
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				HashMap<String,Member> req = new HashMap<String, Member>();
+				Member m = new Member();
+				m.setUserId(rset.getString("USER_ID"));
+				m.setAuthority(rset.getInt("AUTHORITY"));
+				req.put(rset.getString("CATEGORY_NAME"), m);
+				list.add(req);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<Board> getFilteredReportedBoards(Connection conn, String keyword){
+		ArrayList<Board> list = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getFilteredReportedBoards");
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%");
+			pstmt.setString(2, "%"+keyword+"%");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board reportedBoard = new Board();
+				reportedBoard.setBoardNo(rset.getInt("BOARD_NO"));
+				reportedBoard.setTitle(rset.getString("TITLE"));
+				reportedBoard.setCategoryNo(rset.getInt("CATEGORY_NO"));
+				reportedBoard.setWriter(rset.getString("USER_NAME"));
+				reportedBoard.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
+				reportedBoard.setScrapCount(rset.getInt("SCRAP_COUNT"));
+				reportedBoard.setReportCount(rset.getInt("REPORT_COUNT"));
+				
+				list.add(reportedBoard);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+	
+	public ArrayList<Member> getFilteredEnrollmentReqs(Connection conn, String name){
+		ArrayList<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getFilteredEnrollmentReqs");
+		ResultSet rset = null;
+		System.out.println(name);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+name+"%");
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Member reqUser = new Member();
+				reqUser.setUserNo(rset.getInt("USER_NO"));
+				reqUser.setUserId(rset.getString("USER_ID"));
+				reqUser.setUserName(rset.getString("USER_NAME"));
+				reqUser.setAuthority(rset.getInt("AUTHORITY"));
+				list.add(reqUser);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+		
+	}
 
 }
