@@ -1,12 +1,16 @@
 package com.khtime.management.model.service;
 
-import static com.khtime.common.JDBCTemplate.*;
+import static com.khtime.common.JDBCTemplate.close;
+import static com.khtime.common.JDBCTemplate.commit;
+import static com.khtime.common.JDBCTemplate.getConnection;
+import static com.khtime.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.khtime.board.model.vo.Board;
+import com.khtime.common.model.vo.PageInfo;
 import com.khtime.management.model.dao.ManagementDao;
 import com.khtime.member.model.vo.Member;
 
@@ -146,7 +150,7 @@ public class ManagementService {
 	public int approveMakeBoard(String cName) {
 		Connection conn = getConnection();
 		int result = 0;
-		result = new ManagementDao().approveMakeBoard(conn, cName);
+		result = new ManagementDao().approveMakeBoard(conn, cName)*new ManagementDao().approveBoardReq(conn, cName) ;
 		
 		if(result > 0) {
 			commit(conn);
@@ -199,9 +203,9 @@ public class ManagementService {
 		return list;
 	}
 	
-	public ArrayList<Member> getFilteredEnrollmentReqs(String name){
+	public ArrayList<Member> getFilteredEnrollmentReqs(String name, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Member> list = new ManagementDao().getFilteredEnrollmentReqs(conn, name);
+		ArrayList<Member> list = new ManagementDao().getFilteredEnrollmentReqs(conn, name, pi);
 		close(conn);
 		return list;
 	}
