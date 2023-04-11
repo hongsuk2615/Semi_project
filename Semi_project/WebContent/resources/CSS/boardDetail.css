@@ -159,9 +159,6 @@
     padding-left : 3px;
 }
 
-#QuestionContent span{
-	color: darkblue;
-}
 
 #create-content-btn, #update-content-btn, #createComments button{
 	 background: none;

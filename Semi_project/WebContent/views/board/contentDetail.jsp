@@ -80,8 +80,8 @@
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
                                         <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
                                         		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
-                                        	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
                                         	<button id="updateBoard" class="btnsetting"><span>수정</span></button>
+                                        	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
                                         		 if(confirm("정말 삭제하시겠습니까?")){ 
@@ -96,10 +96,8 @@
                                         <% }else{ %>
                                         	<button id="msgBoard" class="btnsetting"><span>쪽지</span></button>
                                         	<button id="reportBoard" class="btnsetting"><span>신고</span></button>
+                                        	
                                         	<script>
-                                        
-                                        	
-                                        	
                                         	document.getElementById("reportBoard").addEventListener("click",function(){
                                         		if(confirm("정말 신고하시겠습니까?")){ 
                                     	  	    $.ajax({
@@ -121,10 +119,9 @@
                                 <div>
                                    <h3><%= b.getTitle() %></h3> 
                                 </div>
-                                <div>
+                                <div id="contentdiv">
                                    <%= b.getContent() %>
                                 </div>
-								
                                 <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100%" height="100%">
@@ -134,9 +131,13 @@
                                     <div class="replydiv"><img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17"><div id="replybox"><%= b.getReplyCount() %></div></div>
                                     <div class="scrapdiv"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><div id="scrapbox"><%= b.getScrapCount() %></div></div>
                                 </div>
-                                <div class="boardDataDiv">
+                                <div class="boardDataDiv" id="boardDataBtn">
                                    <button id="recommendbtn"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><span>공감</span></button>
                                     <button id="scrapbtn"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><span>스크랩</span></button>
+                                 <% if(b.getIsQuestion().equals("Y")){ %>
+								<div id="QuestionContentbox"><div><span>#주의 질문글입니다!</span></div></div>
+								<% } %>
+                                
                                 </div>
                             </div>
 
@@ -228,7 +229,7 @@
 				url : "<%=request.getContextPath()%>/insert.re",
 				data :{
 					bNo : "<%= b.getBoardNo() %>",
-					content : $("#replyContent").val().replace(/(\n|\r\n)/g, '<br>'),
+					content : $("#replyContent").val(),
 					isAnonimous : $("#isAnonimous").prop('checked') ? 'Y' : 'N'
 				}, 
 				success : function(result){
@@ -272,13 +273,17 @@
 						 <div class='content-detail-comments'>
 							 <div class='comments-left'>
 								 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-								<span>\${i.writer}</span>
+								<span>\${i.nickName}</span>
 							 </div>
-								 <div class='comments-right'>
-				                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>
+								 <div class='comments-right'>`
+								 if(i.writer == <%=loginUser.getUserNo()%>){
+									result += ` <button id="deletebtn\${i.replyNo}" class="btnsetting" onclick="deleteclick(this.id)"><span>삭제</span></button> `
+								 }else{
+								 result += `   
 				                     <button id="recommendbtn\${i.replyNo}" class="btnsetting" onclick="recommendclick(this.id)"><span>공감</span></button>
-				                     <button id="deletebtn\${i.replyNo}" class="btnsetting" onclick="deleteclick(this.id)"><span>삭제</span></button>
-			                     </div>
+				                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>`
+				                    }
+				                    result += `</div>
 	                     </div>
 	                     <p>\${i.content}<p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
@@ -297,14 +302,18 @@
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
 						 <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
-						 <span>익명 \${list[1][i.writer]}</span>
+						 <span>익명 \${list[1][i.nickName]}</span>
 						  </div> 
-						 <div class='comments-right'>
-	                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>
-	                     <button id="recommendbtn\${i.replyNo}" class="btnsetting" onclick="recommendclick(this.id)"><span>공감</span></button>
-	                     <button id="deletebtn\${i.replyNo}" class="btnsetting"  onclick="deleteclick(this.id)"><span>삭제</span></button>
-	                     </div>
-	                     </div>
+						  <div class='comments-right'>`
+						  if(i.writer == <%=loginUser.getUserNo()%>){
+								result += ` <button id="deletebtn\${i.replyNo}" class="btnsetting" onclick="deleteclick(this.id)"><span>삭제</span></button> `
+							 }else{
+							 result += `   
+			                     <button id="recommendbtn\${i.replyNo}" class="btnsetting" onclick="recommendclick(this.id)"><span>공감</span></button> 
+			                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>`
+			                    }
+			                    result += `</div>
+                  </div>
 	                     <p> \${i.content}</p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
 	                     \${dayStringMaker(i.stringDate)}
@@ -317,6 +326,9 @@
                    		 result += ` </div> </li> `
 					}
 					$("#comments-area").html(result);
+					}
+					if(result == ""){
+						$("#comments-area").html("");
 					}
 				},
 				error : function(){
@@ -381,7 +393,28 @@
   	     
   	   /* 댓글 삭제, 추천, 신고  */
   	    function deleteclick(id){
-			 location.href = "<%= request.getContextPath() %>/delete.re?bNo="+<%= b.getBoardNo() %>+"&rNo="+id.substr(9);
+			 let rNo = id.substr(9);
+			 $.ajax({
+					url : "<%= request.getContextPath() %>/delete.re",
+					data : {
+						bNo : <%= b.getBoardNo() %>,
+						rNo : rNo
+						},
+					success : function(data){
+						if(data > 0) {
+							alert("삭제 성공!");
+							selectReplyList();
+							selectReplyCount();
+						}else{
+							alert("삭제 실패!");
+						}
+					},
+					beforeSend : function(){
+						if(!confirm("정말 삭제하시겠습니까?")){
+							return false;
+						}
+					}
+				});
 		 }
 		 
 		 function recommendclick(id){

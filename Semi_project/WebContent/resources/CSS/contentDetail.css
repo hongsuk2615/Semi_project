@@ -10,8 +10,6 @@
 #content-detail >*{
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-
 }
 
 
@@ -101,7 +99,7 @@
 
 .boardDataDiv{
 	display:flex;
-	margin-botton: 2px;
+	margin-bottom: 2px;
 }
 
 
@@ -130,15 +128,10 @@
  	border-radius: 5px; 
  	}
  	
- #content-header-right .btnsetting span, .comments-right span {
- 	color : darkblue;
- }
 
-.content-detail-comments p {
-	margin : 0px;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	white-space:nowrap;
+#comments-area p {
+	margin : 5px 4px 5px 4px;
+	word-wrap:break-word;
 }
 .replyrecommend img{
 	padding-left: 7px;
@@ -152,9 +145,17 @@
 .comments-left span{
 	padding-top : 6px;
 }
+
+#boardDataBtn{
+	position: relative;
+}
  	
- 	
- 	
+#QuestionContentbox{
+	position: absolute;
+	right : 1px;
+	bottom : -1px;
+}
+
  	
  	
  	

@@ -19,7 +19,8 @@
 	<entry key="selectReplyList">
 		SELECT R.REPLY_NO,
 			R.BOARD_NO,
-			NICK_NAME AS WRITER,
+			R.WRITER,
+			NICK_NAME,
 			R.CONTENT, 
 			R.RECOMMEND_COUNT,
 			R.REPORT_COUNT,

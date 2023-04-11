@@ -18,6 +18,7 @@ public class Board {
 	private int replyCount;
 	private String userProfile;
 	private String stringDate;
+	private int userNo;
 
 	public Board() {
 		super();
@@ -249,7 +250,13 @@ public class Board {
 		this.stringDate = stringDate;
 	}
 	
+	public int getUserNo() {
+		return userNo;
+	}
 
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 
 
 	@Override

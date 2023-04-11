@@ -199,6 +199,7 @@ public class BoardDao {
 							rset.getString("USERPROFILE")
 							);
 					b.setStringDate(rset.getString("STRING_DATE"));
+					b.setUserNo(rset.getInt("USER_NO"));
 					
 				}
 			} catch (SQLException e) {
