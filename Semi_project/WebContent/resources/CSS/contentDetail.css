@@ -4,23 +4,18 @@
 }
 #content-detail {
     width: 100%;
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
 }
 #content-detail >*{
     width: 100%;
-    border: 1px solid black;
     padding: 10px;
-    margin-bottom: 10px;
-
 }
 
 
 #content-detail li {
     
     list-style-type: none;
-    border-top: 1px solid black;
     
 }
 
@@ -29,7 +24,7 @@
    
 }
 
-#content-detail-comments{
+.content-detail-comments{
     display: flex;
     justify-content: space-between;
    
@@ -61,9 +56,114 @@
 }
 
 #createComments {
-    border: 1px solid blue;
+    border: 1px solid skyblue;
+    background: rgb(255, 255, 255);
+    border-radius: 0px 0px 5px 5px; 
+    margin-top: 2px;
+    padding: 5px;
+    height: 88px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
+#content-detail-content{
+    background: rgb(255, 255, 255);
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid skyblue;
+    margin-top: 2px;
+}
+
+#content-detail-content h3, #content-detail-content p{
+    padding: 0;
+    margin: 0;
+    text-overflow:ellipsis;
+    white-space : nowrap;
+    overflow: hidden;
+}
+
+#comments-area li {
+    border: 1px solid skyblue;
+    background: rgb(255, 255, 255);
+    border-radius: 0px 0px 5px 5px; 
+    margin-top: 2px;
+    padding: 5px;
+    min-height: 80px;
+}
+
+
+#comments-right-btn{
+    display: flex;
+    align-items: center;
+}
+
+.boardDataDiv{
+	display:flex;
+	margin-bottom: 2px;
+}
+
+
+.recommenddiv, .replydiv, .scrapdiv, #recommendbtn, #scrapbtn, .comments-left, .replyrecommend{
+	display: flex;
+	align-items: stretch
+}
+
+.recommenddiv img, .replydiv img, .scrapdiv img{
+	padding-left: 3px;
+	padding-right: 2px;
+}
+
+#recommendbtn span, #scrapbtn span{
+    padding-top: 3px;
+}
+
+ .replydiv span{
+  	padding-top: 1px;
+ }
+
+ #recommendbtn, #scrapbtn{
+ 	margin-right: 4px;
+ 	border: 1px solid skyblue;
+ 	background: skyblue;
+ 	border-radius: 5px; 
+ 	}
+ 	
+
+#comments-area p {
+	margin : 5px 4px 5px 4px;
+	word-wrap:break-word;
+}
+.replyrecommend img{
+	padding-left: 7px;
+	padding-right: 3px;
+}
+
+.comments-left img{
+	margin-right : 6px;
+}
+
+.comments-left span{
+	padding-top : 6px;
+}
+
+#boardDataBtn{
+	position: relative;
+}
+ 	
+#QuestionContentbox{
+	position: absolute;
+	right : 1px;
+	bottom : -1px;
+}
+
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	

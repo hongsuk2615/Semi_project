@@ -29,4 +29,24 @@ public class ScrapService {
 		
 		return result;
 	}
+	
+	public int scrapDelete(int bNo, int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new ScrapDao().scrapDelete(conn, bNo, userNo);
+		if(result > 0) {
+			result = new BoardDao().scrapCountDown(conn, bNo, userNo);
+		}
+		
+		if(result > 0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }
