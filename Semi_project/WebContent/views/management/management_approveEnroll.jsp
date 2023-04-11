@@ -88,6 +88,10 @@ a {
 			</div>
 		</div>
 	</div>
+	<script>
+		let currentPage = 1;
+		let userName='';
+	</script>
 	<script> //모달스크립트
         function modalEvent(){
 			$("#board-1 tbody>tr").each(function (index, item) { //회원가입 승인요청 모달창
@@ -150,6 +154,7 @@ a {
         
     </script>
     <script> //비동기 스크립트
+    	
 	   $(function(){
 	    	function getEnrollmentReqs(){
 				$.ajax({
@@ -191,12 +196,13 @@ a {
     </script>
 	<script> // 카테고리 검색 이벤트
 		$('#search-user').keyup(function () {
+			currentPage = 1;
 			if (window.event.keyCode == 13) {
-				let userName = $(this).val();
+				userName = $(this).val();
 				$.ajax({
 					url : '<%=request.getContextPath()%>/filteredApproveEnroll.get',
 					type : 'get',
-					data : {userName},
+					data : {userName, currentPage},
 					success : function(result){
 						$('#board-1 tbody').html('');
 						if(result.length == 0 ){
@@ -227,6 +233,88 @@ a {
 				});
 			}
 		});
+		</script>
+		
+		<script>
+		$('#back-btn').click(function(){
+			if(currentPage>1){
+				currentPage--;
+			}
+			
+			$.ajax({
+				url : '<%=request.getContextPath()%>/filteredApproveEnroll.get',
+				type : 'get',
+				data : {userName, currentPage},
+				success : function(result){
+					$('#board-1 tbody').html('');
+					if(result.length == 0 ){
+						$('#board-1 tbody').append('<tr>'+
+														'<td>' + '요청된 회원가입이없습니다.' + '</td>'+
+												   '</tr>');
+					} else {
+						for(let i = 0; i < 10 ; i++){
+							if(result[i] != null){
+								$('#board-1 tbody').append('<tr>'+
+																'<td>' + result[i].userId + '</td>'+
+																'<td>' + result[i].userName + '</td>' +													
+																'<td>' + (result[i].authority == '1' ?  '강사':'학생') + '</td>'+
+														  '</tr>');
+							}else {
+								$('#board-1 tbody').append('<tr>'+
+																'<td colspan="3">' + '-'+ '</td>'+
+
+														  '</tr>');
+							}
+						}		
+				  }	
+				  modalEvent();	
+				}
+
+
+
+			});
+			
+		})
+		
+		$('#next-btn').click(function(){			
+				currentPage++;
+			$.ajax({
+				url : '<%=request.getContextPath()%>/filteredApproveEnroll.get',
+				type : 'get',
+				data : {userName, currentPage},
+				success : function(result){
+					$('#board-1 tbody').html('');
+					if(result.length == 0 ){
+						$('#board-1 tbody').append('<tr>'+
+														'<td>' + '요청된 회원가입이없습니다.' + '</td>'+
+												   '</tr>');
+					} else {
+						for(let i = 0; i < 10 ; i++){
+							if(result[i] != null){
+								$('#board-1 tbody').append('<tr>'+
+																'<td>' + result[i].userId + '</td>'+
+																'<td>' + result[i].userName + '</td>' +													
+																'<td>' + (result[i].authority == '1' ?  '강사':'학생') + '</td>'+
+														  '</tr>');
+							}else {
+								$('#board-1 tbody').append('<tr>'+
+																'<td colspan="3">' + '-'+ '</td>'+
+
+														  '</tr>');
+							}
+						}		
+				  }	
+				  modalEvent();	
+				}
+
+
+
+			});
+			
+		})
+		
+		
+		
 		</script>
 
 </body>
