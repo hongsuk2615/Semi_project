@@ -110,6 +110,7 @@
                             </thead> 
                             <tbody>
                             <% for(StudyTime s : list) { %>
+                            	
                                 <tr>
                                     <td class="timeNo"><%= s.getStudyTimeNo() %></td>
                                     <td class="studyTarget"><%= s.getTargetTime() %></td>

@@ -24,7 +24,7 @@
 	
 	<entry key="sumStudyTime">
 		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT
-			FROM STUDY_TIME
+			FROM STUDY_TIME S
 			WHERE USER_NO = ?
 	</entry>
 	
