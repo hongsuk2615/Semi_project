@@ -67,7 +67,7 @@ a {
 						<input placeholder="아이디로 친구요청을 보내세요!" type="text" name="userId"
 							id="userId" required>
 					</div>
-					<button type="button" class="btn btn-primary" onclick="idCheck2();">검색</button>
+					<button type="button" class="btn btn-primary" onclick="idCheck2();">친구요청</button>
 					<br>
 				</div>
 				<br>
@@ -200,7 +200,7 @@ a {
 								 }
 							 }else{
 								 
-                                alert("없는 아이디이거나 본인 아이디입니다.");
+                                alert("없는 아이디이거나 본인 아이디이거나 이미 친구입니다.");
 							 }
 							 
 						 }	 
@@ -230,7 +230,7 @@ a {
 						 }
 					
 				 function deny(e){
-						if(confirm("친구를 삭제하시겠습니까?")){
+						if(confirm("친구목록에서 삭제 됩니다.")){
 						console.log(e);
 						console.log($(e).attr('data-userNo'));
 						let senderUserNo =  $(e).attr('data-userNo');

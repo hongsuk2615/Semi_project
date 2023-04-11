@@ -15,12 +15,14 @@
 
 #main-banner {
     width: 100%;
-    background-image: url(../IMG/mainbanner1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     height: 230px;
 }
-
+.swiper-slide img{
+	 width: 1200px;
+     height: 230px;
+}
 #body-wrapper {
     margin-top: 20px;
     width: 100%;
@@ -260,10 +262,10 @@
     border-radius: 5px;
     padding: 5px;
 }
-#banner-wrapper{
+/* #banner-wrapper{
     width: 100%;
     padding: 8px;
-}
+} */
 #logoutbtn, #mypagebtn{
     border: 1px solid transparent;
     border-radius: 5px;

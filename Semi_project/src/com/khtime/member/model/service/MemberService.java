@@ -230,5 +230,19 @@ public class MemberService {
 		new MemberDao().reportContentUp(conn, bNo);
 		close(conn);
 	}
+	
+	public int insertNoImgProfile(int userNo) {
+		int result = 0;
+		Connection conn = getConnection();
+		result = new MemberDao().insertNoImgProfile(conn,userNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
 }
