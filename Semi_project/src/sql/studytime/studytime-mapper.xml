@@ -14,8 +14,8 @@
    </entry>
 	
 	<entry key="insertStudyTime">
-      INSERT INTO STUDY_TIME (STUDY_TIME_NO, USER_NO, TIME_AMOUNT, STUDY_DATE)
-      VALUES(SEQ_asdasd.NEXTVAL
+      INSERT INTO STUDY_TIME (STUDY_TIME_NO, USER_NO, TIME_AMOUNT, TARGET_TIME)
+      VALUES(SEQ_STNO.NEXTVAL
            ,?
            ,?
            ,?

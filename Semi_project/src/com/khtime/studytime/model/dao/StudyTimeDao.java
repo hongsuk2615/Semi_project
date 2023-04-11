@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.dao.BoardDao;
+import com.khtime.common.JDBCTemplate;
 import com.khtime.studytime.model.vo.StudyTime;
 
 public class StudyTimeDao {
@@ -92,6 +94,31 @@ public class StudyTimeDao {
 		
 		
 	}
+	
+	public boolean insertStudy(Connection conn,  int userNo, int timeAmount, int targetTime) {
+		   
+		   boolean result = false;
+		   PreparedStatement pstmt = null;
+		   String sql = prop.getProperty("insertStudyTime");
+		   try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1,userNo);
+				pstmt.setInt(2,timeAmount);
+				pstmt.setInt(3, targetTime);
+				
+				result = pstmt.executeUpdate() > 0? true : false;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+	   
+	   
+	   }
 	
 	
 	
