@@ -802,7 +802,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
-						
+						b.setStringDate(rset.getString("STRING_DATE"));
 						boardList.add(b);
 					}		
 					
@@ -870,7 +870,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
-						
+						b.setStringDate(rset.getString("STRING_DATE"));
 						boardList.add(b);
 					}		
 					
@@ -939,6 +939,7 @@ public class BoardDao {
 									rset.getDate("ENROLL_DATE"),
 									rset.getInt("REPLY_COUNT")
 								);
+						b.setStringDate(rset.getString("STRING_DATE"));
 						
 						boardList.add(b);
 					}		
@@ -951,5 +952,27 @@ public class BoardDao {
 				}
 				return boardList;
 			}
+	    
+	    public int scrapCountDown(Connection conn, int bNo, int userNo) {
+			   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("scrapCountDown");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
 	    
 }

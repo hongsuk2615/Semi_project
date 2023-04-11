@@ -197,8 +197,6 @@
 						let boardCount = 0;
 						function loadBoard(){
 							boardCount = boardCount + 1;
-							
-							  $("#gototopdiv").css('display', 'none');
 							$.ajax({
 								url : "<%=request.getContextPath()%>/boardDetail.bo",
 								type : "post",

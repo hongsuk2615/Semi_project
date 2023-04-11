@@ -253,7 +253,12 @@
 				}
 			})
 			}
-			
+		 $("#replyContent").keyup(function () {
+             if (window.event.keyCode == 13) {
+            	 insertReply();
+             }
+         });
+		
 		
 		 /* 댓글 조회 */
 		function selectReplyList(){
@@ -385,10 +390,29 @@
 							$("#scrapbox").html(data);
 						}
 						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
-						if(data < 0) alert("이미 스크랩된 글입니다!");
+						if(data < 0){
+							if(confirm("스크랩을 취소하시겠습니까?")){
+								deleteScrap();
+							}
+						}
 						}
 				});
   	    })
+  	    
+  	    function deleteScrap(){
+			 $.ajax({
+					url : "<%= request.getContextPath() %>/deletescrap.bo",
+					data : {
+						bNo : <%= b.getBoardNo() %>
+						},
+					success : function(data){
+						if(data >= 0) {
+							alert("스크랩 취소 성공!");
+						$("#scrapbox").html(data);
+							}
+						}
+				});
+		 }
   	    
   	     
   	   /* 댓글 삭제, 추천, 신고  */
