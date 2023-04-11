@@ -35,8 +35,6 @@ public class BookSearchDetailController extends HttpServlet {
 		
 		int bkno = Integer.parseInt(request.getParameter("bkno"));
 		
-		Book book = new BookService().selectBook(bkno);
-		
 		response.sendRedirect(request.getContextPath() + "/booksearchdetail.do?bkno=" +bkno);
 		
 	}

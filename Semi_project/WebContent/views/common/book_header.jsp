@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="resources/CSS/book_main.css"> -->
 <link rel="stylesheet" href="resources/CSS/book_header.css">
 </head>
 <body>
@@ -36,9 +35,29 @@
     <script>
     
     document.getElementById("home-logo").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>";
+        location.href = "<%= request.getContextPath() %>/mainPage.do";
     })
     
+    
+    
+   	<% if(loginUser == null) {%> 
+        document.getElementById("login-btn").addEventListener("click",function(){
+          location.href = "<%= request.getContextPath() %>/login.me";
+        })
+
+        document.getElementById("enrollment-btn").addEventListener("click",function(){
+            location.href = "<%= request.getContextPath() %>/enroll.me";
+        })
+	<% }  else { %>
+		document.getElementById("message-btn").addEventListener("click",function(){
+	      	location.href = "<%= request.getContextPath() %>/msgbox.me";
+	  	})
+	  	
+	  	document.getElementById("mypage-btn").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath() %>/myPage.me";
+	   	})
+	<% } %>
+   	
     </script>
 </body>
 </html>

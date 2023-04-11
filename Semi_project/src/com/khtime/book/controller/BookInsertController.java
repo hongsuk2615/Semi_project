@@ -66,6 +66,7 @@ public class BookInsertController extends HttpServlet {
 			String isDirect = multi.getParameter("isDirect");
 			String location = multi.getParameter("location");
 			int price = Integer.parseInt(multi.getParameter("price"));
+			int listPrice = Integer.parseInt(multi.getParameter("listPrice"));
 			System.out.println(author);
 			
 			
@@ -81,7 +82,8 @@ public class BookInsertController extends HttpServlet {
 			book.setPrice(Integer.parseInt(multi.getParameter("price")));
 			book.setPublicationDate(multi.getParameter("publicationDate"));
 			book.setApiImg(multi.getParameter("thumbnail"));
-			
+			book.setContent(multi.getParameter("content"));
+			book.setListPrice(Integer.parseInt(multi.getParameter("listPrice")));
 			
 			BookAttachment bat = null; 
 			

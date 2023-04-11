@@ -15,12 +15,16 @@
 						  IS_DIRECT , 
 						  LOCATION ,
 						  PUBLICATION_DATE,
-						  API_IMG)
+						  API_IMG,
+						  CONTENT,
+						  LIST_PRICE)
 				  VALUES (SEQ_BKNO.NEXTVAL,
 				  		  ?,
 				  		  ?, 
 				  		  ?,
 				  		  ?, 
+				  		  ?,
+				  		  ?,
 				  		  ?,
 				  		  ?,
 				  		  ?,

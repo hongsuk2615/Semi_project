@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	Book book = (Book)request.getAttribute("book");	
-	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>)request.getAttribute("bList");
+	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>) request.getAttribute("bList");
 	String seller = (String)request.getAttribute("seller");
 %>
 <!DOCTYPE html>
@@ -44,7 +44,10 @@
                     <p><%= book.getAuthor() %></p>
                     <p><%= book.getPublisher() %></p>
                     <p><%= book.getPublicationDate() %></p>
-                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %></p>
+                    <div class="listPrice">
+	                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %> 원</p><p><strike><%= book.getListPrice() %> 원</strike></p>
+                    </div>
+                    <p><%= book.getContent() %></p>
                 </div>
             </div>
 
@@ -61,14 +64,14 @@
                     <p>게시일 : <%= book.getEnrollDate() %></p>
                 </div>
                 <div>
-                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지함.png" style="width: 25px; height: 25px;"></button>
+                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지.png" style="width: 27px; height: 27px;"></button>
                 </div>
             </div>
 
             <hr>
 
             <div id="book-status">
-                <div id="book-status">
+                <div id="book-detail-status">
                     <h1>도서 이미지</h1>
                     <button class="d-Img" style="background:none">
                     	<% for(int i = 0; i < bList.size(); i++ ) { %>
@@ -89,12 +92,17 @@
             <div id="book-trade">
                 <div>
                     <h1>거래 방법</h1>
-                    <p><%= book.getIsDirect().equals("N") ? "택배" : book.getIsDirect().equals("Y") ? "직거래" : "직거래 , 택배"  %></p>
-                    <h2>지역</h2>
-                    <p><%= book.getLocation() %></p>
+                    <p style="font-size: large;"><%= book.getIsDirect().equals("N") ? "택배" : book.getIsDirect().equals("Y") ? "직거래" : "직거래 , 택배"  %></p>
+                    <h1>지역</h1>
+                    <p style="font-size: large;"><%= book.getLocation() %></p>
                 </div>
             </div>
-            <button id="back-btn" style="width:500px; height:50px; border: round;">돌아가기</button>
+            
+            <hr>
+            
+            <div id="back">
+            	<button id="back-btn" style="width:500px; height:50px; border: round;">돌아가기</button>
+            </div>
         </div>
         
         <form action="<%= request.getContextPath() %>/sendMsg.me" method="post"> <!-- 쪽지 모달  -->
@@ -107,9 +115,9 @@
 					   </div>
 						   <div class="sendMsgBody">
 							   <div class="inputBox">
-								   <h4 class="inputLabel">쪽지보내기</h4>            
-									 <input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
-							 </div>
+								    <h4 class="inputLabel">쪽지보내기</h4>            
+									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+							   </div>
 						   <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 						   </div>
 				   </div>

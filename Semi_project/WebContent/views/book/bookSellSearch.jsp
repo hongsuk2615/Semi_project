@@ -47,7 +47,7 @@
             <div id="book-btn">
                 <button id="book-home-btn">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
-                    홈
+                    Home
                 </button>
                 <button id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
@@ -189,7 +189,8 @@
                         		author : res.documents[<%= i %>].authors,
                         		publisher : res.documents[<%= i %>].publisher,
                         		datetime : res.documents[<%= i %>].datetime.substring(0,10),
-                        		contents : res.documents[<%= i %>].contents
+                        		contents : res.documents[<%= i %>].contents,
+                        		listPrice : res.documents[<%= i %>].price
                         };
                         
                         function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksellsearch.do", bookdata<%=i%>)};

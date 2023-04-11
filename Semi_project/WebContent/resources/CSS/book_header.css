@@ -15,6 +15,7 @@
     background-image: url(../IMG/쪽지함.png);  
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 #mypage-btn{
     margin-left: 5px;
@@ -24,4 +25,32 @@
     background-image: url(../IMG/마이페이지.png);
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#book-header-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 155px;
+}
+
+#book-header-right>button {
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login-btn{
+    margin: 2px;
+    width: 67px;
+    background-color: #42A5F5;
+    color: white;
+    cursor: pointer;
+}
+#enrollment-btn {
+    margin: 2px;
+    width: 78px;
+    cursor: pointer;
 }

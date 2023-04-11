@@ -57,6 +57,8 @@ public class BookDao {
 			pstmt.setString(9, book.getLocation());
 			pstmt.setString(10, book.getPublicationDate());
 			pstmt.setString(11, book.getApiImg());
+			pstmt.setString(12, book.getContent());
+			pstmt.setInt(13, book.getListPrice());
 			
 			result = pstmt.executeUpdate();
 			
@@ -162,6 +164,8 @@ public class BookDao {
 				b.setLocation(rset.getString("LOCATION"));
 				b.setApiImg(rset.getString("API_IMG"));
 				b.setPrice(rset.getInt("PRICE"));
+				b.setContent(rset.getString("CONTENT"));
+				b.setListPrice(rset.getInt("LIST_PRICE"));
 				book.add(rset.getString("USER_ID"));
 				book.add(b);
 				
