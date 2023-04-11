@@ -38,7 +38,7 @@
 		  JOIN CATEGORY USING(CATEGORY_NO)
 		 WHERE CATEGORY_NAME = ?
 		   AND STATUS = 'Y'
-	
+		  ORDER BY ENROLL_DATE DESC
 	</entry>
 	
 	<entry key="getBoardMakeReq">
@@ -124,6 +124,40 @@
 		SELECT *
 		  FROM MEMBER
 		 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="getBoardFilteredReq">
+		SELECT *
+		  FROM CATEGORY C
+		  JOIN MEMBER ON(REQ_USER=USER_NO)
+		 WHERE C.AVAILABLE = 'N'
+		   AND CATEGORY_NAME LIKE ? 
+	</entry>
+	
+	<entry key="getFilteredReportedBoards">
+		SELECT BOARD_NO
+			 , TITLE
+			 , CATEGORY_NO
+			 , USER_NAME
+			 , B.RECOMMEND_COUNT
+			 , SCRAP_COUNT
+			 , B.REPORT_COUNT
+		  FROM BOARD B
+		  JOIN MEMBER ON (WRITER = USER_NO)
+		 WHERE B.REPORT_COUNT > 0
+		   AND B.STATUS = 'Y'
+		   AND (TITLE LIKE ? OR CONTENT LIKE ?)
+		    
+	
+	</entry>
+	
+	<entry key="getFilteredEnrollmentReqs">
+		SELECT *
+		  FROM MEMBER
+		 WHERE AVAILABLE = 'N'
+		   AND USER_NAME LIKE ?
+	
+	
 	</entry>
 
 </properties>

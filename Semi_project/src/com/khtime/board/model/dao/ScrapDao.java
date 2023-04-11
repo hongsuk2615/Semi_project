@@ -53,4 +53,28 @@ public class ScrapDao {
 			return result;
 		}
 	   
+	   public int scrapDelete(Connection conn, int bNo, int userNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = prop.getProperty("scrapDelete");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, bNo);
+				pstmt.setInt(2, userNo);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 }

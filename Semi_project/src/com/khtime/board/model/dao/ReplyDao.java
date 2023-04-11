@@ -82,7 +82,8 @@ public class ReplyDao {
 					Reply r = new Reply(
 							rset.getInt("REPLY_NO"),
 							rset.getInt("BOARD_NO"),
-							rset.getString("WRITER"),
+							rset.getInt("WRITER"),
+							rset.getString("NICK_NAME"),
 							rset.getString("CONTENT"),
 							rset.getInt("RECOMMEND_COUNT"),
 							rset.getInt("REPORT_COUNT"),
@@ -90,6 +91,7 @@ public class ReplyDao {
 							rset.getString("IS_ANONIMOUS"),
 							rset.getString("USERPROFILE")
 							);
+					r.setStringDate(rset.getString("STRING_DATE"));
 					list.add(r);
 				}
 				
