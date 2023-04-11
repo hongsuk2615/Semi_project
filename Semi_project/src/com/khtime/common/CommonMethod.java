@@ -3,7 +3,9 @@ package com.khtime.common;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -80,5 +82,5 @@ public class CommonMethod {
 		
 		return encPwd;
 	}
-
+	
 }

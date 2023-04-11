@@ -42,9 +42,11 @@
 
                     <input type="button" value="회원가입">
                      <% if(userId.isEmpty()) { %>
-			           <input type="checkbox" id="keepId">로그인 유지
+			           <input type="checkbox" id="keepId">
+			            <label for="keepId">로그인 유지</label>
 			         <% }else{ %>
-			           <input type="checkbox" id="keepId" checked="checked">로그인 유지
+			           <input type="checkbox" id="keepId" checked="checked">
+			            <label for="keepId">로그인 유지</label>
 			         <% } %>
                 </div>
             </form>

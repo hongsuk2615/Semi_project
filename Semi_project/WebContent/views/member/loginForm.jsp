@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="resources/CSS/loginform.css">
-    <link rel="stylesheet" href="resources/CSS/base.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -37,12 +36,15 @@
            <input type="text" id="loginId" name="loginId" placeholder="아이디를 입력해주세요!" value="<%=userId%>" required> <br>
            <input type="password" id="loginPwd" name="loginPwd" placeholder="비밀번호를 입력해주세요!" onkeyup="checkCapsLock(event)" required>
            <div style="visibility : hidden" id='message'><span style="color:red">Caps Lock이 켜져 있습니다!</span></div>
-           <button type="button" onclick="login()" class="btn btn-primary btn-sm" id="login-form-btn">로그인</button>
+			<div id="login-btn-wrapper">
+		   <button type="button" onclick="login()" class="btn btn-primary btn-sm" id="login-form-btn">로그인</button>
            <% if(userId.isEmpty()) { %>
-           <input type="checkbox" id="keepId">로그인 유지
+           <input type="checkbox" id="keepId">
+           <label for="keepId">로그인 유지</label>
            <% }else{ %>
-            <input type="checkbox" id="keepId" checked="checked">로그인 유지
+            <input type="checkbox" id="keepId" checked="checked"> <label for="keepId">로그인 유지</label>
             <% } %>
+			</div>
             <div id="searchId"><a href="<%= request.getContextPath() %>/searchId.me">아이디/비밀번호 찾기</a></div>
            <br>
             <p class="guide">아직 회원이 아니신가요?</p>

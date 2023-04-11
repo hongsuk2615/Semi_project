@@ -7,5 +7,11 @@
 	 	 (?, ?)
 	</entry>
 	
+	<entry key="scrapDelete">
+ 	 DELETE FROM SCRAP
+     	WHERE BOARD_NO = ?
+     		AND USER_NO = ?
+	</entry>
+	
 	
 </properties>

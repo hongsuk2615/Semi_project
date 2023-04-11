@@ -38,7 +38,7 @@
 		  JOIN CATEGORY USING(CATEGORY_NO)
 		 WHERE CATEGORY_NAME = ?
 		   AND STATUS = 'Y'
-	
+		  ORDER BY ENROLL_DATE DESC
 	</entry>
 	
 	<entry key="getBoardMakeReq">
