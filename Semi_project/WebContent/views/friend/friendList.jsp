@@ -67,7 +67,7 @@ a {
 						<input placeholder="아이디로 친구요청을 보내세요!" type="text" name="userId"
 							id="userId" required>
 					</div>
-					<button type="button" class="btn btn-primary" onclick="idCheck2();">검색</button>
+					<button type="button" class="btn btn-primary" onclick="idCheck2();">친구요청</button>
 					<br>
 				</div>
 				<br>

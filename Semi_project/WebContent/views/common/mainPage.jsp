@@ -31,11 +31,6 @@
 	<div id="wrapper">
 
 		<%@ include file="header.jsp"%>
-
-								<%-- src="<%=request.getContextPath()%>/resources/IMG/mainbanner1.jpg"> 
-								https://www.iei.or.kr/work/empl.kh
-								https://www.iei.or.kr/edu/curriculumDetailView.kh?no=2
-								https://www.iei.or.kr/community/noticeView.kh?no=3530&cpage=1&classify=--%>
 		<div id="body">
 			<div id="banner-wrapper">
 				  <div class="swiper">
