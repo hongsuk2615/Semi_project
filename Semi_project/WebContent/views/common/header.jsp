@@ -51,7 +51,7 @@
                			success : function(result){
                				if(result > 0){
                					console.log(result);
-               				$('#friendlist').text("친구목록"+result);
+               				$('#friendlist').text("친구목록 + "+result).css("color","blue");
                				}
                			}
                			});
@@ -66,7 +66,7 @@
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
-                				$('#msgcount').text(result);
+                				$('#msgcount').text("+"+result).css("color","green");
                 				}else{
                 					$('#msgcount').text('');
                 				}
