@@ -1,9 +1,8 @@
-package com.khtime.dday.controller;
-
-import static com.khtime.common.StringToDate.transformDate;
+package com.khtime.studytime.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,22 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.khtime.dday.model.service.DdayService;
-import com.khtime.dday.model.vo.Dday;
 import com.khtime.member.model.vo.Member;
+import com.khtime.studytime.model.service.StudyTimeService;
+import com.khtime.studytime.model.vo.StudyTime;
+import static com.khtime.common.StringToDate.transformDate;
 
 /**
- * Servlet implementation class ddayInsertController
+ * Servlet implementation class StudyCheckController
  */
-@WebServlet("/ddayInsert.bo")
-public class ddayInsertController extends HttpServlet {
+@WebServlet("/study.me")
+public class StudyCheckController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ddayInsertController() {
+    public StudyCheckController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,25 +36,19 @@ public class ddayInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println(request.getParameter("dDay"));
-		Date dDay = transformDate(request.getParameter("dDay"));
-		String title = request.getParameter("title");
+		int timeAmount = new StudyTimeService().sumStudy(userNo);
+		
 		System.out.println(userNo);
-		System.out.println(dDay);
-		System.out.println(title);
-	
+		ArrayList<StudyTime> list = new StudyTimeService().getStudy(userNo);
 		
-		boolean result = new DdayService().insertDday(userNo,title,dDay);
-		
-		
-		response.setContentType("application/json; charset = UTF-8");
-		Gson gson = new Gson();
-		gson.toJson(result, response.getWriter());
+		request.setAttribute("timeAmount", timeAmount);
+		System.out.println(timeAmount);
+		request.setAttribute("list", list);
 		
 		
 		
 		
-		
+		request.getRequestDispatcher("views/member/studyCheck.jsp").forward(request, response);
 	}
 
 	/**

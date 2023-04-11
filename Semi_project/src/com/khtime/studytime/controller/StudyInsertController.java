@@ -1,4 +1,4 @@
-package com.khtime.member.controller;
+package com.khtime.studytime.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.khtime.dday.model.service.DdayService;
+import com.khtime.member.model.vo.Member;
+import com.khtime.studytime.model.service.StudyTimeService;
+
 /**
- * Servlet implementation class StudyCheckController
+ * Servlet implementation class StudyInsertController
  */
-@WebServlet("/study.me")
-public class StudyCheckController extends HttpServlet {
+@WebServlet("/studyInsert.bo")
+public class StudyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudyCheckController() {
+    public StudyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +32,22 @@ public class StudyCheckController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/member/studyCheck.jsp").forward(request, response);
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int timeAmount = Integer.parseInt(request.getParameter("time"));
+		int targetTime = Integer.parseInt(request.getParameter("targetTime"));
+		System.out.println(timeAmount);
+		System.out.println(targetTime);
+		
+		boolean result = new StudyTimeService().insertStudy(userNo,timeAmount,targetTime);
+		
+		
+		response.setContentType("application/json; charset = UTF-8");
+		Gson gson = new Gson();
+		gson.toJson(result, response.getWriter());
+		
+		
+		
+		
 	}
 
 	/**
