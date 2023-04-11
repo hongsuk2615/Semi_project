@@ -42,7 +42,7 @@
                     <button id="login-btn">로그인</button>
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
-                	<button id="message-btn"></button>
+                	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
                     <div id="msgcount"></div>
                 	<script>
                  	 function messageCount(){
@@ -58,7 +58,8 @@
                 			}
                 			});
                 		}
-                	/* setInterval(messageCount,1000);	 */
+                	/* setInterval(,1000);	 */
+                	messageCount();
                 	</script>
                     
                     <button id="mypage-btn"></button>
@@ -117,7 +118,10 @@
    		   document.getElementById("message-btn").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
   		}) 
-  		
-    </script>
+ 		/* 
+  		function msgcheck(){
+  		$('#msgcount').text('vdvddvdvv');
+		} */	   
+  		</script>
 </body>
 </html>

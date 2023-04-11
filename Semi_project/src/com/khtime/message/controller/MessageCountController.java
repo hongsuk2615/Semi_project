@@ -43,8 +43,12 @@ public class MessageCountController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int sendUser =Integer.parseInt( request.getParameter("sendeUserNo"));
+		int result = new  MessageService().messageCheck(loginUserNo,sendUser);
+		Gson gson = new Gson();
+		response.setContentType("application/json; charset=UTF-8");
+		gson.toJson(result,response.getWriter());
 	}
 
 }

@@ -62,4 +62,8 @@
  			AND (SYSDATE-SEND_DATE)*24*60 &lt; 1
 	</entry>
 	
+	<entry key="messageCheck">
+		UPDATE 
+	</entry>
+	
 </properties>

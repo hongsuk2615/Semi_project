@@ -63,7 +63,7 @@
                         <script>
                         	opponents.push(<%=m.getUserNo()%>);
                         </script>
-                        <div class = "opponents" onclick="checkmsg(this);" data-userNo=<%=m.getUserNo() %> >
+                        <div class = "opponents"  onclick="checkmsg(this);" data-userNo=<%=m.getUserNo() %>  >
                         <div class="date">
                             <div class="opponent-name"><%= m.getNickName() %></div>
                             
@@ -199,13 +199,16 @@
 	  console.log($(e).attr('data-userNo'));
 	  let sendrUserNo = $(e).attr('data-userNo');
 	  $.ajax({
-		  url : "<%=request.getContextPath()%>/checkmsg.do",
+		  url : "<%=request.getContextPath()%>/msgplus.do",
 	  	  data : {sendeUserNo},
+	  	  type : "post",
 	  	 success : function(result){
-	  		 
+	  		 if(result > 0 ){
+	  			$('#msgcount').text('');
+	  		 }
 	  	 }
 	  });
-  }
+  } 
   </script>
   </div>
 </body>
