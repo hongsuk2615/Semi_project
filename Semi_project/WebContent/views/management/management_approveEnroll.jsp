@@ -189,7 +189,45 @@ a {
     
     
     </script>
-
+	<script> // 카테고리 검색 이벤트
+		$('#search-user').keyup(function () {
+			if (window.event.keyCode == 13) {
+				let userName = $(this).val();
+				$.ajax({
+					url : '<%=request.getContextPath()%>/filteredApproveEnroll.get',
+					type : 'get',
+					data : {userName},
+					success : function(result){
+						$('#board-1 tbody').html('');
+						if(result.length == 0 ){
+							$('#board-1 tbody').append('<tr>'+
+															'<td>' + '요청된 회원가입이없습니다.' + '</td>'+
+													   '</tr>');
+						} else {
+							for(let i = 0; i < 10 ; i++){
+								if(result[i] != null){
+									$('#board-1 tbody').append('<tr>'+
+																	'<td>' + result[i].userId + '</td>'+
+																	'<td>' + result[i].userName + '</td>' +													
+																	'<td>' + (result[i].authority == '1' ?  '강사':'학생') + '</td>'+
+															  '</tr>');
+								}else {
+									$('#board-1 tbody').append('<tr>'+
+																	'<td colspan="3">' + '-'+ '</td>'+
+	
+															  '</tr>');
+								}
+							}		
+					  }	
+					  modalEvent();	
+					}
+	
+	
+	
+				});
+			}
+		});
+		</script>
 
 </body>
 </html>

@@ -10,6 +10,7 @@
 	width : 100%;
 	display : flex;
 	justify-content : space-between;
+    margin: 5px 0px;
 }
 #page-btn {
 	width : 70px;
@@ -28,4 +29,13 @@
 #next-btn{
     background-image: url(../IMG/right-arrow.png);
     background-size: contain;
+}
+
+#body-footer input{
+    border: 1px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+    outline-width: 3px;
+    outline-color: rgb(122, 145, 155);
 }
