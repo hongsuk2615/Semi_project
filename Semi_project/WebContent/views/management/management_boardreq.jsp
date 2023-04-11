@@ -59,7 +59,7 @@ a {
 
                     </table>
                     <div id="body-footer">
-                        <input id="search-user" type="search" placeholder="게시판 카테고리로 검색">
+                        <input id="search-boardcategory" type="search" placeholder="게시판 카테고리명으로 검색">
                         <div id="page-btn">
                             <div id="back-btn"></div>
                             <div id="next-btn"></div>
@@ -194,6 +194,46 @@ a {
  });
     
     
+    </script>
+
+    <script> // 카테고리 검색 이벤트
+    $('#search-boardcategory').keyup(function () {
+        if (window.event.keyCode == 13) {
+            let categoryName = $(this).val();
+            $.ajax({
+                url : '<%=request.getContextPath()%>/filteredBoReq.get',
+                type : 'get',
+                data : {categoryName},
+                success : function(result){
+                    $('#board-3 tbody').html('');
+                    if(result.length == 0 ){
+                        $('#board-3 tbody').append('<tr>'+
+                                                        '<td>' + '생성 요청된 게시판이 없습니다.' + '</td>'+
+                                                   '</tr>');
+                    } else {
+                        for(let i = 0; i < 10 ; i++){
+                            if(result[i] != null){
+                                $('#board-3 tbody').append('<tr>'+
+                                                                '<td>' + Object.keys(result[i])[0] + '</td>'+
+                                                                '<td>' + result[i][Object.keys(result[i])[0]].userId + '</td>'+
+                                                                '<td>' + (result[i][Object.keys(result[i])[0]].authority ==  1 ? "강사":"학생") + '</td>'+     
+                                                          '</tr>');
+                            }else {
+                                $('#board-3 tbody').append('<tr>'+
+                                                                '<td colspan="3">' + '-'+ '</td>'+
+
+                                                          '</tr>');
+                            }
+                        }	
+                  }
+                  modalEvent();	
+                }
+
+
+
+            });
+        }
+    });
     </script>
     
 
