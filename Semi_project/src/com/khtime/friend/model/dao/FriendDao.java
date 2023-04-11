@@ -247,6 +247,25 @@ public class FriendDao {
 
 		return result;
 	}
+	
 
+	public int friendPlus(Connection conn, int loginUserNo ) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("friendPlus");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUserNo);
+		
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 
 }

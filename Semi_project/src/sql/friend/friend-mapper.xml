@@ -82,4 +82,11 @@
 		RECEIVER = ?)
 		
 	</entry>
+	
+		<entry key="friendPlus">
+		SELECT *
+  			FROM FRIEND
+  			WHERE RECEIVER = ?
+ 			AND IS_AGREE = 'N'
+	</entry>
 </properties>

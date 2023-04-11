@@ -44,6 +44,21 @@
                 <% } else { %>
                 	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
                     <div id="msgcount"></div>
+                    <script>
+                	 function friendCount(){
+               		$.ajax({
+               			url : "<%= request.getContextPath()%>/friendplus.do",
+               			success : function(result){
+               				if(result > 0){
+               					console.log(result);
+               				$('#friendlist').text("친구목록"+result);
+               				}
+               			}
+               			});
+               		}
+               	/* setInterval(,1000);	 */
+               		friendCount();
+              </script>
                 	<script>
                  	 function messageCount(){
                 		$.ajax({
@@ -59,7 +74,7 @@
                 			});
                 		}
                 	/* setInterval(,1000);	 */
-                	messageCount();
+                	messageCount();      
                 	</script>
                     
                     <button id="mypage-btn"></button>
