@@ -90,6 +90,7 @@ public class ReplyDao {
 							rset.getString("IS_ANONIMOUS"),
 							rset.getString("USERPROFILE")
 							);
+					r.setStringDate(rset.getString("STRING_DATE"));
 					list.add(r);
 				}
 				

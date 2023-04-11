@@ -57,7 +57,7 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="content-detail">
-                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
+                            <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
@@ -72,16 +72,16 @@
                                                 익명
                                                 <% } %> 
                                             </div>
-                                            <div>
-                                                <%= b.getEnrollDate() %>
+                                            <div id="enrollDatediv">
+                                            
                                             </div>
                                         </div>
                                         </div>
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
                                         <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
                                         		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
-                                        	<button id="deleteBoard">삭제</button>
-                                        	<button id="updateBoard">수정</button>
+                                        	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
+                                        	<button id="updateBoard" class="btnsetting"><span>수정</span></button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
                                         		 if(confirm("정말 삭제하시겠습니까?")){ 
@@ -94,8 +94,8 @@
                                      	    })
                                         	</script>
                                         <% }else{ %>
-                                        	<button id="msgBoard">쪽지</button>
-                                        	<button id="reportBoard">신고</button>
+                                        	<button id="msgBoard" class="btnsetting"><span>쪽지</span></button>
+                                        	<button id="reportBoard" class="btnsetting"><span>신고</span></button>
                                         	<script>
                                         
                                         	
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    글 번호:<%= b.getBoardNo()%> , <%= b.getTitle() %>
+                                   <h3><%= b.getTitle() %></h3> 
                                 </div>
                                 <div>
                                    <%= b.getContent() %>
@@ -129,14 +129,14 @@
                                         <% for(BoardAttachment at : attachmentList){ %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100%" height="100%">
 										<% } %></div>
-                                <div>
-                                    <div id="recommenddiv"><%= b.getRecommendCount() %></div>
-                                    <div id="replydiv"><%= b.getReplyCount() %></div>
-                                    <div id="scrapdiv"><%= b.getScrapCount() %></div>
+                                <div class="boardDataDiv">
+                                    <div class="recommenddiv"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><div id="recommendbox"><%= b.getRecommendCount() %></div></div>
+                                    <div class="replydiv"><img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17"><div id="replybox"><%= b.getReplyCount() %></div></div>
+                                    <div class="scrapdiv"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><div id="scrapbox"><%= b.getScrapCount() %></div></div>
                                 </div>
-                                <div>
-                                    <button id="recommendbtn">공감</button>
-                                    <button id="scrapbtn">스크랩</button>
+                                <div class="boardDataDiv">
+                                   <button id="recommendbtn"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><span>공감</span></button>
+                                    <button id="scrapbtn"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><span>스크랩</span></button>
                                 </div>
                             </div>
 
@@ -147,14 +147,15 @@
                     <!-- 댓글달기 -->
                     <div id="createComments">
                         <div>
-                           <textarea id="replyContent" cols="50" rows="3" style="resize:none;" placeholder="댓글입력"></textarea>
+                           <textarea id="replyContent" cols="75" rows="4" style="resize:none;" placeholder="댓글을 입력해주세요!" maxlength="200"></textarea>
                         </div>
-                        <div>
-                            <div>
-                                <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y">익명
+                        <div id="comments-right-btn">
+                            <div >
+                                <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y"><label for="isAnonimous">익명</label>
                             </div>
                             <div>
-                                <button onclick="insertReply()">글작성 버튼</button>
+                                <button class="btnsetting" onclick="insertReply()">
+                                <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="20" height="20"></button>
                             </div>
                         </div>
                     </div>
@@ -221,14 +222,6 @@
     
     
 		<script>
-		/* 댓글 입력, 조회, 댓글개수 증가 */
-		/* function replyisEmpty(){
-			if(document.getElementById("replyContent").value.trim().length == 0){ 
-				alert("댓글 입력해주세요");
-			}else{
-				insertReply();
-			}
-		} */
 		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
@@ -276,57 +269,55 @@
 							
 						`
 						<li>
-						\${i.replyNo}
 						 <div class='content-detail-comments'>
-						 <div class='comments-left'>
-						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-						\${i.writer}
-						 </div>
-						 <div class='comments-right'>
-	                     대댓글
-	                     <button id="reportbtn\${i.replyNo}" onclick="reportclick(this.id)">신고</button>
-	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
-	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+							 <div class='comments-left'>
+								 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
+								<span>\${i.writer}</span>
+							 </div>
+								 <div class='comments-right'>
+				                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>
+				                     <button id="recommendbtn\${i.replyNo}" class="btnsetting" onclick="recommendclick(this.id)"><span>공감</span></button>
+				                     <button id="deletebtn\${i.replyNo}" class="btnsetting" onclick="deleteclick(this.id)"><span>삭제</span></button>
+			                     </div>
 	                     </div>
-	                     </div>
-	                     \${i.content}
-	                     <br>
-	                     \${i.enrollDate}
-	                     <br>
-	                      공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
-	                     </li>
+	                     <p>\${i.content}<p>
+	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
+	                     \${dayStringMaker(i.stringDate)}
 	                     `
+	                     if(i.recommendCount != 0){
+	                    	 result += `
+	                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
+	    	                     <span>\${i.recommendCount}</span> `
+	                     }
+   	                     result += ` </div> </li> `
 						}else{
 					result += 
-						
 						`
 						<li>
-						\${i.replyNo}
 						 <div class='content-detail-comments'>
 						 <div class='comments-left'>
-						 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30"> 대체이미지
-						 익명
-						
-						 \${list[1][i.writer]}
-						 
+						 <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
+						 <span>익명 \${list[1][i.writer]}</span>
 						  </div> 
 						 <div class='comments-right'>
-	                     대댓글
-	                     <button id="reportbtn\${i.replyNo}" onclick="reportclick(this.id)">신고</button>
-	                     <button id="recommendbtn\${i.replyNo}" onclick="recommendclick(this.id)">공감</button>
-	                     <button id="deletebtn\${i.replyNo}" onclick="deleteclick(this.id)">삭제</button>
+	                     <button id="reportbtn\${i.replyNo}" class="btnsetting" onclick="reportclick(this.id)"><span>신고</span></button>
+	                     <button id="recommendbtn\${i.replyNo}" class="btnsetting" onclick="recommendclick(this.id)"><span>공감</span></button>
+	                     <button id="deletebtn\${i.replyNo}" class="btnsetting"  onclick="deleteclick(this.id)"><span>삭제</span></button>
 	                     </div>
 	                     </div>
-	                     \${i.content}
-	                     <br>
-	                     \${i.enrollDate}
-	                     <br>
-	                     공감수 : <div id="recommendCount\${i.replyNo}">\${i.recommendCount}</div>
-	                     </li>
-	                     `
-						}
+	                     <p> \${i.content}</p>
+	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
+	                     \${dayStringMaker(i.stringDate)}
+	                     ` 
+	                     if(i.recommendCount != 0){
+                    	 result += `
+                		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
+	                     <span>\${i.recommendCount}</span>`
+	                     }
+                   		 result += ` </div> </li> `
 					}
 					$("#comments-area").html(result);
+					}
 				},
 				error : function(){
 					alert("게시글 목록조회 실패");
@@ -342,7 +333,7 @@
 					bNo : "<%= b.getBoardNo() %>"
 				}, 
 				success : function(result){
-						$("#replydiv").html(result);
+						$("#replybox").html(result);
 					
 				}, error : function(){
 					alert("댓글개수 조회 실패");
@@ -363,7 +354,7 @@
 					success : function(data){
 						if(data > 0) {
 							alert("공감 성공!");
-							$("#recommenddiv").html(data);
+							$("#recommendbox").html(data);
 						}
 						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");
@@ -379,7 +370,7 @@
 					success : function(data){
 						if(data > 0) {
 							alert("스크랩 성공!");
-							$("#scrapdiv").html(data);
+							$("#scrapbox").html(data);
 						}
 						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0) alert("이미 스크랩된 글입니다!");
@@ -404,7 +395,8 @@
 					success : function(data){
 						if(data > 0) {
 							alert("공감 성공!");
-							$("#recommendCount"+rNo).html(data);
+							selectReplyList();
+							/* $("#recommendCount"+rNo).html(data); */
 						}
 						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");
@@ -423,12 +415,44 @@
 							if(data > 0) alert("신고 성공!");
 							if(data == 0) alert("본인이 작성한 댓글은 신고 불가능합니다!");
 							if(data < 0) alert("이미 신고된 글입니다!");
+							},
+						beforeSend : function(){
+							if(!confirm("정말 신고하시겠습니까?")){
+								return false;
 							}
+						}
+								
 					});
 	  	     }
 	  	    
 		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
 		window.onload = selectReplyList;
+		 
+	 	function dayStringMaker(Day){
+	   		let sysdate = new Date();
+	   		let enrollDate = new Date(Day);
+	   		let result ='';
+	   		let diff = sysdate - enrollDate;
+	   		console.log(diff);
+	   		if(diff<3600000){
+	   			result =   Math.ceil(diff/1000/60) + '분전';
+	   		}else if(diff<86400000){
+	   			result = Math.floor(diff/1000/60/60) + '시간전';
+	   		}else if(diff<2592000000){
+	   			result = Math.floor(diff/1000/60/60/24) + '일전';
+	   		}else if(diff<31104000000){
+	   			result = Math.floor(diff/1000/60/60/24/30) + '개월전';
+	   		}else {
+	   			result = Math.floor(diff/1000/60/60/24/30/12) + '년전';
+	   		}
+	   		
+	   		
+	   		return result;
+	   		
+	   	}
+	 	
+	   let enrollDate = dayStringMaker("<%=b.getStringDate()%>");
+	   $("#enrollDatediv").append(enrollDate);
 	</script>
 
 

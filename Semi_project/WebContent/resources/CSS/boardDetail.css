@@ -56,6 +56,7 @@
     border-radius: 0px 0px 5px 5px; 
     margin-top: 2px;
     padding: 5px;
+    max-height: 80px;
 }
 
 #category {
@@ -65,7 +66,7 @@
     color : white;
 }
 
-#createContent{
+#createContent, #createContentbox{
     background: rgb(255, 255, 255);
     border-radius: 5px 5px 0px 0px;
     border: 1px solid skyblue;
@@ -136,7 +137,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#gototop{
+.btnsetting{
     background: none;
     border: none;
 }
@@ -151,9 +152,25 @@
 #QuestionContent {
     position: absolute;
     bottom: -15px;
-    border: 1px solid red;
 }
 
 #file-area {
-    padding-top: 20px;
+    padding-top: 18px;
+    padding-left : 3px;
+}
+
+#QuestionContent span{
+	color: darkblue;
+}
+
+#create-content-btn, #update-content-btn, #createComments button{
+	 background: none;
+    border: none;
+}
+
+#content-area p {
+    max-height: 20px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }

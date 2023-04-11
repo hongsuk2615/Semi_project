@@ -12,6 +12,7 @@ public class Reply {
 	private Date enrollDate;
 	private String isAnonimous;
 	private String userProfile;
+	private String stringDate;
 	
 	public Reply() {
 		super();
@@ -112,6 +113,13 @@ public class Reply {
 		this.userProfile = userProfile;
 	}
 
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
 
 
 	@Override

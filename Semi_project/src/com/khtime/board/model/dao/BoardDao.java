@@ -198,6 +198,7 @@ public class BoardDao {
 							rset.getInt("REPLY_COUNT"),
 							rset.getString("USERPROFILE")
 							);
+					b.setStringDate(rset.getString("STRING_DATE"));
 					
 				}
 			} catch (SQLException e) {

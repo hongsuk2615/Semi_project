@@ -46,7 +46,7 @@
 <body>
     <div id="wrapper">
     <!-- 위로 가기 버튼 -->
-    <div class="gototopdiv divhidden"><button id="gototop" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
+    <div class="gototopdiv divhidden"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
     
     <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
@@ -57,12 +57,14 @@
                     <div id="board-wrapper">
                         <div id="board-detail">
                             <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
-                            <div id="createContent">
+                            
+							<div id="createContentbox">글 작성하기</div>
+							<div id="createContent" class="divhidden">
                      
                          		<form enctype="multipart/form-data">
-    								<div><input type="text" id="title" name="title" placeholder="글 제목"></div>
-      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="기본 설명 내용" ></textarea>
-										<div id="QuestionContent" class="divhidden"><div>#주의 질문글입니다!</div></div>
+    								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!"></div>
+      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"></textarea>
+										<div id="QuestionContent" class="divhidden"><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area"></div>
 									<div id="createContent-check">
@@ -72,9 +74,13 @@
                 						<div>첨부파일(최대 5개)<input type="file" id="upfile" name="upfile"></div>
 
                							<div id="btns">
-						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">질문</div>
-						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">익명</div>
-						                    <div><button type="button" id="create-content-btn" onclick="createContent()">글 작성</button></div>
+						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y">
+											<label for="isQuestion">질문</label></div>
+						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y">
+				                    		<label for="isAnonimous">익명</label></div>
+						                    <div><button type="button" id="create-content-btn" onclick="createContent()">
+						                    <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="22" height="22">
+											</button></div>
 						                </div>
 						            </div>
 					           	</form>
@@ -129,6 +135,17 @@
 						
 					if(data == 0) alert("작성실패");
 					if(data < 0) alert("전송방식 잘못됨");
+					},
+					beforeSend : function(){
+						if($("#title").val() == ''){
+							alert("제목을 입력해주세요!");
+							$("#title").focus();
+							return false;
+						}else if($("#content").val() == ''){
+							alert("내용을 입력해주세요!");
+							$("#content").focus();
+							return false;
+						}
 					}
 			});
 			 }else{ 
@@ -192,8 +209,7 @@
 								success : function(list){
 									let result  = "";
 									for(let i of list){ 
-									
-									console.log("list.stringDate"+i.stringDate);
+										i.writer = i.isAnonimous == ("Y") ? "익명" : i.writer;
 										result += 
 										`
 										<li>
@@ -292,7 +308,6 @@
 	
 	 window.addEventListener("scroll",function(){
 	 if(window.scrollY > 800){
-		 $(".gototopdiv").removeClass('divhidden');
 		 $(".gototopdiv").fadeIn();
 	 }else{
 		 $(".gototopdiv").fadeOut();
@@ -300,7 +315,18 @@
 	 })
 
 	 document.getElementById("isQuestion").addEventListener('click',function(){
-		$("#QuestionContent").removeClass('divhidden');
+		 if($("#QuestionContent").hasClass('divhidden')){
+			 $("#QuestionContent").removeClass('divhidden');
+			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
+		 }else{
+			 $("#QuestionContent").addClass('divhidden');
+		 }
+		
+	 })
+	 
+	  document.getElementById("createContentbox").addEventListener('click',function(){
+			 $("#createContent").removeClass('divhidden');
+			 $("#createContentbox").addClass('divhidden');
 	 })
    </script>
    <script>
