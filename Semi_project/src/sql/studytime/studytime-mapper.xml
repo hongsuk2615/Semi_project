@@ -3,14 +3,17 @@
 <properties>
 	
 	<entry key="getStudyTime">
-         SELECT 
-            STUDY_TIME_NO,
-            TARGET_TIME,
-            TIME_AMOUNT,
-            STUDY_DATE
-        FROM STUDY_TIME
-        WHERE USER_NO = ?
-        ORDER BY STUDY_DATE DESC
+            SELECT *
+          FROM(SELECT ROWNUM RNUM, A.*
+                FROM(SELECT STUDY_TIME_NO,
+                            TARGET_TIME,
+                            TIME_AMOUNT,
+                            STUDY_DATE
+                        FROM STUDY_TIME
+                        WHERE USER_NO = ?
+                        ORDER BY STUDY_DATE DESC) A)
+     	 WHERE RNUM BETWEEN 0 AND 10      
+        
    </entry>
 	
 	<entry key="insertStudyTime">
@@ -24,18 +27,17 @@
 	
 	<entry key="sumStudyTime">
 		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT
-			FROM STUDY_TIME S
+			FROM STUDY_TIME
 			WHERE USER_NO = ?
 	</entry>
 	
-
-
-
-
-
-
-
-
+	<!-- <entry key="sumStudyTime">
+		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT , NICK_NAME
+			FROM STUDY_TIME S
+			JOIN MEMBER M ON (M.USER_NO = S.USER_NO)
+			WHERE S.USER_NO = ?
+	</entry>
+ -->
 
 
 

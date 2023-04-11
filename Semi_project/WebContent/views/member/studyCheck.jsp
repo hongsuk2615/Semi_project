@@ -27,7 +27,6 @@
     }
     
    
-   
 </style>
 
 <body>
@@ -110,7 +109,6 @@
                             </thead> 
                             <tbody>
                             <% for(StudyTime s : list) { %>
-                            	
                                 <tr>
                                     <td class="timeNo"><%= s.getStudyTimeNo() %></td>
                                     <td class="studyTarget"><%= s.getTargetTime() %></td>
@@ -125,16 +123,19 @@
                         <div class="historyTitleText">누적 공부시간 랭킹</div>
                         <div class="rankingWrapper">
                             <ui>
+                            	<% for(StudyTime s : list) { %>
                                 <li>
-                                    <div class="rank">4위</div>
-                                    <div class="name">둘리</div>
-                                    <div class="time">04:42:13</div>
+                                    <div class="rank"><%= s.getStudyTimeNo() %></div>
+                                    <div class="name"></div>
+                                    <div class="time" id="rankingAmount"></div>
                                 </li>
+                                <% } %>
                                 <li>
                                     <div class="rank">0위</div>
                                     <div class="name">홍길동</div>
                                     <div class="time">00:00:00</div>
                                 </li>
+                                
                             </ui>
                         </div>
                     </div>
@@ -149,9 +150,6 @@
         
     </div>
     
-    
-   
-    			
     			<div id="tdl-modal">
                     <div id="modal-wrapper">
                         <div id="modal-head">
@@ -179,6 +177,7 @@
                 </div>
                 
                 
+     
                 
     <script>
         document.getElementById('tdl-btn-add').addEventListener('click',function(){
@@ -194,10 +193,6 @@
     </script>  
     
    
-	
-	
-        
-        
         
         <!-- 모달 추가버튼 클릭시 이벤트 -->
         <script>
@@ -402,8 +397,14 @@
 	
     <script> 
     $('#mytimeAmount').html(makeTime(<%=timeAmount%>));
-    
     </script>
+    
+    <!-- 랭킹 누적시간 -->
+    <script> 
+    $('#rankingAmount').html(makeTime(<%=timeAmount%>));
+    </script>
+    
+    
     <script>
         function insertStudy(){
         	$.ajax({

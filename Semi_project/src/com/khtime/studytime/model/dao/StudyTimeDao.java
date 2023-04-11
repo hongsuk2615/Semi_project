@@ -50,7 +50,7 @@ public class StudyTimeDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				StudyTime studyTime = new StudyTime();
-				studyTime.setStudyTimeNo(rset.getInt("STUDY_TIME_NO"));
+				studyTime.setStudyTimeNo(rset.getInt("RNUM"));
 				studyTime.setTargetTime(rset.getInt("TARGET_TIME"));
 				studyTime.setTimeAmount(rset.getInt("TIME_AMOUNT"));
 				studyTime.setStudyDate(rset.getDate("STUDY_DATE"));
