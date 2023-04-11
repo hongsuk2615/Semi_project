@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.member.model.vo.Member"%>
+<%@ page import="com.khtime.message.model.vo.Message"%>
 <% 
+
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>  
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +42,41 @@
                     <button id="login-btn">로그인</button>
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
-                    <button id="message-btn"></button>
+                	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
+                    <div id="msgcount"></div>
+                    <script>
+                	 function friendCount(){
+               		$.ajax({
+               			url : "<%= request.getContextPath()%>/friendplus.do",
+               			success : function(result){
+               				if(result > 0){
+               					console.log(result);
+               				$('#friendlist').text("친구목록 + "+result).css("color","blue");
+               				}
+               			}
+               			});
+               		}
+               	/* setInterval(,1000);	 */
+               		friendCount();
+              </script>
+                	<script>
+                 	 function messageCount(){
+                		$.ajax({
+                			url : "<%= request.getContextPath()%>/msgplus.do",
+                			success : function(result){
+                				if(result > 0){
+                					console.log(result);
+                				$('#msgcount').text("+"+result).css("color","green");
+                				}else{
+                					$('#msgcount').text('');
+                				}
+                			}
+                			});
+                		}
+                	/* setInterval(,1000);	 */
+                	messageCount();      
+                	</script>
+                    
                     <button id="mypage-btn"></button>
                 <% } %>
             </div>
@@ -47,7 +84,8 @@
     </div>
 
     <script>
-    	
+   
+    		
   		document.getElementById("boardsearch").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/board.me";
   		}) 
@@ -95,7 +133,10 @@
    		   document.getElementById("message-btn").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
   		}) 
-  		
-    </script>
+ 		/* 
+  		function msgcheck(){
+  		$('#msgcount').text('vdvddvdvv');
+		} */	   
+  		</script>
 </body>
 </html>
