@@ -670,6 +670,10 @@
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
 	    
+	    document.getElementById("realtime-chat").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath()%>/chatting.do";
+	    })
+	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/study.me";
 	    })
