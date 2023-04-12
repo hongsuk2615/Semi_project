@@ -13,10 +13,9 @@
 <link rel="stylesheet" href="resources/CSS/body.css">
 <link rel="stylesheet" href="resources/CSS/footer.css">
 <link rel="stylesheet" href="resources/CSS/base.css">
-<link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<link rel="stylesheet" href="resources/CSS/banner.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -54,7 +53,7 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
 
-        <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar" style="z-index:unset;"></div>
       </div>
 			</div>
 			<div id="body-wrapper">
