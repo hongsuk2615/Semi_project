@@ -63,9 +63,9 @@
                         <script>
                         	opponents.push(<%=m.getUserNo()%>);
                         </script>
-                        <div class ="opponents opponents1">
+                        <div class ="opponents opponents1" onclick="checkmsg(this);" data-userNo=<%=m.getUserNo() %>>
                         <div class="date">
-                            <div class="opponent-name"><%= m.getNickName() %></div>
+                            <div class="opponent-name" ><%= m.getNickName() %></div>
                             
                             <div class="msgdate"><%= contents.get(m.getUserNo()).get(0).get(2)
                             %></div>
@@ -203,7 +203,7 @@
   $('.messagesend').eq(0).css('display','flex');
   
   function checkmsg(e){
-	  console.log(e);
+	
 	  console.log($(e).attr('data-userNo'));
 	  let sendUserNo = $(e).attr('data-userNo');
 	  $.ajax({
@@ -211,6 +211,7 @@
 	  	  data : {sendUserNo},
 	  	  type : "post",
 	  	 success : function(result){
+	  	
 	  		 /* if(result > 0 ){
 	  			$('#msgcount').text('');
 	  		 } */

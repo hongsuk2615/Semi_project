@@ -46,7 +46,7 @@ public class MessageCountController extends HttpServlet {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int sendUser =Integer.parseInt( request.getParameter("sendUserNo"));
 		int result = new  MessageService().messageCheck(loginUserNo,sendUser);
-		
+		System.out.println("메시지 보낸 사람 : "+result);
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());

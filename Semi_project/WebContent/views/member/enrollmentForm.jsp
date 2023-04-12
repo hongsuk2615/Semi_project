@@ -348,6 +348,8 @@
 						 success : function(result){
 							 if(result == true){
 							alert("이미 존재하는 이메일 입니다.");
+							 }else{
+								 alert("사용가능한 이메일 입니다.");
 							 }
 						 },
 						 error : function(){
