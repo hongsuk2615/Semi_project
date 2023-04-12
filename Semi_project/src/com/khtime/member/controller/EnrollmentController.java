@@ -22,25 +22,28 @@ import com.khtime.member.model.vo.UserProFileImg;
 @WebServlet("/enroll.me")
 public class EnrollmentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EnrollmentController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	public EnrollmentController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		request.getRequestDispatcher("views/member/enrollmentForm.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -73,9 +76,9 @@ public class EnrollmentController extends HttpServlet {
 			System.out.println(m);
 			// 3) 요청 처리(서비스 메서드 호출 결과값 돌려 받기)
 			int result1 = new MemberService().insertMember(m);
-			
+
 			int userNo = new MemberService().selectMember(userId);
-			
+
 			String key = "file";
 
 			int result2 = 0;
@@ -90,20 +93,21 @@ public class EnrollmentController extends HttpServlet {
 				result2 = new MemberService().insertUserProFileImg(userNo, upfi);
 
 			} else {
-				result2 = 1;
+				result2 = new MemberService().insertNoImgProfile(userNo);
+				
 			}
-			
-			if(result1 > 0 && result2 > 0) {
+
+			if (result1 > 0 && result2 > 0) {
 				request.getSession().setAttribute("alertMsg", "회원가입에 성공했습니다.");
-				response.sendRedirect(request.getContextPath());	
+				response.sendRedirect(request.getContextPath());
 			} else if (result1 == 0) {
 				request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다 : 개인정보기입값오류");
-				response.sendRedirect(request.getContextPath()+"/enroll.me");
-			} else if (result2 == 0 ) {
-				request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다 : 프로필사진오류");
-				response.sendRedirect(request.getContextPath()+"/enroll.me");
+				response.sendRedirect(request.getContextPath() + "/enroll.me");
+			} else if (result2 == 0) {
+				System.out.println("ccccccccccccccccccc" + result2);
+				response.sendRedirect(request.getContextPath() + "/autoImg.me");
 			}
 
 		}
-		}
+	}
 }

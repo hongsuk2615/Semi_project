@@ -2,37 +2,42 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	
-	<entry key="selectStudyTime">
-         SELECT 
-            STUDY_TIME_NO,
-            TIME_AMOUNT,
-            STUDY_DATE
-            
-            
-        FROM STUDY_TIME
-        WHERE USER_NO = ?
-        ORDER BY STUDY_DATE
-      
+	<entry key="getStudyTime">
+            SELECT *
+          FROM(SELECT ROWNUM RNUM, A.*
+                FROM(SELECT STUDY_TIME_NO,
+                            TARGET_TIME,
+                            TIME_AMOUNT,
+                            STUDY_DATE
+                        FROM STUDY_TIME
+                        WHERE USER_NO = ?
+                        ORDER BY STUDY_DATE DESC) A)
+     	 WHERE RNUM BETWEEN 0 AND 10      
+        
    </entry>
 	
 	<entry key="insertStudyTime">
-      INSERT INTO STUDY_TIME (STUDY_TIME_NO, USER_NO, TIME_AMOUNT, STUDY_DATE)
-      VALUES(SEQ_asdasd.NEXTVAL
+      INSERT INTO STUDY_TIME (STUDY_TIME_NO, USER_NO, TIME_AMOUNT, TARGET_TIME)
+      VALUES(SEQ_STNO.NEXTVAL
            ,?
            ,?
            ,?
            )
    </entry>
 	
+	<entry key="sumStudyTime">
+		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT
+			FROM STUDY_TIME
+			WHERE USER_NO = ?
+	</entry>
 	
-
-
-
-
-
-
-
-
+	<!-- <entry key="sumStudyTime">
+		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT , NICK_NAME
+			FROM STUDY_TIME S
+			JOIN MEMBER M ON (M.USER_NO = S.USER_NO)
+			WHERE S.USER_NO = ?
+	</entry>
+ -->
 
 
 

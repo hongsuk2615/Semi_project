@@ -97,6 +97,7 @@ public class FriendDao {
 
 				m.setUserName(rset.getString("USER_NAME"));
 				m.setUserNo(rset.getInt("USER_NO"));
+		
 				list.add(m);
 			}
 
@@ -189,6 +190,8 @@ public class FriendDao {
 
 			pstmt.setInt(1, loginUserNo);
 			pstmt.setInt(2, senderUserNo);
+			pstmt.setInt(3, loginUserNo);
+			pstmt.setInt(4, senderUserNo);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -208,12 +211,59 @@ public class FriendDao {
 
 			pstmt.setInt(1, loginUserNo);
 			pstmt.setInt(2, senderUserNo);
-
+			pstmt.setInt(3, loginUserNo);
+			pstmt.setInt(4, senderUserNo);
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		return result;
+	}
+	
+
+	public boolean  isFriend(Connection conn,String loginUserId,String userId) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("isFriend");
+		ResultSet rset = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, loginUserId);
+			pstmt.setString(3, userId);
+			pstmt.setString(4, loginUserId);
+			rset = pstmt.executeQuery();
+			result = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return result;
+	}
+	
+
+	public int friendPlus(Connection conn, int loginUserNo ) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("friendPlus");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUserNo);
+		
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(pstmt);
 		}
 		return result;
 	}

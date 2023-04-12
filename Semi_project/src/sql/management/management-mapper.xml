@@ -38,7 +38,7 @@
 		  JOIN CATEGORY USING(CATEGORY_NO)
 		 WHERE CATEGORY_NAME = ?
 		   AND STATUS = 'Y'
-	
+		  ORDER BY ENROLL_DATE DESC
 	</entry>
 	
 	<entry key="getBoardMakeReq">
@@ -152,12 +152,23 @@
 	</entry>
 	
 	<entry key="getFilteredEnrollmentReqs">
-		SELECT *
-		  FROM MEMBER
-		 WHERE AVAILABLE = 'N'
-		   AND USER_NAME LIKE ?
+		SELECT * 
+		  FROM ( SELECT ROWNUM RNUM
+		  			  , A.*
+		  		   FROM ( SELECT *
+							FROM MEMBER
+						   WHERE AVAILABLE = 'N'
+						     AND USER_NAME LIKE ?
+						   ORDER BY ENROLL_DATE DESC) A)
+		 WHERE RNUM BETWEEN ? AND ?
 	
 	
+	</entry>
+	
+	<entry key="approveBoardReq">
+		UPDATE BOARD_REQ
+		   SET IS_AGREE = 'Y'
+		 WHERE BOARD_NAME = ?
 	</entry>
 
 </properties>

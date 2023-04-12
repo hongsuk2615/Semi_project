@@ -42,9 +42,11 @@
 
                     <input type="button" value="회원가입">
                      <% if(userId.isEmpty()) { %>
-			           <input type="checkbox" id="keepId">로그인 유지
+			           <input type="checkbox" id="keepId">
+			            <label for="keepId">로그인 유지</label>
 			         <% }else{ %>
-			           <input type="checkbox" id="keepId" checked="checked">로그인 유지
+			           <input type="checkbox" id="keepId" checked="checked">
+			            <label for="keepId">로그인 유지</label>
 			         <% } %>
                 </div>
             </form>
@@ -474,7 +476,7 @@
         <div class="modal2 hidden">
             <div class="bg2"></div>
             <div class="modalBox">
-				<button id="prevBtn" class="closeBtn4"><</button>
+				<button id="prevBtn" class="closeBtn4"></button>
                 <button id="deleteBtn" class="deleteBtn">삭제</button>
 				<div class="header">
 					<p>디데이 수정</p>
@@ -524,7 +526,6 @@
             })      
         }
         </script>
-        
         
         
         <!-- 디데이 수정 날짜 플러스 버튼 스크립트 -->
@@ -668,6 +669,10 @@
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
+	    })
+	    
+	    document.getElementById("realtime-chat").addEventListener("click",function(){
+	        location.href = "<%= request.getContextPath()%>/chatting.do";
 	    })
 	    
 	    document.getElementById("check-study-time").addEventListener("click",function(){

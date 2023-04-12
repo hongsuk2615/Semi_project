@@ -52,7 +52,7 @@
     <!-- 네비영역 헤더-->
 		<%@ include file="../common/header.jsp"%>
         <div id="body">
-            <div id="content">
+            <div id="content" style="background-color:white;">
                 <div id="content1">
                     <div id="messagebox3" class="title-text"> 쪽지함</div>
                     <div id="messagecheck">
@@ -63,7 +63,7 @@
                         <script>
                         	opponents.push(<%=m.getUserNo()%>);
                         </script>
-                        <div class = "opponents" >
+                        <div class ="opponents opponents1">
                         <div class="date">
                             <div class="opponent-name"><%= m.getNickName() %></div>
                             
@@ -75,15 +75,31 @@
                         <% } %>               
                     </div>
                 </div>
+                
+                
                 <div id="content2">
+                
+                	<!-- 주고받은 쪽지가 없을 경우 아무내용없는 div -->
+                	<% if(list.size() == 0){ %>
+                		<div class="messagesend" style="display : none">
+                		<div class="title-text"></div>
+                        <div class="newfix">
+                            <div><button class="openBtn" disabled></button></div>            
+                        </div>
+                    </div>
+                    <div class="messagecheck2" style="display : none">                   
+                            <div>주고받은 쪽지가 없습니다.</div>
+                    </div>
+                	<%} %>
+                	
+                 <!-- 주고받은 메세지가 있을 경우 div -->
                 	<% for(Member m : list) {%>
                     <div class="messagesend" style="display : none">
                     	
                         <div class="title-text"><%=m.getNickName() %></div>
                       
                         <div class="newfix">
-                            <div><button class="openBtn">쪽지보내기</button></div>
-                            <div><button>새로고침</button></div>
+                            <div><button class="openBtn"></button></div>
                         </div>
                     </div>
                     
@@ -131,9 +147,9 @@
 				<h2>쪽지보내기</h2>
 			</div>
 				<div class="sendMsgBody">
-					<div class="inputBox">
+					<div class="inputBox">	
 						<h4 class="inputLabel">쪽지보내기</h4>            
-              			<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+              			<textarea style="height: 130px;  resize:none;" name="content" placeholder="공백포함 최대60자" class="inputField" required /></textarea><br>
 				  </div>
 				<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 				</div>
@@ -141,15 +157,7 @@
 	</div>
 	</form>
 	
-	
-    <script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
-    function mykeydown() { 
-        if(window.event.keyCode==13) //enter 일 경우
-        {
-            sendServer();
-        }
-     }
-    </script>
+
     <script> <!--쪽지보내기모달 닫는 스크맆트-->
       const open = () => {
           document.querySelector(".msg-modal").classList.remove("hidden");
@@ -193,6 +201,22 @@
   $('.opponents').eq(0).css('backgroundColor','#42A5F5').css('color','white').children().css('color','white').children().css('color','white');
   $('.messagecheck2').eq(0).css('display','block');
   $('.messagesend').eq(0).css('display','flex');
+  
+  function checkmsg(e){
+	  console.log(e);
+	  console.log($(e).attr('data-userNo'));
+	  let sendrUserNo = $(e).attr('data-userNo');
+	  $.ajax({
+		  url : "<%=request.getContextPath()%>/msgplus.do",
+	  	  data : {sendeUserNo},
+	  	  type : "post",
+	  	 success : function(result){
+	  		 if(result > 0 ){
+	  			$('#msgcount').text('');
+	  		 }
+	  	 }
+	  });
+  } 
   </script>
   </div>
 </body>

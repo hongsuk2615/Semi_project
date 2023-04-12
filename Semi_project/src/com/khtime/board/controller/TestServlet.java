@@ -1,4 +1,4 @@
-package com.khtime.member.controller;
+package com.khtime.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class StudyCheckController
+ * Servlet implementation class TestServlet
  */
-@WebServlet("/study.me")
-public class StudyCheckController extends HttpServlet {
+@WebServlet("/TestServlet")
+public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudyCheckController() {
+    public TestServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,8 @@ public class StudyCheckController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/studyCheck.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
