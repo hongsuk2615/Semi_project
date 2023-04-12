@@ -2,6 +2,7 @@ package com.khtime.friend.model.service;
 
 import static com.khtime.common.JDBCTemplate.close;
 import static com.khtime.common.JDBCTemplate.commit;
+import static com.khtime.common.JDBCTemplate.getConnection;
 import static com.khtime.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.friend.model.dao.FriendDao;
 import com.khtime.member.model.vo.Member;
+import com.khtime.message.model.dao.MessageDao;
 
 
 
@@ -109,4 +111,27 @@ public class FriendService {
 		// 컨트롤러에게 결과값 반환
 		return result;
 	}
+	public boolean isFriend(String loginUserId,String userId) {
+		Connection conn = JDBCTemplate.getConnection();
+		boolean result = false;
+		result = new FriendDao().friendId(conn, loginUserId, userId);
+		JDBCTemplate.close(conn);
+		
+		return result;
+
+	}
+	
+	public int friendPlus( int loginUserNo ) {
+		Connection conn = getConnection();
+		int result = new FriendDao().friendPlus(conn, loginUserNo );
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }
+

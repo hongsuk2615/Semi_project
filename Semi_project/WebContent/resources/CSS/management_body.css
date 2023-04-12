@@ -12,5 +12,5 @@
     min-width: 560px;
 }
 #resultBoard{
-    width: 625px;
+    min-width: 650px;
 }

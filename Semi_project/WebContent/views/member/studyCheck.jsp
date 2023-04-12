@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, com.khtime.studytime.model.vo.StudyTime" %> 
+<% 
+	ArrayList <StudyTime> list  = (ArrayList<StudyTime>) request.getAttribute("list");
+	int timeAmount = (Integer)request.getAttribute("timeAmount");																			
+																			
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +26,6 @@
         /* border: 1px solid rgba(128, 128, 128, 0.568); */
     }
     
-   
    
 </style>
 
@@ -54,27 +60,27 @@
         <div id="body">
             <div class="historyTop">
                 <div class="historyContainer">
-                    <div class="historyTitleText">홍길동 님의 공부기록</div>
+                    <div class="historyTitleText">나의 공부기록</div>
                     <div class="timeContent">
                         <div class="timeBox">
                             <div class="title">목표 시간</div>
-                            <div class="timeText">00 : 00 : 00</div>
+                            <div class="timeText" id="targetText">00 : 00 : 00</div>
                         </div>
                         <div class="timeBox">
                             <div class="title">공부 시간</div>
                             <div id='timerBox' class="timerBox">
-                                <div id="time" class="time">00:00:00</div>
+                                <div id="time" class="timeStudy">00:00:00</div>
                             </div>
                         </div>
                         <div class="timeBox">
                             <div class="title">전체 공부 시간</div>
-                            <div class="timeText">00 : 00 : 00</div>
+                            <div class="timeText" id="mytimeAmount"></div>
                         </div>
                     </div>
                     <div class="buttonWrapper">
                         <button class="btn-progress" id="startbtn" class="fa fa-play" aria-hidden="true">시작</button>
                         <button id="pausebtn" class="fa fa-pause" aria-hidden="true">중단</button>
-                        <button class="btn-initiate" id="stopbtn" class="fa fa-stop" aria-hidden="true">종료</button>
+                        <button class="btn-initiate" id="stopBtn" class="fa fa-stop" aria-hidden="true">종료</button>
                     </div>
                 </div>
             </div>
@@ -102,17 +108,14 @@
                                 </tr>
                             </thead> 
                             <tbody>
+                            <% for(StudyTime s : list) { %>
                                 <tr>
-                                    <td>1</td>
-                                    <td>07 : 00 : 00</td>
-                                    <td>04 : 42 : 13</td>
-                                    <td>
-                                        <div class="progress-bar">
-                                             <!-- <div class="progress-bar__bar"></div>  -->
-                                            
-                                        </div>  
-                                    </td>
+                                    <td class="timeNo"><%= s.getStudyTimeNo() %></td>
+                                    <td class="studyTarget"><%= s.getTargetTime() %></td>
+                                    <td class="studyAmount"><%= s.getTimeAmount() %></td>
+                                    <td class="studyPercent"><%= s.getTimeAmount()*100 / s.getTargetTime() %>%</td>
                                 </tr>
+                                 <% } %>
                             </tbody>
                         </table>
                     </div>
@@ -120,16 +123,19 @@
                         <div class="historyTitleText">누적 공부시간 랭킹</div>
                         <div class="rankingWrapper">
                             <ui>
+                            	<% for(StudyTime s : list) { %>
                                 <li>
-                                    <div class="rank">4위</div>
-                                    <div class="name">둘리</div>
-                                    <div class="time">04:42:13</div>
+                                    <div class="rank"><%= s.getStudyTimeNo() %></div>
+                                    <div class="name"></div>
+                                    <div class="time" id="rankingAmount"></div>
                                 </li>
+                                <% } %>
                                 <li>
                                     <div class="rank">0위</div>
                                     <div class="name">홍길동</div>
                                     <div class="time">00:00:00</div>
                                 </li>
+                                
                             </ui>
                         </div>
                     </div>
@@ -144,198 +150,292 @@
         
     </div>
     
-    
-   <!--  <div class="modal hidden">
-            <div class="bg"></div>
-            <div class="modalBox">
-				<button class="closeBtn">X</button>
-				<div class="header">
-					<p>디데이 설정</p>
-				</div>
-				<div class="body">
-                    
-					<div class="openBtn2" id="ddayBox">
-						<div>
-							<p class="titleText">디데이 예시</p>
-							<p class="dateText">2023.09.09(일)</p>
-						</div>
-						<div>
-							<p class="ddayText">D-100</p>
-						</div>
-					</div>
-                
-				</div>
-				<div class="fotter">
-					<div class="openBtn1" id="blueBtn">
-						+ 추가
-					</div>
-					
-				</div>
-            </div>
-        </div> -->
-    
-    <div id="tdl-modal">
+    			<div id="tdl-modal">
                     <div id="modal-wrapper">
                         <div id="modal-head">
                             목표 설정
                         </div>
                         <div id="modal-body">
                             
-                            <div id="modal-tdl-content">
+                            <div class="timeSet"  id="modal-tdl-content">
                                 <div id="modal-tdl-text">
-                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="hourSet">
                                 </div>
                                 <div id="modal-tdl-text">
-                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0">
+                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="minSet">
                                 </div>
                             </div>                            
                         </div>
                         <div id="modal-footer">
                             <button type="button" id="cancel-btn">취소</button>
-                            <button type="button" id="add-btn">추가</button>
+                            <button type="button" id="add-btn" class="add-btn">추가</button>
                             
                             
                         </div>
                     </div>
 
                 </div>
-    
+                
+                
+     
+                
     <script>
         document.getElementById('tdl-btn-add').addEventListener('click',function(){
             document.getElementById('tdl-modal').style.visibility = 'visible';
+            
         })
         document.getElementById('cancel-btn').addEventListener('click',function(){
             document.getElementById('tdl-modal').style.visibility = 'hidden';
         })
+        document.getElementById('add-btn').addEventListener('click',function(){
+            document.getElementById('tdl-modal').style.visibility = 'hidden';
+        })
     </script>  
+    
+   
         
-    
+        <!-- 모달 추가버튼 클릭시 이벤트 -->
+        <script>
+        	$('#add-btn').click(function(){
+        		let sec = $("#hourSet").val()*3600+	$("#minSet").val()*60;
+        		console.log(sec);
+        		if(get_cookie('targetTime')=="" && sec != 0){
+        			document.cookie = 'targetTime='+sec;
+        			document.cookie = 'time=0';
+        			$('#targetText').html(makeTime(sec));
+        		}else if(sec == 0){
+        			alert('목표시간이 0입니다.');
+        		}else{
+        			alert('기존 목표시간이 설정돼있습니다.');
+        		}
+        		
+        	})
+        	
+        </script>
+        
+        
+        <!-- 종료 버튼 클릭 시 쿠키 삭제 이벤트 -->
+        <script>
+        	$('#stopBtn').click(function(){
+        		console.log('종료버튼');
+        		insertStudy();
+        	})
+        
+        
+        </script>
+        
 
-
+        
+        
+	
+	
 	<!-- <script>
-	const open = () => {
-        document.querySelector(".modal").classList.remove("hidden");
-    }
-    const close = () => {
-		console.log('cdlose')
-        document.querySelector(".modal").classList.add("hidden");
-    }
-    document.querySelector(".openBtn").addEventListener("click", open); 
-    document.querySelector(".closeBtn").addEventListener("click", close); 
-    document.querySelector(".bg").addEventListener("click", close);
-        </script> -->
+        function makeStudy(){
+        	$("#hourSet").val('');
+        	$("#minSet").val('');
+        	document.getElementsByClassName('add-btn')[0].removeEventListener('click',insertStudy);
+	        document.getElementsByClassName('add-btn')[0].addEventListener('click',insertStudy);
+	        
+        } 
+    </script> -->
 
-
-    
+	
+	
+	
+	
     <script>
-        var time = 0;
         var starFlag = true;
         $(document).ready(function(){
-        buttonEvt();
+        /* buttonEvt(); */
         });
 
         function init(){
         document.getElementById("time").innerHTML = "00:00:00";
         }
+        function get_cookie(key) { 
+            let cookie_list = document.cookie.split("; ");
+            console.log(cookie_list);
+            for(i of cookie_list){
+            	console.log("i:" + i);
+            	   if(i.split("=")[0] == key){
+            	          return(i.split("=")[1]);
+            	      }
+            	   
+            }
+            return "";
+        }
+     // 초단위 숫자값을 넣어주면 00:00:00문자열로 변환 해주는 함수
+    	function makeTime(timeAmount){
+    	let totalTime = timeAmount;
+    	console.log(totalTime);
+    	let hour = Math.floor(totalTime/60/60)+'';
+    	let min = Math.floor(totalTime%3600/60)+'';
+    	console.log(hour);
+    	console.log(hour.length);
+    	let sec = totalTime%60+'';
+    	if(hour.length == 1){
+    		hour = '0'+hour;
+    	}
+    	if(min.length == 1){
+    		min = '0'+min;
+    	}
+    	if(sec.length == 1){
+    		sec = '0'+sec;
+    	}
+    	console.log(hour +':'+min +':'+sec);
+    	return hour +':'+min +':'+sec;
+    
+    }
 
-        function buttonEvt(){
+        /* function buttonEvt(){
         var hour = 0;
         var min = 0;
         var sec = 0;
-        var timer;
-
+        var timer; */
+		
+        
         // start btn
         $("#startbtn").click(function(){
-
+			if(get_cookie('time')==''){
+				document.cookie = 'time=0';
+			}else{
+				time = get_cookie('time');
+			}
+			document.cookie='isPause=N';
             if(starFlag){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            $(".fa").css("color","white")
+            this.style.color = "white";
             starFlag = false;
 
             if(time == 0){
                 init();
             }
-            let purposetime = 60;
-            let basetime = 10;
+            
             timer = setInterval(function(){
-                time++;
-                basetime++;
-                // let ratio = basetime/purposetime*100;
-                // console.log(ratio);
-                // document.getElementsByClassName("progress-bar")[0].style.width = ratio + "%";
-
-                
-                min = Math.floor(time/60);
-                hour = Math.floor(min/60);
-                sec = time%60;
-                min = min%60;
-
-                var th = hour;
-                var tm = min;
-                var ts = sec;
-                if(th<10){
-                th = "0" + hour;
-                }
-                if(tm < 10){
-                tm = "0" + min;
-                }
-                if(ts < 10){
-                ts = "0" + sec;
-                }
-
-                document.getElementById("time").innerHTML = th + ":" + tm + ":" + ts;
+            	 document.cookie='time='+(get_cookie('time')*1+1);
+            	 if(get_cookie('targetTime')== get_cookie('time')){
+            		 insertStudy();
+            	 }
+	             let time = get_cookie('time');
+	             document.getElementById("time").innerHTML = makeTime(time);
             }, 1000);
             }
+            
+            if(get_cookie('targetTime')==""){
+    			alert('목표시간을 설정해 주세요.');
+    			location.href="<%=request.getContextPath()%>/study.me";
+    		}
+            
+            
+            
+            
+            
+            
+            
         });
-
+     // 쿠키값이 있는지에 따른 목표/공부시간 
+        if(get_cookie('targetTime')!=''){
+        	$('#targetText').html(makeTime(get_cookie('targetTime')));
+        	if(get_cookie('isPause')=='N'){
+	        	timer = setInterval(function(){
+	                
+					
+	                document.cookie='time='+(get_cookie('time')*1+1);
+	                let time = get_cookie('time');
+	                
+		
+	                document.getElementById("time").innerHTML = makeTime(time);
+	            }, 1000);
+        	}else{
+        		let time = get_cookie('time');	
+                document.getElementById("time").innerHTML = makeTime(time);
+        	}
+        }
+     
+     
+     
         // pause btn
         $("#pausebtn").click(function(){
-            if(time != 0){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            
+            $(".fa").css("color","white")
+            this.style.color = "white";
             clearInterval(timer);
             starFlag = true;
-            }
+            document.cookie='isPause=Y';
+            
         });
 
         // stop btn
-        $("#stopbtn").click(function(){
+        <%-- $("#stopbtn").click(function(){
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/timeSave.bo',
+        		data : {time : get_cookie('time')},
+        		success : function(){
+        			
+        		}
+        			
+       	});
+        	
             if(time != 0){
-            $(".fa").css("color","#FAED7D")
-            this.style.color = "#4C4C4C";
+            $(".fa").css("color","white")
+            this.style.color = "white";
             clearInterval(timer);
             starFlag = true;
             time = 0;
             init();
             }
-        });
-        }
-
+            
+            
+            
+            
+        }); --%>
+       // }
+		
     </script>
 
+    
+	
+    <script> 
+    $('#mytimeAmount').html(makeTime(<%=timeAmount%>));
+    </script>
+    
+    <!-- 랭킹 누적시간 -->
+    <script> 
+    $('#rankingAmount').html(makeTime(<%=timeAmount%>));
+    </script>
+    
+    
     <script>
-        // $("#startbtn").click(function(){
-        //     $("progress-bar").addClass(".")
-
-
-        // })
-       
-
-
+        function insertStudy(){
+        	$.ajax({
+        		url : '<%=request.getContextPath()%>/studyInsert.bo',
+        		data :{ "time" : get_cookie('time') ,      
+					   "targetTime" : get_cookie('targetTime')},
+        		success : function(result) {
+        			if(result){
+        				document.cookie = 'time=';
+                		document.cookie = 'targetTime=';
+                		document.cookie = 'isPause=Y';
+                		location.href="<%=request.getContextPath()%>/study.me";
+        			}
+        		},
+        		error : function(){
+        			
+        		}
+        		
+        	});
+        }
+        
+        </script>
+        
+    <script>
+    $('.studyTarget').each(function(index,item){
+    	$(item).html(makeTime($(item).html()));
+    })
+    $('.studyAmount').each(function(index,item){
+    	$(item).html(makeTime($(item).html()));
+    })
     </script>
-
-	<!-- <script>
-        const btnProgressElem = document.querySelector('.btn-progress');
-        const btnInitiateElem = document.querySelector('.btn-initiate');
-        const progressBarElem = document.querySelector('.progress-bar__bar');
-        btnProgressElem.addEventListener('click', () => {
-            progressBarElem.classList.add('active');
-        })
-        btnInitiateElem.addEventListener('click', () => {
-            progressBarElem.classList.remove('active');
-        })
-    </script> -->
-
 
 </body>
 

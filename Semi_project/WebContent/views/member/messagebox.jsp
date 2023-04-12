@@ -201,6 +201,22 @@
   $('.opponents').eq(0).css('backgroundColor','#42A5F5').css('color','white').children().css('color','white').children().css('color','white');
   $('.messagecheck2').eq(0).css('display','block');
   $('.messagesend').eq(0).css('display','flex');
+  
+  function checkmsg(e){
+	  console.log(e);
+	  console.log($(e).attr('data-userNo'));
+	  let sendrUserNo = $(e).attr('data-userNo');
+	  $.ajax({
+		  url : "<%=request.getContextPath()%>/msgplus.do",
+	  	  data : {sendeUserNo},
+	  	  type : "post",
+	  	 success : function(result){
+	  		 if(result > 0 ){
+	  			$('#msgcount').text('');
+	  		 }
+	  	 }
+	  });
+  } 
   </script>
   </div>
 </body>

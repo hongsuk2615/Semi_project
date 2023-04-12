@@ -17,6 +17,8 @@ public class Board {
 	private String status;
 	private int replyCount;
 	private String userProfile;
+	private String stringDate;
+	private int userNo;
 
 	public Board() {
 		super();
@@ -110,6 +112,24 @@ public class Board {
 		this.categoryNo = categoryNo;
 		this.enrollDate = enrollDate;
 	}
+	
+	
+
+	public Board(int boardNo, String title, String content, int categoryNo, String writer, String isQuestion,
+			String isAnonimous, int recommendCount, int replyCount, String stringDate) {
+		super();
+		this.boardNo = boardNo;
+		this.title = title;
+		this.content = content;
+		this.categoryNo = categoryNo;
+		this.writer = writer;
+		this.isQuestion = isQuestion;
+		this.isAnonimous = isAnonimous;
+		this.recommendCount = recommendCount;
+		this.replyCount = replyCount;
+		this.stringDate = stringDate;
+	}
+
 
 	public int getBoardNo() {
 		return boardNo;
@@ -222,7 +242,21 @@ public class Board {
 	public void setUserProfile(String userProfile) {
 		this.userProfile = userProfile;
 	}
+	public String getStringDate() {
+		return stringDate;
+	}
 
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
+	
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 
 
 	@Override

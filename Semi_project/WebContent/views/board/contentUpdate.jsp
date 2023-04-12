@@ -70,19 +70,25 @@
                                             </div>
     								<div>등록일: <%= b.getEnrollDate() %></div>
     								<div><input type="text" id="title" name="title" placeholder="글 제목" value="<%=b.getTitle()%>"></div>
-      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용"><%= b.getContent() %></textarea></div>
+      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용" maxlength="200" cols="30" rows="20"><%= b.getContent() %></textarea></div>
            							<div id="createContent-check">
-                						<div>첨부파일<input type="file" id="upfile" name="upfile">
-                						<div id="attachment-area">
-                                        <% for(BoardAttachment at : attachmentList){ %>
-												<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100" height="100">
-										<% } %>
+										<div id="file-area">
+											<% for(BoardAttachment at : attachmentList){ %>
+												<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="400" height="300">
+											<% } %>
 										</div>
+                						<div>첨부파일<input type="file" id="upfile" name="upfile">
+                						
+										
 										</div>
                							<div>
-               							<div><input type="checkbox" <%= isQuestion %> id="isQuestion" name="isQuestion" value="Y">질문</div>
-						                <div><input type="checkbox" id="isAnonimous" <%= isAnonimous %> name="isAnonimous" value="Y">익명</div>
-						                <div><button type="button" id="update-content-btn" onclick="updateContent()">수정하기</button></div>
+               							<div><input type="checkbox" <%= isQuestion %> id="isQuestion" name="isQuestion" value="Y">
+               							<label for="isQuestion">질문</label></div>
+						                <div><input type="checkbox" id="isAnonimous" <%= isAnonimous %> name="isAnonimous" value="Y">
+						                <label for="isAnonimous">익명</label></div>
+						                <div><button type="button" id="update-content-btn" onclick="updateContent()">
+						                 <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="22" height="22">
+						                 </button></div>
 						                </div>
 						            </div>
 					           	</form>
@@ -186,7 +192,7 @@
 		
 		reader.onload = function(e){
 		let url = e.target.result;
-		$("#attachment-area").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
+		$("#file-area").append("<img class='newImg' id='newImg"+ count +"' onclick='hiddenImg(this);' width='100' height='100'>");
 		$('#newImg'+count).attr("src",url);
 		count++;
 		}

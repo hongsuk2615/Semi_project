@@ -35,12 +35,8 @@ public class ReplyDeleteController extends HttpServlet {
 		int bNo = Integer.valueOf(request.getParameter("bNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int result = new ReplyService().deleteReply(rNo, bNo, userNo);
-		if(result > 0 ) {
-			request.getSession().setAttribute("alertMsg", "삭제성공");
-		}else {
-			request.getSession().setAttribute("alertMsg", "삭제실패");
-		}
-		response.sendRedirect(request.getContextPath()+"/contentDetail.bo?bNo="+bNo);
+		response.setContentType("text/html charset=UTF-8");
+		response.getWriter().print(result);
 	}
 
 	/**

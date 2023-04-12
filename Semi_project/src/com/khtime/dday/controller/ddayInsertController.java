@@ -44,12 +44,6 @@ public class ddayInsertController extends HttpServlet {
 		System.out.println(dDay);
 		System.out.println(title);
 	
-//		
-//		Dday d = new Dday();
-//		
-//		d.setdDayNo(dDayNo);
-//		d.setTitle(title);
-//		d.setdDay(dDay);
 		
 		boolean result = new DdayService().insertDday(userNo,title,dDay);
 		
