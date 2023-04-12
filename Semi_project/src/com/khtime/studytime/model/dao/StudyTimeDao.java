@@ -91,9 +91,43 @@ public class StudyTimeDao {
 		
 		return result;
 		
-		
-		
 	}
+	
+	
+	public ArrayList<StudyTime> rankingStudy(Connection conn) {
+	      
+	      ArrayList<StudyTime> sumList = new ArrayList<StudyTime>();
+	      
+	      PreparedStatement pstmt = null;
+	      ResultSet rset =null;
+	      String sql = prop.getProperty("rankingStudyTime");
+	      
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         rset = pstmt.executeQuery();
+	         while(rset.next()) {
+	            StudyTime studyTime = new StudyTime();
+	            studyTime.setTimeAmount(rset.getInt("TIME_AMOUNT"));
+	            studyTime.setNickName(rset.getString("NICK_NAME"));
+	            sumList.add(studyTime);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
+	      
+	      return sumList;
+	      
+	      
+	      
+	   }
+	
+	
+	
+	
 	
 	public boolean insertStudy(Connection conn,  int userNo, int timeAmount, int targetTime) {
 		   
@@ -119,6 +153,10 @@ public class StudyTimeDao {
 	   
 	   
 	   }
+	
+	
+	
+	
 	
 	
 	

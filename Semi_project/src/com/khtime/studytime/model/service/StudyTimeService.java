@@ -19,7 +19,8 @@ public class StudyTimeService {
 	
 	public int sumStudy(int userNo) {
 		Connection conn = getConnection();
-
+		
+		
 		int result = new StudyTimeDao().sumStudy(conn, userNo);
 
 		close(conn);
@@ -29,6 +30,23 @@ public class StudyTimeService {
 		
 	}
 	
+	
+	public ArrayList<StudyTime> rankingStudy() {
+	      Connection conn = getConnection();
+	      
+	      
+	      ArrayList<StudyTime> sumList = new StudyTimeDao().rankingStudy(conn);
+
+	      close(conn);
+
+	      return sumList;
+	      
+	      
+	   }
+	
+	
+	
+	
 	public ArrayList<StudyTime> getStudy(int userNo){
 		Connection conn = getConnection();
 		ArrayList<StudyTime> list = new StudyTimeDao().getStudy(conn, userNo);
@@ -37,6 +55,9 @@ public class StudyTimeService {
 		
 		return list;
 	}
+	
+	
+	
 	
 	public boolean insertStudy(int userNo, int timeAmount, int targetTime) {
 		

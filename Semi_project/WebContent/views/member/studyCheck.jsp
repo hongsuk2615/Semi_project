@@ -3,8 +3,9 @@
 <%@ page import="java.util.ArrayList, com.khtime.studytime.model.vo.StudyTime" %> 
 <% 
 	ArrayList <StudyTime> list  = (ArrayList<StudyTime>) request.getAttribute("list");
+	ArrayList <StudyTime> sumList  = (ArrayList<StudyTime>) request.getAttribute("sumList");
 	int timeAmount = (Integer)request.getAttribute("timeAmount");																			
-																			
+	int userNo = (Integer)request.getAttribute("userNo");																		
 
 %>
 <!DOCTYPE html>
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/studyCheck.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -122,20 +124,20 @@
                     <div class="historyRanking">
                         <div class="historyTitleText">누적 공부시간 랭킹</div>
                         <div class="rankingWrapper">
-                            <ui>
-                            	<% for(StudyTime s : list) { %>
+                            <ui id="ticker">
+                            	<% for(StudyTime s : sumList) { %>
                                 <li>
-                                    <div class="rank"><%= s.getStudyTimeNo() %></div>
-                                    <div class="name"></div>
+                                    <div class="rank"><%= s.getTimeAmount() %>위</div>
+                                    <div class="name"><%= s.getNickName() %></div>
                                     <div class="time" id="rankingAmount"></div>
                                 </li>
                                 <% } %>
-                                <li>
-                                    <div class="rank">0위</div>
-                                    <div class="name">홍길동</div>
-                                    <div class="time">00:00:00</div>
+                                <%-- <li>
+                                    <div class="rank"><%= userNo%>위</div>
+                                    <div class="name"><%= userNo%></div>
+                                    <div class="time" id="userRankingAmount"></div>
                                 </li>
-                                
+                                 --%>
                             </ui>
                         </div>
                     </div>
@@ -159,10 +161,12 @@
                             
                             <div class="timeSet"  id="modal-tdl-content">
                                 <div id="modal-tdl-text">
-                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="hourSet">
+                                    시간&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="hourSet"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                 </div>
                                 <div id="modal-tdl-text">
-                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="minSet">
+                                    분&nbsp;&nbsp;<input type="text" maxlength="2" placeholder="0" id="minSet"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                 </div>
                             </div>                            
                         </div>
@@ -176,8 +180,6 @@
 
                 </div>
                 
-                
-     
                 
     <script>
         document.getElementById('tdl-btn-add').addEventListener('click',function(){
@@ -224,23 +226,6 @@
         
         </script>
         
-
-        
-        
-	
-	
-	<!-- <script>
-        function makeStudy(){
-        	$("#hourSet").val('');
-        	$("#minSet").val('');
-        	document.getElementsByClassName('add-btn')[0].removeEventListener('click',insertStudy);
-	        document.getElementsByClassName('add-btn')[0].addEventListener('click',insertStudy);
-	        
-        } 
-    </script> -->
-
-	
-	
 	
 	
     <script>
@@ -287,13 +272,6 @@
     
     }
 
-        /* function buttonEvt(){
-        var hour = 0;
-        var min = 0;
-        var sec = 0;
-        var timer; */
-		
-        
         // start btn
         $("#startbtn").click(function(){
 			if(get_cookie('time')==''){
@@ -326,13 +304,10 @@
     			location.href="<%=request.getContextPath()%>/study.me";
     		}
             
-            
-            
-            
-            
-            
-            
         });
+        
+        
+        
      // 쿠키값이 있는지에 따른 목표/공부시간 
         if(get_cookie('targetTime')!=''){
         	$('#targetText').html(makeTime(get_cookie('targetTime')));
@@ -402,6 +377,10 @@
     <!-- 랭킹 누적시간 -->
     <script> 
     $('#rankingAmount').html(makeTime(<%=timeAmount%>));
+    </script>
+    
+    <script> 
+    $('#userRankingAmount').html(makeTime(<%=timeAmount%>));
     </script>
     
     

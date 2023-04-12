@@ -15,6 +15,8 @@
      	 WHERE RNUM BETWEEN 0 AND 10      
         
    </entry>
+   
+   
 	
 	<entry key="insertStudyTime">
       INSERT INTO STUDY_TIME (STUDY_TIME_NO, USER_NO, TIME_AMOUNT, TARGET_TIME)
@@ -31,13 +33,18 @@
 			WHERE USER_NO = ?
 	</entry>
 	
-	<!-- <entry key="sumStudyTime">
-		SELECT SUM (TIME_AMOUNT) AS TIME_AMOUNT , NICK_NAME
+	
+	
+	<entry key="rankingStudyTime">
+		SELECT SUM(TIME_AMOUNT) AS TIME_AMOUNT
+     		, NICK_NAME
+  		FROM (SELECT TIME_AMOUNT, NICK_NAME, M.USER_NO
 			FROM STUDY_TIME S
 			JOIN MEMBER M ON (M.USER_NO = S.USER_NO)
-			WHERE S.USER_NO = ?
+           )
+ 		GROUP BY NICK_NAME
 	</entry>
- -->
+
 
 
 
