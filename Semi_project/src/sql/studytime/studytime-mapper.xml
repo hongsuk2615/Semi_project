@@ -36,6 +36,10 @@
 	
 	
 	<entry key="rankingStudyTime">
+		SELECT *
+          FROM(SELECT ROWNUM RNUM, A.*
+                FROM(
+		
 		SELECT SUM(TIME_AMOUNT) AS TIME_AMOUNT
      		, NICK_NAME
   		FROM (SELECT TIME_AMOUNT, NICK_NAME, M.USER_NO
@@ -43,6 +47,8 @@
 			JOIN MEMBER M ON (M.USER_NO = S.USER_NO)
            )
  		GROUP BY NICK_NAME
+ 		ORDER BY TIME_AMOUNT DESC) A)
+ 		WHERE RNUM BETWEEN 0 AND 10
 	</entry>
 
 

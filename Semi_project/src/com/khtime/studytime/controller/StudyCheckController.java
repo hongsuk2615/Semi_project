@@ -37,7 +37,6 @@ public class StudyCheckController extends HttpServlet {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int timeAmount = new StudyTimeService().sumStudy(userNo);
-		
 		ArrayList<StudyTime> sumList = new StudyTimeService().rankingStudy();
 		
 		

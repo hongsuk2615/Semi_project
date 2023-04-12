@@ -5,7 +5,7 @@
 	ArrayList <StudyTime> list  = (ArrayList<StudyTime>) request.getAttribute("list");
 	ArrayList <StudyTime> sumList  = (ArrayList<StudyTime>) request.getAttribute("sumList");
 	int timeAmount = (Integer)request.getAttribute("timeAmount");																			
-	int userNo = (Integer)request.getAttribute("userNo");																		
+	int userNo = (Integer)request.getAttribute("userNo");
 
 %>
 <!DOCTYPE html>
@@ -33,32 +33,11 @@
 
 <body>
     
-            <%@ include file="../common/header.jsp" %>
+            
 
 
       <div id="wrapper">
-        <div id="header">
-            <div id="header-content">
-                <div id="home-logo">
-                    <img src="resources/IMG/로고이미지.png" alt="로고이미지">
-                </div>
-                <div id="navbar">
-                    <div>게시판</div>
-                    <div>친구목록</div>
-                    <div>중고책방</div>
-                    <div>To Do List</div>
-                    <div>관리</div>
-                </div>
-                <div id="header-right">
-                    <button id="login-btn">로그인</button>
-                    <button id="enrollment-btn">회원가입</button>
-                </div>
-            </div>
-
-
-        </div>
-
-
+       <%@ include file="../common/header.jsp" %>
         <div id="body">
             <div class="historyTop">
                 <div class="historyContainer">
@@ -124,20 +103,17 @@
                     <div class="historyRanking">
                         <div class="historyTitleText">누적 공부시간 랭킹</div>
                         <div class="rankingWrapper">
-                            <ui id="ticker">
+                            <ui>
                             	<% for(StudyTime s : sumList) { %>
                                 <li>
-                                    <div class="rank"><%= s.getTimeAmount() %>위</div>
+                                    <div class="rank"><%= s.getStudyTimeNo() %>위</div>
                                     <div class="name"><%= s.getNickName() %></div>
-                                    <div class="time" id="rankingAmount"></div>
+                                    <div class="time" id="rankingAmount"><%= s.getTimeAmount() %></div>
                                 </li>
                                 <% } %>
-                                <%-- <li>
-                                    <div class="rank"><%= userNo%>위</div>
-                                    <div class="name"><%= userNo%></div>
-                                    <div class="time" id="userRankingAmount"></div>
-                                </li>
-                                 --%>
+                                
+                                
+                                
                             </ui>
                         </div>
                     </div>
@@ -179,6 +155,10 @@
                     </div>
 
                 </div>
+                
+              
+                
+                
                 
                 
     <script>
@@ -375,9 +355,6 @@
     </script>
     
     <!-- 랭킹 누적시간 -->
-    <script> 
-    $('#rankingAmount').html(makeTime(<%=timeAmount%>));
-    </script>
     
     <script> 
     $('#userRankingAmount').html(makeTime(<%=timeAmount%>));
@@ -413,6 +390,10 @@
     })
     $('.studyAmount').each(function(index,item){
     	$(item).html(makeTime($(item).html()));
+    })
+    $('.time').each(function(index,item){
+    	let sec = $(item).html();
+    	$(item).html(makeTime(sec));
     })
     </script>
 

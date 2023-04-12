@@ -108,6 +108,7 @@ public class StudyTimeDao {
 	         rset = pstmt.executeQuery();
 	         while(rset.next()) {
 	            StudyTime studyTime = new StudyTime();
+	            studyTime.setStudyTimeNo(rset.getInt("RNUM"));
 	            studyTime.setTimeAmount(rset.getInt("TIME_AMOUNT"));
 	            studyTime.setNickName(rset.getString("NICK_NAME"));
 	            sumList.add(studyTime);
