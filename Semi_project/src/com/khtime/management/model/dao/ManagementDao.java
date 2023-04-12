@@ -1,6 +1,6 @@
 package com.khtime.management.model.dao;
 
-import static com.khtime.common.JDBCTemplate.*;
+import static com.khtime.common.JDBCTemplate.close;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +15,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.vo.Board;
+import com.khtime.common.model.vo.PageInfo;
 import com.khtime.member.model.vo.Member;
 
 public class ManagementDao {
@@ -512,15 +513,18 @@ public class ManagementDao {
 		return list;
 	}
 	
-	public ArrayList<Member> getFilteredEnrollmentReqs(Connection conn, String name){
+	public ArrayList<Member> getFilteredEnrollmentReqs(Connection conn, String name, PageInfo pi){
 		ArrayList<Member> list = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredEnrollmentReqs");
 		ResultSet rset = null;
-		System.out.println(name);
 		try {
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+name+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Member reqUser = new Member();
@@ -539,6 +543,25 @@ public class ManagementDao {
 
 		return list;
 		
+	}
+	
+	public int approveBoardReq(Connection conn, String cName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("approveBoardReq");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -57,12 +57,36 @@
 		IS_AGREE = 'Y'
 		WHERE RECEIVER = ?
 		AND  SENDER= ?
+		OR SENDER = ?
+		AND RECEIVER = ?
 	</entry>
 	
 	<entry key="friendDeny">
 		DELETE FROM FRIEND
 		WHERE RECEIVER = ?
-		AND SENDER = ?
+		AND SENDER = ? 
+		OR SENDER = ?
+		AND RECEIVER = ?
+	</entry>
+	<entry key="isFriend">
+		SELECT USER_NAME
+		FROM MEMBER
+		WHERE IN ( SELECT IS_AGREE = 'N'
+		FROM FRIEND
+		AND
+		RECEIVER = ?
+		AND
+		AND SENDER = ? 
+		SENDER = ?
+		OR
+		RECEIVER = ?)
+		
 	</entry>
 	
+		<entry key="friendPlus">
+		SELECT *
+  			FROM FRIEND
+  			WHERE RECEIVER = ?
+ 			AND IS_AGREE = 'N'
+	</entry>
 </properties>

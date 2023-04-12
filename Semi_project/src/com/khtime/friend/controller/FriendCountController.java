@@ -1,4 +1,4 @@
-package com.khtime.member.controller;
+package com.khtime.friend.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.khtime.friend.model.service.FriendService;
+import com.khtime.member.model.vo.Member;
+import com.khtime.message.model.service.MessageService;
+
 /**
- * Servlet implementation class StudyCheckController
+ * Servlet implementation class FriendCountController
  */
-@WebServlet("/study.me")
-public class StudyCheckController extends HttpServlet {
+@WebServlet("/friendplus.do")
+public class FriendCountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudyCheckController() {
+    public FriendCountController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +31,12 @@ public class StudyCheckController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/member/studyCheck.jsp").forward(request, response);
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		int result = new FriendService().friendPlus(loginUserNo);
+		System.out.println("친구요청 횟수 "+result);
+		Gson gson = new Gson();
+		response.setContentType("application/json; charset=UTF-8");
+		gson.toJson(result,response.getWriter());
 	}
 
 	/**

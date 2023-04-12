@@ -1,10 +1,6 @@
-package com.khtime.dday.controller;
-
-import static com.khtime.common.StringToDate.transformDate;
+package com.khtime.studytime.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.khtime.dday.model.service.DdayService;
-import com.khtime.dday.model.vo.Dday;
 import com.khtime.member.model.vo.Member;
+import com.khtime.studytime.model.service.StudyTimeService;
 
 /**
- * Servlet implementation class ddayInsertController
+ * Servlet implementation class StudyInsertController
  */
-@WebServlet("/ddayInsert.bo")
-public class ddayInsertController extends HttpServlet {
+@WebServlet("/studyInsert.bo")
+public class StudyInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ddayInsertController() {
+    public StudyInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,21 +33,17 @@ public class ddayInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println(request.getParameter("dDay"));
-		Date dDay = transformDate(request.getParameter("dDay"));
-		String title = request.getParameter("title");
-		System.out.println(userNo);
-		System.out.println(dDay);
-		System.out.println(title);
-	
+		int timeAmount = Integer.parseInt(request.getParameter("time"));
+		int targetTime = Integer.parseInt(request.getParameter("targetTime"));
+		System.out.println(timeAmount);
+		System.out.println(targetTime);
 		
-		boolean result = new DdayService().insertDday(userNo,title,dDay);
+		boolean result = new StudyTimeService().insertStudy(userNo,timeAmount,targetTime);
 		
 		
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(result, response.getWriter());
-		
 		
 		
 		

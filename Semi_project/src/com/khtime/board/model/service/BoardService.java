@@ -167,8 +167,8 @@ public class BoardService {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result1 = new BoardDao().boardRequest(conn,loginUserId,boardTitle,reason);
 		int result2 = new BoardDao().boardCategoryreq(conn,boardTitle,loginUserNo);
+		int result1 = new BoardDao().boardRequest(conn,loginUserId,boardTitle,reason);
 		if(result1 > 0 && result2 > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {

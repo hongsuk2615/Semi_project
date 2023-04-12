@@ -37,7 +37,6 @@
     	    AND RECEIVER IN(?,?)
     	  ORDER BY SEND_DATE DESC
     
-    
     </entry>
     
     <entry key="sendMsgBoard">
@@ -56,6 +55,15 @@
                      )
     
     </entry>
+	<entry key="messagePlus">
+		SELECT *
+  			FROM MESSAGE
+  			WHERE RECEIVER = ?
+ 			AND (SYSDATE-SEND_DATE)*24*60 &lt; 1
+	</entry>
 	
+	<entry key="messageCheck">
+		UPDATE 
+	</entry>
 	
 </properties>
