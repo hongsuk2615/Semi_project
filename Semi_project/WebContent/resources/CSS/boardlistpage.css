@@ -65,9 +65,32 @@
 	 width:500px;
 	 height:330px;
 	 overflow-x: hidden;
+	 border: 2px solid lightgray;
 }
 
 .moveboard{
-	border: 2px solid lightgray;
-	
+	border: 1px solid lightgray;
+	width: 500px;
 }
+
+body {
+         width:100%;
+       height:100%;
+       margin: 0;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        font-family: "Nanum Gothic", arial, helvetica, sans-serif;
+        background-repeat: no-repeat;
+        background:linear-gradient(to bottom right, white, #6BA8D1);
+    }
+	#boardmake{
+	
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+		margin: auto;
+	}
