@@ -53,9 +53,9 @@
 		<div id="body">
 			<div id="body-wrapper">
 				<div id="mypage-wrap">
-					<div id="myinfo" style="height: 270px; width: 100%;">
+					<div id="myinfo" style="height: 270px; width: 100%; color: #0d64e6;">
 						<strong>내 정보</strong>
-						<div style="position: relative; left: 45%;">
+						<div style="position: relative; left: 60%;">
 							<button type="button" class="openBtn">비밀번호변경</button>
 							<button type="button" class="openBtn1">이메일변경</button>
 						</div>
@@ -63,18 +63,19 @@
 						<br>
 						<div style="width: 100px; height: 100px;">
 							<label for="profile">
-								<div style="border: 1px solid red; width:100px;">
+								<div style=" width:100px;">
 									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
 								</div>
-								
 							</label><!--  <input type="file" name="profile" id="profile"
 								style="display: none;" onchange="readURL(this);"> -->
 						</div>
-						<br>
-						<br> <span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
+						<br><br>
+						<div id="userInfo">
+						<span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
 						<span id="loginuser-name&nickname"><%=loginUser.getUserName() %>/<%=loginUser.getNickName() %></span><br>
 						<span id="loginuser-class"><%=loginUser.getUserClass() %></span>
-						<button id="logoutbtn" style="position: relative; left: 68%;"onclick="javascript:btn()" >로그아웃</button>
+						</div>
+						<button id="logoutbtn" style="position: relative; left: 65%;"onclick="javascript:btn()" >로그아웃</button>
 					</div>
 
 					<div id="community"
@@ -83,7 +84,7 @@
 						<a class="openBtn3">닉네임변경</a>
 						<a class="openBtn4">프로필사진변경</a>
 						<a id="messageboxBtn">쪽지함</a>
-					    <a href="">게시글관리(하이퍼링크)</a>
+					    <a id="user-boards">게시글관리</a>
 					</div>
 
 					<div id="infouse"
@@ -91,7 +92,7 @@
 						<strong>이용안내</strong> 
 						<a href="/askpage.jsp">문의하기</a> 
 						<a href="">공지사항</a> 
-						<a href="">서비스약관</a> 
+						<a href="views/member/termsOfUseForm.jsp">서비스약관</a> 
 						<a href="">개인정보 처리방침</a> 
 						<a href="">청소년 보호정책</a>
 					</div>
@@ -99,7 +100,7 @@
 					<div id="etc" style="height: 150px;">
 						<strong>기타</strong>
 						<button class="openBtn2"
-							style="position: relative; top: 115px; left: 480px;"
+							style="position: relative; top: 90%; left: 83%;"
 							data-target="#deleteModal">회원탈퇴</button>
 					</div>
 				</div>
@@ -250,7 +251,7 @@
                 //선택된 파일이 존재할 경우에 선택된 파일들을 읽어들여서 그 영역에 맞는 곳에 미리보기 추가
                 //파일을 읽어들일 FileReader 객체 생성
                 let reader = new FileReader();
-                
+                	
                 // 파일을 읽어들이는 메서드 -> 어느파일을 읽을지 매개변수에 제시해줘야함.
                 // 0번째 인덱스에 담긴 파일정보를 제시
                 // -> 해당파일을 읽어들이는 순간 해당파일만의 고유한 url부여됨.
@@ -455,10 +456,14 @@
     document.querySelector(".bg4").addEventListener("click", close4);
 	</script>
 	
-	<script>  <!-- 쪽지함jsp로 이동시키는 스크맆트-->
+	<script>  <!-- 쪽지함jsp, 내게시글,댓글로 이동시키는 스크맆트-->
   		document.getElementById("messageboxBtn").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
   		}) 
+  		
+  		 document.getElementById("user-boards").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/myWriting.bo?bType=1";
+	    })
   	</script>
 
 
