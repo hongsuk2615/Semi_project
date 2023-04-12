@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.websocket.EndpointConfig;
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -38,9 +39,8 @@ public class ChattingServer {
 			String [] clientData = (String[])s.getUserProperties().get("msg");
 			
 			if(clientData != null) {
-				
 				if(data[1].length() > 0) {
-					if(clientData[0].equals(data[0])) {
+					if(clientData[0].length() >= 0) {
 						try {
 							s.getBasicRemote().sendText(msg);
 						} catch (IOException e) {
@@ -50,5 +50,10 @@ public class ChattingServer {
 				}
 			}
 		}
+	}
+	
+	@OnClose
+	public void handleClose(Session session) {
+		clients.remove(session.getId());
 	}
 }

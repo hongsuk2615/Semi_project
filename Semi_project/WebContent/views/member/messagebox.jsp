@@ -52,7 +52,7 @@
     <!-- 네비영역 헤더-->
 		<%@ include file="../common/header.jsp"%>
         <div id="body">
-            <div id="content">
+            <div id="content" style="background-color:white;">
                 <div id="content1">
                     <div id="messagebox3" class="title-text"> 쪽지함</div>
                     <div id="messagecheck">
@@ -63,7 +63,7 @@
                         <script>
                         	opponents.push(<%=m.getUserNo()%>);
                         </script>
-                        <div class ="opponents1">
+                        <div class ="opponents opponents1">
                         <div class="date">
                             <div class="opponent-name"><%= m.getNickName() %></div>
                             
