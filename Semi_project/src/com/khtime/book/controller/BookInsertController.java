@@ -110,7 +110,7 @@ public class BookInsertController extends HttpServlet {
 			
 			System.out.println(result);
 			
-			if(result > 0) { // 성공 시 -> list.th를 요청
+			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/bookstore.do");
 			} else {

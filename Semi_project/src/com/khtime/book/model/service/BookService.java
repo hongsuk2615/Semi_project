@@ -72,6 +72,17 @@ public class BookService {
 		
 		close(conn);
 		
+		return bList;	
+	}
+	
+	public ArrayList<Book> selectBookSellList(PageInfo pi , int loginUserNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Book> bList = new BookDao().selectBookSellList(conn, pi , loginUserNo);
+		
+		close(conn);
+		
 		return bList;
 		
 	}

@@ -247,4 +247,45 @@ public class BookDao {
 		}
 		  return bList;
 	  }
+
+	public ArrayList<Book> selectBookSellList(Connection conn , PageInfo pi , int loginUserNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		ArrayList<Book> bList = new ArrayList<Book>();
+		
+		String sql = prop.getProperty("selectBookSellList");
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				
+				bList.add(book);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
+		
+	}
 }

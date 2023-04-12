@@ -87,4 +87,22 @@
 		WHERE B.BOOK_NAME = ?
 		AND B.STATUS = 'Y'
 	</entry>
+	
+	<entry key="selectBookSellList">
+		SELECT *    
+      	FROM( SELECT ROWNUM RNUM , 
+      			A.*
+            FROM(
+            		SELECT	FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+				 	B.PRICE ,
+				 	B.BOOK_NAME ,
+				 	B.BOOK_NO
+					FROM BOOK B
+					LEFT OUTER JOIN BOOK_ATTACHMENT BA ON (B.BOOK_NO = BA.BOOK_NO)
+					WHERE B.SELLER = ?
+					AND B.STATUS = 'Y'
+				 ) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
 </properties>
