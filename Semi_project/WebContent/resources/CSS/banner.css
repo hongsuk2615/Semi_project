@@ -1,0 +1,10 @@
+.swiper-wrapper,
+.swiper-slide,
+.swiper-pagination,
+.swiper-button-prev,
+.swiper-button-next,
+.swiper-scrollbar,
+.swiper-scrollbar-horizontal,
+.swiper{
+	z-index : unset;
+	}
