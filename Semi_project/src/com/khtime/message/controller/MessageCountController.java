@@ -32,7 +32,7 @@ public class MessageCountController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int result = new MessageService().messagePlus(loginUserNo);
-		System.out.println("ddddddddddddddddd"+result);
+		
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());
@@ -44,8 +44,9 @@ public class MessageCountController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		int sendUser =Integer.parseInt( request.getParameter("sendeUserNo"));
+		int sendUser =Integer.parseInt( request.getParameter("sendUserNo"));
 		int result = new  MessageService().messageCheck(loginUserNo,sendUser);
+		
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());

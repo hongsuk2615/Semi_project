@@ -197,18 +197,20 @@
   function checkmsg(e){
 	  console.log(e);
 	  console.log($(e).attr('data-userNo'));
-	  let sendrUserNo = $(e).attr('data-userNo');
+	  let sendUserNo = $(e).attr('data-userNo');
 	  $.ajax({
 		  url : "<%=request.getContextPath()%>/msgplus.do",
-	  	  data : {sendeUserNo},
+	  	  data : {sendUserNo},
 	  	  type : "post",
 	  	 success : function(result){
-	  		 if(result > 0 ){
+	  		 /* if(result > 0 ){
 	  			$('#msgcount').text('');
-	  		 }
+	  		 } */
+	  		messageCount();
 	  	 }
 	  });
   } 
+
   </script>
   </div>
 </body>
