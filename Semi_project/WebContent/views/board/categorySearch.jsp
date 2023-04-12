@@ -1,6 +1,9 @@
-<%@ page import = "java.util.ArrayList,com.khtime.board.model.vo.Board" %>
+<%@ page import = "java.util.ArrayList,com.khtime.board.model.vo.Category" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Category> list = (ArrayList<Category>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +48,8 @@
         <div id="body">
             <div id="content">
                 <form id="boardmake">
-                    <div>
+                
+                    <div id="margin">
                         <div><input type="text" name="name" placeholder="게시판 검색" id="Board"></div>
                         <button type="button"  onclick="searchBoard();" >검색</button> <br>
                     </div>
@@ -59,6 +63,21 @@
                    
                    
                     <button type="button" id="boardrequest">게시판 생성 요청</button>
+                    <div id="boardlist">
+                    현재 존재하는 게시판입니다.
+                    </div>
+                    <div id="scroll">
+                    	<%
+							for (Category c : list) {
+						%>
+						<div>
+							<div id="categoryName<%=c.getCategoryNo() %>" onclick="moveboarddetail(this.id);" class="moveboard"><%=c.getCategoryName()%></div>
+							
+						</div><br>
+					<%
+						}
+					%>
+					</div>
                 </form>
             </div>
         </div>
@@ -100,6 +119,10 @@
       	 					location.href = "<%= request.getContextPath() %>/boardreq.me";
   							})
 				
+					 function moveboarddetail(id){
+						let cno = id.substr(12);
+						 location.href="<%=request.getContextPath() %>/boardDetail.bo?cNo="+cno;
+							}
 		</script>
                     
 

@@ -12,9 +12,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    
     width: 700px;
-    height: 500px;
+    height: 600px;
     border-radius: 15px;
     border: 2px solid lightgray;
 }
@@ -48,6 +48,26 @@
     display: flex;
     justify-content: center;
 }
+#boardrequest{
+	 margin: 10px;
+}
 
+#margin{
+	margin-top : 20px;
+}
 
+#boardlist{
+	margin-top : 50px;
+}
 
+#scroll{
+	overflow:scroll;
+	 width:500px;
+	 height:330px;
+	 overflow-x: hidden;
+}
+
+.moveboard{
+	border: 2px solid lightgray;
+	
+}
