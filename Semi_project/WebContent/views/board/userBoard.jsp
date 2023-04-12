@@ -20,8 +20,9 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      
     <title>Document</title>
     <style>
         * {
@@ -72,26 +73,51 @@
                             <ul id="content-area">
                            
                                <% for(Board b : boardList) { %>
-                                <li>
-                                <div class="\${i.boardNo}"style="display:none"><%= b.getBoardNo() %></div>
-	                                <h3> <%= b.getTitle() %></h3>
-	                                    <p><%= b.getContent() %></p><br>
-										<div class="board-detail-footer">
-										<div><%= b.getWriter() %> <div class="stringDate"><%= b.getStringDate() %></div>  </div>
-	                                    <div class="board-detail-comment">
-											<div class="board-detail-commend"> <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-												<span><%= b.getRecommendCount() %></span></div>
-												<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
-												<span><%= b.getReplyCount() %></span></div>
+								<li>
+									<div class="<%=b.getBoardNo()%>" style="display: none"><%=b.getBoardNo()%></div>
+									<h3>
+										<%=b.getTitle()%></h3>
+									<p><%=b.getContent()%></p><br>
+									<div class="board-detail-footer">
+										<div class="board-detail-footer-left">
+											<%
+												if (b.getIsAnonimous() == "Y") {
+											%>
+											<img
+												src="<%=request.getContextPath()%>/resources/IMG/user.png"
+												width="30" height="30"> <span class="spanWriter">익명</span>
+											<%
+												} else {
+											%>
+											<img
+												src="<%=request.getContextPath()%><%=b.getUserProfile()%>"
+												width="30" height="30">
+											<span class="spanWriter"><%=b.getWriter()%></span>
+											<%
+												}
+											%>
+											<div class="stringDate" style="margin-left:5px;"><span class="spanDate"><%=b.getStringDate()%></span></div>
+										</div>
+										<div class="board-detail-comment">
+											<div class="board-detail-commend">
+												<img class="recommendImg"
+													src="<%=request.getContextPath()%>/resources/IMG/like.png"
+													alt="" width="17" height="17"> <span><%=b.getRecommendCount()%></span>
+											</div>
+											<div class="board-detail-commend">
+												<img
+													src="<%=request.getContextPath()%>/resources/IMG/replyimg.png"
+													alt="" width="17" height="17"> <span><%=b.getReplyCount()%></span>
+											</div>
 										</div>
 									</div>
-                                </li>
-                               
-                                   <% } %>
+								</li>
+
+								<% } %>
                                  <% } %>
                                   </ul>
-                                  
-                          <script>
+                       
+                             <script>
                            $(function(){
                               $("#board-detail li").click(function(){
                                  let bNo = $(this).children().eq(0).text();
@@ -123,7 +149,7 @@
                    	   		
                    	   	}
                            
-                           $(".stringDate").each(function(index, item){
+                           $(".spanDate").each(function(index, item){
 								console.log(item);
 								let dateString = dayStringMaker($(item).html());
 								$(item).html(dateString);
@@ -166,7 +192,7 @@
 
         </div>
     </div>
-
+  
 </body>
 
 </html>

@@ -84,6 +84,7 @@
 						                </div>
 						            </div>
 					           	</form>
+					           	</div>
                             <script>
                             //
         let fileArr = new Array();
@@ -187,7 +188,7 @@
 			})
 		}
 	</script>
-                            </div>
+                            
                            <% if(boardList.isEmpty()) { %>
                            	글이 없습니다,,
                            <% } %>
@@ -215,7 +216,13 @@
 		                                <h3>\${i.title}</h3>
 		                                    <p>\${i.content}</p><br>
 											<div class="board-detail-footer">
-											<div>\${i.writer} \${dayStringMaker(i.stringDate)} </div>
+											<div class="board-detail-footer-left">`
+											if(i.writer == "익명"){
+												result += `<img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">`
+											}else{
+												result += `<img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">`
+											}
+											result += `<span class="spanWriter">\${i.writer}<span> <div class="stringDate"><span class="spanDate">\${dayStringMaker(i.stringDate)} <span></div></div>
 		                                    <div class="board-detail-comment">
 												<div class="board-detail-commend"> <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
 													<span>\${i.recommendCount}</span></div>

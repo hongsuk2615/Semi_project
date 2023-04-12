@@ -94,6 +94,7 @@ public class BoardDao {
 								rset.getInt("REPLY_COUNT"),
 								rset.getString("ENROLL_DATE")
 							);
+					b.setUserProfile(rset.getString("USERPROFILE"));
 					boardList.add(b);
 				}		
 				
@@ -803,6 +804,7 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
 						boardList.add(b);
 					}		
 					
@@ -871,6 +873,7 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
 						boardList.add(b);
 					}		
 					
@@ -940,6 +943,7 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
 						
 						boardList.add(b);
 					}		

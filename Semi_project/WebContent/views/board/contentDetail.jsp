@@ -61,20 +61,24 @@
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
-                                        <div id="content-profile">
+                                       
+                                              <% if(b.getIsAnonimous().equals("N")) { %>
+                                              <div id="content-profile">
                                             <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30">
                                         </div>
                                         <div id="content-writer">
                                             <div>
-                                              <% if(b.getIsAnonimous().equals("N")) { %>
-                                                <%= b.getWriter() %>
+                                               <span class="spanWriter"> <%= b.getWriter() %></span>
                                                 <% }else { %>
-                                                익명
+                                                <div id="content-profile">
+                                            <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
+                                        </div>
+                                        <div id="content-writer">
+                                            <div>
+                                              <span class="spanWriter">  익명</span>
                                                 <% } %> 
                                             </div>
-                                            <div id="enrollDatediv">
-                                            
-                                            </div>
+                                            <div class="stringDate"> <span class="spanDate"></span> </div>
                                         </div>
                                         </div>
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
@@ -90,7 +94,11 @@
                                      	    })
                                         			
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
+                                     	    	if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                     	    		alert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
+                                     	    	}else{
+                                     	    		location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
+                                     	    	}
                                      	    })
                                         	</script>
                                         <% }else{ %>
@@ -161,10 +169,6 @@
                         </div>
                     </div>
                 </div>
-                    <div id="goto-boardlist">
-                       
-                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
-                    </div>
                     </div>
     
                 </div>
@@ -275,10 +279,10 @@
 							
 						`
 						<li>
-						 <div class='content-detail-comments'>
+						 <div class='content-detail-comments replycheck'>
 							 <div class='comments-left'>
 								 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-								<span>\${i.nickName}</span>
+								 <span class="spanWriter">\${i.nickName}</span>
 							 </div>
 								 <div class='comments-right'>`
 								 if(i.writer == <%=loginUser.getUserNo()%>){
@@ -292,7 +296,7 @@
 	                     </div>
 	                     <p>\${i.content}<p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
-	                     \${dayStringMaker(i.stringDate)}
+	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     `
 	                     if(i.recommendCount != 0){
 	                    	 result += `
@@ -304,10 +308,10 @@
 					result += 
 						`
 						<li>
-						 <div class='content-detail-comments'>
+						 <div class='content-detail-comments replycheck'>
 						 <div class='comments-left'>
 						 <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
-						 <span>익명 \${list[1][i.nickName]}</span>
+						 <span class="spanWriter">익명 \${list[1][i.nickName]}</span>
 						  </div> 
 						  <div class='comments-right'>`
 						  if(i.writer == <%=loginUser.getUserNo()%>){
@@ -321,7 +325,7 @@
                   </div>
 	                     <p> \${i.content}</p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
-	                     \${dayStringMaker(i.stringDate)}
+	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     ` 
 	                     if(i.recommendCount != 0){
                     	 result += `
@@ -509,7 +513,7 @@
 	   	}
 	 	
 	   let enrollDate = dayStringMaker("<%=b.getStringDate()%>");
-	   $("#enrollDatediv").append(enrollDate);
+	   $(".spanDate").append(enrollDate);
 	</script>
 
 

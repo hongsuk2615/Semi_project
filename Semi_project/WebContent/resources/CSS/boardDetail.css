@@ -32,7 +32,7 @@
 .board-detail-comment{
     display: flex;
     justify-content: end;
-   
+    align-items: flex-end;
 }
 
 #board-detail-search {
@@ -56,7 +56,7 @@
     border-radius: 0px 0px 5px 5px; 
     margin-top: 2px;
     padding: 5px;
-    max-height: 80px;
+    min-height: 80px;
 }
 
 #category {
@@ -166,7 +166,7 @@
 }
 
 #content-area p {
-    max-height: 20px;
+    max-height: 19px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap;
@@ -176,3 +176,42 @@
 	width: 100%;
 	justify-content: end;
 }
+
+.board-detail-footer-left{
+	display: flex;
+	align-items: flex-end;
+}
+
+.board-detail-footer-left img{
+	margin-right: 5px;
+}
+
+.spanWriter{
+	font-size : 15px;
+}
+
+.spanDate {
+	font-size : 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

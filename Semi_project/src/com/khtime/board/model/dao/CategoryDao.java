@@ -50,7 +50,6 @@ public class CategoryDao {
 				JDBCTemplate.close(rset);
 				JDBCTemplate.close(pstmt);
 			}
-			System.out.println("dao:" + cName);
 			return cName;
 		}
 }
