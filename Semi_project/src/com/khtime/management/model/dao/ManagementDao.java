@@ -384,18 +384,22 @@ public class ManagementDao {
 		
 		return result;
 	}
-	public ArrayList<Member> getFilteredUsers(Connection conn, Member m){
+	public ArrayList<Member> getFilteredUsers(Connection conn, Member m, PageInfo pi){
 		ArrayList<Member> list = new ArrayList<Member>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredUsers");
 		ResultSet rset = null;
 		try {
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+m.getIsWhitelist()+"%");
 			pstmt.setString(2, "%"+m.getIsBanned()+"%");
 			pstmt.setInt(3, m.getAuthority());
 			pstmt.setString(4, "%"+m.getUserName()+"%");
 			pstmt.setInt(5, m.getReportCount());
+			pstmt.setInt(6, startRow);
+			pstmt.setInt(7, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Member filteredUser = new Member();
