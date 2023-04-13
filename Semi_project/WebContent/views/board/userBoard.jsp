@@ -66,11 +66,12 @@
                         		<div id="category">내가 스크랩한 글</div>
                        		</c:when>
                          </c:choose> 
+                         <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
                            <br>
-                            <div style="text-align:center">조회된 게시물이 없습니다</div>
+                           <li style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% }else{ %>
-                            <ul id="content-area">
+                            
                            
                                <% for(Board b : boardList) { %>
 								<li>

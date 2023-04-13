@@ -53,8 +53,6 @@ public class UserCommentsController extends HttpServlet {
 		
 		request.setAttribute("bType", bType);
 		request.setAttribute("pi", pi);
-		System.out.println(pi);
-		System.out.println(boardList);
 		request.setAttribute("boardList", boardList);
 	
 		request.getRequestDispatcher("views/board/userBoard.jsp").forward(request, response);

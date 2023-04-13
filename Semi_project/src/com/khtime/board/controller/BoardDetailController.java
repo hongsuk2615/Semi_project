@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.khtime.board.model.service.BoardService;
-
 import com.khtime.board.model.service.CategoryService;
+import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.vo.Board;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 
 
@@ -43,6 +44,7 @@ public class BoardDetailController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int cNo = Integer.valueOf(request.getParameter("cNo"));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
@@ -53,10 +55,12 @@ public class BoardDetailController extends HttpServlet {
 
 		ArrayList<Board> boardList = new BoardService().selectBoard(cNo, pi);
 		String cName = new CategoryService().getCategoryName(cNo);
+		ArrayList<Integer> recommendcheck = new RecommendService().recommendCheck(userNo);
 		
 		request.setAttribute("cNo", cNo);
 		request.setAttribute("cName", cName);
 		request.setAttribute("boardList", boardList);
+		request.setAttribute("recommendcheck", recommendcheck);
 		
 		request.getRequestDispatcher("views/board/boardDetail.jsp").forward(request, response);
 		 

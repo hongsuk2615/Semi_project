@@ -140,8 +140,8 @@
                                     <div class="scrapdiv"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><div id="scrapbox"><%= b.getScrapCount() %></div></div>
                                 </div>
                                 <div class="boardDataDiv" id="boardDataBtn">
-                                   <button id="recommendbtn"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><span>공감</span></button>
-                                    <button id="scrapbtn"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><span>스크랩</span></button>
+                                   <button id="recommendbtn" style="background-color:white;"><span style="color:gray;">공감</span></button>
+                                    <button id="scrapbtn"><span style="color:white;">스크랩</span></button>
                                  <% if(b.getIsQuestion().equals("Y")){ %>
 								<div id="QuestionContentbox"><div><span>#주의 질문글입니다!</span></div></div>
 								<% } %>

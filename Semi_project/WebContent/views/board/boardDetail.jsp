@@ -6,6 +6,7 @@
 	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
+	ArrayList <Integer> recommendcheck  = (ArrayList<Integer>) request.getAttribute("recommendcheck"); 
 %>    
 	   
 <!DOCTYPE html>
@@ -26,17 +27,14 @@
         * {
             /* border: 1px solid rgba(128, 128, 128, 0.568); */
         }
-    
         div {
             display: inline-block;
             box-sizing: border-box;
         }
-    
         a {
             text-decoration: none;
             color: black;
         }
-    
         #wrapper {
             width: 100%;
             min-width: 1180px;
@@ -69,8 +67,6 @@
 									</div>
 									<div id="file-area"></div>
 									<div id="createContent-check">
-
-										
 
                 						<div>첨부파일(최대 5개)<input type="file" id="upfile" name="upfile"></div>
 
@@ -189,11 +185,17 @@
 			})
 		}
 	</script>
-                            
+	<script>
+	let recommendBoards = [];
+	<% for(Integer i : recommendcheck){%>
+		recommendBoards.push(<%=i%>);
+	<% } %>
+	</script>
+                            <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
-                           	<div style="text-align:center">조회된 게시물이 없습니다</div>
+                           <li style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% } %>
-                            <ul id="content-area"></ul>
+                            </ul>
 						<script>
 						
 						let boardCount = 0;
@@ -201,7 +203,7 @@
 							boardCount = boardCount + 1;
 							$.ajax({
 								url : "<%=request.getContextPath()%>/boardDetail.bo",
-								type : "post",
+								type : "post", 
 								data :{
 									cNo : <%=cNo %>,
 									currentPage : boardCount
@@ -213,7 +215,7 @@
 										result += 
 										`
 										<li>
-										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+										<div class="boardNo\${i.boardNo} displaynone">\${i.boardNo}</div>
 		                                <h3>\${i.title}</h3>
 		                                    <p>\${i.content}</p><br>
 											<div class="board-detail-footer">
@@ -225,11 +227,17 @@
 											}
 											result += `<span class="spanWriter">\${i.writer}<span> <div class="stringDate"><span class="spanDate">\${dayStringMaker(i.stringDate)} <span></div></div>
 		                                    <div class="board-detail-comment">
-												<div class="board-detail-commend"> <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-													<span>\${i.recommendCount}</span></div>
-													
-													<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
-													<span>\${i.replyCount}</span></div>
+												<div class="board-detail-commend"> `;
+												
+												if(recommendBoards.includes(i.boardNo)){
+													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png" alt="" width="17" height="17">
+													<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}else{
+													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png" alt="" width="17" height="17">
+														<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}
+												result +=	`<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
+													<span style="color: darkgray;">\${i.replyCount}</span></div>
 											</div>
 										</div>
                                 		</li>
@@ -357,6 +365,11 @@
 	   		return result;
 	   		
 	   	}
+	 
+	 	$('.boardNo<% for(Integer i : recommendcheck){%> <%= i %> <%} %>').each(function(index, item){
+	 		let recommendImg = $(item).find('.recommendImg');
+	 		recommendImg.addClass('redImg');
+	 	})
 	   	
 
 	    

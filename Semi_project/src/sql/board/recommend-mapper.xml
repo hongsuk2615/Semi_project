@@ -12,4 +12,10 @@
 	 	 (?, ?)
 	</entry>
 	
+	<entry key="recommendCheck">
+		SELECT BOARD_NO
+		FROM BOARD_RECOMMEND
+		WHERE USER_NO = ?
+	</entry>
+	
 </properties>

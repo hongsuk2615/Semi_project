@@ -122,14 +122,6 @@
     justify-content: space-between;
 }
 
-.board-detail-commend{
-    display: flex;
-}
-
-.board-detail-commend{
-    padding-right: 10px;
-}
-
 .recommendImg {
     padding-right: 2px;
 }
@@ -205,10 +197,23 @@
     visibility:hidden;
 }
 
+.redImg{
+	filter: opacity(1) drop-shadow(0 0 0 #ff0000);
+}
 
+.board-detail-commend span{
+    font-size: 13px;
+    display: inline-block;
+    padding-top: 5px;
+    margin-left: 3px
 
+}
 
-
+.board-detail-commend {
+	padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
 
 
 
