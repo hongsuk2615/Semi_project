@@ -68,7 +68,7 @@
                          </c:choose> 
                            <% if(boardList.isEmpty()) { %>
                            <br>
-                              글이 없습니다,,
+                            <div style="text-align:center">조회된 게시물이 없습니다</div>
                            <% }else{ %>
                             <ul id="content-area">
                            
@@ -160,22 +160,29 @@
                     </div>
                    
                        <div class="paging-area">
-      <div>
-          <c:choose>
-		   	<c:when test="${bType eq 1 }">
-		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myWriting.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myWriting.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
-		  		</c:when>
-		       <c:when test="${bType eq 2 }">
-		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myComments.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myComments.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
-		  		</c:when>
-		  		<c:when test="${bType eq 3 }">
-		   		 <% if( currentPage != 1) { %><button onclick="location.href = '<%=request.getContextPath() %>/myScrap.bo?bType=<%=bType%>&currentPage=<%= currentPage -1 %>'">이전</button><% } %>
-         <% if(currentPage != maxPage) { %><button onclick="location.href = '<%=request.getContextPath() %>/myScrap.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1 %>' ">다음</button><% } %>
-		  		</c:when>
-		    </c:choose> 
-      </div>
+  
+								<c:choose>
+									<c:when test="${bType eq 1 }">
+										<div id="prevbtn" class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myWriting.bo?bType=<%=bType%>&currentPage=<%=currentPage - 1%>'"></div>
+										<div id="nextbtn"  class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myWriting.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1%>'"></div>
+										
+									</c:when>
+									<c:when test="${bType eq 2 }">
+										<div id="prevbtn" class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myComments.bo?bType=<%=bType%>&currentPage=<%=currentPage - 1%>'">이전</div>
+										<div id="nextbtn" class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myComments.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1%>'">다음</div>
+									</c:when>
+									<c:when test="${bType eq 3 }">
+										<div id="prevbtn" class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myScrap.bo?bType=<%=bType%>&currentPage=<%=currentPage - 1%>'">이전</div>
+										<div id="nextbtn" class="divhidden"
+											onclick="location.href = '<%=request.getContextPath()%>/myScrap.bo?bType=<%=bType%>&currentPage=<%=currentPage + 1%>'">다음</div>
+									</c:when>
+								</c:choose>
+							
                      </div>   
                     </div>
     
@@ -188,7 +195,30 @@
 
         <div id="footer">
 
-
+		<script>
+		
+		$(function(){
+			$('#nextbtn').html('<img src="<%=request.getContextPath()%>/resources/IMG/right-arrow.png" alt="" width="20" height="20">')
+			$('#prevbtn').html('<img src="<%=request.getContextPath()%>/resources/IMG/left-arrow.png" alt="" width="20" height="20">')
+			if(<%=currentPage%> != 1) {
+				$('#prevbtn').removeClass('divhidden');
+			}else{
+				$('#prevbtn').addClass('divhidden');
+			}
+			if(<%=currentPage%> != <%=maxPage%>) {
+				$('#nextbtn').removeClass('divhidden');
+			}else{
+				$('#nextbtn').addClass('divhidden');
+			}
+			if(<%=currentPage%> == <%=maxPage%>){
+				$('#prevbtn').addClass('divhidden');
+				$('#nextbtn').addClass('divhidden');
+			}
+		})
+		
+					
+		
+		</script>
 
         </div>
     </div>

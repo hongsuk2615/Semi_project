@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     <title>Document</title>
     <style>
         * {
@@ -46,7 +47,7 @@
 <body>
     <div id="wrapper">
     <!-- 위로 가기 버튼 -->
-    <div class="gototopdiv divhidden"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
+    <div class="gototopdiv displaynone"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
     
     <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
@@ -59,12 +60,12 @@
                             <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
                             
 							<div id="createContentbox">글 작성하기</div>
-							<div id="createContent" class="divhidden">
+							<div id="createContent" class="displaynone">
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!"></div>
       							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"></textarea>
-										<div id="QuestionContent" class="divhidden"><div><span>#주의 질문글입니다!</span></div></div>
+										<div id="QuestionContent" class="displaynone"><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area"></div>
 									<div id="createContent-check">
@@ -190,7 +191,7 @@
 	</script>
                             
                            <% if(boardList.isEmpty()) { %>
-                           	글이 없습니다,,
+                           	<div style="text-align:center">조회된 게시물이 없습니다</div>
                            <% } %>
                             <ul id="content-area"></ul>
 						<script>
@@ -320,21 +321,20 @@
 	 })
 
 	 document.getElementById("isQuestion").addEventListener('click',function(){
-		 if($("#QuestionContent").hasClass('divhidden')){
-			 $("#QuestionContent").removeClass('divhidden');
+		 if($("#QuestionContent").hasClass('displaynone')){
+			 $("#QuestionContent").removeClass('displaynone');
 			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
 		 }else{
-			 $("#QuestionContent").addClass('divhidden');
+			 $("#QuestionContent").addClass('displaynone');
 		 }
 		
 	 })
 	 
 	  document.getElementById("createContentbox").addEventListener('click',function(){
-			 $("#createContent").removeClass('divhidden');
-			 $("#createContentbox").addClass('divhidden');
+			 $("#createContent").removeClass('displaynone');
+			 $("#createContentbox").addClass('displaynone');
 	 })
-   </script>
-   <script>
+  
 	   	function dayStringMaker(Day){
 	   		let sysdate = new Date();
 	   		let enrollDate = new Date(Day);
@@ -357,12 +357,11 @@
 	   		return result;
 	   		
 	   	}
-	   
+	   	
+
+	    
    
    </script>
-   
-
-
 
 
 

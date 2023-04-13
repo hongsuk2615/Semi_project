@@ -142,7 +142,7 @@
     border: none;
 }
 
-.divhidden{
+.displaynone{
     display: none;
 }
 
@@ -174,7 +174,7 @@
 .paging-area {
 	display: flex;
 	width: 100%;
-	justify-content: end;
+	justify-content: space-between;
 }
 
 .board-detail-footer-left{
@@ -194,8 +194,16 @@
 	font-size : 13px;
 }
 
+#prevbtn, #nextbtn {
+	cursor: pointer;
+	margin-top:3px;
+	width: 20px;
+	height: 20px;
+}
 
-
+.divhidden{
+    visibility:hidden;
+}
 
 
 

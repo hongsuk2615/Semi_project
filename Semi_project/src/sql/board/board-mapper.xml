@@ -343,7 +343,7 @@
 	</entry>
 
 	<entry key="listCountReply">
-		SELECT COUNT(*) COUNT
+		SELECT COUNT(DISTINCT B.BOARD_NO) COUNT
 		FROM BOARD B
 		JOIN REPLY R ON (
 		R.BOARD_NO = B.BOARD_NO)
@@ -384,7 +384,7 @@
 	</entry>
 	
 	<entry key="listCountScrap">
-		SELECT COUNT(*) COUNT
+		SELECT COUNT(DISTINCT B.BOARD_NO) COUNT
 		FROM BOARD B
 		JOIN SCRAP S ON (
 		S.BOARD_NO = B.BOARD_NO)
