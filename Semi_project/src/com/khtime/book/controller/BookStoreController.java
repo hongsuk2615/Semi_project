@@ -57,7 +57,6 @@ public class BookStoreController extends HttpServlet {
 		
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
 		 

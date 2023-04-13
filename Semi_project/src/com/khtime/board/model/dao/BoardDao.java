@@ -94,6 +94,8 @@ public class BoardDao {
 								rset.getInt("REPLY_COUNT"),
 								rset.getString("ENROLL_DATE")
 							);
+					b.setUserProfile(rset.getString("USERPROFILE"));
+					b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 					boardList.add(b);
 				}		
 				
@@ -645,7 +647,6 @@ public class BoardDao {
 			PreparedStatement pstmt = null;
 			
 			String sql = prop.getProperty("categoryTitle");
-			System.out.println(searchTitle);
 			
 			ResultSet rset = null;
 			
@@ -803,6 +804,8 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						boardList.add(b);
 					}		
 					
@@ -871,6 +874,8 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						boardList.add(b);
 					}		
 					
@@ -940,6 +945,8 @@ public class BoardDao {
 									rset.getInt("REPLY_COUNT")
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
+						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						
 						boardList.add(b);
 					}		

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
-    <link rel="stylesheet" href="resources/CSS/contentDetail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
@@ -48,57 +47,42 @@
 <body>
 
 
-
-    <div id="wrapper">
-        <%@ include file="../common/header.jsp" %>
+ <%@ include file="../common/header.jsp" %>
         <div id="body">
             
             <div id="body-wrapper">
                 <div id="body-left">
                     <div id="board-wrapper">
-                        <div id="content-detail">
-                            <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
-                            <div id="content-detail-content"> 
-                                <form> 
-                                <div> 프로필: <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30"></div>
-    								<div>
-                                              <% if(b.getIsAnonimous().equals("N")) { %>
-                                                <%= b.getWriter() %>
-                                                <% }else { %>
-                                                익명
-                                                <% } %> 
-                                            </div>
-    								<div>등록일: <%= b.getEnrollDate() %></div>
-    								<div><input type="text" id="title" name="title" placeholder="글 제목" value="<%=b.getTitle()%>"></div>
-      							    <div><textarea id="content" name="content" placeholder="기본 설명 내용" maxlength="200" cols="30" rows="20"><%= b.getContent() %></textarea></div>
-           							<div id="createContent-check">
-										<div id="file-area">
-											<% for(BoardAttachment at : attachmentList){ %>
-												<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="400" height="300">
-											<% } %>
-										</div>
-                						<div>첨부파일<input type="file" id="upfile" name="upfile">
-                						
-										
-										</div>
-               							<div>
-               							<div><input type="checkbox" <%= isQuestion %> id="isQuestion" name="isQuestion" value="Y">
-               							<label for="isQuestion">질문</label></div>
-						                <div><input type="checkbox" id="isAnonimous" <%= isAnonimous %> name="isAnonimous" value="Y">
-						                <label for="isAnonimous">익명</label></div>
-						                <div><button type="button" id="update-content-btn" onclick="updateContent()">
-						                 <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="22" height="22">
-						                 </button></div>
+                        <div id="board-detail">
+                             <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'"> <%= cName %>게시판</div>
+                            <div id="createContent">
+                         		<form enctype="multipart/form-data">
+    								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!" value="<%=b.getTitle()%>"></div>
+      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"><%= b.getContent() %></textarea>
+										<div id="QuestionContent" class="divhidden" ><div><span>#주의 질문글입니다!</span></div></div>
+									</div>
+									<div id="file-area">
+									<% for(BoardAttachment at : attachmentList){ %>
+										<img id="updateImg<%=at.getFileNo()%>" onclick="hiddenImg(this);" src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width='100' height='100'>
+									<% } %>
+									</div>
+									<div id="createContent-check">
+                						<div>첨부파일(최대 5개)<input type="file" id="upfile" name="upfile"></div>
+
+               							<div id="btns">
+						                    <div><input type="checkbox" id="isQuestion" name="isQuestion" value="Y" <%= isQuestion %>>
+											<label for="isQuestion">질문</label></div>
+						                    <div><input type="checkbox" id="isAnonimous" name="isAnonimous" value="Y" <%= isAnonimous %>>
+				                    		<label for="isAnonimous">익명</label></div>
+						                    <div><button type="button" id="update-content-btn" onclick="updateContent()">
+						                    <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="22" height="22">
+											</button></div>
 						                </div>
 						            </div>
 					           	</form>
                             </div>
 
                 </div>
-                    <div id="goto-boardlist">
-                       
-                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
-                    </div>
                     </div>
     
                 </div>
@@ -113,8 +97,9 @@
 
 
         </div>
-    </div>
+    
          <script>
+         
          // 글 수정 버튼 이벤트
         let fNo = "";
         let fileArr = new Array();
@@ -209,7 +194,20 @@
 	}
 	document.querySelector('#update-content-btn').addEventListener('click', () => off());
 	  
-
+	//질문글
+	document.getElementById("isQuestion").addEventListener('click',function(){
+		 if($("#QuestionContent").hasClass('divhidden')){
+			 $("#QuestionContent").removeClass('divhidden');
+			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
+		 }else{
+			 $("#QuestionContent").addClass('divhidden');
+		 }
+		
+	 })
+	 
+	 if($("#isQuestion").prop('checked') == true){
+		 $("#QuestionContent").removeClass('divhidden');
+	 }
 	</script>
 </body>
 

@@ -44,7 +44,6 @@ public class MemberUpdatePwdController extends HttpServlet {
 			String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 			
 			
-			System.out.println(userPwd);
 			Member m = new MemberService().updateMyPwd(updatePwd,userPwd,userId);
 			
 			HttpSession session = request.getSession();

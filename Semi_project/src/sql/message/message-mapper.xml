@@ -65,7 +65,7 @@
 	 <entry key="messageCheck">
 		UPDATE MESSAGE SET
 		IS_READ = 'Y'
-		WHERE   SENDER = ?
+		WHERE SENDER = ?
 		AND RECEIVER = ?
 	</entry> 
 	

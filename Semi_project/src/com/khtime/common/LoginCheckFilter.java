@@ -14,8 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-//@WebFilter({"/insert.bo" , "/update.bo", "/detail.bo","/delete.bo"})
-@WebFilter({"/dddd"})
+@WebFilter({"/dd"})
 public class LoginCheckFilter implements Filter {
 
     /**
@@ -39,7 +38,7 @@ public class LoginCheckFilter implements Filter {
 		
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		if(session == null || session.getAttribute("loginUser") == null) {
-			request.setAttribute("errorMsg", "로그인후 이용하실수 있습니다.");
+			session.setAttribute("alertMsg", "로그인후 이용하실수 있습니다.");
 			request.getRequestDispatcher("views/member/loginForm.jsp").forward(request,response);
 		}else {
 			chain.doFilter(request, response);

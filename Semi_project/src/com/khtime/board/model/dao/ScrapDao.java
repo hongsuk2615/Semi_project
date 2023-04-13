@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
@@ -72,6 +74,63 @@ public class ScrapDao {
 				e.printStackTrace();
 			} finally {
 			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public ArrayList<Integer> scrapCheck(Connection conn, int userNo) {
+		   
+		     ArrayList<Integer> result = new ArrayList<>();
+			 PreparedStatement pstmt = null;
+			 ResultSet rset = null;
+			
+			String sql = prop.getProperty("scrapCheck");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, userNo);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					result.add(rset.getInt("BOARD_NO"));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
+	   public int scrapCheck(Connection conn, int userNo, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("scrapCheck");
+			sql += "AND BOARD_NO = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, bNo);
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result++;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
 				JDBCTemplate.close(pstmt);
 			}
 			return result;

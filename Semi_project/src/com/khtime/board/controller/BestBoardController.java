@@ -65,8 +65,6 @@ public class BestBoardController extends HttpServlet {
 	      request.setAttribute("bestList", bestList);
 	      request.setAttribute("rcCount", rcCount);
 	      
-	      System.out.println(pi);
-	      System.out.println(bestList);
 	      request.getRequestDispatcher("views/board/bestBoard.jsp").forward(request, response);
 	}
 
