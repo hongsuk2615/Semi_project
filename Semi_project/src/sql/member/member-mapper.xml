@@ -178,5 +178,15 @@
    	INSERT INTO USER_PROFILE_IMG(REF_USERID)VALUES(?)
    </entry>
 
-
+	<entry key="getRequestBoard">
+		SELECT BOARD_NAME, IS_AGREE, ENROLL_DATE
+		  FROM BOARD_REQ
+		 WHERE USER_ID = M.USER_ID
+		  JOIN MEMBER M ON(USER_ID = USER_ID)
+	</entry>
+	
+	<entry key="deleteReuqestBoard">
+		DELETE BOARD_REQ
+		 WHERE BOARD_NAME = ?
+	</entry>
 </properties>

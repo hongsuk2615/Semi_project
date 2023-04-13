@@ -1,0 +1,180 @@
+@charset "UTF-8";
+#board-detail ul {
+    margin: 0;
+    padding: 0;
+}
+
+#board-detail {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#board-detail >*{
+    width: 100%;
+    min-height : 40px;
+	vertical-align : middle;
+	padding: 10px;
+
+}
+
+#board-detail li {
+    
+    list-style-type: none;
+    
+}
+
+#board-detail li {
+    list-style-type: none;
+    
+   
+}
+
+.board-detail-comment{
+    display: flex;
+    justify-content: end;
+   
+}
+
+#board-detail-search {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#createContent > div, #createContent {
+    width: 100%;
+}
+
+#createContent-check {
+    display: flex;
+    justify-content: space-between;
+}
+#content-area >li {
+	border: 1px solid skyblue;
+    background: rgb(255, 255, 255);
+    border-radius: 0px 0px 5px 5px; 
+    margin-top: 2px;
+    padding: 5px;
+    max-height: 80px;
+}
+
+#category {
+    border: 1px solid skyblue;
+    border-radius: 10px;
+    background: skyblue;
+    color : white;
+}
+
+#createContent, #createContentbox{
+    background: rgb(255, 255, 255);
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid skyblue;
+    margin-top: 2px;
+    
+}
+#createContent div{
+    width: 100%;
+}
+
+
+#title, #content{
+    width: 100%;
+    border: 1px solid skyblue;
+    border-radius: 3px;
+    border-color: rgb(158, 152, 152);
+    outline-color: skyblue;
+    outline-width: 1.5px;
+}
+#title{
+    height: 25px;
+    margin-bottom: 5px;
+}
+#content{
+    height: 200px;
+    resize: none;
+}
+#btns{
+    display: flex;
+    width: 250px;
+    justify-content: end;
+}
+#btns>div{
+    width: auto;
+    margin-left: 5px;
+}
+
+#file-area img{
+    margin-right: 10px;
+    max-width: fit-content;
+}
+
+#content-area h3, #content-area p{
+    padding: 0;
+    margin: 0;
+    text-overflow:ellipsis;
+    white-space : nowrap;
+    overflow: hidden;
+}
+
+.board-detail-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.board-detail-commend{
+    display: flex;
+}
+
+.board-detail-commend{
+    padding-right: 10px;
+}
+
+.recommendImg {
+    padding-right: 2px;
+}
+#content-area >li:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnsetting{
+    background: none;
+    border: none;
+}
+
+.divhidden{
+    display: none;
+}
+
+#contentdiv {
+    position: relative;
+}
+#QuestionContent {
+    position: absolute;
+    bottom: -15px;
+}
+
+#file-area {
+    padding-top: 18px;
+    padding-left : 3px;
+}
+
+
+#create-content-btn, #update-content-btn, #createComments button{
+	 background: none;
+    border: none;
+}
+
+#content-area p {
+    max-height: 20px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.paging-area {
+	display: flex;
+	width: 100%;
+	justify-content: end;
+}
+

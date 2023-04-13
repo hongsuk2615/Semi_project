@@ -7,10 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
-import com.khtime.common.JDBCTemplate;
+import com.khtime.board.model.vo.Category;
+import static com.khtime.common.JDBCTemplate.*;
 
 public class CategoryDao {
 	
@@ -47,10 +49,43 @@ public class CategoryDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
+				close(rset);
+				close(pstmt);
 			}
 			System.out.println("dao:" + cName);
 			return cName;
 		}
+	   
+	   public ArrayList<Category> selectRequestBoard(Connection conn, int loginUserNo){
+		   ArrayList<Category> list = new ArrayList<Category>();
+		   
+		   PreparedStatement pstmt = null;
+		   
+		   ResultSet rset = null;
+		   
+		   String sql = prop.getProperty("selectRequestBoard");
+		   
+		   try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginUserNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Category c = new Category();
+				c.setCategoryName(rset.getString("CATEGORY_NAME"));
+				c.setAvailable(rset.getString("AVAILABLE"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		   return list;
+		   
+	   }
 }

@@ -10,6 +10,15 @@
 			AND AVAILABLE = 'Y'
 	</entry>
 
-
+	<entry key="selectRequestBoard">
+		SELECT CATEGORY_NAME, AVAILABLE
+		  FROM CATEGORY
+		 WHERE REQ_USER = ?
+	</entry>
+	
+	<entry key="deleteReuqestBoard">
+		DELETE BOARD_REQ
+		 WHERE BOARD_NAME = ?
+	</entry>
 	
 </properties>
