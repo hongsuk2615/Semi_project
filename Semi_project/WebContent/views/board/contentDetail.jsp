@@ -166,7 +166,9 @@
 
                             <!-- 댓글 -->
                             
-                         <ul id="comments-area"></ul>
+                         <ul id="comments-area">
+                        <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="200" height="200">
+                        </ul>
                          
                     <!-- 댓글달기 -->
                     <div id="createComments">
@@ -375,6 +377,8 @@
 				}
 			})
 		}
+		 
+		 
 		/* 댓글개수 증가 */
 		function selectReplyCount(){
 			
@@ -519,8 +523,9 @@
 	  	     }
 	  	    
 		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
-		window.onload = selectReplyList;
-		 
+		$(function(){
+			selectReplyList();});
+		
 	 	function dayStringMaker(Day){
 	   		let sysdate = new Date();
 	   		let enrollDate = new Date(Day);
