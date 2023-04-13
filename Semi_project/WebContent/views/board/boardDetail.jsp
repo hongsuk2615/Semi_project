@@ -6,6 +6,8 @@
 	ArrayList <Board> boardList  = (ArrayList<Board>) request.getAttribute("boardList"); 
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
+	ArrayList <Integer> recommendcheck  = (ArrayList<Integer>) request.getAttribute("recommendcheck"); 
+	ArrayList <Integer> scrapcheck  = (ArrayList<Integer>) request.getAttribute("scrapcheck"); 
 %>    
 	   
 <!DOCTYPE html>
@@ -20,22 +22,20 @@
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
     <title>Document</title>
     <style>
         * {
             /* border: 1px solid rgba(128, 128, 128, 0.568); */
         }
-    
         div {
             display: inline-block;
             box-sizing: border-box;
         }
-    
         a {
             text-decoration: none;
             color: black;
         }
-    
         #wrapper {
             width: 100%;
             min-width: 1180px;
@@ -46,7 +46,7 @@
 <body>
     <div id="wrapper">
     <!-- 위로 가기 버튼 -->
-    <div class="gototopdiv divhidden"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
+    <div class="gototopdiv displaynone"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
     
     <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
@@ -59,17 +59,15 @@
                             <div id="category" onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= cNo %>'"> <%= cName %>게시판</div>
                             
 							<div id="createContentbox">글 작성하기</div>
-							<div id="createContent" class="divhidden">
+							<div id="createContent" class="displaynone">
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!"></div>
       							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"></textarea>
-										<div id="QuestionContent" class="divhidden"><div><span>#주의 질문글입니다!</span></div></div>
+										<div id="QuestionContent" class="displaynone"><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area"></div>
 									<div id="createContent-check">
-
-										
 
                 						<div>첨부파일(최대 5개)<input type="file" id="upfile" name="upfile"></div>
 
@@ -84,6 +82,7 @@
 						                </div>
 						            </div>
 					           	</form>
+					           	</div>
                             <script>
                             //
         let fileArr = new Array();
@@ -187,11 +186,22 @@
 			})
 		}
 	</script>
-                            </div>
+	<script>
+	let recommendBoards = [];
+	<% for(Integer i : recommendcheck){%>
+		recommendBoards.push(<%=i%>);
+	<% } %>
+	
+	let scrapBoards = [];
+	<% for(Integer i : scrapcheck){%>
+		scrapBoards.push(<%=i%>);
+	<% } %>
+	</script>
+                            <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
-                           	글이 없습니다,,
+                           <li class="shadownone" style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% } %>
-                            <ul id="content-area"></ul>
+                            </ul>
 						<script>
 						
 						let boardCount = 0;
@@ -199,7 +209,7 @@
 							boardCount = boardCount + 1;
 							$.ajax({
 								url : "<%=request.getContextPath()%>/boardDetail.bo",
-								type : "post",
+								type : "post", 
 								data :{
 									cNo : <%=cNo %>,
 									currentPage : boardCount
@@ -211,17 +221,35 @@
 										result += 
 										`
 										<li>
-										<div class="\${i.boardNo}"style="display:none">\${i.boardNo}</div>
+										<div class="boardNo\${i.boardNo} displaynone">\${i.boardNo}</div>
 		                                <h3>\${i.title}</h3>
 		                                    <p>\${i.content}</p><br>
 											<div class="board-detail-footer">
-											<div>\${i.writer} \${dayStringMaker(i.stringDate)} </div>
+											<div class="board-detail-footer-left">`
+											if(i.writer == "익명"){
+												result += `<img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">`
+											}else{
+												result += `<img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">`
+											}
+											result += `<span class="spanWriter">\${i.writer}<span> <div class="stringDate"><span class="spanDate">\${dayStringMaker(i.stringDate)} <span></div></div>
 		                                    <div class="board-detail-comment">
-												<div class="board-detail-commend"> <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-													<span>\${i.recommendCount}</span></div>
-													
-													<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
-													<span>\${i.replyCount}</span></div>
+												<div class="board-detail-commend"> `;
+												
+												if(recommendBoards.includes(i.boardNo)){
+													result += `<img class="recommendImg includes" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+													<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}else{
+													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+														<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}
+													if(scrapBoards.includes(i.boardNo)){
+														result += `<div class="board-detail-commend"> <img class="includes" src="<%=request.getContextPath()%>/resources/IMG/star1.png">
+													<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													}else{
+														result += `<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/star.png">
+															<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													} result +=	` <div class="board-detail-commend"> <img style="padding-top: 3px;" src="<%=request.getContextPath()%>/resources/IMG/message.png">
+														<span style="color: #666666;">\${i.replyCount}</span></div>
 											</div>
 										</div>
                                 		</li>
@@ -313,21 +341,20 @@
 	 })
 
 	 document.getElementById("isQuestion").addEventListener('click',function(){
-		 if($("#QuestionContent").hasClass('divhidden')){
-			 $("#QuestionContent").removeClass('divhidden');
+		 if($("#QuestionContent").hasClass('displaynone')){
+			 $("#QuestionContent").removeClass('displaynone');
 			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
 		 }else{
-			 $("#QuestionContent").addClass('divhidden');
+			 $("#QuestionContent").addClass('displaynone');
 		 }
 		
 	 })
 	 
 	  document.getElementById("createContentbox").addEventListener('click',function(){
-			 $("#createContent").removeClass('divhidden');
-			 $("#createContentbox").addClass('divhidden');
+			 $("#createContent").removeClass('displaynone');
+			 $("#createContentbox").addClass('displaynone');
 	 })
-   </script>
-   <script>
+  
 	   	function dayStringMaker(Day){
 	   		let sysdate = new Date();
 	   		let enrollDate = new Date(Day);
@@ -350,12 +377,16 @@
 	   		return result;
 	   		
 	   	}
-	   
+	 
+	 	$('.boardNo<% for(Integer i : recommendcheck){%> <%= i %> <%} %>').each(function(index, item){
+	 		let recommendImg = $(item).find('.recommendImg');
+	 		recommendImg.addClass('redImg');
+	 	})
+	   	
+
+	    
    
    </script>
-   
-
-
 
 
 

@@ -37,13 +37,8 @@ public class ddayInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println(request.getParameter("dDay"));
 		Date dDay = transformDate(request.getParameter("dDay"));
 		String title = request.getParameter("title");
-		System.out.println(userNo);
-		System.out.println(dDay);
-		System.out.println(title);
-	
 		
 		boolean result = new DdayService().insertDday(userNo,title,dDay);
 		

@@ -38,7 +38,6 @@ public class BookDetailController extends HttpServlet {
 		Book book = new BookService().selectBook(bkno);
 		
 		request.setAttribute("book", book);
-		System.out.println(book);
 		
 		ArrayList<BookAttachment> bList = new BookService().selectThumbnail(bkno);
 		

@@ -139,10 +139,8 @@ public class MemberService {
 		Connection conn = getConnection();
 		Member m = null;
 		int result = 0;
-		System.out.println(updateEmail);
 		
 		result = new MemberDao().updateEmail(conn, updateEmail, userId);
-		System.out.println(result);
 		
 		if (result > 0) {
 

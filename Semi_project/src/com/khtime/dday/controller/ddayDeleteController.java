@@ -33,7 +33,6 @@ public class ddayDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
 		
-		System.out.println("dDayNo: " + dDayNo);
 		
 		boolean result = new DdayService().deleteDday(dDayNo);
 		response.setContentType("application/json; charset = UTF-8");

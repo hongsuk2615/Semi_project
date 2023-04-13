@@ -49,8 +49,7 @@ public class GetUsersManagementController extends HttpServlet {
 		m.setReportCount(reported);
 		m.setAuthority(authority);
 		m.setUserName(searchName);
-		ArrayList<Member> list = new ManagementService().getFilteredUsers(m, pi);
-		System.out.println(list);
+		ArrayList<Member> list = new ManagementService().getFilteredUsers(m);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(list,response.getWriter());
@@ -61,9 +60,7 @@ public class GetUsersManagementController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		System.out.println(userId);
 		Member user = new ManagementService().getUser(userId);
-		System.out.println(user);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(user,response.getWriter());

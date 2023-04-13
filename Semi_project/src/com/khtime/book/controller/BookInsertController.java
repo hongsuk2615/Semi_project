@@ -66,7 +66,6 @@ public class BookInsertController extends HttpServlet {
 			String isDirect = multi.getParameter("isDirect");
 			String location = multi.getParameter("location");
 			int price = Integer.parseInt(multi.getParameter("price"));
-			System.out.println(author);
 			
 			
 			Book book = new Book();
@@ -99,14 +98,12 @@ public class BookInsertController extends HttpServlet {
 					bat.setChangeName(multi.getFilesystemName(key));
 					bat.setFilePath("/resources/book/thumb_upfiles/");
 					bat.setFileLevel(i);
-					System.out.println(bat);
 					bList.add(bat);
 				}
 			}
 			
 			int result = new BookService().insertThumbnailBook(book, bList);
 			
-			System.out.println(result);
 			
 			if(result > 0) { // 성공 시 -> list.th를 요청
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");

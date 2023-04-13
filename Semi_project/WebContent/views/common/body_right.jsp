@@ -40,7 +40,7 @@
 
                     <input type="button" onclick="login()" value="로그인">
 
-                    <input type="button" value="회원가입">
+                    <input type="button" onclick="enroll()" value="회원가입">
                      <% if(userId.isEmpty()) { %>
 			           <input type="checkbox" id="keepId">
 			            <label for="keepId">로그인 유지</label>
@@ -59,8 +59,8 @@
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
                 <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
-                    <button id="logoutbtn">로그아웃</button>
                     <button id="mypagebtn">마이페이지</button>
+                    <button id="logoutbtn">로그아웃</button>
                 </div>
             
             
@@ -666,6 +666,10 @@
 				}
 			})
     	}
+        
+        function enroll(){
+        	 location.href = "<%= request.getContextPath()%>/enroll.me";
+        }
 
         <% if(loginUser == null) {%>
             $('#loginId').keyup(function () {

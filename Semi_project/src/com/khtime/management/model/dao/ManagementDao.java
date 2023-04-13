@@ -54,7 +54,6 @@ public class ManagementDao {
 				reportedUser.setRecommendCount(rset.getInt("RECOMMEND_COUNT"));
 				reportedUser.setReportCount(rset.getInt("REPORT_COUNT"));
 				reportedUser.setIsWhitelist(rset.getString("IS_WHITELIST"));
-				System.out.println("리폿유저:" + reportedUser);
 				list.add(reportedUser);
 			}
 		} catch (SQLException e) {
@@ -532,7 +531,6 @@ public class ManagementDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredEnrollmentReqs");
 		ResultSet rset = null;
-		System.out.println(name);
 		try {
 			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;

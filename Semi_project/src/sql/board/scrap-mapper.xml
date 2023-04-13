@@ -13,5 +13,10 @@
      		AND USER_NO = ?
 	</entry>
 	
+	<entry key="scrapCheck">
+		SELECT BOARD_NO
+		FROM SCRAP
+		WHERE USER_NO = ?
+	</entry>
 	
 </properties>
