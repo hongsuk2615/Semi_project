@@ -95,6 +95,7 @@ public class BoardDao {
 								rset.getString("ENROLL_DATE")
 							);
 					b.setUserProfile(rset.getString("USERPROFILE"));
+					b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 					boardList.add(b);
 				}		
 				
@@ -805,6 +806,7 @@ public class BoardDao {
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
 						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						boardList.add(b);
 					}		
 					
@@ -874,6 +876,7 @@ public class BoardDao {
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
 						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						boardList.add(b);
 					}		
 					
@@ -944,6 +947,7 @@ public class BoardDao {
 								);
 						b.setStringDate(rset.getString("STRING_DATE"));
 						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 						
 						boardList.add(b);
 					}		

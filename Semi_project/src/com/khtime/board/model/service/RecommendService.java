@@ -64,4 +64,26 @@ public class RecommendService {
 		
 		return result;
 	}
+	
+	public int recommendCheck(int userNo, int bNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new RecommendDao().recommendCheck(conn, userNo, bNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Integer> replyRecommendCheck(int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Integer> result = new RecommendDao().replyRecommendCheck(conn, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

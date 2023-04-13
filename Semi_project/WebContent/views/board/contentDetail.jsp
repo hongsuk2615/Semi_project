@@ -6,6 +6,8 @@
 	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
 	String cName = (String) request.getAttribute("cName");
+	int recommendcheck = (int) request.getAttribute("recommendcheck");
+	int scrapcheck  = (int) request.getAttribute("scrapcheck"); 
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -128,20 +130,33 @@
                                    <h3><%= b.getTitle() %></h3> 
                                 </div>
                                 <div id="contentdiv">
-                                   <%= b.getContent() %>
+                                  <p> <%= b.getContent() %></p>
                                 </div>
                                 <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100%" height="100%">
 										<% } %></div>
                                 <div class="boardDataDiv">
-                                    <div class="recommenddiv"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><div id="recommendbox"><%= b.getRecommendCount() %></div></div>
-                                    <div class="replydiv"><img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17"><div id="replybox"><%= b.getReplyCount() %></div></div>
-                                    <div class="scrapdiv"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><div id="scrapbox"><%= b.getScrapCount() %></div></div>
+                                <% if(recommendcheck == 1) { %>
+                                    <div class="board-detail-commend"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+                                    <span id="recommendbox" style="color: red;"><%= b.getRecommendCount() %></span></div>
+                                    <% }else{ %>
+                                     <div class="board-detail-commend"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+                                    <span id="recommendbox" style="color: red;"><%= b.getRecommendCount() %></span></div>
+									<% } %>
+									 <% if(scrapcheck == 1) { %>                                
+                                    <div class="board-detail-commend"><img class="scrapImg" src="<%=request.getContextPath()%>/resources/IMG/star1.png">
+                                    <span id="scrapbox" style="color: #ffcc1c;"><%= b.getScrapCount() %></span></div>
+                                    <% }else{ %>
+                                      <div class="board-detail-commend"><img class="scrapImg" src="<%=request.getContextPath()%>/resources/IMG/star.png">
+                                    <span id="scrapbox" style="color: #ffcc1c;"><%= b.getScrapCount() %></span></div>
+                                    <% } %>
+                                    <div class="board-detail-commend"><img class="replyImg" src="<%=request.getContextPath()%>/resources/IMG/message.png" style="padding-top: 3px;">
+                                    <span id="replybox" style="color: #666666;"><%= b.getReplyCount() %></span></div>
                                 </div>
                                 <div class="boardDataDiv" id="boardDataBtn">
-                                   <button id="recommendbtn" style="background-color:white;"><span style="color:gray;">공감</span></button>
-                                    <button id="scrapbtn"><span style="color:white;">스크랩</span></button>
+                                   <button id="recommendbtn"><span>공감</span></button>
+                                    <button id="scrapbtn"><span >스크랩</span></button>
                                  <% if(b.getIsQuestion().equals("Y")){ %>
 								<div id="QuestionContentbox"><div><span>#주의 질문글입니다!</span></div></div>
 								<% } %>
@@ -159,7 +174,7 @@
                            <textarea id="replyContent" cols="75" rows="4" style="resize:none;" placeholder="댓글을 입력해주세요!" maxlength="200"></textarea>
                         </div>
                         <div id="comments-right-btn">
-                            <div >
+                            <div>
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y"><label for="isAnonimous">익명</label>
                             </div>
                             <div>
@@ -227,6 +242,7 @@
     
     
 		<script>
+
 		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
@@ -266,12 +282,12 @@
 		
 		 /* 댓글 조회 */
 		function selectReplyList(){
-			let replycount = 0;
+			
 			$.ajax({
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
-					let numberArray = 1;
+					
 					let result  = "";
 					for(let i of list[0]){ 
 						if(i.isAnonimous == "N"){
@@ -299,9 +315,16 @@
 	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     `
 	                     if(i.recommendCount != 0){
+	                    	 if(list[2].includes(i.replyNo)){
 	                    	 result += `
-	                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-	    	                     <span>\${i.recommendCount}</span> `
+	                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+	    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+	                    	 }else{
+	                    		 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+	                    		 
+	                    	 }
 	                     }
    	                     result += ` </div> </li> `
 						}else{
@@ -328,9 +351,16 @@
 	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     ` 
 	                     if(i.recommendCount != 0){
-                    	 result += `
-                		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-	                     <span>\${i.recommendCount}</span>`
+	                    	 if(list[2].includes(i.replyNo)){
+		                    	 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+		                    	 }else{
+	                    		 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+		                    		 
+		                    	 }
 	                     }
                    		 result += ` </div> </li> `
 					}
@@ -376,6 +406,7 @@
 						if(data > 0) {
 							alert("공감 성공!");
 							$("#recommendbox").html(data);
+							$('.board-detail-commend .recommendImg').attr('src','<%=request.getContextPath()%>/resources/IMG/like2.png');
 						}
 						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");
@@ -390,8 +421,9 @@
 					data : {bNo : <%= b.getBoardNo() %>},
 					success : function(data){
 						if(data > 0) {
-							alert("스크랩 성공!");
 							$("#scrapbox").html(data);
+							$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star1.png');
+							alert("스크랩 성공!");
 						}
 						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
@@ -413,6 +445,7 @@
 						if(data >= 0) {
 							alert("스크랩 취소 성공!");
 						$("#scrapbox").html(data);
+						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
 							}
 						}
 				});
@@ -457,7 +490,6 @@
 						if(data > 0) {
 							alert("공감 성공!");
 							selectReplyList();
-							/* $("#recommendCount"+rNo).html(data); */
 						}
 						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");

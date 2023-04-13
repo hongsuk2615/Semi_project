@@ -80,20 +80,20 @@ public class RecommendDao {
 		}
 	   
 	   public ArrayList<Integer> recommendCheck(Connection conn, int userNo) {
-		   
-		     ArrayList<Integer> result = new ArrayList<>();
-			 PreparedStatement pstmt = null;
-			 ResultSet rset = null;
-			
+
+			ArrayList<Integer> result = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
 			String sql = prop.getProperty("recommendCheck");
 
 			try {
 				pstmt = conn.prepareStatement(sql);
-				
+
 				pstmt.setInt(1, userNo);
-				
+
 				rset = pstmt.executeQuery();
-				
+
 				while(rset.next()) {
 					result.add(rset.getInt("BOARD_NO"));
 				}
@@ -101,11 +101,69 @@ public class RecommendDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-			
+
 				JDBCTemplate.close(pstmt);
 			}
 			return result;
 		}
+	   
+		public int recommendCheck(Connection conn, int userNo, int bNo) {
+		   
+			int result = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("recommendCheck");
+			sql += "AND BOARD_NO = ?";
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, userNo);
+				pstmt.setInt(2, bNo);
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result++;
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+		
+		public ArrayList<Integer> replyRecommendCheck(Connection conn, int userNo) {
+
+			ArrayList<Integer> result = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			String sql = prop.getProperty("replyRecommendCheck");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setInt(1, userNo);
+
+				rset = pstmt.executeQuery();
+
+				while(rset.next()) {
+					result.add(rset.getInt("REPLY_NO"));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
+				JDBCTemplate.close(pstmt);
+			}
+			return result;
+		}
+	   
 	   
 	   
 

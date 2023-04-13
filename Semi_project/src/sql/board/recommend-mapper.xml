@@ -18,4 +18,10 @@
 		WHERE USER_NO = ?
 	</entry>
 	
+	<entry key="replyRecommendCheck">
+		SELECT REPLY_NO
+		FROM REPLY_RECOMMEND
+		WHERE USER_NO = ?
+	</entry>
+	
 </properties>

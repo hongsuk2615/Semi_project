@@ -7,6 +7,7 @@
 	String cName = (String) request.getAttribute("cName");
 	int cNo = (int) request.getAttribute("cNo");
 	ArrayList <Integer> recommendcheck  = (ArrayList<Integer>) request.getAttribute("recommendcheck"); 
+	ArrayList <Integer> scrapcheck  = (ArrayList<Integer>) request.getAttribute("scrapcheck"); 
 %>    
 	   
 <!DOCTYPE html>
@@ -190,10 +191,15 @@
 	<% for(Integer i : recommendcheck){%>
 		recommendBoards.push(<%=i%>);
 	<% } %>
+	
+	let scrapBoards = [];
+	<% for(Integer i : scrapcheck){%>
+		scrapBoards.push(<%=i%>);
+	<% } %>
 	</script>
                             <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
-                           <li style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
+                           <li class="shadownone" style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% } %>
                             </ul>
 						<script>
@@ -230,14 +236,20 @@
 												<div class="board-detail-commend"> `;
 												
 												if(recommendBoards.includes(i.boardNo)){
-													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png" alt="" width="17" height="17">
+													result += `<img class="recommendImg includes" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
 													<span style="color: red;">\${i.recommendCount}</span></div>`;
 												}else{
-													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png" alt="" width="17" height="17">
+													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
 														<span style="color: red;">\${i.recommendCount}</span></div>`;
 												}
-												result +=	`<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17">
-													<span style="color: darkgray;">\${i.replyCount}</span></div>
+													if(scrapBoards.includes(i.boardNo)){
+														result += `<div class="board-detail-commend"> <img class="includes" src="<%=request.getContextPath()%>/resources/IMG/star1.png">
+													<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													}else{
+														result += `<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/star.png">
+															<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													} result +=	` <div class="board-detail-commend"> <img style="padding-top: 3px;" src="<%=request.getContextPath()%>/resources/IMG/message.png">
+														<span style="color: #666666;">\${i.replyCount}</span></div>
 											</div>
 										</div>
                                 		</li>

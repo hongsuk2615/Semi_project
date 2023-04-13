@@ -140,6 +140,7 @@
 
 #contentdiv {
     position: relative;
+    
 }
 #QuestionContent {
     position: absolute;
@@ -184,6 +185,7 @@
 
 .spanDate {
 	font-size : 13px;
+	color: gray;
 }
 
 #prevbtn, #nextbtn {
@@ -197,12 +199,8 @@
     visibility:hidden;
 }
 
-.redImg{
-	filter: opacity(1) drop-shadow(0 0 0 #ff0000);
-}
-
 .board-detail-commend span{
-    font-size: 13px;
+    font-size: 12px;
     display: inline-block;
     padding-top: 5px;
     margin-left: 3px
@@ -210,21 +208,32 @@
 }
 
 .board-detail-commend {
-	padding-right: 10px;
+	padding-right: 8px;
     display: flex;
     align-items: center;
 }
 
+#contentdiv p {
+	word-wrap: break-word;
+}
 
+.includes{
+	filter: saturate(0.95);
+}
 
+.board-detail-commend img {
+	width:15px;
+	height:15px;
+}
 
+#QuestionContentbox span, #QuestionContent span{
+	color: darkblue;
+}
 
+#updateBoard span, #deleteBoard span, #msgBoard span, #reportBoard span, .comments-right span{
+	color: gray;
+}
 
-
-
-
-
-
-
-
-
+.shadownone{
+	box-shadow: none !important; 
+}
