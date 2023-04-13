@@ -150,7 +150,7 @@ public class ManagementService {
 	public int approveMakeBoard(String cName) {
 		Connection conn = getConnection();
 		int result = 0;
-		result = new ManagementDao().approveMakeBoard(conn, cName)*new ManagementDao().approveBoardReq(conn, cName) ;
+		result = new ManagementDao().approveMakeBoard(conn, cName)*new ManagementDao().approveBoardReq(conn, cName);
 		
 		if(result > 0) {
 			commit(conn);
@@ -208,6 +208,13 @@ public class ManagementService {
 		ArrayList<Member> list = new ManagementDao().getFilteredEnrollmentReqs(conn, name, pi);
 		close(conn);
 		return list;
+	}
+	
+	public int getCnoFromName(String cName) {
+		Connection conn = getConnection();
+		int result = new ManagementDao().getCnoFromName(conn, cName);
+		close(conn);
+		return result;
 	}
 	
 	

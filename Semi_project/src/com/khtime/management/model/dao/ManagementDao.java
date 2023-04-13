@@ -518,6 +518,7 @@ public class ManagementDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredEnrollmentReqs");
 		ResultSet rset = null;
+		System.out.println(name);
 		try {
 			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
@@ -545,7 +546,31 @@ public class ManagementDao {
 		
 	}
 	
-	public int approveBoardReq(Connection conn, String cName) {
+	public int getCnoFromName(Connection conn, String cName) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getCnoFromName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("CATEGORY_NO");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	public int approveBoardReq(Connection conn,String cName) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("approveBoardReq");

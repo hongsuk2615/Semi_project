@@ -59,17 +59,33 @@
 			<div id="body-wrapper">
 				<div id="body-left">
 					<div id="board-wrapper">
-						<table id="board-1">
-							<thead>
-								<tr>
-									<th>아무거나</th>
-								</tr>
-							</thead>
-							<tbody>
-
-							</tbody>
-
-						</table>
+						<% if(loginUser == null){ %>
+							<table id="board-1">
+								<thead>
+									<tr>
+										<th>분반 게시판</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: center;">로그인후 조회 됩니다.</td>
+									</tr>
+								</tbody>
+	
+							</table>
+						<% } else { %>
+							<table id="board-1">
+								<thead>
+									<tr>
+										<th>아무거나</th>
+									</tr>
+								</thead>
+								<tbody>
+	
+								</tbody>
+	
+							</table>
+						<%}%>
 						<table id="board-2">
 							<thead>
 								<tr>
@@ -201,22 +217,23 @@
 	                url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
 	                type : 'get',
 	                success : function(result){
+						console.log( );
 	                        $('#board-'+num+' thead th').html(cName+' 게시판');
 	                        $('#board-'+num+' thead').click(function(){
-	                            location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo="+(num-1);
+	                            location.href = "<%=request.getContextPath()%>/boardDetail.bo?cNo="+Object.keys(result)[0];
 	                        })
-	                    if(result.length == 0 ){
+	                    if(result[Object.keys(result)[0]].length == 0 ){
 	                        $('#board-'+num+' tbody').append('<tr>'+
 	                                                        '<td style="text-align:center">' + '조회된 게시물이 없습니다' + '</td>'+
 	                                                   '</tr>');
 	                    } else {
 	                        for(let i = 0; i < 6 ; i++){
-	                            if(result[i] != null){
+	                            if(result[Object.keys(result)[0]][i] != null){
 	                                $('#board-'+num+' tbody').append('<tr>'+
-	                                                                '<td>' + result[i].title + '</td>'+
+	                                                                '<td>' + result[Object.keys(result)[0]][i].title + '</td>'+
 	                                                          '</tr>');
 	                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
-	                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
+	                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[Object.keys(result)[0]][i].boardNo;
 	                                })
 	                            }else {
 	                                $('#board-'+num+' tbody').append('<tr>'+
@@ -232,6 +249,9 @@
 	            }            
 	        });         
 	    }
+			<% if (loginUser != null){ %>
+				getBoardlist('<%=loginUser.getUserClass()%>',1)
+			<% } %>
 	        getBoardlist('질문답변',2);
 	        getBoardlist('프로젝트 및 스터디 모집',3);
 	        getBoardlist('수료생',4);

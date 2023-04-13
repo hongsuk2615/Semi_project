@@ -170,5 +170,12 @@
 		   SET IS_AGREE = 'Y'
 		 WHERE BOARD_NAME = ?
 	</entry>
+	
+	<entry key="getCnoFromName">
+		SELECT CATEGORY_NO
+		  FROM CATEGORY
+		 WHERE CATEGORY_NAME = ?
+	
+	</entry>
 
 </properties>
