@@ -36,7 +36,7 @@
             </div>
         </div>
         <div id="book-body">
-        	<form action="<%= contextPath %>/bookupdatedetail.do" id="enroll-form" method="post" enctype="multipart/form-data">
+        	<form action="<%= contextPath %>/mybookdetail.do" id="enroll-form" method="post" enctype="multipart/form-data">
             <div id="book-title">
                 <h1 id="bookName"><%= book.getBookName() %></h1>            	
                 <div id="book-inf">
