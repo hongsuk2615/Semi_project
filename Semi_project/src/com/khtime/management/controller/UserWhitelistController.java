@@ -43,8 +43,10 @@ public class UserWhitelistController extends HttpServlet {
 		}
 		if(redirect.equals("Y")) {
 			response.sendRedirect(request.getContextPath()+"/management.do");
+		}else if(redirect.equals("R")) {
+			response.sendRedirect(request.getContextPath()+"/reportedUsers.do");
 		}else {
-			response.sendRedirect(request.getContextPath()+"/usermanagement.do");
+			response.sendRedirect(request.getContextPath()+"/usermanagement.do");			
 		}
 	}
 
