@@ -33,7 +33,7 @@ public class FriendCountController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int result = new FriendService().friendPlus(loginUserNo);
-		System.out.println("친구요청 횟수 "+result);
+		
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());
