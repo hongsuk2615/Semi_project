@@ -68,14 +68,12 @@ public class BookSearchDetailController extends HttpServlet {
 		
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
 		 
 		String bookname = request.getParameter("bookname");
 		request.setAttribute("bookname", bookname);
 		
-		System.out.println(bookname);
 		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
 //		response.sendRedirect(request.getContextPath()+"/booksearchdetail.do?bookname="+title);
 	}

@@ -647,7 +647,6 @@ public class BoardDao {
 			PreparedStatement pstmt = null;
 			
 			String sql = prop.getProperty("categoryTitle");
-			System.out.println(searchTitle);
 			
 			ResultSet rset = null;
 			

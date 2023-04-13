@@ -33,8 +33,6 @@ public class DeleteToDoListAjaxController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int tdlNo = Integer.parseInt(request.getParameter("toDoListNo"));
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println("tdlno: " + tdlNo);
-		System.out.println("userNo : " + userNo);
 		boolean result = new TodolistService().deleteToDoList(tdlNo,userNo);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();

@@ -36,13 +36,8 @@ public class ddayUpdateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int dDayNo = Integer.parseInt(request.getParameter("dDayNo"));
-		System.out.println(request.getParameter("dDay"));
 		Date dDay = transformDate(request.getParameter("dDay"));
 		String title = request.getParameter("title");
-		System.out.println(dDayNo);
-		System.out.println(dDay);
-		System.out.println(title);
-	
 		
 		boolean result = new DdayService().updateDday(dDayNo,dDay, title);
 		response.setContentType("application/json; charset = UTF-8");

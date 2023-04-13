@@ -33,7 +33,6 @@ public class ReplyInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo =  ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
 		String content = request.getParameter("content");
-		System.out.println("content: "+content);
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		String isAnonimous = request.getParameter("isAnonimous").equals("Y") ? "Y":"N";
 		

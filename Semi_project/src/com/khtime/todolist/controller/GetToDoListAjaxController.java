@@ -34,7 +34,6 @@ public class GetToDoListAjaxController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		System.out.println(userNo);
 		ArrayList<Todolist> list = new TodolistService().getTodolist(userNo);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();

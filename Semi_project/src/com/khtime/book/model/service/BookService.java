@@ -16,9 +16,7 @@ public class BookService {
 		Connection conn = getConnection();
 		
 		int result1 = new BookDao().insertThumbnailBook(conn, book);
-		System.out.println(result1);
 		int result2 = new BookDao().insertAttachmentList(conn, bList);
-		System.out.println(result2);
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
