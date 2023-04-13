@@ -41,7 +41,7 @@ public class SelectMessageController extends HttpServlet {
 		for(Member m : list) {
 			contents.put(m.getUserNo(), new MessageService().getContents(userNo, m.getUserNo()));
 		}
-		System.out.println(contents);
+		
 		request.setAttribute("contents", contents);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/member/messagebox.jsp").forward(request, response);

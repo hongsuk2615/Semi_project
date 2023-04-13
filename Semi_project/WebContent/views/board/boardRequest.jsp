@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="resources/CSS/boardmakerequest.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
-     * {
+/*      * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    }
+    } */
 
     div {
         display: inline-block;
@@ -43,7 +45,7 @@
      <%@ include file="../common/header.jsp" %>
        
         <div id="body">
-            <div id="main-banner">
+           
             </div>
             <div id="content">
                 <form id="boardmake">   
@@ -57,9 +59,9 @@
                   <div><textarea id="reason"></textarea></div> 
                 </div> 
                     <br>
-                    <button type="button"class="btn" id="boardrequest" onclick="boardReq();">제출</button>
+                    <button type="button" id="boardrequest" onclick="boardReq();" class="btn btn-primary">제출</button>
                   </form>
-            </div>
+          
         </div>
         <div id="footer">
 

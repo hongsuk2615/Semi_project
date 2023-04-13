@@ -9,7 +9,12 @@
 		 WHERE CATEGORY_NO = ?
 			AND AVAILABLE = 'Y'
 	</entry>
-
+	
+	<entry key="selectCagtegory">
+		SELECT CATEGORY_NAME ,CATEGORY_NO
+		FROM CATEGORY
+		WHERE AVAILABLE = 'Y'
+	</entry>
 
 	
 </properties>

@@ -59,11 +59,14 @@
 		SELECT *
   			FROM MESSAGE
   			WHERE RECEIVER = ?
- 			AND (SYSDATE-SEND_DATE)*24*60 &lt; 1
+ 			AND IS_READ = 'N'
 	</entry>
 	
-	<entry key="messageCheck">
-		UPDATE 
-	</entry>
+	 <entry key="messageCheck">
+		UPDATE MESSAGE SET
+		IS_READ = 'Y'
+		WHERE   SENDER = ?
+		AND RECEIVER = ?
+	</entry> 
 	
 </properties>

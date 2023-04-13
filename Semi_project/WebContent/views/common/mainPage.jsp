@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" href="resources/CSS/banner.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -39,21 +41,32 @@
             </a> 
           </div>
           <div class="swiper-slide">
-            <a href="https://www.iei.or.kr/edu/curriculumDetailView.kh?no=2"><img src="<%=request.getContextPath()%>/resources/IMG/mainbanner2.jpg"> 
+              <div id="main_image"> 
+            <a href="https://www.iei.or.kr/edu/curriculumDetailView.kh?no=2">
+            <img src="<%=request.getContextPath()%>/resources/IMG/mainbanner2.jpg"> 
           	</a>
+          		<h1 id="main_image_text" style="font-size:40px">나도 '풀스텍 개발자'가 <br>될 수 있을까?<br><p style="font-size:10px">프론트엔트 & 백엔드</p></h1>
+          		  <button id="btn1"  >자세히 보러가기</button>
+          	</div> 
           </div>
           <div class="swiper-slide">
-           <a  href="https://www.iei.or.kr/community/noticeView.kh?no=3530&cpage=1&classify=" ><img src="<%=request.getContextPath()%>/resources/IMG/mainbannner3.jpg"> 
-          </a>
-          </div>
-        </div>
+              <div id="main_image">
+            <a href="https://www.iei.or.kr/community/noticeView.kh?no=3530&cpage=1&classify=">
+            <img src="<%=request.getContextPath()%>/resources/IMG/mainbannner3.jpg"> 
+          	</a>
+          		<h1 id="main_image_text2" style="font-size:40px">시작부터 다른<br>차별화된 교육 솔루션<br><p style="font-size:15px"><br>기업이 원하는 인재, 왜 KH 수료생인가!</p></h1>
+          	
+          		  <button id="btn2"  >자세히 보러가기</button>
+          	</div>
+          	</div>
+          </div> 
+       <div class="swiper-scrollbar" style="z-index:unset;"></div> 
         <div class="swiper-pagination"></div>
         <!-- If we need pagination -->
         <!-- If we need navigation buttons -->
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
 
-        <div class="swiper-scrollbar" style="z-index:unset;"></div>
       </div>
 			</div>
 			<div id="body-wrapper">
