@@ -166,8 +166,8 @@ public class MessageDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, loginUserNo);
-			pstmt.setInt(2, sendUser);
+			pstmt.setInt(1, sendUser);
+			pstmt.setInt(2, loginUserNo);
 		
 			result = pstmt.executeUpdate();
 

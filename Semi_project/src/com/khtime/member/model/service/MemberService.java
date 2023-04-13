@@ -244,5 +244,15 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public boolean isEmail(String emailcheck) {
+		Connection conn = getConnection();
+		boolean result = false;
+		result = new MemberDao().isEmail(conn, emailcheck);
+		close(conn);
+
+		return result;
+
+	}
 
 }

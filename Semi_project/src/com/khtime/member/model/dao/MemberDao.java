@@ -495,4 +495,29 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+
+	public boolean isEmail(Connection conn, String emailcheck) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("isEmail");
+		ResultSet rset = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, emailcheck);
+			
+			rset = pstmt.executeQuery();
+			result = rset.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }

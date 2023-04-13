@@ -71,7 +71,10 @@ a {
 
 		</div>
 		<div id="footer"></div>
-	
+	<script>
+		let currentPage = 1;
+		let keyword='';
+	</script>
     <script> // 게시판신고조회 비동기요청
         $(function(){
 	    	function getReportedBoards(){
@@ -117,15 +120,12 @@ a {
 	 });
         
       </script>
-
-<script> // 신고게시물 검색 이벤트
-    $('#search-reportedBoard').keyup(function () {
-        if (window.event.keyCode == 13) {
-            let keyword = $(this).val();
-            $.ajax({
+<script>
+	function getfilteredReportedBoard(){
+		$.ajax({
                 url : '<%=request.getContextPath()%>/filteredReportedBoard.get',
                 type : 'get',
-                data : {keyword},
+                data : {keyword, currentPage},
                 success : function(result){
                     $('#board-2 tbody').html('');
                     if(result.length == 0 ){
@@ -155,15 +155,33 @@ a {
 								}
 							}	
 					  }
-                  modalEvent();	
                 }
-
-
-
             });
+
+	}
+</script>	
+<script> // 신고게시물 검색 이벤트
+    $('#search-reportedBoard').keyup(function () {
+        if (window.event.keyCode == 13) {
+            keyword = $(this).val();
+			currentPage = 1;
+            getfilteredReportedBoard();
+			
         }
     });
-    </script>
+
+	$('#next-btn').click(function(){
+		currentPage++;
+		getfilteredReportedBoard();
+	})
+
+	$('#back-btn').click(function(){
+		if(currentPage>1){
+				currentPage--;
+		}
+		getfilteredReportedBoard();
+	})
+</script>
 
 </body>
 </html>

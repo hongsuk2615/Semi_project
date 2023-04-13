@@ -148,6 +148,7 @@
 
                         이메일 <br>
                         <input placeholder="이메일 형식에 맞게 입력하세요" type="email" name="email" id="email">
+                        <button type="button" class="btn btn-primary" onclick="emailCheck();" >중복확인</button>
                         <br><br>
                         <div style="width: 200px ;height: 15px;"></div><br>
 
@@ -333,6 +334,27 @@
 						 
 						 
 						 
+					 });
+				 }
+				
+				 function emailCheck(){
+					 // 아이디를 입력하는 input요소 얻어오기
+					 let emailval = document.getElementById("email").value;
+					 // 비동기 요청 보내기
+					  $.ajax({
+						 url : "<%= request.getContextPath()%>/idCheck.me",
+						 type : "post",
+						 data : {email : emailval},
+						 success : function(result){
+							 if(result == true){
+							alert("이미 존재하는 이메일 입니다.");
+							 }else{
+								 alert("사용가능한 이메일 입니다.");
+							 }
+						 },
+						 error : function(){
+							 console.log("이메일 중복체크 실패");
+						 } 
 					 });
 				 }
 				

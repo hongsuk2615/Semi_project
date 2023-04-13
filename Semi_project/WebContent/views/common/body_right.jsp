@@ -666,6 +666,19 @@
 				}
 			})
     	}
+
+        <% if(loginUser == null) {%>
+            $('#loginId').keyup(function () {
+                if (window.event.keyCode == 13) {
+                    login();
+                }
+            });
+            $('#loginPwd').keyup(function () {
+                if (window.event.keyCode == 13) {
+                    login();
+                }
+            });
+        <%}%>
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
@@ -699,9 +712,9 @@
         $(window).scroll(function(){
           console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
 
-            if($(window).scrollTop() > 290 && $('#main-banner').length > 0 ){
+            if($(window).scrollTop() > 290 && $('#banner-wrapper').length > 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
-            }else if($(window).scrollTop() > 57 && $('#main-banner').length == 0 ){
+            }else if($(window).scrollTop() > 57 && $('#banner-wrapper').length == 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-45)+'px)');
             }
       

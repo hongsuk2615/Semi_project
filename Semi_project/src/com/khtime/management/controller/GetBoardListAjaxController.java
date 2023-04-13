@@ -2,6 +2,7 @@ package com.khtime.management.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,11 +34,13 @@ public class GetBoardListAjaxController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cName = request.getParameter("cName");
-		System.out.println(cName);
+		int cNo = new ManagementService().getCnoFromName(cName);
 		ArrayList<Board> list = new ManagementService().getBoardList(cName);
+		HashMap<Integer, ArrayList<Board>> map = new HashMap<Integer, ArrayList<Board>>();
+		map.put(cNo, list);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
-		gson.toJson(list,response.getWriter());
+		gson.toJson(map,response.getWriter());
 	}
 
 	/**

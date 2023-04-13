@@ -67,13 +67,17 @@ public class ManagementDao {
 		return list;
 	}
 	
-	public ArrayList<Board> getReportedBoards(Connection conn) {
+	public ArrayList<Board> getReportedBoards(Connection conn, PageInfo pi) {
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getReportedBoards");
 		ResultSet rset = null;
 		try {
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Board reportedBoard = new Board();
@@ -385,8 +389,6 @@ public class ManagementDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredUsers");
 		ResultSet rset = null;
-		System.out.println("%"+m.getIsWhitelist()+"%");
-		System.out.println(m);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+m.getIsWhitelist()+"%");
@@ -454,15 +456,19 @@ public class ManagementDao {
 		
 	}
 	
-	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(Connection conn, String categoryName) {
+	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(Connection conn, String categoryName, PageInfo pi) {
 		ArrayList<HashMap<String,Member>> list = new ArrayList<HashMap<String,Member>>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getBoardFilteredReq");
 		
 		try {
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+categoryName+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -481,15 +487,19 @@ public class ManagementDao {
 		return list;
 	}
 	
-	public ArrayList<Board> getFilteredReportedBoards(Connection conn, String keyword){
+	public ArrayList<Board> getFilteredReportedBoards(Connection conn, String keyword, PageInfo pi){
 		ArrayList<Board> list = new ArrayList<Board>();
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredReportedBoards");
 		ResultSet rset = null;
 		try {
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+keyword+"%");
 			pstmt.setString(2, "%"+keyword+"%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Board reportedBoard = new Board();
@@ -518,6 +528,7 @@ public class ManagementDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getFilteredEnrollmentReqs");
 		ResultSet rset = null;
+		System.out.println(name);
 		try {
 			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
 			int endRow = startRow + pi.getBoardLimit() - 1;
@@ -545,7 +556,31 @@ public class ManagementDao {
 		
 	}
 	
-	public int approveBoardReq(Connection conn, String cName) {
+	public int getCnoFromName(Connection conn, String cName) {
+		int result = 0 ;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getCnoFromName");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cName);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("CATEGORY_NO");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	public int approveBoardReq(Connection conn,String cName) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("approveBoardReq");
