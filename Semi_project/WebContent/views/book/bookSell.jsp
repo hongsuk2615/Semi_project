@@ -120,14 +120,6 @@
                         <h1>필기흔적</h1>
                         <input type="radio" name="isNoted" value="Y" checked> 있음
                         <input type="radio" name="isNoted" value="N"> 없음
-                    <!--     <p>밑줄 흔적 : <input type="radio" name="use" value="Y">있음 /<input type="radio" name="use" value="N">없음   &nbsp;
-                                      <input type="radio" name="pencil">연필 /<input type="radio" name="pencil">샤프   &nbsp; 
-                                      <input type="radio" name="pen">볼펜 /<input type="radio" name="pen">형광펜</p> <hr>
-                        <p>필기 흔적 : <input type="radio" name="use2">있음 /<input type="radio" name="use2">없음   &nbsp;
-                                      <input type="radio" name="pencil2">연필 /<input type="radio" name="pencil2">샤프   &nbsp; 
-                                      <input type="radio" name="pen2">볼펜 /<input type="radio" name="pen2">형광펜</p> <hr>
-                        <p>겉 표지 :  <input type="radio" name="clean">깨끗함 /<input type="radio" name="clean">사용감</p> <hr>
-                        <p>이름 기입 : <input type="radio" name="name">있음 /<input type="radio" name="name">없음</p> -->
                     </div>
                 </div>
     
@@ -149,8 +141,6 @@
                         <input type="radio" name="isDirect" value="Y"> 직거래
                         <input type="radio" name="isDirect" value="N"> 택배
                         <input type="radio" name="isDirect" value="B"> 둘다
-                        <!-- <p>택배 : <input type="radio" name="delivery">가능 /<input type="radio" name="delivery">불가능</p>
-                        <p>직거래 : <input type="radio" name="meet">가능 /<input type="radio" name="meet">불가능</p>-->
                         <p>지역 : <input type="text" name="location" class="location"></p> 
                     </div>
                 </div>
@@ -221,10 +211,6 @@
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
    		 })
-   		 
-   		<%--  document.getElementById("upload").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookinsert.do?bookname="+document.getElementById("book-name-search").value;
-   		 }) --%>
    		 
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";

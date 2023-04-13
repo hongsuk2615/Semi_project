@@ -84,6 +84,11 @@
                     <h1>필기 여부</h1>
                     있음 <input type="radio" disabled <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
                     없음 <input type="radio" disabled <%= book.getIsNoted().equals("N") ? "checked" : "" %>>
+                    
+                    <h1>책 상태</h1>
+                    <input type="radio" name="condition" value="3" disabled <%= book.getCondition() == 3 ? "checked" : "" %>> 상
+                    <input type="radio" name="condition" value="2" disabled <%= book.getCondition() == 2 ? "checked" : "" %>> 중
+                    <input type="radio" name="condition" value="1" disabled <%= book.getCondition() == 1 ? "checked" : "" %>> 하
                 </div>
             </div>
 

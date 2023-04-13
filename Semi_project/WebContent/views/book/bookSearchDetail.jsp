@@ -74,34 +74,11 @@
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <%-- <div class="book-title"><%= bList.get(i).getBookName() %></div><br> --%>
 	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
-                    <% } %>
-				<!-- <div class="book-sell-img">
-					<div class="book-sell-inf1">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;" class="book-price"><h1>100,000원</h1></div>
-				</div>
-				<div class="book-sell-img">
-					<div class="book-sell-inf2">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;" class="book-price"><h1>100,000원</h1></div>
-				</div>
-				<div class="book-sell-img">
-					<div class="book-sell-inf3">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;" class="book-price"><h1>100,000원</h1></div>
-				</div> -->			
+                    <% } %>		
 			</div>
-            </div>
         </div>
         
         <div id="book-footer">
@@ -124,13 +101,7 @@
 				<% if(currentPage != maxPage) { %>
 					<button type="button" id="nextPage">&gt;</button>
 				<% } %>
-				
-                <!-- <button id="prevPage">&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button id="nextPage">&gt;</button> -->
+			
             </div>
 
         </div>

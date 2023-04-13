@@ -149,12 +149,6 @@
 					<button type="button" id="nextPage">&gt;</button>
 				<% } %>
 				
-                <!-- <button id="prevPage">&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button id="nextPage">&gt;</button> -->
             </div>
 
         </div>

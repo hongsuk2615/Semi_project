@@ -53,7 +53,7 @@
 	                    </div>
 	                    <div class="book-text">
 	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
-	                        <div class="book-price"><%= bList.get(i).getPrice() %></div>
+	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
                 	<hr>
@@ -131,12 +131,12 @@
    		 
    		 
    		 
-   		 <%-- $('.book-wrap').each(function(index,item){
+   		 $('.book-wrap').each(function(index,item){
 			    let bkno = $(item).attr('data-bkno');
 			    $(item).click(function(){
-			    	location.href = "<%= request.getContextPath() %>/bookUpdate.do?bkno="+bkno;
-			    }); --%>
-		/* }); */
+			    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
+				});
+		 })
    	
         	
     </script>

@@ -166,6 +166,7 @@ public class BookDao {
 				b.setPrice(rset.getInt("PRICE"));
 				b.setContent(rset.getString("CONTENT"));
 				b.setListPrice(rset.getInt("LIST_PRICE"));
+				b.setCondition(rset.getInt("CONDITION"));
 				book.add(rset.getString("USER_ID"));
 				book.add(b);
 				
