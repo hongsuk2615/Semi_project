@@ -29,9 +29,9 @@ public class ManagementService {
 		return list;
 	}
 	
-	public ArrayList<Board> getReportedBoards() {
+	public ArrayList<Board> getReportedBoards(PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Board> list = new ManagementDao().getReportedBoards(conn);
+		ArrayList<Board> list = new ManagementDao().getReportedBoards(conn, pi);
 		
 		close(conn);
 		
@@ -189,16 +189,16 @@ public class ManagementService {
 		return m;
 	}
 	
-	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(String categoryName){
+	public ArrayList<HashMap<String,Member>> getBoardFilteredReq(String categoryName, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<HashMap<String,Member>> list = new ManagementDao().getBoardFilteredReq(conn, categoryName);
+		ArrayList<HashMap<String,Member>> list = new ManagementDao().getBoardFilteredReq(conn, categoryName, pi);
 		close(conn);
 		return list;
 	}
 	
-	public ArrayList<Board> getFilteredReportedBoards(String keyword){
+	public ArrayList<Board> getFilteredReportedBoards(String keyword, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Board> list = new ManagementDao().getFilteredReportedBoards(conn, keyword);
+		ArrayList<Board> list = new ManagementDao().getFilteredReportedBoards(conn, keyword, pi);
 		close(conn);	
 		return list;
 	}
