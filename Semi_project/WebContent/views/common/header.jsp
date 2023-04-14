@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="resources/CSS/header.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="resources/JS/studyTime.js"></script>
+	<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <title>Document</title>
 </head>
 <body>
@@ -38,6 +39,9 @@
                 <% if(loginUser != null && loginUser.getAuthority()==0) { %>
                 <div id="management">관리</div>
                 <% } %>
+               
+
+                
             </div>
             <div id="header-right">
                 <% if(loginUser == null){%>
@@ -140,5 +144,23 @@
   		$('#msgcount').text('vdvddvdvv');
 		} */	   
   		</script>
+  		
+  		
+  		<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'ko'
+              , includedLanguages: 'en,ja,ko,zh-CN,zh-TW'
+              , layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // none or HORIZONTAL, SIMPLE
+            }
+          , 'google_translate_element'
+        );
+    }
+</script>
+  		
+  		
+  		
+  		
 </body>
 </html>
