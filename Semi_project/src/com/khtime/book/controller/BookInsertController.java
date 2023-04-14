@@ -66,6 +66,8 @@ public class BookInsertController extends HttpServlet {
 			String isDirect = multi.getParameter("isDirect");
 			String location = multi.getParameter("location");
 			int price = Integer.parseInt(multi.getParameter("price"));
+			int listPrice = Integer.parseInt(multi.getParameter("listPrice"));
+			System.out.println(author);
 			
 			
 			Book book = new Book();
@@ -80,7 +82,8 @@ public class BookInsertController extends HttpServlet {
 			book.setPrice(Integer.parseInt(multi.getParameter("price")));
 			book.setPublicationDate(multi.getParameter("publicationDate"));
 			book.setApiImg(multi.getParameter("thumbnail"));
-			
+			book.setContent(multi.getParameter("content"));
+			book.setListPrice(Integer.parseInt(multi.getParameter("listPrice")));
 			
 			BookAttachment bat = null; 
 			
@@ -105,7 +108,7 @@ public class BookInsertController extends HttpServlet {
 			int result = new BookService().insertThumbnailBook(book, bList);
 			
 			
-			if(result > 0) { // 성공 시 -> list.th를 요청
+			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/bookstore.do");
 			} else {

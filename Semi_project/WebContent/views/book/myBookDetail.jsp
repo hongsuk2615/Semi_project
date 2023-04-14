@@ -20,8 +20,7 @@
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
-    <link rel="stylesheet" href="resources/CSS/book_detail.css">
-    <link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
+    <link rel="stylesheet" href="resources/CSS/book_update.css">
 </head>
 <body>
     <div id="wrapper">
@@ -38,7 +37,7 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1><%= book.getBookName() %></h1>
+                <h1 id="bookName"><%= book.getBookName() %> <button id="modify-btn">수정하기</button> </h1>            	
                 <div id="book-inf">
                 	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
                     <p><%= book.getAuthor() %></p>
@@ -49,6 +48,7 @@
                     </div>
                     <p><%= book.getContent() %></p>
                 </div>
+                
             </div>
 
             <hr>
@@ -62,9 +62,6 @@
                 </div>
                 <div>
                     <p>게시일 : <%= book.getEnrollDate() %></p>
-                </div>
-                <div>
-                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지.png" style="width: 27px; height: 27px;"></button>
                 </div>
             </div>
 
@@ -109,86 +106,7 @@
             	<button id="back-btn" style="width:500px; height:50px; border: round;">돌아가기</button>
             </div>
         </div>
-        
-        <form action="<%= request.getContextPath() %>/sendMsg.me" method="post"> <!-- 쪽지 모달  -->
-				<input type="hidden" name="opponentNo" id="sellerNo" value="">
-				<div class="msg-modal hidden">
-				   <div class="Msgbg"></div>
-				   <div class="msg-modalBox">
-					   <div class="header">
-						   <h2>판매자에게 쪽지보내기</h2>
-					   </div>
-						   <div class="sendMsgBody">
-							   <div class="inputBox">
-								    <h4 class="inputLabel">쪽지보내기</h4>            
-									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
-							   </div>
-						   <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
-						   </div>
-				   </div>
-			   </div>
-		 </form>
-		 
-		 <div class="img-modal hidden">
-				   <div class="Imgbg"></div>
-				   <div class="img-modalBox" style="width: 850px; height: 500px;">
-						   <div class="sendImgBody">
-							   <div class="inputBox" style="display: flex; justify-content: space-around;">
-							   		<% for(int i = 0; i < bList.size(); i++ ) { %>
-					                    <div class="book-status-img">
-					                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:400px; height:400px;">
-					                    </div>
-				                    <% } %>
-							   </div>			
-						   </div>
-				   </div>
-			   </div>
     </div>
-		
-	
-	
-	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
-		function mykeydown() { 
-			if(window.event.keyCode==13) //enter 일 경우
-			{
-				sendServer();
-			}
-		 }
-		</script>
-		<script> <!--쪽지보내기모달 닫는 스크맆트-->
-		  const openMsg = () => {
-			  document.querySelector(".msg-modal").classList.remove("hidden");
-			  
-		  }
-		  const closeMsg = () => {
-			  console.log('cdlose')
-			  document.querySelector(".msg-modal").classList.add("hidden");
-		  }
-		  
-		  document.querySelector(".closeBtn").addEventListener("click", closeMsg);
-		  document.querySelector(".Msgbg").addEventListener("click", closeMsg);
-		  $('.send-message').click(function(){
-			openMsg();
-			$('#sellerNo').val($(this).attr('data-userNo'));
-		  });
-	  </script>
-	  
-	  <script> <!-- 이미지모달 스크맆트-->
-		  const openImg = () => {
-			  document.querySelector(".img-modal").classList.remove("hidden");
-			  
-		  }
-		  const closeImg = () => {
-			  console.log('cdlose')
-			  document.querySelector(".img-modal").classList.add("hidden");
-		  }
-		 
-		  document.querySelector(".Imgbg").addEventListener("click", closeImg);
-		  $('.d-Img').click(function(){
-			openImg();
-			/* $('#sellerNo').val($(this).attr('data-userNo')); */
-		  });
-	  </script>
     
     <script>
     
@@ -201,8 +119,12 @@
 		})
 		 
 		document.getElementById("back-btn").addEventListener("click",function(){
-    	location.href = "<%= request.getContextPath() %>/bookstore.do";
-		}) 
+    		location.href = "<%= request.getContextPath() %>/bookselllist.do";
+		})
+		
+		document.getElementById("modify-btn").addEventListener("click",function(){
+    		location.href = "<%= request.getContextPath() %>/bookupdateform.do?bkno=<%= book.getBookNo() %>";
+		})
 		
     </script>
 </body>

@@ -47,7 +47,7 @@
             <div id="book-btn">
                 <button id="book-home-btn">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
-                    홈
+                    Home
                 </button>
                 <button id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
@@ -96,7 +96,7 @@
 
             <hr><hr>
 
-            <div id="book-body-content2">
+            <div id="book-body-content2" style="display: flex; justify-content: space-evenly;">
                 <div id="book-inf4">
                     <div id="book-img4"></div>
                     <div class="book-text">
@@ -149,12 +149,6 @@
 					<button type="button" id="nextPage">&gt;</button>
 				<% } %>
 				
-                <!-- <button id="prevPage">&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button id="nextPage">&gt;</button> -->
             </div>
 
         </div>
@@ -189,7 +183,8 @@
                         		author : res.documents[<%= i %>].authors,
                         		publisher : res.documents[<%= i %>].publisher,
                         		datetime : res.documents[<%= i %>].datetime.substring(0,10),
-                        		contents : res.documents[<%= i %>].contents
+                        		contents : res.documents[<%= i %>].contents,
+                        		listPrice : res.documents[<%= i %>].price
                         };
                         
                         function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksellsearch.do", bookdata<%=i%>)};

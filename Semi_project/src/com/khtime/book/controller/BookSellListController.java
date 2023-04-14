@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.khtime.book.model.service.BookService;
 import com.khtime.book.model.vo.Book;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 /**
- * Servlet implementation class BookSearchDetailController
+ * Servlet implementation class BookSellListController
  */
-@WebServlet("/booksearchdetail.do")
-public class BookSearchDetailController extends HttpServlet {
+@WebServlet("/bookselllist.do")
+public class BookSellListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookSearchDetailController() {
+    public BookSellListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +33,6 @@ public class BookSearchDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int bkno = Integer.parseInt(request.getParameter("bkno"));
-		
-		response.sendRedirect(request.getContextPath() + "/booksearchdetail.do?bkno=" +bkno);
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String thumbnail = request.getParameter("thumbnail");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String publisher = request.getParameter("publisher");
-		String datetime = request.getParameter("datetime");
-		String contents = request.getParameter("contents");
-		
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
 		int pageLimit; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수
@@ -74,19 +56,23 @@ public class BookSearchDetailController extends HttpServlet {
 		
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 
 		 request.setAttribute("pi", pi);
 		 
-		String bookname = request.getParameter("title");
-		request.setAttribute("bookname", bookname);
+		 int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
+		 
+		 ArrayList<Book> bList = new BookService().selectBookSellList(pi ,loginUserNo);
+		 System.out.println(bList);
+		 
+		 request.setAttribute("bList", bList);
+		 
+		request.getRequestDispatcher("views/book/bookSellList.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Book> bList = new BookService().selectBook(bookname);
-		request.setAttribute("bList", bList);
-		System.out.println(bList);
-		
-		System.out.println(bookname);
-		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
-//		response.sendRedirect(request.getContextPath()+"/booksearchdetail.do?bookname="+title);
 	}
 
 }

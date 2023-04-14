@@ -19,14 +19,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
-    <style>
-        * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
-    <link rel="stylesheet" href="resources/CSS/book_main.css">
+    <link rel="stylesheet" href="resources/CSS/book_sell_list.css">
 </head>
 <body>
     <div id="wrapper">
@@ -39,27 +34,18 @@
                 <button type="button" id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">판매하기
                 </button>
-                <button type="button" id="book-modify-btn">
-                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
-                </button>
             </div>
         </div>
         <div id="book-body">
-            <div id="book-search">
-                <div id="book-search-input">
-                    <img src="resources/IMG/glass.png" id="glass">
-                    <input type="text" placeholder="도서 제목을 입력하세요" id="bookname" style="width: 300px;  height: 28px;">
-                    <button id="search-btn" value="">검색</button>
-                </div>
-            </div>
             <div id="book-body-content1">
-                <div class="book-inf">
-                <% if(bList.size() > 8) {
-	                	length = 8;
-	                }else {
-	                	length = bList.size();
-	                }
-                %>
+            	<div class="content-box">
+            		<div class="book-inf">
+	                <% if(bList.size() > 8) {
+		                	length = 8;
+		                }else {
+		                	length = bList.size();
+		                }
+	                %>
                 	<% for(int i = 0; i < length; i++) { %>
                 	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
                 		<div class="book-img">
@@ -70,8 +56,10 @@
 	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
+                	<hr>
                     <% } %>
-                </div>
+            		</div>
+               	</div>
 
             <hr><hr>
             
@@ -87,7 +75,7 @@
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookselllist.do?&currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -112,7 +100,7 @@
 				currPage++;
 			/* 	let a = "btn"+currPage; */
 				
-				location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
+				location.href = '<%=contextPath%>/bookselllist.do?currentPage='+currPage;
 				<%-- $(a).click("#btn<%= currentPage %>"); --%>
 				/* getBooks(); */
 			});
@@ -120,21 +108,10 @@
 	   		currPage--;
 	   		/* 	let a = "btn"+currPage; */
 			
-			location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
+			location.href = '<%=contextPath%>/bookselllist.do?currentPage='+currPage;
 			<%-- $(a).click("#btn<%= currentPage %>"); --%>
 			/* getBooks(); */
 	   	});
-	   
-	   	$("#search-btn").click(function(){
-            if( $("#bookname").val() === "") { 
-           	alert("도서 제목을 검색 해 주세요.");
-           } else {
-        	   document.getElementById("search-btn").addEventListener("click",function(){
-   	        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
-   	   		 }) 
-           } 
-       })
-		   
 	  
      })
 	    
@@ -150,10 +127,6 @@
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
-   		 
-   		 document.getElementById("book-modify-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
-   		 })
 
    		 
    		 
@@ -161,9 +134,9 @@
    		 $('.book-wrap').each(function(index,item){
 			    let bkno = $(item).attr('data-bkno');
 			    $(item).click(function(){
-			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
-			    });
-		});
+			    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
+				});
+		 })
    	
         	
     </script>

@@ -1,6 +1,10 @@
+#book-body div {
+	border-radius: 5px;
+}
+
 #book-title {
     height: 300px;
-    background: lightgray;
+    background: white;
 }
 
 #book-inf {
@@ -16,15 +20,20 @@
     color: white;
 }
 
+#book-sell {
+	display: flex;
+    align-items: center;
+}
+
 #book-sell,
 #book-thumbnail {
-    background-color: lightgray;
+    background-color: white;
     flex-direction: column;
     align-items: center
 }
 
 #book-trade {
-    background-color: lightgray;
+    background-color: white;
 }
 
 #book-body {
@@ -44,14 +53,39 @@
     align-items: center;
 }
 
-#book-img-upload ,
+
 #book-price ,
 #book-board-upload {
     height: 100px;
-    background-color: lightgray;
+    background-color: white;
     display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#book-img-upload {
+	height: 150px;
+	background-color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly
+}
+
+#book-content {
+	height: 150px;
+	background-color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#book-price {
+	justify-content: space-evenly;
 }
 
 #price {
@@ -68,10 +102,11 @@
 
 #book-price-enter:hover ,
 #upload:hover ,
-#next ,
-#next1 ,
-#next2 ,
-#next3 {
+#next:hover ,
+#next1:hover ,
+#next2:hover ,
+#next3:hover ,
+#next4:hover {
     cursor: pointer;
 }
 
@@ -86,22 +121,33 @@
     border-radius: 5px;
 }
 
-.next , 
+#next , 
 #next1 , 
-#next2 {
+#next2 ,
+#next3 ,
+#next4  {
+	height: 30px;
+    width: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    color: white;
+    background: none;
 }
 
 #book-next,
 #book-next1,
 #book-next2,
-#book-next3 {
+#book-next3,
+#book-next4 {
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 30px;
+    width: 150px;
+    background-color: rgb(57, 189, 235);
 }
 
 #book-status,
@@ -122,5 +168,19 @@ hr {
 
 #book-status ,
 #book-trade {
-	background-color: lightgray;
+	background-color: white;
+}
+
+textarea {
+    width: 100%;
+    height: 6.25em;
+    resize: none;
+    border-radius: 5px;
+    
+  }
+  
+.location {
+	width: 200px;
+	height: 30px;
+	border-radius: 5px;
 }

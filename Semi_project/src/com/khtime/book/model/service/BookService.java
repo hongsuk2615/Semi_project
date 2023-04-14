@@ -40,11 +40,11 @@ public class BookService {
 		
 	}
 	
-	public Book selectBook(int bkno) {
+	public ArrayList<Object> selectBook(int bkno) {
 		
 		Connection conn = getConnection();
 		
-		Book book = new BookDao().selectBook(conn , bkno);
+		ArrayList<Object> book = new BookDao().selectBook(conn , bkno);
 		
 		close(conn);
 		
@@ -62,4 +62,26 @@ public class BookService {
 		return bList;
 	}
 	
+	public ArrayList<Book> selectBook(String bookname) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Book> bList = new BookDao().selectBook(conn, bookname);
+		
+		close(conn);
+		
+		return bList;	
+	}
+	
+	public ArrayList<Book> selectBookSellList(PageInfo pi , int loginUserNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Book> bList = new BookDao().selectBookSellList(conn, pi , loginUserNo);
+		
+		close(conn);
+		
+		return bList;
+		
+	}
 }

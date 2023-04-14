@@ -15,12 +15,16 @@
 						  IS_DIRECT , 
 						  LOCATION ,
 						  PUBLICATION_DATE,
-						  API_IMG)
+						  API_IMG,
+						  CONTENT,
+						  LIST_PRICE)
 				  VALUES (SEQ_BKNO.NEXTVAL,
 				  		  ?,
 				  		  ?, 
 				  		  ?,
 				  		  ?, 
+				  		  ?,
+				  		  ?,
 				  		  ?,
 				  		  ?,
 				  		  ?,
@@ -60,8 +64,9 @@
 	
 	<entry key="selectBook">
 		SELECT *
-		FROM BOOK
-		WHERE BOOK_NO = ? 
+		FROM BOOK B
+		JOIN MEMBER M ON (B.SELLER = M.USER_NO)
+		WHERE BOOK_NO = ?
 	</entry>
 	
 	<entry key="selectThumbnail">
@@ -71,5 +76,34 @@
 		FROM BOOK_ATTACHMENT
 		WHERE BOOK_NO = ?
 		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectBookList">
+		SELECT FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+			   PRICE ,
+			   BOOK_NO
+		FROM BOOK B
+		LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
+		WHERE B.BOOK_NAME = ?
+		AND B.STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectBookSellList">
+		SELECT *    
+      	FROM( SELECT ROWNUM RNUM , 
+      			A.*
+            FROM(
+            		SELECT	FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+				 	B.PRICE ,
+				 	B.BOOK_NAME ,
+				 	B.BOOK_NO
+					FROM BOOK B
+					LEFT OUTER JOIN BOOK_ATTACHMENT BA ON (B.BOOK_NO = BA.BOOK_NO)
+					WHERE B.SELLER = ?
+					AND B.STATUS = 'Y'
+					AND FILE_LEVEL = 1
+				 ) A
+			)
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 </properties>
