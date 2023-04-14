@@ -273,6 +273,21 @@
 
 	</script>
 
+	<script>
+		function bookstore(){
+			$.ajax({
+				url : '<%=request.getContextPath()%>/mainBooklist.get',
+				type : 'get',
+				success : function(result){
+
+				}
+			})
+		}
+
+
+
+	</script>
+
 
 </body>
 

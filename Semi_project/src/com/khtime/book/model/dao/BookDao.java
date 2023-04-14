@@ -288,4 +288,27 @@ public class BookDao {
 		return bList;
 		
 	}
+	
+	public ArrayList<Book> getMainBooks(Connection conn){
+		ArrayList<Book> list = new ArrayList<Book>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getMainBooks");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+	}
 }
