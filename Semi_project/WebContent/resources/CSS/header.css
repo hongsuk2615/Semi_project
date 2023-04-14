@@ -30,10 +30,20 @@
     align-items: end;
     font-size: 20px;
 }
-#navbar > div {
+ #boardsearch,#friendlist,#bookstore,#todolist {
+    padding: 20px 0px;
+    height: 90px
+} 
+#friendlist{
+	
+
+}
+
+/* #navbar > div {
     padding: 20px 0px;
     height: 90px
 }
+ */
 #navbar > div:hover{
     border-bottom: 5px solid rgb(57, 189, 235);
 }
@@ -90,4 +100,16 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+#friendcount{
+	 display:none;
+    height: 35px;
+	width: 35px;
+    background-color:deepskyblue;
+    font-size: 22px;
+    list-style: none;
+    text-align: center;
+    color: navy;
+    border-radius: 50%;
+	
 }

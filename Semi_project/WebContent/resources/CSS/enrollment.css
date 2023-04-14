@@ -1,3 +1,25 @@
+   .input-form {
+      max-width: 680px;
+      margin-top: 80px;
+      padding: 32px;
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
+    }
+        body {
+       width:100%;
+       height:100%;
+       margin: 0;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        font-family: "Nanum Gothic", arial, helvetica, sans-serif;
+        background-repeat: no-repeat;
+        background:linear-gradient(to bottom right, white, #6BA8D1);
+   }
 
 #enrollment-wrapper {
     display: flex;
@@ -75,3 +97,46 @@ label{
     align-items: center;
     
 }
+
+#btn btn-primary{
+      	height: 20px;
+     	align-items: center;     
+    }
+
+#idcheck{
+	background-color: cornflowerblue;
+    border-radius: 15px;
+    color: white;
+	 border: 1px solid lightgray; 
+} 
+
+#emailcheck{
+	background-color: cornflowerblue;
+    border-radius: 15px;
+    color: white;
+	 border: 1px solid lightgray;
+}   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

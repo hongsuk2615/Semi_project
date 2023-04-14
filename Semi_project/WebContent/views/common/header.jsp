@@ -30,7 +30,9 @@
             </div>
             <div id="navbar">
                 <div id="boardsearch">게시판</div>
-                <div id="friendlist">친구목록</div>
+                <div id="friendlist">친구목록
+                <div id="friendcount"></div>
+                </div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
                 <% if(loginUser != null && loginUser.getAuthority()==0) { %>
@@ -50,8 +52,9 @@
                			url : "<%= request.getContextPath()%>/friendplus.do",
                			success : function(result){
                				if(result > 0){
-               					console.log(result);
-               				$('#friendlist').text("친구목록 + "+result).css("color","blue");
+               					$("#friendcount").show();
+               				
+               				$('#friendcount').text("+"+result);
                				}
                			}
                			});
