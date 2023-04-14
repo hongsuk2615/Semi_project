@@ -31,7 +31,9 @@
             <div id="navbar">
                 <div id="boardsearch">게시판</div>
                 <div id="friendlist">친구목록
+                <div id="friendcount1">
                 <div id="friendcount"></div>
+                </div>
                 </div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
@@ -52,7 +54,7 @@
                			url : "<%= request.getContextPath()%>/friendplus.do",
                			success : function(result){
                				if(result > 0){
-               					$("#friendcount").show();
+               					$("#friendcount1").css('display','flex');
                				
                				$('#friendcount').text("+"+result);
                				}
