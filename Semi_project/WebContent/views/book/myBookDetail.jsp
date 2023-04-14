@@ -37,7 +37,12 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1 id="bookName"><%= book.getBookName() %> <button id="modify-btn">수정하기</button> </h1>            	
+            	<div id="btn-div">
+	                <button id="delete-btn">삭제하기</button>
+	                <button id="modify-btn">수정하기</button>
+	                <button id="soldout-btn">판매완료</button>
+                </div>
+                <h1 id="bookName"><%= book.getBookName() %> </h1>            	
                 <div id="book-inf">
                 	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
                     <p><%= book.getAuthor() %></p>
@@ -70,7 +75,7 @@
             <div id="book-status">
                 <div id="book-detail-status">
                     <h1>도서 이미지</h1>
-                    <button class="d-Img" style="background:none">
+                    <button class="detail-Img" style="background:none">
                     	<% for(int i = 0; i < bList.size(); i++ ) { %>
 	                    <div class="book-status-img">
 	                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">

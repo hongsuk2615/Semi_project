@@ -36,9 +36,10 @@
             </div>
         </div>
         <div id="book-body">
-        	<form action="<%= contextPath %>/mybookdetail.do" id="enroll-form" method="post" enctype="multipart/form-data">
+        	<form action="<%= contextPath %>/bookupdateform.do" id="enroll-form" method="post" enctype="multipart/form-data">
             <div id="book-title">
-                <h1 id="bookName"><%= book.getBookName() %></h1>            	
+                <h1 id="bookName"><%= book.getBookName() %></h1>    
+                <input type="hidden" name="bkno" value="<%= book.getBookNo() %>">        	
                 <div id="book-inf">
                 	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
                     <p><%= book.getAuthor() %></p>
@@ -73,19 +74,20 @@
             <div id="book-status">
                 <div id="book-detail-status">
                     <h1>도서 이미지</h1>
-                    <button class="d-Img" style="background:none">
+                    <div class="d-Img" style="background:none">
                     	<% for(int i = 0; i < batList.size(); i++ ) { %>
 	                    <div class="book-status-img">
 		                    <div class="book-title-img">
 			                    <img src="<%= request.getContextPath() + batList.get(i).getFilePath() + batList.get(i).getChangeName() %>" style="width:230px; height:230px;">
 		                    </div>
 		                    <div class="book-new-img">
-			                    <input type="file" name="upfiles1" style="width: 230px;">
-		                    	<input type="file" name="upfiles2" style="width: 230px;">
+			                    <input type="hidden" name="orgUpfiles<%= i %>" value="<%= batList.get(i).getFileNo() %>">
 		                    </div>
 	                    </div>
                     	<% } %>
-                    </button>
+               			<input type="file" name="upfiles1" style="width: 230px;" required>
+                    	<input type="file" name="upfiles2" style="width: 230px;">
+                    </div>
                     
                     <h1>필기 여부</h1>
                     있음 <input type="radio" name="isNoted" value="Y" <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
@@ -130,9 +132,9 @@
     		location.href = "<%= request.getContextPath() %>/bookstore.do";
 		})
 		 
-		document.getElementById("back-btn").addEventListener("click",function(){
+		<%-- document.getElementById("back-btn").addEventListener("click",function(){
     		location.href = "<%= request.getContextPath() %>/bookselllist.do";
-		}) 
+		})  --%>
 		
     </script>
 </body>

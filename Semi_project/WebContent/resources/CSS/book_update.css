@@ -51,9 +51,12 @@
 
 #back-btn:hover ,
 .send-message:hover ,
-.d-Img:hover,
-#modify-btn:hover {
+.d-Img:hover ,
+#modify-btn:hover ,
+#delete-btn:hover ,
+#soldout-btn:hover {
 	cursor: pointer;
+	box-shadow: 5px 5px 5px gray;
 }
 
 .hidden {
@@ -84,15 +87,15 @@
 	align-items: center;
 }
 
-#modify-btn {
+#modify-btn ,
+#delete-btn ,
+#soldout-btn {
 	width: 75px;
 	height: 50px;
-	margin-left: 700px;
 	border: none;
 	background-color: rgb(57, 189, 235);
 	color: white;
 	border-radius: 9px;
-	box-shadow: 5px 5px 5px gray;
 }
 
 .book-status-img {
@@ -103,3 +106,18 @@
 .book-title-img {
 	display: flex;
 }
+
+.detail-Img {
+	display: flex;
+}
+
+#btn-div {
+	display: flex;
+	justify-content: flex-end;
+	margin-top : 30px;
+}
+
+#btn-div>button{
+	margin : 0px 5px;
+}
+

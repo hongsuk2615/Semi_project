@@ -72,7 +72,8 @@
 	<entry key="selectThumbnail">
 		SELECT ORIGIN_NAME ,
 			   CHANGE_NAME ,
-			   FILE_PATH
+			   FILE_PATH ,
+			   FILE_NO
 		FROM BOOK_ATTACHMENT
 		WHERE BOOK_NO = ?
 		AND STATUS = 'Y'
@@ -105,5 +106,41 @@
 				 ) A
 			)
 		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBookAttachment">
+		SELECT *
+		FROM BOOK_ATTACHMENT
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="updateBook">
+		UPDATE BOOK
+		SET CONTENT = ? ,
+			PRICE = ? ,
+			IS_NOTED = ? ,
+			CONDITION = ? ,
+			IS_DIRECT = ?
+		WHERE BOOK_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateBookAttachment">
+		UPDATE BOOK_ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+			CHANGE_NAME = ? ,
+			FILE_PATH = ?
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="insertBookAttachment">
+		INSERT INTO BOOK_ATTACHMENT(
+									FILE_NO ,
+									BOOK_NO ,
+									ORIGIN_NAME ,
+									CHANGE_NAME ,
+									FILE_PATH ,
+									FILE_LEVEL
+		)
+		VALUES(SEQ_BKNO.NEXTVAL , ? , ? , ? ,? , ?)
 	</entry>
 </properties>
