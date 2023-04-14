@@ -14,7 +14,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import com.khtime.board.model.vo.Category;
-import com.khtime.common.JDBCTemplate;
+import static com.khtime.common.JDBCTemplate.*;
 import com.khtime.member.model.vo.Member;
 
 public class CategoryDao {
@@ -52,12 +52,68 @@ public class CategoryDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				JDBCTemplate.close(rset);
-				JDBCTemplate.close(pstmt);
+				close(rset);
+				close(pstmt);
 			}
 			return cName;
 		}
 	   
+	   public ArrayList<Category> selectRequestBoard(Connection conn, int loginUserNo){
+		   ArrayList<Category> list = new ArrayList<Category>();
+		   
+		   PreparedStatement pstmt = null;
+		   
+		   ResultSet rset = null;
+		   
+		   String sql = prop.getProperty("selectRequestBoard");
+		   
+		   try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginUserNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Category c = new Category();
+				c.setCategoryName(rset.getString("CATEGORY_NAME"));
+				c.setAvailable(rset.getString("AVAILABLE"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		   return list;
+		   
+	   }
+	   
+	   public int deleteRequestBoard(Connection conn, String categoryName){
+		   int result= 0;
+		   
+		   PreparedStatement pstmt = null;
+		   
+		   String sql = prop.getProperty("deleteRequestBoard");
+		   
+		   try {
+			   pstmt = conn.prepareStatement(sql);
+		         
+		       pstmt.setString(1, categoryName);
+		        
+		       result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		   return result;
+	   }
 		public ArrayList<Category> selectCagtegory(Connection conn) {
 			Category c = null;
 			ArrayList<Category> list = new ArrayList<>();
