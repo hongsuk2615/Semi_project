@@ -16,9 +16,9 @@
 		 WHERE REQ_USER = ?
 	</entry>
 	
-	<entry key="deleteReuqestBoard">
-		DELETE BOARD_REQ
-		 WHERE BOARD_NAME = ?
+	<entry key="deleteRequestBoard">
+		DELETE CATEGORY
+		 WHERE CATEGORY_NAME = ?
 	</entry>
 	
 </properties>

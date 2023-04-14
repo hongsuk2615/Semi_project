@@ -21,7 +21,9 @@
 #board-detail li {
     
     list-style-type: none;
-    
+    width: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 #board-detail li {

@@ -36,6 +36,7 @@
     		display:flex;
     		justify-content: space-between;
     	    border: 1px solid black;
+    	    padding : 0px 10px;
     	}
     
     </style>
@@ -50,20 +51,24 @@
 						<div id="board-detail">
 							<div id="category">게시판 관리</div>
 							<div id="content-wrapper">
-								<ul id="menu">
-									<li>번호</li>
-									<li>게시판이름</li>
-									<li>승인상태</li>
-									
-									<li>&nbsp;</li>
+								<ul class="list">
+									<li style="width : 50px;">번호</li>
+									<li style="width : 300px;">게시판이름</li>
+									<li style="width : 100px;">승인상태</li>
+									<li style="width : 100px;">&nbsp;</li>
 								</ul>
 								<%for(int i = 0; i < list.size(); i++) { %>
 								<ul class="list">
-									<li><%= i+1 %></li>
-									<li><%=list.get(i).getCategoryName()%></li>
-									<li><%=list.get(i).getAvailable().equals("Y")? "승인":"승인 대기중"%></li>
-									<li><button>취소</button></li>
-								</ul>
+									<li style="width : 50px;"><%= i+1 %></li>
+									<li style="width : 300px; overflow:hidden;"><%=list.get(i).getCategoryName()%></li>
+									<% if(list.get(i).getAvailable().equals("Y")){%>
+									<li style="width : 100px;">승인</li>
+									<li style="width : 100px;"></li>
+									<%} else {%>
+									<li style="width : 100px;">승인대기중</li>
+									<li style="width : 100px;"><button class="cancelRequest" data-categoryName = "<%=list.get(i).getCategoryName()%>">요청취소</button></li>
+									<%}%>
+								</ul>	
 								<% } %>
 							</div>
 						</div>
@@ -74,6 +79,18 @@
 			</div>
 		</div>
 		<div id="footer"></div>
+		
+		
+		<!-- 요청취소버튼 누르면 categoryName값과 함께 서블릿으로 넘김 -->
+		<script>
+			$(function(){
+				$('.cancelRequest').each(function(index,item){
+					$(item).click(function(){
+						location.href = "<%=request.getContextPath()%>/deteleReqBoard.me?cName=" + $(item).attr('data-categoryName');						
+					})
+				})
+			});
+		</script>
 	</div>
 
 </body>

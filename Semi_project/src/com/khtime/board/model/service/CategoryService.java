@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.khtime.board.model.dao.CategoryDao;
 import com.khtime.board.model.vo.Category;
+import com.khtime.member.model.dao.MemberDao;
+
 import static com.khtime.common.JDBCTemplate.*;
 
 public class CategoryService {
@@ -30,4 +32,19 @@ public class CategoryService {
 		return list;
 		
 	}
+	
+	public int deleteRequestBoard(String categoryName){
+		Connection conn = getConnection();
+	      
+	      int result = new CategoryDao().deleteRequestBoard(conn, categoryName);
+	      
+	      if(result > 0) {
+	         commit(conn);
+	      }else {
+	         rollback(conn);
+	      }
+	     close(conn);
+	      return result;
+	   }
+	
 }

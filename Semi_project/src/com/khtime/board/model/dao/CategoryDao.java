@@ -88,4 +88,28 @@ public class CategoryDao {
 		   return list;
 		   
 	   }
+	   
+	   public int deleteRequestBoard(Connection conn, String categoryName){
+		   int result= 0;
+		   
+		   PreparedStatement pstmt = null;
+		   
+		   String sql = prop.getProperty("deleteRequestBoard");
+		   
+		   try {
+			   pstmt = conn.prepareStatement(sql);
+		         
+		       pstmt.setString(1, categoryName);
+		        
+		       result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(pstmt);
+		}
+		   return result;
+	   }
 }
