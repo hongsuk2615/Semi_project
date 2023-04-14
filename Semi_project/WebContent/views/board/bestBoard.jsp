@@ -99,12 +99,9 @@
 	    	location.href = "<%=request.getContextPath()%>/best.bo?rcCount=99&year="+date.getFullYear();
 	    })
     </script>
-                        
-                        
-     
-                        
-                        
-                        
+    
+    
+    
                             
                     </div>
                     <div id="board-detail-search">

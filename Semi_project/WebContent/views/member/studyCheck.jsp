@@ -293,9 +293,6 @@
         	$('#targetText').html(makeTime(get_cookie('targetTime')));
         	if(get_cookie('isPause')=='N'){
 	        	timer = setInterval(function(){
-	                
-					
-	                document.cookie='time='+(get_cookie('time')*1+1);
 	                let time = get_cookie('time');
 	                
 		
@@ -320,32 +317,7 @@
             
         });
 
-        // stop btn
-        <%-- $("#stopbtn").click(function(){
-        	$.ajax({
-        		url : '<%=request.getContextPath()%>/timeSave.bo',
-        		data : {time : get_cookie('time')},
-        		success : function(){
-        			
-        		}
-        			
-       	});
-        	
-            if(time != 0){
-            $(".fa").css("color","white")
-            this.style.color = "white";
-            clearInterval(timer);
-            starFlag = true;
-            time = 0;
-            init();
-            }
-            
-            
-            
-            
-        }); --%>
-       // }
-		
+
     </script>
 
     
@@ -396,7 +368,6 @@
     	$(item).html(makeTime(sec));
     })
     </script>
-
 </body>
 
 </html>
