@@ -46,7 +46,7 @@ public class BoardDetailSearchController extends HttpServlet {
 	      listCount = new SearchService().keywordListCount(keyword);
 	      currentPage = Integer
 	            .parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
-	      boardLimit = 15;
+	      boardLimit = 10;
 	      maxPage = (int) Math.ceil(((double) listCount / boardLimit));
 	      PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
 

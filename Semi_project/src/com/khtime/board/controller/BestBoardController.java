@@ -52,7 +52,7 @@ public class BestBoardController extends HttpServlet {
 	      listCount = new BoardService().bestListCount(rcCount);
 	      currentPage = Integer
 	            .parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
-	      boardLimit = 15;
+	      boardLimit = 10;
 	      maxPage = (int) Math.ceil(((double) listCount / boardLimit));
 	      PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
 
