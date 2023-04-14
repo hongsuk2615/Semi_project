@@ -111,12 +111,11 @@
     text-align: center;
     color: #ffffff;
     border-radius: 50%;
-    position: absolute;
-    top: 37px;
-    left: 665px;
+    top: 5px;
+    left: 70px;
     justify-content: center;
     align-items: center;
-	
+		position: absolute;
 }
 
 #msgcount1{
@@ -129,9 +128,18 @@
     text-align: center;
     color: #ffffff;
     border-radius: 50%;
-    position: absolute;
+   
     top: 33px;
-    left: 1255px;
+    left: 450px;
     justify-content: center;
     align-items: center;
+}
+
+#friendlist{
+ 	position: relative;  
+}
+
+#friendcount{
+
+	
 }

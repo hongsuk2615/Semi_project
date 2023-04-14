@@ -50,6 +50,7 @@
                     <div id="msgcount1">
                     <div  id="msgcount2" ></div>
                     </div>
+                    
                     <script>
                 	 function friendCount(){
                		$.ajax({
@@ -76,7 +77,7 @@
                 				$('#msgcount1').css('display','flex');
                 				$('#msgcount2').text("+"+result);
                 				}else{
-                					$('#msgcount1').text('').css('display','none');
+                					$('#msgcount1').text('').css();
                 					
                 				}
                 			}
