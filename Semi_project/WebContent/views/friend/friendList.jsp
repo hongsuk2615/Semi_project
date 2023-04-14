@@ -121,14 +121,18 @@ a {
 					<%
 						for (Member m : list3) {
 					%>
+					
 						<div>
 							<div class="sendName" style="color :rgb(71, 93, 192)" ><%=m.getUserName()%></div>님이 친구요청을 했습니다.
-						</div>	
+							<br>
+						</div>
+					
 						<div>
 							<button type="button" class="accept" onclick="accept(this);" data-userNo=<%=m.getUserNo() %> >수락</button>
 							<button type="button" class="deny" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >거절</button>
+							
 						</div>
-					
+						
 					<%
 						}
 					%>

@@ -114,8 +114,24 @@
     position: absolute;
     top: 37px;
     left: 665px;
-   
     justify-content: center;
     align-items: center;
 	
+}
+
+#msgcount1{
+	display: none;  
+    height: 23px;
+    width: 23px;
+    background-color:  #008000cc;
+    font-size: 10px;
+    list-style: none;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 33px;
+    left: 1255px;
+    justify-content: center;
+    align-items: center;
 }

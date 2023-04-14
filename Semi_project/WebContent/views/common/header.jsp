@@ -47,7 +47,9 @@
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
                 	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
-                    <div id="msgcount"></div>
+                    <div id="msgcount1">
+                    <div  id="msgcount2" ></div>
+                    </div>
                     <script>
                 	 function friendCount(){
                		$.ajax({
@@ -71,9 +73,11 @@
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
-                				$('#msgcount').text("+"+result).css("color","green");
+                				$('#msgcount1').css('display','flex');
+                				$('#msgcount2').text("+"+result);
                 				}else{
-                					$('#msgcount').text('');
+                					$('#msgcount1').text('').css('display','none');
+                					
                 				}
                 			}
                 			});
