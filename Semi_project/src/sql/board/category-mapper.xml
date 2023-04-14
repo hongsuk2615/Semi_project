@@ -9,6 +9,17 @@
 		 WHERE CATEGORY_NO = ?
 			AND AVAILABLE = 'Y'
 	</entry>
+
+	<entry key="selectRequestBoard">
+		SELECT CATEGORY_NAME, AVAILABLE
+		  FROM CATEGORY
+		 WHERE REQ_USER = ?
+	</entry>
+	
+	<entry key="deleteRequestBoard">
+		DELETE CATEGORY
+		 WHERE CATEGORY_NAME = ?
+	</entry>
 	
 	<entry key="selectCagtegory">
 		SELECT CATEGORY_NAME ,CATEGORY_NO
