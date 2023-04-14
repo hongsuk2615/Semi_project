@@ -42,7 +42,7 @@
             <div id="book-search">
                 <div id="book-search-input">
                     <img src="resources/IMG/glass.png" id="glass">
-                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getParameter("title") == null ? "" : request.getParameter("title") %>">
+                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getAttribute("bookname") == null ? "" : request.getAttribute("bookname") %>">
                     <button type="button" id="search-btn">검색</button>
                 </div>
             </div>
@@ -91,7 +91,7 @@
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title")%>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -158,7 +158,7 @@
        			currPage++;
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
@@ -166,11 +166,11 @@
            		currPage--;
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
-           <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
+           <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
            

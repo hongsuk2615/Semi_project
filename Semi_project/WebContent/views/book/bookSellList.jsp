@@ -47,9 +47,9 @@
 		                }
 	                %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>" style="<%= bList.get(i).getIsSoldout().equals("Y") ? "background: #a9a9a980;" : "" %>">
                 		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
 	                    </div>
 	                    <div class="book-text">
 	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
@@ -127,8 +127,6 @@
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
-
-   		 
    		 
    		 
    		 $('.book-wrap').each(function(index,item){

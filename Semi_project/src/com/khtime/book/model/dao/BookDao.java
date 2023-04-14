@@ -124,6 +124,8 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
+				
 				bList.add(book);
 			}
 		} catch (SQLException e) {
@@ -234,8 +236,10 @@ public class BookDao {
 			while(rset.next()) {
 				Book book = new Book();
 				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
 				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
 				
 				bList.add(book);
 			}
@@ -275,6 +279,7 @@ public class BookDao {
 				book.setPrice(rset.getInt("PRICE"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
 				
 				bList.add(book);
 			}
@@ -400,5 +405,55 @@ public class BookDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int updateSoldout(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateSoldout");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public int bookDelete(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("bookDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 }

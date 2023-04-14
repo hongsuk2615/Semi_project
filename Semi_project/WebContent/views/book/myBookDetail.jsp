@@ -131,6 +131,19 @@
     		location.href = "<%= request.getContextPath() %>/bookupdateform.do?bkno=<%= book.getBookNo() %>";
 		})
 		
+		document.getElementById("soldout-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/booksoldout.do?bkno=<%= book.getBookNo() %>";
+   		 })
+		
+   		document.getElementById("delete-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookdelete.do?bkno=<%= book.getBookNo() %>";
+   		 })
+    </script>
+    
+    <script>
+    	
+    	
+    
     </script>
 </body>
 </html>

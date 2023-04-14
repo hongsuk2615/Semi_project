@@ -123,4 +123,26 @@ public class BookService {
 		
 		return result1 * result2;
 	}
+	
+	public int updateSoldout(int bookNo) {
+		
+		Connection conn = getConnection();
+		
+		int book = new BookDao().updateSoldout(conn , bookNo);
+		
+		close(conn);
+		
+		return book;
+	}
+	
+	public int bookDelete(int bookNo) {
+		
+		Connection conn = getConnection();
+		
+		int book = new BookDao().bookDelete(conn , bookNo);
+		
+		close(conn);
+		
+		return book;
+	}
 }
