@@ -49,7 +49,7 @@ public class GetUsersManagementController extends HttpServlet {
 		m.setReportCount(reported);
 		m.setAuthority(authority);
 		m.setUserName(searchName);
-		ArrayList<Member> list = new ManagementService().getFilteredUsers(m);
+		ArrayList<Member> list = new ManagementService().getFilteredUsers(m,pi);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(list,response.getWriter());
