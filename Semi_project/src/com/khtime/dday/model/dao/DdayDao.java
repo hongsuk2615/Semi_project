@@ -78,7 +78,6 @@ public class DdayDao {
 					dday.setdDayNo(rset.getInt("D_DAY_NO"));
 					dday.setdDay(rset.getDate("D_DAY"));
 					dday.setTitle(rset.getString("TITLE"));
-					System.out.println(dday.getdDay());
 					list.add(dday);
 				}
 			} catch (SQLException e) {

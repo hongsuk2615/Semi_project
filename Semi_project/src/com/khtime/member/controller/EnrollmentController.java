@@ -73,7 +73,6 @@ public class EnrollmentController extends HttpServlet {
 
 			// 전달받은 파라미터를 가지고 Member클래스로 만들어 주기
 			Member m = new Member(userId, userPwd, userClass, userName, nickName, email, authority);
-			System.out.println(m);
 			// 3) 요청 처리(서비스 메서드 호출 결과값 돌려 받기)
 			int result1 = new MemberService().insertMember(m);
 
@@ -104,7 +103,6 @@ public class EnrollmentController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "회원가입에 실패했습니다 : 개인정보기입값오류");
 				response.sendRedirect(request.getContextPath() + "/enroll.me");
 			} else if (result2 == 0) {
-				System.out.println("ccccccccccccccccccc" + result2);
 				response.sendRedirect(request.getContextPath() + "/autoImg.me");
 			}
 

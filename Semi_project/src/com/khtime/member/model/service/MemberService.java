@@ -139,10 +139,8 @@ public class MemberService {
 		Connection conn = getConnection();
 		Member m = null;
 		int result = 0;
-		System.out.println(updateEmail);
 		
 		result = new MemberDao().updateEmail(conn, updateEmail, userId);
-		System.out.println(result);
 		
 		if (result > 0) {
 
@@ -243,6 +241,16 @@ public class MemberService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public boolean isEmail(String emailcheck) {
+		Connection conn = getConnection();
+		boolean result = false;
+		result = new MemberDao().isEmail(conn, emailcheck);
+		close(conn);
+
+		return result;
+
 	}
 
 }

@@ -47,7 +47,6 @@ public class MemberUpdateEmailController extends HttpServlet {
 		if(checkpwd > 0) {
 			Member m = new MemberService().updateEmail(updateEmail,userId, userPwd);
 			HttpSession session = request.getSession();
-			System.out.println("멤버:" + m);
 			if(m != null) {
 				session.setAttribute("alertMsg", "성공적으로 이메일이 변경되었습니다.");
 				session.setAttribute("loginUser", m);

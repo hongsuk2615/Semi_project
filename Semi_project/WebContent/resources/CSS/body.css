@@ -272,7 +272,45 @@
     margin: 5px 5px;
     height: 30px;
 }
+
 #logoutbtn{
     background-color: black;
     color: white;
 }
+
+#main_image {
+    position: relative;
+  }
+  
+#main_image_text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -100%, -80% );
+    color: white;
+  }
+  
+#btn1 {
+  position: absolute;
+  top: 140px;
+  left : 220px; 
+  background-color: blanchedalmond;
+  border-radius: 15px;
+}
+
+#main_image_text2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -100%, -70% );
+    color: white;
+  }
+  
+ #btn2 {
+  position: absolute;
+  top: 150px;
+  left : 250px; 
+  background-color: black;
+  border-radius: 15px;
+  color: white;
+} 

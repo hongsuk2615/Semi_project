@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.khtime.board.model.vo.Board;
+import com.khtime.common.model.vo.PageInfo;
 import com.khtime.management.model.service.ManagementService;
 
 /**
@@ -32,8 +33,13 @@ public class GetFilteredReportedBoardAjaxController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int currentPage; 
+		int boardLimit; 
+		currentPage = Integer.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
+		boardLimit = 10;
+		PageInfo pi = new PageInfo(currentPage, boardLimit);
 		String keyword = request.getParameter("keyword");
-		ArrayList<Board> list = new ManagementService().getFilteredReportedBoards(keyword);
+		ArrayList<Board> list = new ManagementService().getFilteredReportedBoards(keyword, pi);
 		response.setContentType("application/json; charset = UTF-8");
 		Gson gson = new Gson();
 		gson.toJson(list,response.getWriter());

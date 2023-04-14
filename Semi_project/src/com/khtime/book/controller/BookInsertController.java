@@ -101,14 +101,12 @@ public class BookInsertController extends HttpServlet {
 					bat.setChangeName(multi.getFilesystemName(key));
 					bat.setFilePath("/resources/book/thumb_upfiles/");
 					bat.setFileLevel(i);
-					System.out.println(bat);
 					bList.add(bat);
 				}
 			}
 			
 			int result = new BookService().insertThumbnailBook(book, bList);
 			
-			System.out.println(result);
 			
 			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");

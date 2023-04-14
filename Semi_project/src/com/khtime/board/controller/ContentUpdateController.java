@@ -45,6 +45,7 @@ public class ContentUpdateController extends HttpServlet {
 		int cNo = Integer.parseInt(request.getParameter("cNo"));
 		
 		Board b = new BoardService().selectContent(bNo);
+		b.setContent(b.getContent().replace("<br>", "\r\n")); 
 		ArrayList <BoardAttachment> attachmentList = new BoardService().selectAttachmentList(bNo);
 		String cName = new CategoryService().getCategoryName(cNo);
 		

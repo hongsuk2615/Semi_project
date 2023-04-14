@@ -124,7 +124,6 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
-				System.out.println(book);
 				bList.add(book);
 			}
 		} catch (SQLException e) {
