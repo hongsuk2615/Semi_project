@@ -6,6 +6,8 @@
 	ArrayList <BoardAttachment> attachmentList  = (ArrayList<BoardAttachment>) request.getAttribute("attachmentList");
 	ArrayList<Reply> replyList = (ArrayList<Reply>) request.getAttribute("replyList"); 
 	String cName = (String) request.getAttribute("cName");
+	int recommendcheck = (int) request.getAttribute("recommendcheck");
+	int scrapcheck  = (int) request.getAttribute("scrapcheck"); 
 %>     
 <!DOCTYPE html>
 <html lang="en">
@@ -61,20 +63,24 @@
                             <div id="content-detail-content"> 
                                 <div id="content-header">
                                     <div id="content-header-left">
-                                        <div id="content-profile">
+                                       
+                                              <% if(b.getIsAnonimous().equals("N")) { %>
+                                              <div id="content-profile">
                                             <img src="<%= request.getContextPath() %><%= b.getUserProfile() %>" width="30" height="30">
                                         </div>
                                         <div id="content-writer">
                                             <div>
-                                              <% if(b.getIsAnonimous().equals("N")) { %>
-                                                <%= b.getWriter() %>
+                                               <span class="spanWriter"> <%= b.getWriter() %></span>
                                                 <% }else { %>
-                                                익명
+                                                <div id="content-profile">
+                                            <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
+                                        </div>
+                                        <div id="content-writer">
+                                            <div>
+                                              <span class="spanWriter">  익명</span>
                                                 <% } %> 
                                             </div>
-                                            <div id="enrollDatediv">
-                                            
-                                            </div>
+                                            <div class="stringDate"> <span class="spanDate"></span> </div>
                                         </div>
                                         </div>
                                     <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
@@ -90,7 +96,11 @@
                                      	    })
                                         			
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	        location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
+                                     	    	if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                     	    		alert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
+                                     	    	}else{
+                                     	    		location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
+                                     	    	}
                                      	    })
                                         	</script>
                                         <% }else{ %>
@@ -120,20 +130,33 @@
                                    <h3><%= b.getTitle() %></h3> 
                                 </div>
                                 <div id="contentdiv">
-                                   <%= b.getContent() %>
+                                  <p> <%= b.getContent() %></p>
                                 </div>
                                 <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
 												<img src="<%= request.getContextPath() %><%= at.getFilePath()+at.getChangeName() %>" width="100%" height="100%">
 										<% } %></div>
                                 <div class="boardDataDiv">
-                                    <div class="recommenddiv"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><div id="recommendbox"><%= b.getRecommendCount() %></div></div>
-                                    <div class="replydiv"><img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="17" height="17"><div id="replybox"><%= b.getReplyCount() %></div></div>
-                                    <div class="scrapdiv"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><div id="scrapbox"><%= b.getScrapCount() %></div></div>
+                                <% if(recommendcheck == 1) { %>
+                                    <div class="board-detail-commend"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+                                    <span id="recommendbox" style="color: red;"><%= b.getRecommendCount() %></span></div>
+                                    <% }else{ %>
+                                     <div class="board-detail-commend"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+                                    <span id="recommendbox" style="color: red;"><%= b.getRecommendCount() %></span></div>
+									<% } %>
+									 <% if(scrapcheck == 1) { %>                                
+                                    <div class="board-detail-commend"><img class="scrapImg" src="<%=request.getContextPath()%>/resources/IMG/star1.png">
+                                    <span id="scrapbox" style="color: #ffcc1c;"><%= b.getScrapCount() %></span></div>
+                                    <% }else{ %>
+                                      <div class="board-detail-commend"><img class="scrapImg" src="<%=request.getContextPath()%>/resources/IMG/star.png">
+                                    <span id="scrapbox" style="color: #ffcc1c;"><%= b.getScrapCount() %></span></div>
+                                    <% } %>
+                                    <div class="board-detail-commend"><img class="replyImg" src="<%=request.getContextPath()%>/resources/IMG/message.png" style="padding-top: 3px;">
+                                    <span id="replybox" style="color: #666666;"><%= b.getReplyCount() %></span></div>
                                 </div>
                                 <div class="boardDataDiv" id="boardDataBtn">
-                                   <button id="recommendbtn"><img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17"><span>공감</span></button>
-                                    <button id="scrapbtn"><img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="17" height="17"><span>스크랩</span></button>
+                                   <button id="recommendbtn"><span>공감</span></button>
+                                    <button id="scrapbtn"><span >스크랩</span></button>
                                  <% if(b.getIsQuestion().equals("Y")){ %>
 								<div id="QuestionContentbox"><div><span>#주의 질문글입니다!</span></div></div>
 								<% } %>
@@ -151,7 +174,7 @@
                            <textarea id="replyContent" cols="75" rows="4" style="resize:none;" placeholder="댓글을 입력해주세요!" maxlength="200"></textarea>
                         </div>
                         <div id="comments-right-btn">
-                            <div >
+                            <div>
                                 <input id="isAnonimous" name="isAnonimous" type="checkbox" value="Y"><label for="isAnonimous">익명</label>
                             </div>
                             <div>
@@ -161,10 +184,6 @@
                         </div>
                     </div>
                 </div>
-                    <div id="goto-boardlist">
-                       
-                        <div onclick="location.href='<%=request.getContextPath()%>/boardDetail.bo?cNo=<%= b.getCategoryNo() %>'">글 목록</div>
-                    </div>
                     </div>
     
                 </div>
@@ -223,6 +242,7 @@
     
     
 		<script>
+
 		/* 댓글 입력 */
 		 function insertReply(){
 			$.ajax({
@@ -262,12 +282,12 @@
 		
 		 /* 댓글 조회 */
 		function selectReplyList(){
-			let replycount = 0;
+			
 			$.ajax({
 				url : "<%=request.getContextPath()%>/select.re",
 				data : { bNo : "<%=b.getBoardNo() %>"},
 				success : function(list){
-					let numberArray = 1;
+					
 					let result  = "";
 					for(let i of list[0]){ 
 						if(i.isAnonimous == "N"){
@@ -275,10 +295,10 @@
 							
 						`
 						<li>
-						 <div class='content-detail-comments'>
+						 <div class='content-detail-comments replycheck'>
 							 <div class='comments-left'>
 								 <img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">
-								<span>\${i.nickName}</span>
+								 <span class="spanWriter">\${i.nickName}</span>
 							 </div>
 								 <div class='comments-right'>`
 								 if(i.writer == <%=loginUser.getUserNo()%>){
@@ -292,22 +312,29 @@
 	                     </div>
 	                     <p>\${i.content}<p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
-	                     \${dayStringMaker(i.stringDate)}
+	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     `
 	                     if(i.recommendCount != 0){
+	                    	 if(list[2].includes(i.replyNo)){
 	                    	 result += `
-	                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-	    	                     <span>\${i.recommendCount}</span> `
+	                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+	    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+	                    	 }else{
+	                    		 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+	                    		 
+	                    	 }
 	                     }
    	                     result += ` </div> </li> `
 						}else{
 					result += 
 						`
 						<li>
-						 <div class='content-detail-comments'>
+						 <div class='content-detail-comments replycheck'>
 						 <div class='comments-left'>
 						 <img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">
-						 <span>익명 \${list[1][i.nickName]}</span>
+						 <span class="spanWriter">익명 \${list[1][i.nickName]}</span>
 						  </div> 
 						  <div class='comments-right'>`
 						  if(i.writer == <%=loginUser.getUserNo()%>){
@@ -321,12 +348,19 @@
                   </div>
 	                     <p> \${i.content}</p>
 	                     <div id="recommendCount\${i.replyNo}" class="replyrecommend">
-	                     \${dayStringMaker(i.stringDate)}
+	                     <span class="spanDate">\${dayStringMaker(i.stringDate)}</span>
 	                     ` 
 	                     if(i.recommendCount != 0){
-                    	 result += `
-                		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like.png" alt="" width="17" height="17">
-	                     <span>\${i.recommendCount}</span>`
+	                    	 if(list[2].includes(i.replyNo)){
+		                    	 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+		                    	 }else{
+	                    		 result += `
+		                    		 <img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+		    	                     <span class="replyRecommendCount">\${i.recommendCount}</span> `
+		                    		 
+		                    	 }
 	                     }
                    		 result += ` </div> </li> `
 					}
@@ -372,6 +406,7 @@
 						if(data > 0) {
 							alert("공감 성공!");
 							$("#recommendbox").html(data);
+							$('.board-detail-commend .recommendImg').attr('src','<%=request.getContextPath()%>/resources/IMG/like2.png');
 						}
 						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");
@@ -386,8 +421,9 @@
 					data : {bNo : <%= b.getBoardNo() %>},
 					success : function(data){
 						if(data > 0) {
-							alert("스크랩 성공!");
 							$("#scrapbox").html(data);
+							$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star1.png');
+							alert("스크랩 성공!");
 						}
 						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
@@ -409,6 +445,7 @@
 						if(data >= 0) {
 							alert("스크랩 취소 성공!");
 						$("#scrapbox").html(data);
+						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
 							}
 						}
 				});
@@ -453,7 +490,6 @@
 						if(data > 0) {
 							alert("공감 성공!");
 							selectReplyList();
-							/* $("#recommendCount"+rNo).html(data); */
 						}
 						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
 						if(data < 0) alert("이미 공감된 글입니다!");
@@ -509,7 +545,7 @@
 	   	}
 	 	
 	   let enrollDate = dayStringMaker("<%=b.getStringDate()%>");
-	   $("#enrollDatediv").append(enrollDate);
+	   $(".spanDate").append(enrollDate);
 	</script>
 
 

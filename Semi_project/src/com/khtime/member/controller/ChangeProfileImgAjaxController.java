@@ -51,7 +51,6 @@ public class ChangeProfileImgAjaxController extends HttpServlet {
 		img.setOriginName(multi.getOriginalFileName("profileImg"));
 		img.setChangeName(multi.getFilesystemName("profileImg"));
 		img.setFilePath("/resources/member/userProfileImg/");
-		System.out.println(img);
 		
 		int result = new MemberService().changeProfileImg(img);
 		if(result > 0 ) {

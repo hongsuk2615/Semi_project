@@ -52,10 +52,8 @@ public class FriendListController extends HttpServlet {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int senderUserNo = Integer.parseInt(request.getParameter("senderUserNo"));
 		int result = new FriendService().friendaccept(loginUserNo,senderUserNo);
-		System.out.println(result);
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());
-		System.out.println(result);
 }
 	}

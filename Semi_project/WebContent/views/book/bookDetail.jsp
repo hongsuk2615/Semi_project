@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <% 
 	Book book = (Book)request.getAttribute("book");	
-	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>)request.getAttribute("bList");
+	ArrayList<BookAttachment> bList = (ArrayList<BookAttachment>) request.getAttribute("bList");
+	String seller = (String)request.getAttribute("seller");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
     <link rel="stylesheet" href="resources/CSS/book_detail.css">
+    <link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
 </head>
 <body>
     <div id="wrapper">
@@ -42,7 +44,10 @@
                     <p><%= book.getAuthor() %></p>
                     <p><%= book.getPublisher() %></p>
                     <p><%= book.getPublicationDate() %></p>
-                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %></p>
+                    <div class="listPrice">
+	                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %> 원</p><p><strike><%= book.getListPrice() %> 원</strike></p>
+                    </div>
+                    <p><%= book.getContent() %></p>
                 </div>
             </div>
 
@@ -53,43 +58,37 @@
                     <h1>판매 정보</h1>
                 </div>
                 <div>
+                    <p style="color: blue;">판매자 ID : <%= seller %></p>
+                </div>
+                <div>
                     <p>게시일 : <%= book.getEnrollDate() %></p>
                 </div>
                 <div>
-                    <button id="send-message">판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지함.png" style="width: 25px; height: 25px;"></button>
-                </div>
-            </div>
-
-            <div class="modal hidden">
-                <div class="bg"></div>
-                <div class="modalBox">
-                    <div class="header">
-                        <h2>판매자 ID</h2>
-                    </div>
-                    <div class="addDdayBody">
-                        <div class="inputBox">
-                            <textarea rows="16" cols="53" style="resize: none;" placeholder="내용을 적어주세요."></textarea>
-                        </div>
-                    </div>
-                    <div class="closeBtn" id="fullBlueBtn1">
-                        쪽지 보내기
-                    </div>
+                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지.png" style="width: 27px; height: 27px;"></button>
                 </div>
             </div>
 
             <hr>
 
             <div id="book-status">
-                <div id="book-status">
+                <div id="book-detail-status">
                     <h1>도서 이미지</h1>
-                    <% for(int i = 0; i < bList.size(); i++ ) { %>
-                    <div class="book-status-img">
-                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>">
-                    </div>
-                    <% } %>
+                    <button class="d-Img" style="background:none">
+                    	<% for(int i = 0; i < bList.size(); i++ ) { %>
+	                    <div class="book-status-img">
+	                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
+	                    </div>
+                    	<% } %>
+                    </button>
+                    
                     <h1>필기 여부</h1>
                     있음 <input type="radio" disabled <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
                     없음 <input type="radio" disabled <%= book.getIsNoted().equals("N") ? "checked" : "" %>>
+                    
+                    <h1>책 상태</h1>
+                    <input type="radio" name="condition" value="3" disabled <%= book.getCondition() == 3 ? "checked" : "" %>> 상
+                    <input type="radio" name="condition" value="2" disabled <%= book.getCondition() == 2 ? "checked" : "" %>> 중
+                    <input type="radio" name="condition" value="1" disabled <%= book.getCondition() == 1 ? "checked" : "" %>> 하
                 </div>
             </div>
 
@@ -98,27 +97,98 @@
             <div id="book-trade">
                 <div>
                     <h1>거래 방법</h1>
-                    <p><%= book.getIsDirect().equals("N") ? "택배" : book.getIsDirect().equals("Y") ? "직거래" : "직거래 , 택배"  %></p>
-                    <h2>지역</h2>
-                    <p><%= book.getLocation() %></p>
+                    <p style="font-size: large;"><%= book.getIsDirect().equals("N") ? "택배" : book.getIsDirect().equals("Y") ? "직거래" : "직거래 , 택배"  %></p>
+                    <h1>지역</h1>
+                    <p style="font-size: large;"><%= book.getLocation() %></p>
                 </div>
-                <button id="back-btn">돌아가기</button>
             </div>
-        </div> 
+            
+            <hr>
+            
+            <div id="back">
+            	<button id="back-btn" style="width:500px; height:50px; border: round;">돌아가기</button>
+            </div>
+        </div>
+        
+        <form action="<%= request.getContextPath() %>/sendMsg.me" method="post"> <!-- 쪽지 모달  -->
+				<input type="hidden" name="opponentNo" id="sellerNo" value="">
+				<div class="msg-modal hidden">
+				   <div class="Msgbg"></div>
+				   <div class="msg-modalBox">
+					   <div class="header">
+						   <h2>판매자에게 쪽지보내기</h2>
+					   </div>
+						   <div class="sendMsgBody">
+							   <div class="inputBox">
+								    <h4 class="inputLabel">쪽지보내기</h4>            
+									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+							   </div>
+						   <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
+						   </div>
+				   </div>
+			   </div>
+		 </form>
+		 
+		 <div class="img-modal hidden">
+				   <div class="Imgbg"></div>
+				   <div class="img-modalBox" style="width: 850px; height: 500px;">
+						   <div class="sendImgBody">
+							   <div class="inputBox" style="display: flex; justify-content: space-around;">
+							   		<% for(int i = 0; i < bList.size(); i++ ) { %>
+					                    <div class="book-status-img">
+					                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:400px; height:400px;">
+					                    </div>
+				                    <% } %>
+							   </div>			
+						   </div>
+				   </div>
+			   </div>
     </div>
-
-    <script> 
-            const open1 = () => { // 쪽지 모달창 오픈
-                document.querySelector(".modal").classList.remove("hidden");
-            }
-            const close = () => {
-                document.querySelector(".modal").classList.add("hidden");
-            }
-            document.querySelector("#send-mesage").addEventListener("click", open1);
-            document.querySelector(".closeBtn").addEventListener("click", close);
-            document.querySelector(".bg").addEventListener("click", close);
-
-    </script>
+		
+	
+	
+	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
+		function mykeydown() { 
+			if(window.event.keyCode==13) //enter 일 경우
+			{
+				sendServer();
+			}
+		 }
+		</script>
+		<script> <!--쪽지보내기모달 닫는 스크맆트-->
+		  const openMsg = () => {
+			  document.querySelector(".msg-modal").classList.remove("hidden");
+			  
+		  }
+		  const closeMsg = () => {
+			  console.log('cdlose')
+			  document.querySelector(".msg-modal").classList.add("hidden");
+		  }
+		  
+		  document.querySelector(".closeBtn").addEventListener("click", closeMsg);
+		  document.querySelector(".Msgbg").addEventListener("click", closeMsg);
+		  $('.send-message').click(function(){
+			openMsg();
+			$('#sellerNo').val($(this).attr('data-userNo'));
+		  });
+	  </script>
+	  
+	  <script> <!-- 이미지모달 스크맆트-->
+		  const openImg = () => {
+			  document.querySelector(".img-modal").classList.remove("hidden");
+			  
+		  }
+		  const closeImg = () => {
+			  console.log('cdlose')
+			  document.querySelector(".img-modal").classList.add("hidden");
+		  }
+		 
+		  document.querySelector(".Imgbg").addEventListener("click", closeImg);
+		  $('.d-Img').click(function(){
+			openImg();
+			/* $('#sellerNo').val($(this).attr('data-userNo')); */
+		  });
+	  </script>
     
     <script>
     

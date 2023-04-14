@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.CategoryService;
 import com.khtime.board.model.vo.Board;
+import com.khtime.board.model.vo.Category;
 import com.khtime.friend.model.service.FriendService;
 import com.khtime.member.model.vo.Member;
 
@@ -34,6 +36,9 @@ public class BoardPageMove extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		ArrayList<Category> list = new CategoryService().selectCagtegory();
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/board/categorySearch.jsp").forward(request, response);
 	}
 

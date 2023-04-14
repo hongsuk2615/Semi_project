@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khtime.board.model.service.BoardService;
+import com.khtime.board.model.service.RecommendService;
 import com.khtime.board.model.service.ReplyService;
+import com.khtime.board.model.service.ScrapService;
 import com.khtime.board.model.vo.Board;
 import com.khtime.common.model.vo.PageInfo;
 import com.khtime.member.model.vo.Member;
@@ -50,10 +52,14 @@ public class UserCommentsController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
 		
 		ArrayList<Board> boardList = new BoardService().userComments(pi, userNo);
+		ArrayList<Integer> recommendcheck = new RecommendService().recommendCheck(userNo);
+		ArrayList<Integer> scrapcheck = new ScrapService().scrapCheck(userNo);
 		
 		request.setAttribute("bType", bType);
 		request.setAttribute("pi", pi);
 		request.setAttribute("boardList", boardList);
+		request.setAttribute("recommendcheck", recommendcheck);
+		request.setAttribute("scrapcheck", scrapcheck);
 	
 		request.getRequestDispatcher("views/board/userBoard.jsp").forward(request, response);
 	}

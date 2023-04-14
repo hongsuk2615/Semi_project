@@ -57,6 +57,8 @@ public class BookDao {
 			pstmt.setString(9, book.getLocation());
 			pstmt.setString(10, book.getPublicationDate());
 			pstmt.setString(11, book.getApiImg());
+			pstmt.setString(12, book.getContent());
+			pstmt.setInt(13, book.getListPrice());
 			
 			result = pstmt.executeUpdate();
 			
@@ -122,7 +124,6 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
-				System.out.println(book);
 				bList.add(book);
 			}
 		} catch (SQLException e) {
@@ -134,15 +135,13 @@ public class BookDao {
 		  return bList;
 	  }
 	  
-	  public Book selectBook(Connection conn ,int bkno) {
-		  
+	  public ArrayList<Object> selectBook(Connection conn ,int bkno) {
+		  ArrayList<Object> book = new ArrayList<Object>();
 		  PreparedStatement pstmt = null;
 		  
 		  String sql = prop.getProperty("selectBook");
 		  
 		  ResultSet rset = null;
-		  
-		  Book book = null;
 		  
 		  try {
 			pstmt = conn.prepareStatement(sql);
@@ -151,18 +150,25 @@ public class BookDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				book = new Book();
-				book.setBookNo(rset.getInt("BOOK_NO"));
-				book.setBookName(rset.getString("BOOK_NAME"));
-				book.setAuthor(rset.getString("AUTHOR"));
-				book.setPublisher(rset.getString("PUBLISHER"));
-				book.setPublicationDate(rset.getString("PUBLICATION_DATE"));
-				book.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				book.setIsNoted(rset.getString("IS_NOTED"));
-				book.setIsDirect(rset.getString("IS_DIRECT"));
-				book.setLocation(rset.getString("LOCATION"));
-				book.setApiImg(rset.getString("API_IMG"));
-				book.setPrice(rset.getInt("PRICE"));
+				Book b = new Book();
+				b.setBookNo(rset.getInt("BOOK_NO"));
+				b.setSeller(rset.getInt("SELLER"));
+				b.setBookName(rset.getString("BOOK_NAME"));
+				b.setAuthor(rset.getString("AUTHOR"));
+				b.setPublisher(rset.getString("PUBLISHER"));
+				b.setPublicationDate(rset.getString("PUBLICATION_DATE"));
+				b.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				b.setIsNoted(rset.getString("IS_NOTED"));
+				b.setIsDirect(rset.getString("IS_DIRECT"));
+				b.setLocation(rset.getString("LOCATION"));
+				b.setApiImg(rset.getString("API_IMG"));
+				b.setPrice(rset.getInt("PRICE"));
+				b.setContent(rset.getString("CONTENT"));
+				b.setListPrice(rset.getInt("LIST_PRICE"));
+				b.setCondition(rset.getInt("CONDITION"));
+				book.add(rset.getString("USER_ID"));
+				book.add(b);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -207,4 +213,79 @@ public class BookDao {
 		}
 		 return bList;
 	  }
+	  
+	  public ArrayList<Book> selectBook(Connection conn , String bookname) {
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  ArrayList<Book> bList = new ArrayList<Book>();
+		  
+		  String sql = prop.getProperty("selectBookList");
+		  
+		  ResultSet rset = null;
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bookname);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				
+				bList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		  return bList;
+	  }
+
+	public ArrayList<Book> selectBookSellList(Connection conn , PageInfo pi , int loginUserNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		ArrayList<Book> bList = new ArrayList<Book>();
+		
+		String sql = prop.getProperty("selectBookSellList");
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				
+				bList.add(book);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
+		
+	}
 }

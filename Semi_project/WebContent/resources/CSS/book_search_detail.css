@@ -6,14 +6,13 @@
     		align-items: center;
         }
 .book-text {
-        	width: 500px;
-        	height:400px;
+        	/* width: 500px;
+        	height:400px; */
         	display: flex;
             justify-content: space-around;
     		align-items: center;
     		flex-direction: column;
     		text-align: center;
-    		margin-left: 50px;
         }
         
 #book-thumbnail {
@@ -21,7 +20,8 @@
         	height: 400px;
         	display: flex;
             justify-content: space-around;
-    		align-items: flex-start;
+    		align-items: center;
+    		
         }
         
 #book-header {
@@ -90,9 +90,9 @@
 #book-home-btn-img:hover ,
 #book-sell-btn-img:hover ,
 #search-btn:hover ,
-#book-page-btn1,
-#book-page-btn2,
-#book-page-btn3,
+#book-page-btn1 ,
+#book-page-btn2 ,
+#book-page-btn3 ,
 #book-page-btn4 {
    cursor: pointer;   
 }
@@ -146,17 +146,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 100px;
+    /* margin-left: 100px; */
+    justify-content: space-around;
 }
 
 #book-body-content2 {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 
 .book-sell-img {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 #book-search , 
 #book-search-input {
@@ -175,4 +177,19 @@
 
 .book-sell-inf {
 	display: flex;
+	width: 440px;
+}
+
+.book-sell-inf1,
+.book-sell-inf2,
+.book-sell-inf3 {
+	display: flex;
+}
+
+.book-price {
+	display: flex;
+}
+
+.book-detail-text {
+	font-size: x-large;
 }

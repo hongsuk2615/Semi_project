@@ -43,7 +43,6 @@ public class MemberUpdateNickNameController extends HttpServlet {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userNickName = ((Member)request.getSession().getAttribute("loginUser")).getNickName();
 
-		System.out.println(userNickName);
 		Member m = new MemberService().updateNickName(updateNickName,userId);
 		
 		HttpSession session = request.getSession();

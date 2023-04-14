@@ -40,7 +40,7 @@
 
                     <input type="button" onclick="login()" value="로그인">
 
-                    <input type="button" value="회원가입">
+                    <input type="button" onclick="enroll()" value="회원가입">
                      <% if(userId.isEmpty()) { %>
 			           <input type="checkbox" id="keepId">
 			            <label for="keepId">로그인 유지</label>
@@ -59,8 +59,8 @@
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
                 <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
-                    <button id="logoutbtn">로그아웃</button>
                     <button id="mypagebtn">마이페이지</button>
+                    <button id="logoutbtn">로그아웃</button>
                 </div>
             
             
@@ -667,6 +667,23 @@
 			})
     	}
         
+        function enroll(){
+        	 location.href = "<%= request.getContextPath()%>/enroll.me";
+        }
+
+        <% if(loginUser == null) {%>
+            $('#loginId').keyup(function () {
+                if (window.event.keyCode == 13) {
+                    login();
+                }
+            });
+            $('#loginPwd').keyup(function () {
+                if (window.event.keyCode == 13) {
+                    login();
+                }
+            });
+        <%}%>
+        
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
@@ -699,9 +716,9 @@
         $(window).scroll(function(){
           console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
 
-            if($(window).scrollTop() > 290 && $('#main-banner').length > 0 ){
+            if($(window).scrollTop() > 290 && $('#banner-wrapper').length > 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
-            }else if($(window).scrollTop() > 57 && $('#main-banner').length == 0 ){
+            }else if($(window).scrollTop() > 57 && $('#banner-wrapper').length == 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-45)+'px)');
             }
       

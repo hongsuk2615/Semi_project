@@ -1,5 +1,7 @@
 package com.khtime.board.model.dao;
 
+import static com.khtime.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.Properties;
 
 import com.khtime.board.model.vo.Category;
 import static com.khtime.common.JDBCTemplate.*;
+import com.khtime.member.model.vo.Member;
 
 public class CategoryDao {
 	
@@ -52,7 +55,6 @@ public class CategoryDao {
 				close(rset);
 				close(pstmt);
 			}
-			System.out.println("dao:" + cName);
 			return cName;
 		}
 	   
@@ -112,4 +114,36 @@ public class CategoryDao {
 		}
 		   return result;
 	   }
+		public ArrayList<Category> selectCagtegory(Connection conn) {
+			Category c = null;
+			ArrayList<Category> list = new ArrayList<>();
+
+			PreparedStatement pstmt = null;
+
+			String sql = prop.getProperty("selectCagtegory");
+
+			ResultSet rset = null;
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+
+				rset = pstmt.executeQuery();
+
+				while (rset.next()) {
+					c = new Category();
+					c.setCategoryNo(rset.getInt("CATEGORY_NO"));
+					c.setCategoryName(rset.getString("CATEGORY_NAME"));
+					list.add(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
 }

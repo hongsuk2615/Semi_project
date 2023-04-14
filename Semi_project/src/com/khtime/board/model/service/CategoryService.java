@@ -47,4 +47,14 @@ public class CategoryService {
 	      return result;
 	   }
 	
+	public ArrayList<Category> selectCagtegory(){
+		
+		Connection conn = getConnection();
+		
+		 ArrayList<Category> list = new CategoryDao().selectCagtegory(conn);
+		 
+		 close(conn); 
+		 
+		 return list;
+	}
 }

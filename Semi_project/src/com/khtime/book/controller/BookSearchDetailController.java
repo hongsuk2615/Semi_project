@@ -1,12 +1,16 @@
 package com.khtime.book.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.khtime.book.model.service.BookService;
+import com.khtime.book.model.vo.Book;
 import com.khtime.common.model.vo.PageInfo;
 
 /**
@@ -29,7 +33,9 @@ public class BookSearchDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
+		int bkno = Integer.parseInt(request.getParameter("bkno"));
+		
+		response.sendRedirect(request.getContextPath() + "/booksearchdetail.do?bkno=" +bkno);
 		
 	}
 
@@ -68,12 +74,15 @@ public class BookSearchDetailController extends HttpServlet {
 		
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-		 System.out.println(pi);
 		 
 		 request.setAttribute("pi", pi);
 		 
-		String bookname = request.getParameter("bookname");
+		String bookname = request.getParameter("title");
 		request.setAttribute("bookname", bookname);
+		
+		ArrayList<Book> bList = new BookService().selectBook(bookname);
+		request.setAttribute("bList", bList);
+		System.out.println(bList);
 		
 		System.out.println(bookname);
 		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
