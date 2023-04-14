@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.khtime.board.model.service.BoardService;
 import com.khtime.board.model.service.CategoryService;
+import com.khtime.board.model.service.RecommendService;
+import com.khtime.board.model.service.ScrapService;
 import com.khtime.board.model.service.SearchService;
 import com.khtime.board.model.vo.Board;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardDetailSearchController
@@ -38,33 +42,47 @@ public class BoardDetailSearchController extends HttpServlet {
 		  
 	      String keyword = request.getParameter("keyword");
 	      
-	      
-	      int listCount; // 현재 게시판의 총 개시글 갯수
-	      int currentPage; // 현제 페이지(사용자가 요청한페이지)
-	      int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-	      int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-	      listCount = new SearchService().keywordListCount(keyword);
-	      currentPage = Integer
-	            .parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
-	      boardLimit = 15;
-	      maxPage = (int) Math.ceil(((double) listCount / boardLimit));
-	      PageInfo pi = new PageInfo(listCount, currentPage, boardLimit, maxPage);
 
-	      ArrayList<Board> searchList = new SearchService().searchList( pi, keyword);
-	      
-	      request.setAttribute("pi", pi);
-	      request.setAttribute("searchList", searchList);
-	      request.setAttribute("keyword", keyword);
-	      
-		request.getRequestDispatcher("views/board/boardDetailSearch.jsp").forward(request, response);
+	      int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+
+			int currentPage; // 현제 페이지(사용자가 요청한페이지)
+			int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
+			currentPage = Integer
+					.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
+			boardLimit = 10;
+			PageInfo pi = new PageInfo(currentPage, boardLimit);
+
+			 ArrayList<Board> searchList = new SearchService().searchList( pi, keyword);
+			ArrayList<Integer> recommendcheck = new RecommendService().recommendCheck(userNo);
+			ArrayList<Integer> scrapcheck = new ScrapService().scrapCheck(userNo);
+
+			 request.setAttribute("searchList", searchList);
+		      request.setAttribute("keyword", keyword);
+			request.setAttribute("recommendcheck", recommendcheck);
+			request.setAttribute("scrapcheck", scrapcheck);
+
+			request.getRequestDispatcher("views/board/boardDetailSearch.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String keyword = request.getParameter("keyword");
+		
+		int currentPage;
+		int boardLimit;
+		currentPage = Integer
+				.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
+		boardLimit = 10;
+		PageInfo pi = new PageInfo(currentPage, boardLimit);
+
+		 ArrayList<Board> searchList = new SearchService().searchList( pi, keyword);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		new Gson().toJson(searchList , response.getWriter());
 	}
 
 }
