@@ -6,9 +6,10 @@
 	String thumbnail = (String)request.getAttribute("thumbnail");
 	String datetime = (String)request.getAttribute("datetime");
 	String contents = (String)request.getAttribute("contents");
-	String title = (String)request.getParameter("title");
-	String author = (String)request.getParameter("author");
-	String publisher = (String)request.getParameter("publisher");
+	String title = (String)request.getAttribute("title");
+	String author = (String)request.getAttribute("author");
+	String publisher = (String)request.getAttribute("publisher");
+	int listPrice = (Integer)request.getAttribute("listPrice") == null ? 0 :(Integer)request.getAttribute("listPrice") ;
 	System.out.println(book);
 	
 	String contextPath = request.getContextPath();
@@ -68,16 +69,18 @@
     			
     			<div id="book-thumbnail">
     				<div id="book-inf1">
-    					<img src="<%= request.getAttribute("thumbnail") %>">
+    					<img src="<%= thumbnail %>">
     					<input type="hidden" value="<%= request.getAttribute("thumbnail") %>" name="thumbnail">
-    					<h1><%= request.getParameter("title")%></h1>
-    					<input type="hidden" value="<%= request.getParameter("title") %>" name="title">
-    					<p>저자 : <%= request.getParameter("author") %></p>
-    					<input type="hidden" value="<%= request.getParameter("author") %>" name="author">
-    					<p>출판사 : <%= request.getParameter("publisher") %></p>
-     					<input type="hidden" value="<%= request.getParameter("publisher") %>" name="publisher">
-    					<p>출간일 : <%= request.getAttribute("datetime") %></p>
+    					<h1><%= title %></h1>
+    					<input type="hidden" value="<%= request.getAttribute("title") %>" name="title">
+    					<p>저자 : <%= author %></p>
+    					<input type="hidden" value="<%= request.getAttribute("author") %>" name="author">
+    					<p>출판사 : <%= publisher %></p>
+     					<input type="hidden" value="<%= request.getAttribute("publisher") %>" name="publisher">
+    					<p>출간일 : <%= datetime %></p>
     					<input type="hidden" value="<%= request.getAttribute("datetime") %>" name="publicationDate">
+    					<p style="font-size: large; color: red;"> 정가 : <%= listPrice %> 원</p>
+    					<input type="hidden" value="<%= request.getAttribute("listPrice") %>" name="listPrice">
     				</div>
     				<div id="book-next1">
                         <button type="button" id="next1">다음</button>
@@ -86,17 +89,28 @@
     			
     			<hr>
     			
-                <div id="book-price">
+                <div id="book-price" style="flex-direction: column;">
                     <div id="book-price-input">
-                        <input type="number" id="price" name="price" placeholder="가격을 입력하세요.">
-                        <div id="book-next2">
+                        <input type="number" id="price" name="price" placeholder="가격을 입력하세요." >
+                    </div>
+                    <div id="book-next2">
                             <button type="button" id="next2">다음</button>
-                        </div>
                     </div>
                 </div>
                 
                 <hr>
-    
+    			
+    			<div id="book-content">
+    				<div id="book-content-input">
+	    				<textarea rows="10" cols="30" maxLength="1200" placeholder="판매 정보를 입력해 주세요." class="textarea" required name="content"></textarea>    				
+    				</div>
+    				<div id="book-next3">
+                        <button type="button" id="next3">다음</button>
+                    </div>
+    			</div>
+    			
+    			<hr>
+    			
                 <div id="book-status">
                     <div id="book-status-check">
                         <h1>책 상태</h1>
@@ -106,14 +120,6 @@
                         <h1>필기흔적</h1>
                         <input type="radio" name="isNoted" value="Y" checked> 있음
                         <input type="radio" name="isNoted" value="N"> 없음
-                    <!--     <p>밑줄 흔적 : <input type="radio" name="use" value="Y">있음 /<input type="radio" name="use" value="N">없음   &nbsp;
-                                      <input type="radio" name="pencil">연필 /<input type="radio" name="pencil">샤프   &nbsp; 
-                                      <input type="radio" name="pen">볼펜 /<input type="radio" name="pen">형광펜</p> <hr>
-                        <p>필기 흔적 : <input type="radio" name="use2">있음 /<input type="radio" name="use2">없음   &nbsp;
-                                      <input type="radio" name="pencil2">연필 /<input type="radio" name="pencil2">샤프   &nbsp; 
-                                      <input type="radio" name="pen2">볼펜 /<input type="radio" name="pen2">형광펜</p> <hr>
-                        <p>겉 표지 :  <input type="radio" name="clean">깨끗함 /<input type="radio" name="clean">사용감</p> <hr>
-                        <p>이름 기입 : <input type="radio" name="name">있음 /<input type="radio" name="name">없음</p> -->
                     </div>
                 </div>
     
@@ -121,9 +127,9 @@
     
                 <div id="book-img-upload">
                     <input type="file" name="upfiles1">
-                    <input type="file" name="upfiles2">
-                    <div id="book-next3">
-                        <button type="button" id="next3">다음</button>
+                    <input type="file" name="upfiles2"> <br>
+                    <div id="book-next4">
+                        <button type="button" id="next4">다음</button>
                     </div>
                 </div>
                 
@@ -135,9 +141,7 @@
                         <input type="radio" name="isDirect" value="Y"> 직거래
                         <input type="radio" name="isDirect" value="N"> 택배
                         <input type="radio" name="isDirect" value="B"> 둘다
-                        <!-- <p>택배 : <input type="radio" name="delivery">가능 /<input type="radio" name="delivery">불가능</p>
-                        <p>직거래 : <input type="radio" name="meet">가능 /<input type="radio" name="meet">불가능</p>-->
-                        <p>지역 : <input type="text" name="location"></p> 
+                        <p>지역 : <input type="text" name="location" class="location"></p> 
                     </div>
                 </div>
     
@@ -172,29 +176,41 @@
             var p = $("#price").val();
 
             if( p !== "" ) {
-                $("#book-status").fadeIn(1500).css("display" , "flex");
-                $("#book-img-upload").fadeIn(1500).css("display" , "flex");
+                $("#book-content").fadeIn(1500).css("display" , "flex");
+                
             } else {
                 alert("가격을 입력해 주세요!");
             }
         });
 
         $("#next3").click(function(){
+            $("#book-status").fadeIn(1500).css("display" , "flex");
+            $("#book-img-upload").fadeIn(1500).css("display" , "flex");
+        })
+        
+        $("#next4").click(function(){
             $("#book-trade").fadeIn(1500).css("display" , "flex");
             $("#book-board-upload").fadeIn(1500).css("display" , "flex");
         })
     })
     </script>
     
-    
+	<script>
+		const autoResizeTextarea = (e) => {
+		  let textarea = document.querySelector('.textarea');
+
+		  if (textarea) {
+		    textarea.style.height = 'auto';
+		    let height = textarea.scrollHeight; // 높이
+		    textarea.style.height = `${height + 8}px`;
+		  }
+		};
+	</script>
+	    
     <script>
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
    		 })
-   		 
-   		<%--  document.getElementById("upload").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookinsert.do?bookname="+document.getElementById("book-name-search").value;
-   		 }) --%>
    		 
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";

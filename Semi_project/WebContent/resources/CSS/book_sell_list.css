@@ -129,6 +129,7 @@
     justify-content: space-between;
     align-items: center;
     justify-content: space-evenly;
+    flex-direction: column;
 }
 
 #book-search , 
@@ -176,6 +177,7 @@
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	flex-direction: column;
 }
 
 .book-text {
@@ -198,4 +200,12 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+}
+
+.content-box {
+	width: 1200px;
+	height: auto;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px gray;
 }

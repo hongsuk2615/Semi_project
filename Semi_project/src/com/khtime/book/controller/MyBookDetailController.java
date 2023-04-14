@@ -14,16 +14,16 @@ import com.khtime.book.model.vo.Book;
 import com.khtime.book.model.vo.BookAttachment;
 
 /**
- * Servlet implementation class BookDetailController
+ * Servlet implementation class BookUpdateController
  */
-@WebServlet("/bookdetail.do")
-public class BookDetailController extends HttpServlet {
+@WebServlet("/mybookdetail.do")
+public class MyBookDetailController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookDetailController() {
+    public MyBookDetailController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class BookDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			
 		int bkno = Integer.parseInt(request.getParameter("bkno"));
 		
 		ArrayList<Object> book = new BookService().selectBook(bkno);
@@ -44,12 +44,13 @@ public class BookDetailController extends HttpServlet {
 			request.setAttribute("seller", "");
 			request.setAttribute("book", "");
 		}
+		
 		ArrayList<BookAttachment> bList = new BookService().selectThumbnail(bkno);
 		
 		request.setAttribute("bList", bList);
 		
 		
-		request.getRequestDispatcher("views/book/bookDetail.jsp").forward(request, response);
+		request.getRequestDispatcher("views/book/myBookDetail.jsp").forward(request, response);
 		
 	}
 
@@ -57,9 +58,7 @@ public class BookDetailController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("views/book/bookDetail.jsp").forward(request, response);
-		
+				
 	}
 
 }
