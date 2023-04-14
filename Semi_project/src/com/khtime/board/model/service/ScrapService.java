@@ -1,6 +1,7 @@
 package com.khtime.board.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.khtime.board.model.dao.BoardDao;
 import com.khtime.board.model.dao.ScrapDao;
@@ -44,6 +45,28 @@ public class ScrapService {
 		}else {
 			JDBCTemplate.rollback(conn);
 		}
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<Integer> scrapCheck(int userNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Integer> result = new ScrapDao().scrapCheck(conn, userNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	public int scrapCheck(int userNo, int bNo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new ScrapDao().scrapCheck(conn, userNo, bNo);
 		
 		JDBCTemplate.close(conn);
 		

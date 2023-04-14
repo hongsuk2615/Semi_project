@@ -1,4 +1,5 @@
-.msg-modal{
+.msg-modal , 
+.img-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,7 +10,8 @@
     align-items: center;
 }
 
-.msg-modal .Msgbg {
+.msg-modal .Msgbg ,
+.img-modal .Imgbg {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
@@ -34,14 +36,16 @@ msg-modal .prevBtn {
     font-size: 24px;
 }
 
-.msg-modalBox {
+.msg-modalBox ,
+.img-modalBox {
     position: absolute;
     background-color: #fff;
     width: 400px;
     border-radius: 16px;
 }
 
-.msg-modalBox .header {
+.msg-modalBox .header ,
+.img-modalBox .header {
     width: 100%;
     height: 64px;
     display: flex;
@@ -49,13 +53,15 @@ msg-modal .prevBtn {
     align-items: center;
 }
 
-.msg-modalBox .body {
+.msg-modalBox .body ,
+.img-modalBox .body {
     width: 100%;
     height: 485px;
     padding: 20px 20px;
 }
 
-.msg-modalBox .fotter {
+.msg-modalBox .fotter ,
+.img-modalBox .fotter {
     width: 100%;
     padding: 20px 20px;
 }
@@ -103,7 +109,8 @@ msg-modal .prevBtn {
     font-size: 20px;
 }
 
-.msg-modalBox .sendMsgBody {
+.msg-modalBox .sendMsgBody ,
+.img-modalBox .sendImgBody {
     width: 100%;
     padding: 20px 20px;
 }
@@ -130,7 +137,8 @@ msg-modal .prevBtn {
     color: #333;
 }
 
-.sendMsgBody .inputBox {
+.sendMsgBody .inputBox,
+.sendImgBody .inputBox {
     width: 100%;
     height: 100;
     margin-bottom: 20px;

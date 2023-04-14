@@ -318,18 +318,18 @@
                 url : '<%=request.getContextPath()%>/boardlist.get?cName='+cName,
                 type : 'get',
                 success : function(result){ 
-                    if(result.length == 0 ){
+                    if(result[Object.keys(result)[0]].length == 0 ){
                         $('#board-'+num+' tbody').append('<tr>'+
                                                         '<td>' + '조회된 게시물이 없습니다' + '</td>'+
                                                    '</tr>');
                     } else {
                         for(let i = 0; i < 10 ; i++){
-                            if(result[i] != null){
+                            if(result[Object.keys(result)[0]][i] != null){
                                 $('#board-'+num+' tbody').append('<tr>'+
-                                                                '<td>' + result[i].title + '</td>'+
+                                                                '<td>' + result[Object.keys(result)[0]][i].title + '</td>'+
                                                           '</tr>');
                                 $('#board-'+num+' tbody>tr').eq(i).click(function(){
-                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[i].boardNo;
+                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[Object.keys(result)[0]][i].boardNo;
                                 })
                             }else {
                                 $('#board-'+num+' tbody').append('<tr>'+

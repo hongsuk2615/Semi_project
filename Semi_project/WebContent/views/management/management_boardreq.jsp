@@ -88,7 +88,10 @@ a {
 			</div>
 		</div>
 	</div>
-
+    <script>
+    let currentPage = 1;
+    let categoryName = '';
+    </script>
     <script> //모달스크립트
         function modalEvent(){
             $("#board-3 tbody>tr").each(function (index, item) { // 게시판 생성 요청 모달
@@ -195,15 +198,12 @@ a {
     
     
     </script>
-
-    <script> // 카테고리 검색 이벤트
-    $('#search-boardcategory').keyup(function () {
-        if (window.event.keyCode == 13) {
-            let categoryName = $(this).val();
-            $.ajax({
+<script>
+    function filteredBoardreq(){
+        $.ajax({
                 url : '<%=request.getContextPath()%>/filteredBoReq.get',
                 type : 'get',
-                data : {categoryName},
+                data : {categoryName, currentPage},
                 success : function(result){
                     $('#board-3 tbody').html('');
                     if(result.length == 0 ){
@@ -228,12 +228,29 @@ a {
                   }
                   modalEvent();	
                 }
-
-
-
             });
+    }    
+</script>
+    <script> // 카테고리 검색 이벤트
+    $('#search-boardcategory').keyup(function () {
+        if (window.event.keyCode == 13) {
+            categoryName = $(this).val();
+            currentPage = 1;
+            filteredBoardreq();           
         }
     });
+
+    $('#next-btn').click(function(){
+		currentPage++;
+		filteredBoardreq();
+	})
+
+	$('#back-btn').click(function(){
+		if(currentPage>1){
+				currentPage--;
+		}
+		filteredBoardreq();
+	})
     </script>
     
 

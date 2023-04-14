@@ -41,7 +41,6 @@ public class StudyCheckController extends HttpServlet {
 		
 		
 		
-		System.out.println(userNo);
 		ArrayList<StudyTime> list = new StudyTimeService().getStudy(userNo);
 		
 		
@@ -50,7 +49,6 @@ public class StudyCheckController extends HttpServlet {
 		
 		
 		request.setAttribute("timeAmount", timeAmount);
-		System.out.println(timeAmount);
 		request.setAttribute("list", list);
 		request.setAttribute("sumList", sumList);
 		

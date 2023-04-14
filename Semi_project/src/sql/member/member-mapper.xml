@@ -177,6 +177,12 @@
    <entry key="insertNoImgProfile">
    	INSERT INTO USER_PROFILE_IMG(REF_USERID)VALUES(?)
    </entry>
+	
+	<entry key="isEmail">
+		SELECT *
+		FROM MEMBER
+		WHERE EMAIL = ?
 
+	</entry>
 
 </properties>

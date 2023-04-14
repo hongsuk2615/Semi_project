@@ -35,8 +35,6 @@ public class StudyInsertController extends HttpServlet {
 		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int timeAmount = Integer.parseInt(request.getParameter("time"));
 		int targetTime = Integer.parseInt(request.getParameter("targetTime"));
-		System.out.println(timeAmount);
-		System.out.println(targetTime);
 		
 		boolean result = new StudyTimeService().insertStudy(userNo,timeAmount,targetTime);
 		

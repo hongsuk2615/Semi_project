@@ -4,7 +4,7 @@
 body {
     padding : 0px;
     margin: 0px;
-    /* background:linear-gradient(to bottom, rgb(255, 255, 255), #98a4b9); */
+   /*  background:linear-gradient(to bottom, rgb(255, 255, 255), #98a4b9);  */
     background-image: url(../IMG/배경화면.jpg);
     background-repeat: no-repeat;
     background-size: cover;
