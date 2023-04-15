@@ -39,12 +39,21 @@
     background-color: #E3F2FD;
     min-height : 200px;
 }
-#books-wrapper{
+#books-wrapper, #books-title{
+    width: 100%;
+}
+#books-title{
+    background-color: #42A5F5;
+    color: white;
+    border-radius: 5px;
+    padding: 7px;
+}
+#books-body{
     width: 100%;
     display: flex;	
     justify-content: space-between;
 }
-#books-wrapper>div{
+#books-body>div{
     width : 195px;
     padding: 5px;
     height: 300px;

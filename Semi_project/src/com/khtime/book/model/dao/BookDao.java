@@ -293,13 +293,20 @@ public class BookDao {
 		ArrayList<Book> list = new ArrayList<Book>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("getMainBooks");
+		String sql = prop.getProperty("selectThumbnailList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, 4);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				
+				Book book = new Book();
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				list.add(book);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
