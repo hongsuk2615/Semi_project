@@ -30,11 +30,14 @@
             <div id="book-btn">
                 <button id="book-home-btn" style="color: white;"onclick="location.href = '<%=contextPath%>/bookstore.do'">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
-                    홈
+                    Home
                 </button>
                 <button id="book-sell-btn" style="color: white;">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
                     판매하기
+                </button>
+                <button type="button" id="book-modify-btn">
+                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
                 </button>
             </div>
         </div>
@@ -74,10 +77,10 @@
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div>
+	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div> <!-- *2 하면 되는데 그걸 모르겠음 -->
 	                    </div>
                 	</div>
-                    <% } %>		
+                    <% } %>
 			</div>
         </div>
         
@@ -193,6 +196,10 @@
 			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
 			    });
 		});
+		
+		document.getElementById("book-modify-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
+   		 })
     </script>
 	
 	

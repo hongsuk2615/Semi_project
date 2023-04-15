@@ -14,9 +14,9 @@
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        * {
+        /* * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    }
+    } */
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">

@@ -20,9 +20,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
     <style>
-        * {
+       /*  * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    }
+    } */
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
@@ -61,13 +61,14 @@
 	                }
                 %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " style="<%= bList.get(i).getIsSoldout().equals("Y") ? "background: #a9a9a980; border-radius: 16px;" : "" %>">
                 		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
+	                        style="width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
 	                    </div>
 	                    <div class="book-text">
 	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
-	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
+	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
                     <% } %>
@@ -141,7 +142,6 @@
 	</script>
 	   	
 	<script>   	
-    	
 	
    		 document.getElementById("book-sell-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksell.do";

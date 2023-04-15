@@ -175,9 +175,11 @@
 .book-inf {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: space-evenly;
 	flex-direction: column;
+	margin-top: 30px;
+	height: 4000px;
 }
 
 .book-text {

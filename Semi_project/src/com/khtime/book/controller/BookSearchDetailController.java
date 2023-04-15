@@ -113,7 +113,6 @@ public class BookSearchDetailController extends HttpServlet {
 		request.setAttribute("bList", bList);
 		System.out.println(bList);
 		
-		System.out.println(bookname);
 		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
 //		response.sendRedirect(request.getContextPath()+"/booksearchdetail.do?bookname="+title);
 	}
