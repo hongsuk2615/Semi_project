@@ -25,6 +25,10 @@
     height: 100%;
 }
 
+#home-logo:hover {
+	cursor: pointer;
+}
+
 #book-logo {
     width: 600px;
     height: 120px;
@@ -50,20 +54,23 @@
 }
 
 #book-home-btn ,
-#book-sell-btn {
+#book-sell-btn ,
+#book-modify-btn {
     border: none;
     background: none;
 	color: white;
 }
 
 #book-home-btn-img ,
-#book-sell-btn-img {
+#book-sell-btn-img,
+#book-modify-btn-img {
     width: 30px;
     height: 30px;
 }
 
 #book-home-btn-img:hover ,
 #book-sell-btn-img:hover ,
+#book-modify-btn-img:hover ,
 #search-btn:hover ,
 #book-page-btn1:hover ,
 #book-page-btn2:hover ,
@@ -76,7 +83,7 @@
 }
 
 #book-btn {
-    width: 200px;
+    width: 300px;
     display: flex;
     justify-content: space-between;
 }
@@ -89,7 +96,8 @@
 #search-btn {
     background: rgb(57, 189, 235);
     color: white;
-    height: 30px;
+    width: 40px;
+    height: 33px;
     border: none;
 }
 
@@ -169,9 +177,10 @@
 
 .book-inf {
 	display: flex;
+	height: 800px;
 	align-items: center;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
 .book-text {

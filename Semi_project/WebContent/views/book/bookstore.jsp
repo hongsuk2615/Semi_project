@@ -8,8 +8,6 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage(); 
 	
-	/* Book book = (Book)request.getAttribute("book"); */
-	
 	String contextPath = request.getContextPath();
 	ArrayList<Book> bList = (ArrayList<Book>) request.getAttribute("bList");
 	int length = 0;
@@ -22,9 +20,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
     <style>
-        * {
+       /*  * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    }
+    } */
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
@@ -41,6 +39,9 @@
                 <button type="button" id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">판매하기
                 </button>
+                <button type="button" id="book-modify-btn">
+                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
+                </button>
             </div>
         </div>
         <div id="book-body">
@@ -48,7 +49,7 @@
                 <div id="book-search-input">
                     <img src="resources/IMG/glass.png" id="glass">
                     <input type="text" placeholder="도서 제목을 입력하세요" id="bookname" style="width: 300px;  height: 28px;">
-                    <button id="search-btn">검색</button>
+                    <button id="search-btn" value="">검색</button>
                 </div>
             </div>
             <div id="book-body-content1">
@@ -60,48 +61,20 @@
 	                }
                 %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " style="<%= bList.get(i).getIsSoldout().equals("Y") ? "background: #a9a9a980; border-radius: 16px;" : "" %>">
                 		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
+	                        style="width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
 	                    </div>
 	                    <div class="book-text">
 	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
-	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
+	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
                     <% } %>
                 </div>
-               <!-- <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-                <div id="book-inf">
-                    <div id="book-img">
-                        <img src="resources/IMG/책이미지.jfif">
-                    </div>
-                    <div id="book-text">
-                        <div>책 제목</div>
-                        <div>책 가격</div>
-                    </div>
-                </div>
-            </div>  -->
 
             <hr><hr>
-
             
         </div>
     </div>
@@ -126,12 +99,6 @@
 					<button type="button" id="nextPage">&gt;</button>
 				<% } %>
             
-                <!-- <button>&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button>&gt;</button> -->
             </div>
         </div>
         
@@ -158,22 +125,38 @@
 			<%-- $(a).click("#btn<%= currentPage %>"); --%>
 			/* getBooks(); */
 	   	});
+	   
+	   	$("#search-btn").click(function(){
+            if( $("#bookname").val() === "") { 
+           	alert("도서 제목을 검색 해 주세요.");
+           } else {
+        	   document.getElementById("search-btn").addEventListener("click",function(){
+   	        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
+   	   		 }) 
+           } 
+       })
+		   
+	  
      })
 	    
 	</script>
 	   	
 	<script>   	
-    	document.getElementById("search-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
-   		 })
-    	
+	
    		 document.getElementById("book-sell-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksell.do";
    		 })
-   		 
+			
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
+   		 
+   		 document.getElementById("book-modify-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
+   		 })
+
+   		 
+   		 
    		 
    		 $('.book-wrap').each(function(index,item){
 			    let bkno = $(item).attr('data-bkno');

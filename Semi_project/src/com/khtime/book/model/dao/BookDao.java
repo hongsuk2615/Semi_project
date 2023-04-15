@@ -57,6 +57,8 @@ public class BookDao {
 			pstmt.setString(9, book.getLocation());
 			pstmt.setString(10, book.getPublicationDate());
 			pstmt.setString(11, book.getApiImg());
+			pstmt.setString(12, book.getContent());
+			pstmt.setInt(13, book.getListPrice());
 			
 			result = pstmt.executeUpdate();
 			
@@ -122,6 +124,8 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
+				
 				bList.add(book);
 			}
 		} catch (SQLException e) {
@@ -133,15 +137,13 @@ public class BookDao {
 		  return bList;
 	  }
 	  
-	  public Book selectBook(Connection conn ,int bkno) {
-		  
+	  public ArrayList<Object> selectBook(Connection conn ,int bkno) {
+		  ArrayList<Object> book = new ArrayList<Object>();
 		  PreparedStatement pstmt = null;
 		  
 		  String sql = prop.getProperty("selectBook");
 		  
 		  ResultSet rset = null;
-		  
-		  Book book = null;
 		  
 		  try {
 			pstmt = conn.prepareStatement(sql);
@@ -150,18 +152,25 @@ public class BookDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				book = new Book();
-				book.setBookNo(rset.getInt("BOOK_NO"));
-				book.setBookName(rset.getString("BOOK_NAME"));
-				book.setAuthor(rset.getString("AUTHOR"));
-				book.setPublisher(rset.getString("PUBLISHER"));
-				book.setPublicationDate(rset.getString("PUBLICATION_DATE"));
-				book.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				book.setIsNoted(rset.getString("IS_NOTED"));
-				book.setIsDirect(rset.getString("IS_DIRECT"));
-				book.setLocation(rset.getString("LOCATION"));
-				book.setApiImg(rset.getString("API_IMG"));
-				book.setPrice(rset.getInt("PRICE"));
+				Book b = new Book();
+				b.setBookNo(rset.getInt("BOOK_NO"));
+				b.setSeller(rset.getInt("SELLER"));
+				b.setBookName(rset.getString("BOOK_NAME"));
+				b.setAuthor(rset.getString("AUTHOR"));
+				b.setPublisher(rset.getString("PUBLISHER"));
+				b.setPublicationDate(rset.getString("PUBLICATION_DATE"));
+				b.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				b.setIsNoted(rset.getString("IS_NOTED"));
+				b.setIsDirect(rset.getString("IS_DIRECT"));
+				b.setLocation(rset.getString("LOCATION"));
+				b.setApiImg(rset.getString("API_IMG"));
+				b.setPrice(rset.getInt("PRICE"));
+				b.setContent(rset.getString("CONTENT"));
+				b.setListPrice(rset.getInt("LIST_PRICE"));
+				b.setCondition(rset.getInt("CONDITION"));
+				book.add(rset.getString("USER_ID"));
+				book.add(b);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -194,7 +203,7 @@ public class BookDao {
 				bat.setOriginName(rset.getString("ORIGIN_NAME"));
 				bat.setChangeName(rset.getString("CHANGE_NAME"));
 				bat.setFilePath(rset.getString("FILE_PATH"));
-				
+				bat.setFileNo(rset.getInt("FILE_NO"));
 				bList.add(bat);
 				
 			}
@@ -206,4 +215,276 @@ public class BookDao {
 		}
 		 return bList;
 	  }
+	  
+	  public ArrayList<Book> selectBook(Connection conn , String bookname) {
+		  
+		  PreparedStatement pstmt = null;
+		  
+		  ArrayList<Book> bList = new ArrayList<Book>();
+		  
+		  String sql = prop.getProperty("selectBookList");
+		  
+		  ResultSet rset = null;
+		  
+		  try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bookname);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
+				
+				bList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		  return bList;
+	  }
+
+	public ArrayList<Book> selectBookSellList(Connection conn , PageInfo pi , int loginUserNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		ArrayList<Book> bList = new ArrayList<Book>();
+		
+		String sql = prop.getProperty("selectBookSellList");
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, loginUserNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Book book = new Book();
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
+				
+				bList.add(book);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
+		
+	}
+	
+
+	public ArrayList<Book> getMainBooks(Connection conn){
+		ArrayList<Book> list = new ArrayList<Book>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectThumbnailList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, 4);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Book book = new Book();
+				book.setBookName(rset.getString("BOOK_NAME"));
+				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setPrice(rset.getInt("PRICE"));
+				book.setTitleImg(rset.getString("TITLEIMG"));
+				list.add(book);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public BookAttachment selectBookAttachment(Connection conn, int fileNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		BookAttachment orgBat = new BookAttachment();
+		
+		String sql = prop.getProperty("selectBookAttachment");
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, fileNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				orgBat.setOriginName(rset.getString("ORIGIN_NAME"));
+				orgBat.setChangeName(rset.getString("CHANGE_NAME"));
+				orgBat.setFilePath(rset.getString("FILE_PATH"));
+				orgBat.setFileNo(rset.getInt("FILE_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return orgBat;
+	}
+	
+	public int updateBook(Connection conn, Book book) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		System.out.println();
+		String sql = prop.getProperty("updateBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, book.getContent());
+			pstmt.setInt(2, book.getPrice());
+			pstmt.setString(3, book.getIsNoted());
+			pstmt.setInt(4, book.getCondition());
+			pstmt.setString(5, book.getIsDirect());
+			pstmt.setInt(6, book.getBookNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateBookAttachment(Connection conn , BookAttachment bat) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateBookAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bat.getOriginName());
+			pstmt.setString(2, bat.getChangeName());
+			pstmt.setString(3, bat.getFilePath());
+			pstmt.setInt(4, bat.getFileNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertBookAttachment(Connection conn, BookAttachment bat) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertBookAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bat.getBookNo());
+			pstmt.setString(2, bat.getOriginName());
+			pstmt.setString(3, bat.getChangeName());
+			pstmt.setString(4, bat.getFilePath());
+			pstmt.setInt(5, bat.getFileLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateSoldout(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateSoldout");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public int bookDelete(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("bookDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 }

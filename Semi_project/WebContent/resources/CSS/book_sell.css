@@ -1,11 +1,16 @@
+
 #book-title {
     height: 300px;
-    background: lightgray;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 5px 5px 5px gray;
 }
 
 #book-inf {
     align-items: center;
     margin-top: 50px;
+    border-radius: 16px;
+    box-shadow: 5px 5px 5px gray;
 }
 
 #book-body {
@@ -16,15 +21,34 @@
     color: white;
 }
 
+#book-sell {
+	height: 140px;
+	display: flex;
+    align-items: center;
+    border-radius: 16px;
+    box-shadow: 5px 5px 5px gray;
+}
+
+#book-inf1 > *{
+	margin-left: 30px;
+	margin-top: 20px;
+}
+
 #book-sell,
 #book-thumbnail {
-    background-color: lightgray;
+    background-color: white;
     flex-direction: column;
     align-items: center
 }
 
+#book-thumbnail {
+	border-radius: 16px;
+	height: 500px;
+	box-shadow: 5px 5px 5px gray;
+}
+
 #book-trade {
-    background-color: lightgray;
+    background-color: white;
 }
 
 #book-body {
@@ -35,6 +59,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 #book-sell-header {
@@ -44,14 +69,61 @@
     align-items: center;
 }
 
-#book-img-upload ,
-#book-price ,
-#book-board-upload {
+
+#book-price {
     height: 100px;
-    background-color: lightgray;
+    background-color: white;
     display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#book-board-upload {
+	background-color: none;
+	height: 100px;
+	display: none;
+	justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#book-img-upload {
+	height: 150px;
+	background-color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-shadow: 5px 5px 5px gray;
+    border-radius: 16px;
+}
+
+#book-status-check {
+	margin-left: 30px;
+}
+
+#book-trade > * {
+	margin-left: 30px;
+}
+
+#book-content {
+	height: 150px;
+	background-color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 5px 5px 5px gray;
+    border-radius: 16px;
+}
+
+#book-price {
+	justify-content: space-evenly;
+	box-shadow: 5px 5px 5px gray;
+	border-radius: 16px;
 }
 
 #price {
@@ -68,46 +140,66 @@
 
 #book-price-enter:hover ,
 #upload:hover ,
-#next ,
-#next1 ,
-#next2 ,
-#next3 {
+#next:hover ,
+#next1:hover ,
+#next2:hover ,
+#next3:hover ,
+#next4:hover {
     cursor: pointer;
+    box-shadow: 5px 5px 5px gray;
 }
 
 #upload {
-    height: 30px;
-    width: 300px;
+    height: 50px;
+    width: 400px;
     background-color: rgb(57, 189, 235);
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     border-radius: 5px;
+    border: none;
 }
 
-.next , 
+#next , 
 #next1 , 
-#next2 {
+#next2 ,
+#next3 ,
+#next4  {
+	height: 30px;
+    width: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    color: white;
+    background: none;
+    border-radius: 5px;
 }
 
 #book-next,
 #book-next1,
 #book-next2,
-#book-next3 {
+#book-next3,
+#book-next4 {
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 30px;
+    width: 150px;
+    background-color: rgb(57, 189, 235);
+    border-radius: 5px;
 }
 
 #book-status,
 #book-trade {
     display: none;
     flex-direction: column;
+}
+
+#book-status {
+	height: 220px;
 }
 
 #book-next2 {
@@ -122,5 +214,21 @@ hr {
 
 #book-status ,
 #book-trade {
-	background-color: lightgray;
+	background-color: white;
+	box-shadow: 5px 5px 5px gray;
+	border-radius: 16px;
+}
+
+textarea {
+    width: 100%;
+    height: 6.25em;
+    resize: none;
+    border-radius: 5px;
+    
+  }
+  
+.location {
+	width: 200px;
+	height: 30px;
+	border-radius: 5px;
 }

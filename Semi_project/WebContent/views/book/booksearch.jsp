@@ -29,6 +29,9 @@
             justify-content: center;
     		align-items: center;
         }
+        img:hover {
+        	cursor: pointer;
+        }
         .book-text {
         	width: 200px;
         	height:100px;
@@ -37,6 +40,11 @@
     		align-items: center;
     		flex-direction: column;
     		text-align: center;
+        }
+        
+        #book-body-content2 {
+        	display: flex;
+    		justify-content: space-evenly;
         }
     </style>
 </head>
@@ -243,6 +251,10 @@
     <script>
     	document.getElementById("book-home-btn").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/bookstore.do";
+		 })
+		 
+		 document.getElementById("book-sell-btn").addEventListener("click",function(){
+    	location.href = "<%= request.getContextPath() %>/booksell.do";
 		 })
     </script>
     
