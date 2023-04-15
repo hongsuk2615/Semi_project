@@ -47,6 +47,7 @@
     color: white;
     border-radius: 5px;
     padding: 7px;
+    font-weight: bold;
 }
 #books-body{
     width: 100%;
@@ -61,7 +62,10 @@
     border-radius: 5px;
 
 }
-
+#books-wrapper{
+    padding: 7px;
+    margin-bottom: 30px;
+}
 #books-wrapper>div>div{
     border-radius: 5px;
 }
@@ -93,6 +97,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 10px;
 
 }
 
