@@ -55,11 +55,11 @@ public class BookService {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<BookAttachment> bList = new BookDao().selectThumbnail(conn, bkno);
+		ArrayList<BookAttachment> batList = new BookDao().selectThumbnail(conn, bkno);
 		
 		close(conn);
 		
-		return bList;
+		return batList;
 	}
 	
 	public ArrayList<Book> selectBook(String bookname) {
@@ -83,5 +83,66 @@ public class BookService {
 		
 		return bList;
 		
+	}
+	
+	public BookAttachment selectBookAttachment(int fileNo) {
+		
+		Connection conn = getConnection();
+		
+		BookAttachment orgBat = new BookDao().selectBookAttachment(conn, fileNo);
+		
+		close(conn);
+		
+		return orgBat;
+	}
+	
+	public int updateBook(Book book , ArrayList<BookAttachment> batList) {
+		
+		Connection conn = getConnection();
+		
+		int result1 = new BookDao().updateBook(conn, book);
+		
+		int result2 = 1;
+		
+		for( BookAttachment bat : batList ) {
+			if(bat.getFileNo() != 0) {
+				System.out.println(bat.getFileNo());
+				result2 *= new BookDao().updateBookAttachment(conn, bat);
+			} else {
+				result2 *= new BookDao().insertBookAttachment(conn, bat);
+			}
+			System.out.println(result2);
+		}
+		
+		if( result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2;
+	}
+	
+	public int updateSoldout(int bookNo) {
+		
+		Connection conn = getConnection();
+		
+		int book = new BookDao().updateSoldout(conn , bookNo);
+		
+		close(conn);
+		
+		return book;
+	}
+	
+	public int bookDelete(int bookNo) {
+		
+		Connection conn = getConnection();
+		
+		int book = new BookDao().bookDelete(conn , bookNo);
+		
+		close(conn);
+		
+		return book;
 	}
 }

@@ -124,6 +124,8 @@ public class BookDao {
 				book.setTitleImg(rset.getString("TITLEIMG"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
+				
 				bList.add(book);
 			}
 		} catch (SQLException e) {
@@ -201,7 +203,7 @@ public class BookDao {
 				bat.setOriginName(rset.getString("ORIGIN_NAME"));
 				bat.setChangeName(rset.getString("CHANGE_NAME"));
 				bat.setFilePath(rset.getString("FILE_PATH"));
-				
+				bat.setFileNo(rset.getInt("FILE_NO"));
 				bList.add(bat);
 				
 			}
@@ -234,8 +236,10 @@ public class BookDao {
 			while(rset.next()) {
 				Book book = new Book();
 				book.setTitleImg(rset.getString("TITLEIMG"));
+				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setPrice(rset.getInt("PRICE"));
 				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
 				
 				bList.add(book);
 			}
@@ -275,6 +279,7 @@ public class BookDao {
 				book.setPrice(rset.getInt("PRICE"));
 				book.setBookName(rset.getString("BOOK_NAME"));
 				book.setBookNo(rset.getInt("BOOK_NO"));
+				book.setIsSoldout(rset.getString("IS_SOLDOUT"));
 				
 				bList.add(book);
 			}
@@ -286,6 +291,169 @@ public class BookDao {
 			close(pstmt);
 		}
 		return bList;
+		
+	}
+	
+	public BookAttachment selectBookAttachment(Connection conn, int fileNo) {
+		
+		PreparedStatement pstmt = null;
+		
+		BookAttachment orgBat = new BookAttachment();
+		
+		String sql = prop.getProperty("selectBookAttachment");
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, fileNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				orgBat.setOriginName(rset.getString("ORIGIN_NAME"));
+				orgBat.setChangeName(rset.getString("CHANGE_NAME"));
+				orgBat.setFilePath(rset.getString("FILE_PATH"));
+				orgBat.setFileNo(rset.getInt("FILE_NO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return orgBat;
+	}
+	
+	public int updateBook(Connection conn, Book book) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		System.out.println();
+		String sql = prop.getProperty("updateBook");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, book.getContent());
+			pstmt.setInt(2, book.getPrice());
+			pstmt.setString(3, book.getIsNoted());
+			pstmt.setInt(4, book.getCondition());
+			pstmt.setString(5, book.getIsDirect());
+			pstmt.setInt(6, book.getBookNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateBookAttachment(Connection conn , BookAttachment bat) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateBookAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bat.getOriginName());
+			pstmt.setString(2, bat.getChangeName());
+			pstmt.setString(3, bat.getFilePath());
+			pstmt.setInt(4, bat.getFileNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int insertBookAttachment(Connection conn, BookAttachment bat) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("insertBookAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bat.getBookNo());
+			pstmt.setString(2, bat.getOriginName());
+			pstmt.setString(3, bat.getChangeName());
+			pstmt.setString(4, bat.getFilePath());
+			pstmt.setInt(5, bat.getFileLevel());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateSoldout(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateSoldout");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+	
+	public int bookDelete(Connection conn , int bookNo) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("bookDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, bookNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 		
 	}
 }
