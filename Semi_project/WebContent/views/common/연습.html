@@ -9,27 +9,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <title>Document</title>
     <style>
-      div1{
-        width: 30px;
-        height: 30px;
-        background-color: red;
-      }
-      div2{
-        width: 30px;
-        height: 30px;
-        background-color: yellow;
-      }
-      div3{
-        width: 30px;
-        height: 30px;
-        background-color: black;
+      .box {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  color: #fff;
+  border-radius: 15px;
+}
+.red {
+  background: red;
+  position: absolute;  
+  top: 30px;
+  left: 30px;
+  z-index: -1;
+}
+.blue {
+  background: blue;
+  position: absolute;  
+  top: 60px;
+  left: 60px;
+  z-index: 1;
+}
+.green {
+  background: green;
+  z-index: 0;
+}
     </style>
 </head>
 <body>
-  <div id="div1"></div>
-  <div id="div2"></div>
-  <div id="div3"></div>
-    <script>
+  <div>
+    <div>
+      <div class="box red">red</div>
+    </div>
+      <div>
+      <div class="box blue">blue</div>
+    </div>
+    <div>
+      <div class="box green">green</div>
+    </div>
+  </div>
   
 
 

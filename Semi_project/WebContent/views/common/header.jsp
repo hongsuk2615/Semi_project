@@ -46,12 +46,10 @@
                     <button id="login-btn">로그인</button>
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
-                	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
-                    <div id="msgcount1">
-                    <div  id="msgcount2" ></div>
-                    </div>
-                    
-                    <script>
+                	<div id="message-btn"><!-- $('#msgcount').text(''); -->
+                    	<div id="msgcount1"></div>   
+                    </div>           
+                   <script>
                 	 function friendCount(){
                		$.ajax({
                			url : "<%= request.getContextPath()%>/friendplus.do",
@@ -68,21 +66,21 @@
                		friendCount();
               </script>
                 	<script>
-                 	 function messageCount(){
+
+                	 function messageCount(){
                 		$.ajax({
                 			url : "<%= request.getContextPath()%>/msgplus.do",
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
-                				$('#msgcount1').css('display','flex');
-                				$('#msgcount2').text("+"+result);
+                				$('#msgcount1').text("+"+result) .css('display','flex') ;
                 				}else{
-                					$('#msgcount1').text('').css();
+                					 $('#msgcount1').text('').css('display', 'none');
                 					
                 				}
                 			}
                 			});
-                		}
+                		} 
                 	/* setInterval(,1000);	 */
                 	messageCount();      
                 	</script>

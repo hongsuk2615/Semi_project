@@ -114,10 +114,10 @@ a {
 					</div>
 					<!-- 친구  요청 받은 목록-->
 
-						<% if(list3.size() == 0){ %>
-							<div id="just">요청받은 목록이 없습니다.</div>
-						<%}%>
 						<div id="friendsReq">
+						<% if(list3.size() == 0){ %> 
+							요청받은 목록이 없습니다.
+						<%}%>
 					<%
 						for (Member m : list3) {
 					%>
