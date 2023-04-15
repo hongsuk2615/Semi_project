@@ -30,7 +30,7 @@
     align-items: end;
     font-size: 20px;
 }
- #boardsearch,#friendlist,#bookstore,#todolist {
+ #boardsearch,#friendlist,#bookstore,#todolist,#management {
     padding: 20px 0px;
     height: 90px
 } 
