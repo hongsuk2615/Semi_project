@@ -172,7 +172,7 @@
 		},300);
 		
 		
-		// enter키 
+		// 전송시 enter키 감지하는 스크립트
 		$('#msg').keyup(function () {
             if (window.event.keyCode == 13) {
                
