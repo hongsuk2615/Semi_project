@@ -85,6 +85,14 @@ public class BookService {
 		
 	}
 	
+	public ArrayList<Book> getMainBooks(){
+		Connection conn = getConnection();
+		ArrayList<Book> list = new BookDao().getMainBooks(conn);
+		close(conn);
+		
+		return list;
+	}
+		
 	public BookAttachment selectBookAttachment(int fileNo) {
 		
 		Connection conn = getConnection();
