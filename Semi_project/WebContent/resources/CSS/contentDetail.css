@@ -23,6 +23,13 @@
     list-style-type: none;
    
 }
+#contentdiv li{
+    list-style-type: unset;
+    list-style-position: unset;
+}
+#contentdiv ul {
+    padding : 10px 40px;
+}
 
 .content-detail-comments{
     display: flex;
