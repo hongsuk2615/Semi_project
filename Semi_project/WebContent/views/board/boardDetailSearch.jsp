@@ -86,7 +86,7 @@
 								url : "<%=request.getContextPath()%>/boDetailSearch.do",
 								type : "post", 
 								data :{
-									keyword : <%=keyword %>,
+									keyword : '<%=keyword %>',
 									currentPage : boardCount
 								}, 
 								success : function(list){
