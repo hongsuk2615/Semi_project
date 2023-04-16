@@ -65,7 +65,8 @@
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!"></div>
-      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"></textarea>
+      							    <div id="contentdiv">
+      							    <%@include file="textEditor.jsp" %><div id="content" contenteditable="true"></div>
 										<div id="QuestionContent" class="displaynone"><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area"></div>
@@ -107,7 +108,7 @@
 				
 				formData.append("cNo", <%= request.getAttribute("cNo")%>);
 				formData.append("title", $("#title").val());
-				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("content",$("#content").html());
 				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
 				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
 					
@@ -142,7 +143,7 @@
 							khalert("제목을 입력해주세요!");
 							$("#title").focus();
 							return false;
-						}else if($("#content").val() == ''){
+						}else if($("#content").html() == ''){
 							khalert("내용을 입력해주세요!");
 							$("#content").focus();
 							return false;
@@ -225,7 +226,7 @@
 										<li>
 										<div class="boardNo\${i.boardNo} displaynone">\${i.boardNo}</div>
 		                                <h3>\${i.title}</h3>
-		                                    <p>\${i.content}</p><br>
+		                                    <div class="board-detail-contents"><p>\${i.content}</p></div><br>
 											<div class="board-detail-footer">
 											<div class="board-detail-footer-left">`
 											if(i.writer == "익명"){

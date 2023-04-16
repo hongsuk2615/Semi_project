@@ -93,6 +93,12 @@
 #content{
     height: 200px;
     resize: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+}
+#content::-webkit-scrollbar{
+    display: none;
 }
 #btns{
     display: flex;
@@ -157,8 +163,10 @@
 	 background: none;
     border: none;
 }
-
-#content-area p {
+.board-detail-contents{
+	width: 100%;
+}
+#content-area .board-detail-contents {
     max-height: 19px;
 	overflow:hidden;
 	text-overflow:ellipsis;

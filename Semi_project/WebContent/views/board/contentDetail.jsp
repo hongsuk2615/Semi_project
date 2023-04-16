@@ -131,7 +131,7 @@
                                    <h3><%= b.getTitle() %></h3> 
                                 </div>
                                 <div id="contentdiv">
-                                  <p> <%= b.getContent() %></p>
+                                   <%= b.getContent() %>
                                 </div>
                                 <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
