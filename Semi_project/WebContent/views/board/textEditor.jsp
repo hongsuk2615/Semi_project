@@ -130,7 +130,7 @@
     </div>
     <div class="editor-btns">
         <button id="text-color" type="button" onclick ="document.execCommand('foreColor', false, $('#color').val())">가</button>
-        <div style="width:10px;" id="text-color-selector" onclick="$('#color').click()"></div><input type="color" name="색상" id="color" value="#31b1f1">
+        <div style="width:10px;" id="text-color-selector" onclick="$('#color').click()"></div><input type="color" name="색상" id="color" value="#000000">
         <button type="button" onclick ="document.execCommand('bold')"><b>가</b></button>
         <button type="button" onclick ="document.execCommand('italic')"><i>가</i></button>
         <button type="button" onclick ="document.execCommand('underline')"><u>가</u></button>
