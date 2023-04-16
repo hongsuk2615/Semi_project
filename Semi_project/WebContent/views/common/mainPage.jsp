@@ -240,7 +240,7 @@
 	                        for(let i = 0; i < 6 ; i++){
 	                            if(result[Object.keys(result)[0]][i] != null){
 	                                $('#board-'+num+' tbody').append('<tr>'+
-	                                                                '<td>' + result[Object.keys(result)[0]][i].title + '</td>'+
+	                                                                '<td><p>' + result[Object.keys(result)[0]][i].title + '</p></td>'+
 	                                                          '</tr>');
 	                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
 	                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[Object.keys(result)[0]][i].boardNo;
