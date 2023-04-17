@@ -3,10 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
-   ArrayList <Board> searchList  = (ArrayList<Board>) request.getAttribute("searchList"); 
+	ArrayList <Board> searchList  = (ArrayList<Board>) request.getAttribute("searchList"); 
+	ArrayList <Integer> recommendcheck  = (ArrayList<Integer>) request.getAttribute("recommendcheck"); 
+	ArrayList <Integer> scrapcheck  = (ArrayList<Integer>) request.getAttribute("scrapcheck"); 
 	String keyword = (String) request.getAttribute("keyword");
-   PageInfo pi = (PageInfo)request.getAttribute("pi");
-   int currentPage = Integer.valueOf(request.getParameter("currentPage")==null?"0":request.getParameter("currentPage"));
    
 %>    
 <!DOCTYPE html>
@@ -45,7 +45,12 @@
     </style>
 </head>
 <body>
+
     <div id="wrapper">
+    <!-- 위로 가기 버튼 -->
+    <div class="gototopdiv displaynone"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
+    
+    <!-- 위로 가기 버튼 -->
         <%@ include file="../common/header.jsp" %>
         <div id="body">
             
@@ -53,61 +58,110 @@
                 <div id="body-left">
                     <div id="board-wrapper">
                         <div id="board-detail">
-                            <div> <%= keyword %>&nbsp;로 검색한 결과</div>
-                            <div id="createContent">
-                               <form action="<%=request.getContextPath()%>/insert.bo" method="post">
-            					</form>
+                            <div id="category" >
+                            	"<%=keyword%>"으로 검색한 결과
                             </div>
-                           <% if(searchList==null) { %>
-                              글이 없습니다,,
-                           <% }else{ %>
-                            <ul>
-                           
-                               <% for(Board b : searchList) { %>
-                                <li><div class="boardNo"style="display:none"><%= b.getBoardNo() %></div>
-                                <%= b.getTitle() %><br>
-                                    <%= b.getContent() %> <br>
-                                   <%= b.getEnrollDate() %> &nbsp; <%= b.getWriter() %><br>
-                                    <div id="board-detail-comment">
-                                        <div>첨부파일</div>
-                                        <div><%= b.getRecommendCount() %></div>
-                                        <div><%= b.getReplyCount() %></div>
-                                    </div>
-                                </li>
-                               
-                                   <% } %>
-                                 <% } %>
-                                  </ul>
-                  <script>
-                           $(function(){
-                              $("#board-detail li").click(function(){
-                                 let bNo = $(this).children().eq(0).text();
-                                 location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
-                                 
-                              });
-                           });
-                        </script>
+	<script>
+	let recommendBoards = [];
+	<% for(Integer i : recommendcheck){%>
+		recommendBoards.push(<%=i%>);
+	<% } %>
+	
+	let scrapBoards = [];
+	<% for(Integer i : scrapcheck){%>
+		scrapBoards.push(<%=i%>);
+	<% } %>
+	</script>
+                            <ul id="content-area">
+                           <% if(searchList.isEmpty()) { %>
+                           <li class="shadownone" style="display:flex; align-items : center; pointer-events : none;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
+                           <% } %>
+                            </ul>
+						<script>
+						
+						let boardCount = 0;
+						function loadBoard(){
+							boardCount = boardCount + 1;
+							$.ajax({
+								url : "<%=request.getContextPath()%>/boDetailSearch.do",
+								type : "post", 
+								data :{
+									keyword : '<%=keyword %>',
+									currentPage : boardCount
+								}, 
+								success : function(list){
+									let result  = "";
+									console.log("list"+list);
+									for(let i of list){ 
+										i.writer = i.isAnonimous == ("Y") ? "익명" : i.writer;
+										result += 
+										`
+										<li>
+										<div class="boardNo\${i.boardNo} displaynone">\${i.boardNo}</div>
+		                                <h3>\${i.title}</h3>
+		                                    <p>\${i.content}</p><br>
+											<div class="board-detail-footer">
+											<div class="board-detail-footer-left">`
+											if(i.writer == "익명"){
+												result += `<img src="<%=request.getContextPath()%>/resources/IMG/user.png" width="30" height="30">`
+											}else{
+												result += `<img src="<%= request.getContextPath() %>\${i.userProfile}" width="30" height="30">`
+											}
+											result += `<span class="spanWriter">\${i.writer}<span> <div class="stringDate"><span class="spanDate">\${dayStringMaker(i.stringDate)} <span></div></div>
+		                                    <div class="board-detail-comment">
+												<div class="board-detail-commend"> `;
+												
+												if(recommendBoards.includes(i.boardNo)){
+													result += `<img class="recommendImg includes" src="<%=request.getContextPath()%>/resources/IMG/like2.png">
+													<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}else{
+													result += `<img class="recommendImg" src="<%=request.getContextPath()%>/resources/IMG/like1.png">
+														<span style="color: red;">\${i.recommendCount}</span></div>`;
+												}
+													if(scrapBoards.includes(i.boardNo)){
+														result += `<div class="board-detail-commend"> <img class="includes" src="<%=request.getContextPath()%>/resources/IMG/star1.png">
+													<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													}else{
+														result += `<div class="board-detail-commend"> <img src="<%=request.getContextPath()%>/resources/IMG/star.png">
+															<span style="color: #ffcc1c;">\${i.scrapCount}</span></div>`
+													} result +=	` <div class="board-detail-commend"> <img style="padding-top: 3px;" src="<%=request.getContextPath()%>/resources/IMG/message.png">
+														<span style="color: #666666;">\${i.replyCount}</span></div>
+											</div>
+										</div>
+                                		</li>
+					                     `
+									}
+										$("#content-area").append(result);
+										selectContent();
+									
+								}, error : function(){
+									khalert("게시글 조회 실패");
+								}
+							
+							})
+						}
+						
+						function selectContent(){
+							$("#board-detail li").click(function(){
+								let bNo = $(this).children().eq(0).text();
+								location.href = '<%= request.getContextPath() %>/contentDetail.bo?bNo='+bNo;
+								
+							});
+						}
+						
+
+					     window.onscroll = function(e) {
+					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
+					           setTimeout(loadBoard, 500); 
+					         }
+					       }
+								     
+								    
+								</script>
                             
                             
                     </div>
-                    <div id="board-detail-search">
-                       
-                        <div>검색창</div>
-                        <div id="board-detail-search-pagebtn">
-                        
-      <div align="center" class="paging-area">
-         
-         <% if( currentPage != 1) { %>
-            <button onclick="location.href = '<%=request.getContextPath() %>/boDetailSearch.do?keyword=<%=keyword%>&currentPage=<%= currentPage -1 %>'">이전</button>
-         <% } %>
-         
-         <% if(currentPage != pi.getMaxPage()) { %>
-            <button onclick="location.href = '<%=request.getContextPath() %>/boDetailSearch.do?keyword=<%=keyword%>&currentPage=<%=currentPage + 1 %>' ">다음</button>
-         <% } %>
-         
-      </div>
-                        </div>
-                    </div>
+                   
                     </div>
     
                 </div>
@@ -123,11 +177,52 @@
 
         </div>
     </div>
-   
+   <script>
+		  
+	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
+	$(function(){loadBoard();});
+	 
+	
+	 window.addEventListener("scroll",function(){
+	 if(window.scrollY > 800){
+		 $(".gototopdiv").fadeIn();
+	 }else{
+		 $(".gototopdiv").fadeOut();
+	 }
+	 })
+	 
+	   	function dayStringMaker(Day){
+	   		let sysdate = new Date();
+	   		let enrollDate = new Date(Day);
+	   		let result ='';
+	   		let diff = sysdate - enrollDate;
+	   		
+	   		const year = enrollDate.getFullYear();
+	   		const month = enrollDate.getMonth() + 1;
+	   		const date = enrollDate.getDate();
+	   		const hour = enrollDate.getHours();
+	   		const minutes = enrollDate.getMinutes();
+	   		
+	   		if(diff<3600000){
+	   			result =   Math.ceil(diff/1000/60) + '분전';
+	   		}else if(diff<86400000){
+	   			result = Math.floor(diff/1000/60/60) + '시간전';
+	   		}else if(diff<31104000000){
+	   			result = year+"/"+month+"/"+date+" "+hour+":"+minutes;
+	   		}else {
+	   			result = Math.floor(diff/1000/60/60/24/30/12) + '년전';
+	   		}
+	   		
+	   		
+	   		return result;
+	   		
+	   	}
+   </script>
+	
+	 <%@ include file="../common/khalertmodal.jsp" %>
+	
 
-     <script>
-    </script>
-
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 
 
 </body>

@@ -12,7 +12,7 @@
     background-color: white;
     position: fixed;
     top: 0;
-    z-index:999;
+    z-index:1;
 }
 
 #header-content {
@@ -30,7 +30,7 @@
     align-items: end;
     font-size: 20px;
 }
- #boardsearch,#friendlist,#bookstore,#todolist {
+ #boardsearch,#friendlist,#bookstore,#todolist,#management {
     padding: 20px 0px;
     height: 90px
 } 
@@ -160,6 +160,9 @@
 
 #friendlist{
  	position: relative;  
+}
+#approveEnroll, #reportedBoards, #boardReq, #userManagement{
+	height: 60%;
 }
 
 

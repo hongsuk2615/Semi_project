@@ -11,6 +11,17 @@
     border-top: 2px solid rgba(255, 255, 255, 0.5);
     padding: 4px 5px;
     color: rgb(78, 93, 107);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 370px;
+}
+#body p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    padding: 0;
+    width: 370px;
 }
 
 #main-banner {
@@ -47,6 +58,7 @@
     color: white;
     border-radius: 5px;
     padding: 7px;
+    font-weight: bold;
 }
 #books-body{
     width: 100%;
@@ -61,7 +73,10 @@
     border-radius: 5px;
 
 }
-
+#books-wrapper{
+    padding: 7px;
+    margin-bottom: 30px;
+}
 #books-wrapper>div>div{
     border-radius: 5px;
 }
@@ -93,6 +108,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 10px;
 
 }
 
