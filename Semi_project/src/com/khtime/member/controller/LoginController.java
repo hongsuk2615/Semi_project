@@ -57,7 +57,6 @@ public class LoginController extends HttpServlet {
 		
 		int result = (loginUser == null) ? 0 : loginUser.getStatus().equals("N") ? 4 : loginUser.getAvailable().equals("N") ? 3 : 
 			loginUser.getIsBanned().equals("Y") ? 2 : 1;
-
 		
 		// 1: 로그인 성공
 		// 2: 밴인 유저

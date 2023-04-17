@@ -175,9 +175,9 @@ public class ManagementService {
 		return result;	
 	}
 	
-	public ArrayList<Member> getFilteredUsers(Member m){
+	public ArrayList<Member> getFilteredUsers(Member m, PageInfo pi){
 		Connection conn = getConnection();
-		ArrayList<Member> list = new ManagementDao().getFilteredUsers(conn, m);
+		ArrayList<Member> list = new ManagementDao().getFilteredUsers(conn, m, pi);
 		close(conn);
 		return list;
 	}
