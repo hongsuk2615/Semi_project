@@ -70,10 +70,12 @@
 	</entry> 
 	
 	<entry key="messageModal">
-		SELECT CONTENT
+		SELECT CONTENT 
+		SELECT USER_NAME
+		FROM MEMBER LEFT JOIN MESSAGE	
 		FROM MESSAGE
-		RECEIVER = ?
-		AND IS_READ = 'N' 
+		AND IS_READ = 'N'  
+		AND USER_NO = ?
 		
 	</entry>
 </properties>

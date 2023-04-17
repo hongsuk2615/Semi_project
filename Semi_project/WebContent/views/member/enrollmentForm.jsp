@@ -125,9 +125,15 @@
                         이메일 <br>
                         <input placeholder="이메일 형식에 맞게 입력하세요" type="email" name="email" id="email">
                         <button type="button" onclick="emailCheck();" id="emailcheck">중복확인</button>
+                        <button type="button" id="sendCode" >코드받기</button>
                         <br><br>
                         <div style="width: 200px ;height: 15px;"></div><br>
-
+						
+						 <input placeholder="인증코드를 입력하세요. " type="text" name="code" id="code"
+                            required>
+                            <button type="button" id="checkCode" >코드확인</button>
+                        <br><br>
+                        
                         반이름 &nbsp&nbsp
                         <select name="class">
                             <option value="selected">반선택</option>
@@ -198,6 +204,37 @@
         </div>
     </div>
         	<script>
+        	let code= '';
+        	 function checkCode(){
+				 if($('#code').val()==code){
+					 alert('인증완료');
+				 }else{
+					 alert('인증실패');
+				 }
+			 }
+        	
+        	 document.getElementById("sendCode").addEventListener('click',function(){
+        		 
+        		 
+        		 // 아이디를 입력하는 input요소 얻어오기
+				 let emailCode = document.getElementById("email").value;
+				
+				 // 비동기 요청 보내기
+				  $.ajax({
+					 url : "<%= request.getContextPath()%>/SendCode.do",
+					 data :  {email: emailCode},
+					 success : function(result){
+						console.log(result);
+						code = result;
+						 },
+					 error : function(){
+						 console.log("코드 전송 실패");
+						 } 
+					 });
+          		   })
+             
+        	
+        
         	
 	        	$(".checkbox_group").on("click", "#check_all", function () {
 	        	    $(this).parents(".checkbox_group").find('input').prop("checked", $(this).is(":checked"));
@@ -329,7 +366,11 @@
 							 }else if(!regExp.test(emailval)){
 								 alert("유효한 이메일을 입력하세요.");
 							 }else{
-								 alert("사용가능한 이메일 입니다.");
+								 confirm("사용가능한 이메일 입니다 사용하시겠습니까?");
+								if(confirm){
+								 $("#sendCode").show();
+								 $('#checkCode').click(checkCode);
+								}
 							 }
 						 },
 						 error : function(){
