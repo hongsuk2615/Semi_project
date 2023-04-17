@@ -654,12 +654,12 @@
 					userId : "<%=userId%>"
 				}, 
 				success : function(result){
-					switch(result){
-					case '0' : alert("아이디나 비번이 맞지 않습니다!"); location.href="<%= request.getContextPath()%>/login.me"; break;
-					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '3' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '4' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					if(result == 0){
+						$("#loginId").val(""); 
+						$("#loginPwd").val("");
+						location.href="<%= request.getContextPath()%>/login.me?n=n"
+					}else{
+					location.href="<%= request.getContextPath()%>"
 					}
 				}, error : function(){
 					console.log("ajax통신실패")

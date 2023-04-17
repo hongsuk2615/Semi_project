@@ -33,7 +33,7 @@
 	align-items: center;
 }
 
-#modal-content{
+#modal-content, #modal-confirm-content{
 	margin: 0px 16px 16px 16px;
 	
 }
@@ -51,4 +51,29 @@
 
 #modal-button span{
 	color: white;
+}
+
+#modal-confirm{
+	display: none;
+}
+#modal-yes-button{
+	background: skyblue;
+	border-radius: 2px;
+    border: 1px solid skyblue;
+    position: absolute;
+    right: 45px;
+    bottom: 10px;
+    width: 50px;
+    height: 25px;
+}
+
+#modal-no-button{
+	background: skyblue;
+	border-radius: 2px;
+    border: 1px solid skyblue;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    height: 25px;
 }

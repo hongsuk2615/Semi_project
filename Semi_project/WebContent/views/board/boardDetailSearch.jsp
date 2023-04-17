@@ -86,7 +86,7 @@
 								url : "<%=request.getContextPath()%>/boDetailSearch.do",
 								type : "post", 
 								data :{
-									keyword : <%=keyword %>,
+									keyword : "<%=keyword %>",
 									currentPage : boardCount
 								}, 
 								success : function(list){
@@ -149,13 +149,22 @@
 							});
 						}
 						
+						function removeLoadingImg(){
+							$('.loadingbox').each(function(index,item){
+				        		   item.remove();
+						});
+						}
 
 					     window.onscroll = function(e) {
 					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
-					           setTimeout(loadBoard, 500); 
+					        	 if($('.loadingbox').length == 0){
+					        	$("#content-area").append("<li class='loadingbox'><img src='<%=request.getContextPath()%>/resources/IMG/loadingGif.gif' width='100' height='100'></li>");
+					        	 }
+					        	setTimeout(loadBoard, 500);
+					            setTimeout(removeLoadingImg, 500);
+					           
 					         }
-					       }
-								     
+					       }	     
 								    
 								</script>
                             

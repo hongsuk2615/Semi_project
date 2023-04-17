@@ -115,7 +115,6 @@
                                     					url : "<%= request.getContextPath() %>/report.bo",
                                     					data : {bNo : <%= b.getBoardNo() %>},
                                     					success : function(data){
-                                    						if(data > 0) khalert("신고 성공!");
                                     						if(data < 0) khalert("이미 신고된 글입니다!");
                                     						}
                                     				});
@@ -166,9 +165,8 @@
                             </div>
 
                             <!-- 댓글 -->
-                            
                          <ul id="comments-area">
-                        <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="200" height="200">
+                        <li class="loadingbox" style="height:50px;"><img src="<%=request.getContextPath()%>/resources/IMG/loadingGif.gif" alt="" width="100" height="100"></li>
                         </ul>
                          
                     <!-- 댓글달기 -->
@@ -406,7 +404,6 @@
 					data : {bNo : <%= b.getBoardNo() %>},
 					success : function(data){
 						if(data > 0) {
-							khalert("공감 성공!");
 							$("#recommendbox").html(data);
 							$('.board-detail-commend .recommendImg').attr('src','<%=request.getContextPath()%>/resources/IMG/like2.png');
 						}
@@ -425,13 +422,11 @@
 						if(data > 0) {
 							$("#scrapbox").html(data);
 							$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star1.png');
-							khalert("스크랩 성공!");
 						}
 						if(data == 0) khalert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
-							if(confirm("스크랩을 취소하시겠습니까?")){
+							khconfirm("스크랩을 취소하시겠습니까?");
 								deleteScrap();
-							}
 						}
 						}
 				});
@@ -445,7 +440,6 @@
 						},
 					success : function(data){
 						if(data >= 0) {
-							khalert("스크랩 취소 성공!");
 						$("#scrapbox").html(data);
 						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
 							}
@@ -465,7 +459,6 @@
 						},
 					success : function(data){
 						if(data > 0) {
-							khalert("삭제 성공!");
 							selectReplyList();
 							selectReplyCount();
 						}else{
@@ -490,7 +483,6 @@
 						},
 					success : function(data){
 						if(data > 0) {
-							khalert("공감 성공!");
 							selectReplyList();
 						}
 						if(data == 0) khalert("본인이 작성한 댓글은 공감이 불가능합니다!");
@@ -507,7 +499,6 @@
 								rNo : rNo
 								},
 						success : function(data){
-							if(data > 0) khalert("신고 성공!");
 							if(data == 0) khalert("본인이 작성한 댓글은 신고 불가능합니다!");
 							if(data < 0) khalert("이미 신고된 글입니다!");
 							},
