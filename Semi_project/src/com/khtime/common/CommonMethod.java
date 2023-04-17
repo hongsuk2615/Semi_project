@@ -94,7 +94,7 @@ public class CommonMethod {
 		Session session = Session.getInstance(props, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("freshbakery0823@gmail.com", "kcaphvlippunfasg");
+				return new PasswordAuthentication("", "");
 			}
 		});
 
@@ -103,7 +103,7 @@ public class CommonMethod {
 		String content = "인증코드 : "+Code;
 		Message message = new MimeMessage(session);
 		try {
-			message.setFrom(new InternetAddress("freshbakery0823@gmail.com", "관리자", "utf-8"));
+			message.setFrom(new InternetAddress("", "관리자", "utf-8"));
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(receiver));
 			message.setSubject(title);
 			message.setContent(content, "text/html; charset=utf-8");
