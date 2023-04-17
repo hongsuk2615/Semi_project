@@ -24,6 +24,7 @@
 		
 		document.getElementById("modal-yes-button").addEventListener('click',function(){
 			document.getElementById('modal-confirm').style.display = 'none';
+			return true;
 		})
 		
 		document.getElementById('modal-confirm').addEventListener("click", e => {

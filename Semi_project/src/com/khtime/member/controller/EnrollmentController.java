@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.khtime.common.CommonMethod;
 import com.khtime.common.model.EnrollmentPwdEncryptWrapper;
 import com.khtime.common.model.vo.MyFileRenamePolicy;
 import com.khtime.member.model.service.MemberService;

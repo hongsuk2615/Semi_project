@@ -82,22 +82,23 @@
                                             <div class="stringDate"> <span class="spanDate"></span> </div>
                                         </div>
                                         </div>
-                                    <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
+                                    <div id="content-header-right">
                                         <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
                                         		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
                                         	<button id="updateBoard" class="btnsetting"><span>수정</span></button>
                                         	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                        		 if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                        		 if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                       	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
-                                      	    	}else if(confirm("정말 삭제하시겠습니까?")){ 
+                                      	    	}else if(khconfirm("정말 삭제하시겠습니까?")){
+                                      	    		console.log
                                      	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
                                         		 }
                                      	    })
                                         			
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	    	if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                     	    	if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                      	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
                                      	    	}else{
                                      	    		location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
