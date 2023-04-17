@@ -8,7 +8,7 @@
 	String cName = (String) request.getAttribute("cName");
 	int recommendcheck = (int) request.getAttribute("recommendcheck");
 	int scrapcheck  = (int) request.getAttribute("scrapcheck"); 
-%>     
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +83,7 @@
                                         </div>
                                         </div>
                                     <div id="content-header-right">
-                                        <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
+                                        <%if(loginUser != null &&loginUser.getAuthority() == 0 ||
                                         		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
                                         	<button id="updateBoard" class="btnsetting"><span>수정</span></button>
                                         	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
@@ -91,12 +91,12 @@
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
                                         		 if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                       	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
-                                      	    	}else if(khconfirm("정말 삭제하시겠습니까?")){
-                                      	    		console.log
-                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
-                                        		 }
-                                     	    })
-                                        			
+                                      	    	}else{
+                                      	    		khconfirm("정말 삭제하시겠습니까?", function(){
+                                      	    			location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
+                                      	    		});
+                                      	    		}
+                                        		 })
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
                                      	    	if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                      	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
@@ -111,15 +111,16 @@
                                         	
                                         	<script>
                                         	document.getElementById("reportBoard").addEventListener("click",function(){
-                                        		if(confirm("정말 신고하시겠습니까?")){ 
-                                    	  	    $.ajax({
+                                      			khconfirm("정말 신고하시겠습니까?", function(){
+                                      				$.ajax({
                                     					url : "<%= request.getContextPath() %>/report.bo",
                                     					data : {bNo : <%= b.getBoardNo() %>},
                                     					success : function(data){
+                                    						if(data > 0) khalert("신고되었습니다.");
                                     						if(data < 0) khalert("이미 신고된 글입니다!");
                                     						}
                                     				});
-                                        		}
+                                      			});
                                       	    })
                                       	    
                                         	
@@ -426,8 +427,7 @@
 						}
 						if(data == 0) khalert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
-							khconfirm("스크랩을 취소하시겠습니까?");
-								deleteScrap();
+							khconfirm("스크랩을 취소하시겠습니까?", deleteScrap);
 						}
 						}
 				});
@@ -443,6 +443,7 @@
 						if(data >= 0) {
 						$("#scrapbox").html(data);
 						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
+						khalert("스크랩 취소되었습니다.");
 							}
 						}
 				});
@@ -450,6 +451,8 @@
   	    
   	     
   	   /* 댓글 삭제, 추천, 신고  */
+  	   
+  	   
   	    function deleteclick(id){
 			 let rNo = id.substr(9);
 			 $.ajax({
@@ -467,9 +470,7 @@
 						}
 					},
 					beforeSend : function(){
-						if(!confirm("정말 삭제하시겠습니까?")){
-							return false;
-						}
+						khconfirm("댓글 삭제하시겠습니까?")
 					}
 				});
 		 }
@@ -500,13 +501,14 @@
 								rNo : rNo
 								},
 						success : function(data){
+							if(data > 0) khalert("신고되었습니다.");
 							if(data == 0) khalert("본인이 작성한 댓글은 신고 불가능합니다!");
 							if(data < 0) khalert("이미 신고된 글입니다!");
 							},
 						beforeSend : function(){
-							if(!confirm("정말 신고하시겠습니까?")){
+							khconfirm("정말 신고하시겠습니까?", function(){
 								return false;
-							}
+							})
 						}
 								
 					});

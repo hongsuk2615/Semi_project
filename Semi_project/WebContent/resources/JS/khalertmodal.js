@@ -34,11 +34,24 @@
 		    }
 		})
 		
-		function khconfirm(a){
+		function khconfirm(a, callback){
+		  
 		
 			document.getElementById('modal-confirm-content').innerHTML = a;
 			document.getElementById('modal-confirm').style.display = 'flex';
-			
-			}
+			function eventHandler(){
+				document.getElementById('modal-confirm').style.display = 'none';
+				callback();
+			}	
+			document.getElementById("modal-yes-button").addEventListener('click',eventHandler);
+			document.getElementById('modal-confirm').addEventListener("click", e => {
+	   			const evTarget = e.target
+	    		if(!evTarget.classList.contains("modal-container")) {
+	    			document.getElementById('modal-confirm').style.display = 'none';
+	    			document.getElementById("modal-yes-button").removeEventListener('click',eventHandler);
+		    	}
+		})
+		}
+		
 		
 	
