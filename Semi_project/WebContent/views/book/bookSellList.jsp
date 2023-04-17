@@ -47,21 +47,18 @@
 		                }
 	                %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%>" style="<%= bList.get(i).getIsSoldout().equals("Y") ? "background: #a9a9a980; border-radius: 16px; position: relative" : "" %>">
                 		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
 	                    </div>
 	                    <div class="book-text">
 	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
-	                        <div class="book-price">가격 : <%= bList.get(i).getPrice() %></div>
+	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
-                	<hr>
                     <% } %>
             		</div>
                	</div>
-
-            <hr><hr>
             
         </div>
     </div>
@@ -127,8 +124,6 @@
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
-
-   		 
    		 
    		 
    		 $('.book-wrap').each(function(index,item){

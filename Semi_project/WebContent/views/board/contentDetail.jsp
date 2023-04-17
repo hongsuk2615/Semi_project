@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
     <link rel="stylesheet" href="resources/CSS/contentDetail.css">
     <link rel="stylesheet" href="resources/CSS/sendmessagemodal.css">
+    <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
@@ -48,8 +49,6 @@
     </style>
 </head>
 <body>
-
-
 
     <div id="wrapper">
         <%@ include file="../common/header.jsp" %>
@@ -90,14 +89,16 @@
                                         	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                        		 if(confirm("정말 삭제하시겠습니까?")){ 
+                                        		 if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                      	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
+                                      	    	}else if(confirm("정말 삭제하시겠습니까?")){ 
                                      	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
                                         		 }
                                      	    })
                                         			
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
                                      	    	if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
-                                     	    		alert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
+                                     	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
                                      	    	}else{
                                      	    		location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
                                      	    	}
@@ -114,8 +115,8 @@
                                     					url : "<%= request.getContextPath() %>/report.bo",
                                     					data : {bNo : <%= b.getBoardNo() %>},
                                     					success : function(data){
-                                    						if(data > 0) alert("신고 성공!");
-                                    						if(data < 0) alert("이미 신고된 글입니다!");
+                                    						if(data > 0) khalert("신고 성공!");
+                                    						if(data < 0) khalert("이미 신고된 글입니다!");
                                     						}
                                     				});
                                         		}
@@ -130,7 +131,7 @@
                                    <h3><%= b.getTitle() %></h3> 
                                 </div>
                                 <div id="contentdiv">
-                                  <p> <%= b.getContent() %></p>
+                                   <%= b.getContent() %>
                                 </div>
                                 <div id="file-area">
                                         <% for(BoardAttachment at : attachmentList){ %>
@@ -166,7 +167,9 @@
 
                             <!-- 댓글 -->
                             
-                         <ul id="comments-area"></ul>
+                         <ul id="comments-area">
+                        <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="200" height="200">
+                        </ul>
                          
                     <!-- 댓글달기 -->
                     <div id="createComments">
@@ -259,17 +262,14 @@
 						$("#replyContent").val("");
 						
 					}else{
-						alert("댓글작성에 실패했습니다.");	
+						khalert("댓글작성에 실패했습니다.");	
 					}
 				},
 				beforeSend : function(){
 					if(document.getElementById("replyContent").value.trim().length == 0){ 
-						alert("댓글을 입력해주세요!");
+						khalert("댓글을 입력해주세요!");
 						return false;
 					}
-				},
-					error : function(){
-					console.log("댓글작성실패")
 				}
 			})
 			}
@@ -371,10 +371,12 @@
 					}
 				},
 				error : function(){
-					alert("게시글 목록조회 실패");
+					khalert("게시글 목록조회 실패");
 				}
 			})
 		}
+		 
+		 
 		/* 댓글개수 증가 */
 		function selectReplyCount(){
 			
@@ -387,7 +389,7 @@
 						$("#replybox").html(result);
 					
 				}, error : function(){
-					alert("댓글개수 조회 실패");
+					khalert("댓글개수 조회 실패");
 				}
 			
 			})
@@ -404,12 +406,12 @@
 					data : {bNo : <%= b.getBoardNo() %>},
 					success : function(data){
 						if(data > 0) {
-							alert("공감 성공!");
+							khalert("공감 성공!");
 							$("#recommendbox").html(data);
 							$('.board-detail-commend .recommendImg').attr('src','<%=request.getContextPath()%>/resources/IMG/like2.png');
 						}
-						if(data == 0) alert("본인이 작성한 글은 공감이 불가능합니다!");
-						if(data < 0) alert("이미 공감된 글입니다!");
+						if(data == 0) khalert("본인이 작성한 글은 공감이 불가능합니다!");
+						if(data < 0) khalert("이미 공감된 글입니다!");
 						}
 				});
   	     })
@@ -423,9 +425,9 @@
 						if(data > 0) {
 							$("#scrapbox").html(data);
 							$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star1.png');
-							alert("스크랩 성공!");
+							khalert("스크랩 성공!");
 						}
-						if(data == 0) alert("본인이 작성한 글은 스크랩이 불가능합니다!");
+						if(data == 0) khalert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
 							if(confirm("스크랩을 취소하시겠습니까?")){
 								deleteScrap();
@@ -443,7 +445,7 @@
 						},
 					success : function(data){
 						if(data >= 0) {
-							alert("스크랩 취소 성공!");
+							khalert("스크랩 취소 성공!");
 						$("#scrapbox").html(data);
 						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
 							}
@@ -463,11 +465,11 @@
 						},
 					success : function(data){
 						if(data > 0) {
-							alert("삭제 성공!");
+							khalert("삭제 성공!");
 							selectReplyList();
 							selectReplyCount();
 						}else{
-							alert("삭제 실패!");
+							khalert("삭제 실패!");
 						}
 					},
 					beforeSend : function(){
@@ -488,11 +490,11 @@
 						},
 					success : function(data){
 						if(data > 0) {
-							alert("공감 성공!");
+							khalert("공감 성공!");
 							selectReplyList();
 						}
-						if(data == 0) alert("본인이 작성한 댓글은 공감이 불가능합니다!");
-						if(data < 0) alert("이미 공감된 글입니다!");
+						if(data == 0) khalert("본인이 작성한 댓글은 공감이 불가능합니다!");
+						if(data < 0) khalert("이미 공감된 글입니다!");
 						}
 				});
 		 }
@@ -505,9 +507,9 @@
 								rNo : rNo
 								},
 						success : function(data){
-							if(data > 0) alert("신고 성공!");
-							if(data == 0) alert("본인이 작성한 댓글은 신고 불가능합니다!");
-							if(data < 0) alert("이미 신고된 글입니다!");
+							if(data > 0) khalert("신고 성공!");
+							if(data == 0) khalert("본인이 작성한 댓글은 신고 불가능합니다!");
+							if(data < 0) khalert("이미 신고된 글입니다!");
 							},
 						beforeSend : function(){
 							if(!confirm("정말 신고하시겠습니까?")){
@@ -519,8 +521,9 @@
 	  	     }
 	  	    
 		 /* 처음 페이지 로드 시 댓글 조회 함수 호출 */
-		window.onload = selectReplyList;
-		 
+		$(function(){
+			selectReplyList();});
+		
 	 	function dayStringMaker(Day){
 	   		let sysdate = new Date();
 	   		let enrollDate = new Date(Day);
@@ -549,8 +552,9 @@
 	</script>
 
 
+ <%@ include file="../common/khalertmodal.jsp" %>
 
-
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 
 </html>

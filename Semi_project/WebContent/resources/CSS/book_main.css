@@ -25,6 +25,10 @@
     height: 100%;
 }
 
+#home-logo:hover {
+	cursor: pointer;
+}
+
 #book-logo {
     width: 600px;
     height: 120px;
@@ -173,9 +177,10 @@
 
 .book-inf {
 	display: flex;
+	height: 800px;
 	align-items: center;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
 .book-text {

@@ -715,8 +715,6 @@
         </script>
         <script> //애니메이션 테스트
         $(window).scroll(function(){
-          console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
-
             if($(window).scrollTop() > 290 && $('#banner-wrapper').length > 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
             }else if($(window).scrollTop() > 57 && $('#banner-wrapper').length == 0 ){

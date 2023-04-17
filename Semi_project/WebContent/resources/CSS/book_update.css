@@ -6,36 +6,57 @@
     height: 100%;
     background: white;
     flex-direction: column;
+    border-radius: 16px;
+    
 }
 
 #book-inf {
 	display: flex;
 	flex-direction: column;
     margin-top: 50px;
+    margin-left: 30px;
 }
 
 #book-detail-status {
 	background: white;
 	width: 100%;
+	border-radius: 16px;
+}
+
+#book-detail-status> * {
+	margin-left: 30px;
+	border: none;
 }
 
 #book-status {
 	box-shadow: 5px 5px 5px gray;
 	background: white;
 	width: 100%;
+	border-radius: 16px;
+	height: 530px;
 }
 
 #book-trade {
 	box-shadow: 5px 5px 5px gray;
 	background: white;
 	width: 100%;
+	border-radius: 16px;
+}
+
+#book-trade > * {
+	margin-left: 30px;
 }
 
 #book-direct {
 	box-shadow: 5px 5px 5px gray;
     background: white;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    border-radius: 16px;
+}
+
+#book-direct > * {
+	margin-left: 30px;
 }
 
 .send-btn {
@@ -51,9 +72,12 @@
 
 #back-btn:hover ,
 .send-message:hover ,
-.d-Img:hover,
-#modify-btn:hover {
+.d-Img:hover ,
+#modify-btn:hover ,
+#delete-btn:hover ,
+#soldout-btn:hover {
 	cursor: pointer;
+	box-shadow: 5px 5px 5px gray;
 }
 
 .hidden {
@@ -76,23 +100,23 @@
 .listPrice {
 	display: flex;
     align-items: center;
-    justify-content: space-around;
 }
 
 #bookName {
 	display: flex;
 	align-items: center;
+	margin-left: 30px;
 }
 
-#modify-btn {
+#modify-btn ,
+#delete-btn ,
+#soldout-btn {
 	width: 75px;
 	height: 50px;
-	margin-left: 700px;
 	border: none;
 	background-color: rgb(57, 189, 235);
 	color: white;
 	border-radius: 9px;
-	box-shadow: 5px 5px 5px gray;
 }
 
 .book-status-img {
@@ -103,3 +127,18 @@
 .book-title-img {
 	display: flex;
 }
+
+.detail-Img {
+	display: flex;
+}
+
+#btn-div {
+	display: flex;
+	justify-content: flex-end;
+	margin-top : 30px;
+}
+
+#btn-div>button{
+	margin : 0px 10px;
+}
+
