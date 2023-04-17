@@ -69,4 +69,11 @@
 		AND RECEIVER = ?
 	</entry> 
 	
+	<entry key="messageModal">
+		SELECT CONTENT
+		FROM MESSAGE
+		RECEIVER = ?
+		AND IS_READ = 'N' 
+		
+	</entry>
 </properties>

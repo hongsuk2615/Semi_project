@@ -199,6 +199,27 @@
 
 		<div id="footer"></div>
 	</div>
+	<%if(loginUser != null){ %>
+			<script>
+
+                	 function messageModal(){
+                		$.ajax({
+                			url : "<%= request.getContextPath()%>/msgplus.do",
+                			success : function(result){
+                				if(result > 0){
+                					console.log(result);
+                				$('#msgcount1').text("+"+result) .css('display','flex') ;
+                				}else{
+                					 $('#msgcount1').text('').css('display', 'none');
+                					
+                				}
+                			}
+                			});
+                		} 
+                	/* setInterval(,1000);	 */
+                	messageModal();      
+                	</script>
+	<%} %>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>
 	  var mySwiper = new Swiper('.swiper', {

@@ -75,4 +75,13 @@ public class MessageService {
 		close(conn);
 		return result;
 	}
+	
+	public ArrayList<Message> MessageModal(int loginUserNo ){
+		Connection conn = getConnection();
+		ArrayList<Message> result = new MessageDao().MessageModal(conn,loginUserNo );
+	
+		close(conn);
+		return result ;
+		
+	}
 }
