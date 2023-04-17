@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="resources/CSS/loginform.css">
-     <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -20,7 +19,7 @@
 </head>
 <body>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-			<script> khalert("<%= alertMsg %>")</script>
+			<script> alert("<%= alertMsg %>")</script>
 			<% request.getSession().setAttribute("alertMsg",""); %>
 		<% } %>
 	
@@ -69,26 +68,15 @@
 				}, 
 				success : function(result){
 					switch(result){
-					case '0' : khalert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
+					case '0' : alert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
 					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : khalert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '3' : khalert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '4' : khalert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '2' : alert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '3' : alert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
+					case '4' : alert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
 					
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
-				},
-				beforeSend : function(){
-					if($("#loginId").val() == ''){
-						khalert("아이디를 입력해주세요!");
-						$("#loginId").focus();
-						return false;
-					}else if($("#loginPwd").val() == ''){
-						khalert("비밀번호를 입력해주세요!");
-						$("#loginPwd").focus();
-						return false;
-					}
 				}
 			})
     	}
@@ -102,10 +90,6 @@
     		}
     
     </script>
-    	
-	
- <%@ include file="../common/khalertmodal.jsp" %>
 <script type="text/javascript" src="resources/JS/homelogo.js"></script>
-<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 </html>

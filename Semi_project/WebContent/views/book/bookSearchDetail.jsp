@@ -30,14 +30,11 @@
             <div id="book-btn">
                 <button id="book-home-btn" style="color: white;"onclick="location.href = '<%=contextPath%>/bookstore.do'">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
-                    Home
+                    홈
                 </button>
                 <button id="book-sell-btn" style="color: white;">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
                     판매하기
-                </button>
-                <button type="button" id="book-modify-btn">
-                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
                 </button>
             </div>
         </div>
@@ -45,7 +42,7 @@
             <div id="book-search">
                 <div id="book-search-input">
                     <img src="resources/IMG/glass.png" id="glass">
-                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getAttribute("bookname") == null ? "" : request.getAttribute("bookname") %>">
+                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getParameter("title") == null ? "" : request.getParameter("title") %>">
                     <button type="button" id="search-btn">검색</button>
                 </div>
             </div>
@@ -77,10 +74,10 @@
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
-                    <% } %>
+                    <% } %>		
 			</div>
         </div>
         
@@ -94,7 +91,7 @@
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title")%>&currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -161,7 +158,7 @@
        			currPage++;
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
@@ -169,11 +166,11 @@
            		currPage--;
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
-           <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
+           <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
            
@@ -196,10 +193,6 @@
 			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
 			    });
 		});
-		
-		document.getElementById("book-modify-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
-   		 })
     </script>
 	
 	

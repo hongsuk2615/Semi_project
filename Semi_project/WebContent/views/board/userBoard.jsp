@@ -71,7 +71,7 @@
                          <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
                            <br>
-                           <li class="shadownone" style="display:flex; align-items : center; pointer-events : none;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
+                           <li class="shadownone" style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% }else{ %>
                             
                            

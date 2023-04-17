@@ -114,25 +114,21 @@ a {
 					</div>
 					<!-- 친구  요청 받은 목록-->
 
-						<div id="friendsReq">
-						<% if(list3.size() == 0){ %> 
+					<div id="friendsReq">
+						<% if(list3.size() == 0){ %>
 							요청받은 목록이 없습니다.
 						<%}%>
 					<%
 						for (Member m : list3) {
 					%>
-					
-						<div class="reqFriendList">
-							<div>
-								<div class="sendName" style="color :rgb(71, 93, 192)" ><%=m.getUserName()%></div>님이 친구요청을 했습니다.
-							</div>
-							
-							<div>
-								<button type="button" class="accept" onclick="accept(this);" data-userNo=<%=m.getUserNo() %> >수락</button>
-								<button type="button" class="deny" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >거절</button>		
-							</div>
-					
+						<div>
+							<div class="sendName" style="color :rgb(71, 93, 192)" ><%=m.getUserName()%></div>님이 친구요청을 했습니다.
+						</div>	
+						<div>
+							<button type="button" class="accept" onclick="accept(this);" data-userNo=<%=m.getUserNo() %> >수락</button>
+							<button type="button" class="deny" onclick="deny(this);" data-userNo=<%=m.getUserNo() %> >거절</button>
 						</div>
+					
 					<%
 						}
 					%>

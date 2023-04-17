@@ -14,9 +14,9 @@
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        /* * {
+        * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
+    }
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
@@ -34,23 +34,20 @@
                 <button id="book-sell-btn">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">판매하기
                 </button>
-                <button type="button" id="book-modify-btn">
-                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
-                </button>
             </div>
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1 style="margin-left: 40px;"><%= book.getBookName() %></h1>
+                <h1><%= book.getBookName() %></h1>
                 <div id="book-inf">
-                	<img src="<%= book.getApiImg() == null ? "resources/IMG/임시책.png" : book.getApiImg() %>" style="width: 180px; height: 280px;">
-                    <p>저자 : <%= book.getAuthor() %></p>
-                    <p>출판사 : <%= book.getPublisher() %></p>
-                    <p>출판일 : <%= book.getPublicationDate() == null ? "책에 대한 정보가 없습니다." : book.getPublicationDate() %></p>
+                	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
+                    <p><%= book.getAuthor() %></p>
+                    <p><%= book.getPublisher() %></p>
+                    <p><%= book.getPublicationDate() %></p>
                     <div class="listPrice">
-	                    <p style="font-size: x-large; color: red; font-weight: 1000;">가격 : <%= book.getPrice() %> 원</p> <p><strike><%= book.getListPrice() %> 원</strike></p>
+	                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %> 원</p><p><strike><%= book.getListPrice() %> 원</strike></p>
                     </div>
-                    <p><%= book.getContent() == null ? "책에 대한 정보가 없습니다." : book.getContent() %></p>
+                    <p><%= book.getContent() %></p>
                 </div>
             </div>
 
@@ -172,9 +169,8 @@
 		  document.querySelector(".Msgbg").addEventListener("click", closeMsg);
 		  $('.send-message').click(function(){
 			openMsg();
-		  $('#sellerNo').val($(this).attr('data-userNo'));
+			$('#sellerNo').val($(this).attr('data-userNo'));
 		  });
-		  
 	  </script>
 	  
 	  <script> <!-- 이미지모달 스크맆트-->
@@ -208,9 +204,6 @@
     	location.href = "<%= request.getContextPath() %>/bookstore.do";
 		}) 
 		
-		document.getElementById("book-modify-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
-   		 })
     </script>
 </body>
 </html>

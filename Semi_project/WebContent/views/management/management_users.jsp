@@ -123,10 +123,6 @@
                         </div>
                     </div>
                 </div>
-                <script>
-                    let currentPage = 1;
-                    let searchName = '';
-                </script>
                 <script> //모달스크립트
                     function modalEvent() {
                         $("#resultBoard tbody>tr").each(function (index, item) { //신고유저 모달
@@ -221,6 +217,8 @@
 
                 </script>
                 <script>
+                    let searchName = '';
+
                     function getFilteredUsers() {
                         let isWhitelist = $('#whitelist').prop('checked') ? 'Y' : '';
                         let isBanned = $('#banned').prop('checked') ? 'Y' : '';
@@ -234,8 +232,7 @@
                                 isBanned,
                                 reported,
                                 authority,
-                                searchName,
-                                currentPage
+                                searchName
                             },
                             success: function (result) {
                                 console.log(result);
@@ -277,26 +274,10 @@
                     $('#search-user').keyup(function () {
                         if (window.event.keyCode == 13) {
                             searchName = $('#search-user').val();
-                            currentPage = 1;
                             getFilteredUsers();
                         }
                     });
-                    $('#filter>input').click(function(){
-                        currentPage = 1;
-                        getFilteredUsers();
-                    });
-
-                    $('#back-btn').click(function(){
-                        if(currentPage>1){
-                            currentPage--;
-                        }			
-                        getFilteredUsers();			
-                    });
-		
-                    $('#next-btn').click(function(){			
-                            currentPage++;
-                            getFilteredUsers();	
-                    });
+                    $('#filter>input').click(getFilteredUsers);
                 </script>
                 <script> //비동기 스크립트
                     $(function () {

@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
-    <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <title>Document</title>
@@ -45,7 +44,6 @@
     </style>
 </head>
 <body>
-
     <div id="wrapper">
     <!-- 위로 가기 버튼 -->
     <div class="gototopdiv displaynone"><button class="btnsetting" type="button" style="position:fixed; right: 50px; bottom: 50px;" onclick="window.scrollTo(0, 0);"><img src="<%=request.getContextPath()%>/resources/IMG/up.png" width='30' height='30'></button></div>
@@ -65,8 +63,7 @@
                      
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!"></div>
-      							    <div id="contentdiv">
-      							    <%@include file="textEditor.jsp" %><div id="content" contenteditable="true"></div>
+      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"></textarea>
 										<div id="QuestionContent" class="displaynone"><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area"></div>
@@ -108,7 +105,7 @@
 				
 				formData.append("cNo", <%= request.getAttribute("cNo")%>);
 				formData.append("title", $("#title").val());
-				formData.append("content",$("#content").html());
+				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
 				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
 				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
 					
@@ -125,7 +122,7 @@
 				contentType : false,
 				success : function(data){
 					if(data > 0) {
-						
+						alert("작성성공");
 						selectBoardList();
 						$("#title").val("");
 						$("#content").val("");
@@ -135,23 +132,23 @@
 						}
 						location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>';
 						
-					if(data == 0) khalert("작성실패");
-					if(data < 0) khalert("전송방식 잘못됨");
+					if(data == 0) alert("작성실패");
+					if(data < 0) alert("전송방식 잘못됨");
 					},
 					beforeSend : function(){
 						if($("#title").val() == ''){
-							khalert("제목을 입력해주세요!");
+							alert("제목을 입력해주세요!");
 							$("#title").focus();
 							return false;
-						}else if($("#content").html() == ''){
-							khalert("내용을 입력해주세요!");
+						}else if($("#content").val() == ''){
+							alert("내용을 입력해주세요!");
 							$("#content").focus();
 							return false;
 						}
 					}
 			});
 			 }else{ 
-				khalert("첨부파일 개수 초과");
+				alert("첨부파일 개수 초과");
 				$("#upfile").val("");
 			 } 
 			
@@ -202,7 +199,7 @@
 	</script>
                             <ul id="content-area">
                            <% if(boardList.isEmpty()) { %>
-                           <li class="shadownone" style="display:flex; align-items : center; pointer-events : none;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
+                           <li class="shadownone" style="display:flex; align-items : center;"> <div style="text-align:center; width:100%">조회된 게시물이 없습니다</div></li>
                            <% } %>
                             </ul>
 						<script>
@@ -226,7 +223,7 @@
 										<li>
 										<div class="boardNo\${i.boardNo} displaynone">\${i.boardNo}</div>
 		                                <h3>\${i.title}</h3>
-		                                    <div class="board-detail-contents"><p>\${i.content}</p></div><br>
+		                                    <p>\${i.content}</p><br>
 											<div class="board-detail-footer">
 											<div class="board-detail-footer-left">`
 											if(i.writer == "익명"){
@@ -262,7 +259,7 @@
 										selectContent();
 									
 								}, error : function(){
-									khalert("게시글 조회 실패");
+									alert("게시글 조회 실패");
 								}
 							
 							})
@@ -332,7 +329,7 @@
 		document.querySelector('#create-content-btn').addEventListener('click',off);
 		  
 	 /* 처음 페이지 로드 시 게시글 조회 함수 호출 */
-	$(function(){loadBoard();});
+	window.onload = loadBoard;
 	 
 	
 	 window.addEventListener("scroll",function(){
@@ -346,7 +343,7 @@
 	 document.getElementById("isQuestion").addEventListener('click',function(){
 		 if($("#QuestionContent").hasClass('displaynone')){
 			 $("#QuestionContent").removeClass('displaynone');
-			 khalert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
+			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
 		 }else{
 			 $("#QuestionContent").addClass('displaynone');
 		 }
@@ -363,19 +360,15 @@
 	   		let enrollDate = new Date(Day);
 	   		let result ='';
 	   		let diff = sysdate - enrollDate;
-	   		
-	   		const year = enrollDate.getFullYear();
-	   		const month = enrollDate.getMonth() + 1;
-	   		const date = enrollDate.getDate();
-	   		const hour = enrollDate.getHours();
-	   		const minutes = enrollDate.getMinutes();
-	   		
+	   		console.log(diff);
 	   		if(diff<3600000){
 	   			result =   Math.ceil(diff/1000/60) + '분전';
 	   		}else if(diff<86400000){
 	   			result = Math.floor(diff/1000/60/60) + '시간전';
+	   		}else if(diff<2592000000){
+	   			result = Math.floor(diff/1000/60/60/24) + '일전';
 	   		}else if(diff<31104000000){
-	   			result = year+"/"+month+"/"+date+" "+hour+":"+minutes;
+	   			result = Math.floor(diff/1000/60/60/24/30) + '개월전';
 	   		}else {
 	   			result = Math.floor(diff/1000/60/60/24/30/12) + '년전';
 	   		}
@@ -385,15 +378,18 @@
 	   		
 	   	}
 	 
+	 	$('.boardNo<% for(Integer i : recommendcheck){%> <%= i %> <%} %>').each(function(index, item){
+	 		let recommendImg = $(item).find('.recommendImg');
+	 		recommendImg.addClass('redImg');
+	 	})
+	   	
+
+	    
+   
    </script>
 
-	
-	
-	
-	 <%@ include file="../common/khalertmodal.jsp" %>
-	
 
-<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
+
 </body>
 
 </html>

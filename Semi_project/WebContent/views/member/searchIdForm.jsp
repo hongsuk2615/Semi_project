@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="resources/CSS/searchIdform.css">
-     <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -17,7 +16,7 @@
 </head>
 <body>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-			<script> khalert("<%= alertMsg %>")</script>
+			<script> alert("<%= alertMsg %>")</script>
 			<% request.getSession().setAttribute("alertMsg",""); %>
 		<% } %>
     <div class="input-form-backgroud row">
@@ -55,32 +54,19 @@
 					 if(result != ""){
 						 $("body").html(result); 
 					 }else{
-						 khalert("이름이나 이메일이 맞지 않습니다!");
+						 alert("이름이나 이메일이 맞지 않습니다!");
 						 $("#loginName").val("");
 						 $("#loginEmail").val("");
 					 }
 				
 				}, error : function(){
 					console.log("ajax통신실패")
-				},
-				beforeSend : function(){
-					if($("#loginName").val() == ''){
-						khalert("이름을 입력해주세요!");
-						$("#loginName").focus();
-						return false;
-					}else if($("#loginEmail").val() == ''){
-						khalert("이메일을 입력해주세요!");
-						$("#loginEmail").focus();
-						return false;
-					}
 				}
 			})
     	}
     	
     
     </script>
-     <%@ include file="../common/khalertmodal.jsp" %>
-    <script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
     <script type="text/javascript" src="resources/JS/homelogo.js"></script>
 </body>
 </html>

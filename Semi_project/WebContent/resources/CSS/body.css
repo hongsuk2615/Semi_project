@@ -11,17 +11,6 @@
     border-top: 2px solid rgba(255, 255, 255, 0.5);
     padding: 4px 5px;
     color: rgb(78, 93, 107);
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 370px;
-}
-#body p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0;
-    padding: 0;
-    width: 370px;
 }
 
 #main-banner {
@@ -50,22 +39,12 @@
     background-color: #E3F2FD;
     min-height : 200px;
 }
-#books-wrapper, #books-title{
-    width: 100%;
-}
-#books-title{
-    background-color: #42A5F5;
-    color: white;
-    border-radius: 5px;
-    padding: 7px;
-    font-weight: bold;
-}
-#books-body{
+#books-wrapper{
     width: 100%;
     display: flex;	
     justify-content: space-between;
 }
-#books-body>div{
+#books-wrapper>div{
     width : 195px;
     padding: 5px;
     height: 300px;
@@ -73,10 +52,7 @@
     border-radius: 5px;
 
 }
-#books-wrapper{
-    padding: 7px;
-    margin-bottom: 30px;
-}
+
 #books-wrapper>div>div{
     border-radius: 5px;
 }
@@ -108,7 +84,6 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-bottom: 10px;
 
 }
 
@@ -333,7 +308,7 @@
   
  #btn2 {
   position: absolute;
-  top: 180px;
+  top: 150px;
   left : 250px; 
   background-color: black;
   border-radius: 15px;

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
     <link rel="stylesheet" href="resources/CSS/footer.css">
     <link rel="stylesheet" href="resources/CSS/boardDetail.css">
-        <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <title>Document</title>
@@ -155,15 +154,15 @@
 				success : function(data){
 					
 					if(data > 0) {
-						khalert("수정성공");
+						alert("수정성공");
 						location.href='<%= request.getContextPath() %>/contentDetail.bo?bNo=<%=b.getBoardNo()%>';
 						}
-					if(data == 0) khalert("수정실패");
-					if(data < 0) khalert("전송방식 잘못됨");
+					if(data == 0) alert("수정실패");
+					if(data < 0) alert("전송방식 잘못됨");
 					}
 			});
 			}else{
-				khalert("첨부파일 개수 초과");
+				alert("첨부파일 개수 초과");
 				$("#upfile").val("");
 			}
 			
@@ -199,7 +198,7 @@
 	document.getElementById("isQuestion").addEventListener('click',function(){
 		 if($("#QuestionContent").hasClass('divhidden')){
 			 $("#QuestionContent").removeClass('divhidden');
-			 khalert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
+			 alert("질문 글을 작성하면 댓글이 달린 이후에는 글을 수정 및 삭제할 수 없습니다.");
 		 }else{
 			 $("#QuestionContent").addClass('divhidden');
 		 }
@@ -210,10 +209,6 @@
 		 $("#QuestionContent").removeClass('divhidden');
 	 }
 	</script>
-	 <%@ include file="../common/khalertmodal.jsp" %>
-	
-
-<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 
 </html>

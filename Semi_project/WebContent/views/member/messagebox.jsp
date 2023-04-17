@@ -219,8 +219,6 @@
 	  	 }
 	  });
   } 
-  
-  $('.opponents1').eq(0).click();
 
   </script>
   </div>

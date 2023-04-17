@@ -24,9 +24,9 @@
     <title>bookSell</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        /* * {
+        * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
+    }
     #book-sell,
     #book-inf1,
     #book-thumbnail {
@@ -48,9 +48,6 @@
             <div id="book-btn">
                 <button id="book-home-btn">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">Home
-                </button>
-                <button type="button" id="book-modify-btn">
-                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
                 </button>
             </div>
         </div>
@@ -105,7 +102,7 @@
     			
     			<div id="book-content">
     				<div id="book-content-input">
-	    				<textarea rows="10" cols="30" maxLength="1200" placeholder="판매 정보를 입력해 주세요." class="textarea" name="content"></textarea>    				
+	    				<textarea rows="10" cols="30" maxLength="1200" placeholder="판매 정보를 입력해 주세요." class="textarea" required name="content"></textarea>    				
     				</div>
     				<div id="book-next3">
                         <button type="button" id="next3">다음</button>
@@ -141,10 +138,10 @@
                 <div id="book-trade">
                     <div>
                         <h1>거래 방법</h1>
-                        <input type="radio" name="isDirect" value="Y" checked> 직거래
+                        <input type="radio" name="isDirect" value="Y"> 직거래
                         <input type="radio" name="isDirect" value="N"> 택배
                         <input type="radio" name="isDirect" value="B"> 둘다
-                        <p>지역 : <input type="text" name="location" class="location" required></p> 
+                        <p>지역 : <input type="text" name="location" class="location"></p> 
                     </div>
                 </div>
     
@@ -160,7 +157,9 @@
     
     <script>
     $(function() {
-
+    	/* $("#search-btn").click(function(){
+    		$("#book-thumbnail").css("display" , "flex");
+    	}) */
     	$("#next").click(function(){
     		if( $("#book-name-search").val() !== ""){
     			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
@@ -193,15 +192,6 @@
             $("#book-trade").fadeIn(1500).css("display" , "flex");
             $("#book-board-upload").fadeIn(1500).css("display" , "flex");
         })
-        
-        $("#upload").click(function(){
-        	if( $(".location").val() == "") {
-        		alert("지역을 입력 해 주세요!");
-        	} else {
-        		alert("게시글 작성 성공!");
-        	}
-        	
-        })
     })
     </script>
     
@@ -224,10 +214,6 @@
    		 
    		 document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
-   		 })
-   		 
-   		 document.getElementById("book-modify-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
     </script>
     

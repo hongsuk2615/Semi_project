@@ -115,17 +115,13 @@
 	</entry>
 	
 	<entry key="getFilteredUsers">
-		SELECT * 
-		  FROM ( SELECT ROWNUM RNUM
-		  			  , A.*
-		  		   FROM (SELECT *
-					 	   FROM MEMBER
-					 	  WHERE IS_WHITELIST LIKE ?
-						    AND IS_BANNED LIKE ?
-						    AND AUTHORITY = ?
-						    AND USER_NAME LIKE ?
-						    AND REPORT_COUNT > ? ) A )
-		 WHERE RNUM BETWEEN ? AND ?			
+		SELECT *
+		  FROM MEMBER
+		 WHERE IS_WHITELIST LIKE ?
+		   AND IS_BANNED LIKE ?
+		   AND AUTHORITY = ?
+		   AND USER_NAME LIKE ?
+		   AND REPORT_COUNT > ?
 	</entry>
 	
 	<entry key="getUser">

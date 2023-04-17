@@ -14,9 +14,9 @@
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        /* * {
+        * {
         border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
+    }
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
@@ -37,21 +37,16 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-            	<div id="btn-div">
-	                <button id="delete-btn">삭제하기</button>
-	                <button id="modify-btn">수정하기</button>
-	                <button id="soldout-btn">판매완료</button>
-                </div>
-                <h1 id="bookName"><%= book.getBookName() %> </h1>            	
+                <h1 id="bookName"><%= book.getBookName() %> <button id="modify-btn">수정하기</button> </h1>            	
                 <div id="book-inf">
-                	<img src="<%= book.getApiImg() == null ? "resources/IMG/임시책.png" : book.getApiImg() %>" style="width: 180px; height: 280px;">
-                    <p>저자 : <%= book.getAuthor() %></p>
-                    <p>출판사 : <%= book.getPublisher() %></p>
-                    <p>출판일 : <%= book.getPublicationDate() == null ? "판매에 대한 정보가 없습니다." : book.getPublicationDate() %></p>
+                	<img src="<%= book.getApiImg() %>" style="width: 180px; height: 280px;">
+                    <p><%= book.getAuthor() %></p>
+                    <p><%= book.getPublisher() %></p>
+                    <p><%= book.getPublicationDate() %></p>
                     <div class="listPrice">
-	                    <p style="font-size: x-large; color: red; font-weight: 1000;">가격 : <%= book.getPrice() %> 원</p><p><strike><%= book.getListPrice() %> 원</strike></p>
+	                    <p style="font-size: x-large; color: red; font-weight: 1000;"><%= book.getPrice() %> 원</p><p><strike><%= book.getListPrice() %> 원</strike></p>
                     </div>
-                    <p><%= book.getContent() == null ? "판매에 대한 정보가 없습니다." : book.getContent() %></p>
+                    <p><%= book.getContent() %></p>
                 </div>
                 
             </div>
@@ -75,19 +70,18 @@
             <div id="book-status">
                 <div id="book-detail-status">
                     <h1>도서 이미지</h1>
-                    <button class="detail-Img" style="background:none">
+                    <button class="d-Img" style="background:none">
                     	<% for(int i = 0; i < bList.size(); i++ ) { %>
 	                    <div class="book-status-img">
 	                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
 	                    </div>
                     	<% } %>
                     </button>
-                    <div>
+                    
                     <h1>필기 여부</h1>
                     있음 <input type="radio" disabled <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
                     없음 <input type="radio" disabled <%= book.getIsNoted().equals("N") ? "checked" : "" %>>
-                    </div>
-            		
+                    
                     <h1>책 상태</h1>
                     <input type="radio" name="condition" value="3" disabled <%= book.getCondition() == 3 ? "checked" : "" %>> 상
                     <input type="radio" name="condition" value="2" disabled <%= book.getCondition() == 2 ? "checked" : "" %>> 중
@@ -132,18 +126,6 @@
     		location.href = "<%= request.getContextPath() %>/bookupdateform.do?bkno=<%= book.getBookNo() %>";
 		})
 		
-		document.getElementById("soldout-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/booksoldout.do?bkno=<%= book.getBookNo() %>";
-   		 })
-		
-   		document.getElementById("delete-btn").addEventListener("click",function(){
-        	location.href = "<%= request.getContextPath() %>/bookdelete.do?bkno=<%= book.getBookNo() %>";
-   		 })
-    </script>
-    
-    <script>
-    	
-    
     </script>
 </body>
 </html>
