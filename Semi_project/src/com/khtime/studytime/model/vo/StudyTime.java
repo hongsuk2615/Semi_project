@@ -8,6 +8,7 @@ public class StudyTime {
 	private int timeAmount;
 	private Date studyDate;
 	private int targetTime;
+	private String nickName;
 	
 	public StudyTime() {
 		super();
@@ -21,6 +22,14 @@ public class StudyTime {
 		this.timeAmount = timeAmount;
 		this.studyDate = studyDate;
 		this.targetTime = targetTime;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public int getStudyTimeNo() {
