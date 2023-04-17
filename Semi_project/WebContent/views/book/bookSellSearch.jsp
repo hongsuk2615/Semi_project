@@ -131,14 +131,16 @@
         <div id="book-footer">
              <div id="book-page">
 	             <% if(currentPage != 1) { %>
-					<button id=prevPage>&lt;</button>
+					<button id=prevPage>
+						<img src="resources/IMG/left.png">
+					</button>
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -146,7 +148,9 @@
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
-					<button type="button" id="nextPage">&gt;</button>
+					<button type="button" id="nextPage">
+						<img src="resources/IMG/right.png">
+					</button>
 				<% } %>
 				
             </div>
@@ -222,6 +226,13 @@
            <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
+           
+           document.getElementById('bookname').addEventListener('keydown', function(event) {
+         	  if (event.keyCode === 13) {
+         	    event.preventDefault();
+         	    $("#search-btn").click();
+         	  };
+         	}, true);
            
         });
 
