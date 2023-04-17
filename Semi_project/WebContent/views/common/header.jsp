@@ -33,7 +33,11 @@
             </div>
             <div id="navbar">
                 <div id="boardsearch">게시판</div>
-                <div id="friendlist">친구목록</div>
+                <div id="friendlist">친구목록
+                <div id="friendcount1">
+                <div id="friendcount"></div>
+                </div>
+                </div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
                 <% if(loginUser != null && loginUser.getAuthority()==0) { %>
@@ -45,16 +49,18 @@
                     <button id="login-btn">로그인</button>
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
-                	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
-                    <div id="msgcount"></div>
-                    <script>
+                	<div id="message-btn"><!-- $('#msgcount').text(''); -->
+                    	<div id="msgcount1"></div>   
+                    </div>           
+                   <script>
                 	 function friendCount(){
                		$.ajax({
                			url : "<%= request.getContextPath()%>/friendplus.do",
                			success : function(result){
                				if(result > 0){
-               					console.log(result);
-               				$('#friendlist').text("친구목록 + "+result).css("color","blue");
+               					$("#friendcount1").css('display','flex');
+               				
+               				$('#friendcount').text("+"+result);
                				}
                			}
                			});
@@ -63,19 +69,21 @@
                		friendCount();
               </script>
                 	<script>
-                 	 function messageCount(){
+
+                	 function messageCount(){
                 		$.ajax({
                 			url : "<%= request.getContextPath()%>/msgplus.do",
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
-                				$('#msgcount').text("+"+result).css("color","green");
+                				$('#msgcount1').text("+"+result) .css('display','flex') ;
                 				}else{
-                					$('#msgcount').text('');
+                					 $('#msgcount1').text('').css('display', 'none');
+                					
                 				}
                 			}
                 			});
-                		}
+                		} 
                 	/* setInterval(,1000);	 */
                 	messageCount();      
                 	</script>

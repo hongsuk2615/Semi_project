@@ -1,7 +1,10 @@
 #content{
-    
+     display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 900px;
     height: 600px;
+   
 }
 #body{
     display: flex;
@@ -9,7 +12,7 @@
     align-items: center;
 }
 #boardmake{
-    display: flex;
+ 	    display: flex;
     flex-direction: column;
     align-items: center;
     
@@ -33,6 +36,8 @@
     height: 30px;
     color: red;
     border: 1px solid lightgray; 
+    display:none;
+    
 }
 
 #boardmake input{
@@ -46,18 +51,25 @@
 
 #content{
     display: flex;
-    justify-content: center;
+     
 }
 #boardrequest{
-	 margin: 10px;
+	
 }
 
 #margin{
+	
+	display: flex;
+	justify-content: center;
+	width : 700px;
 	margin-top : 20px;
+	margin: 30px
 }
 
 #boardlist{
-	margin-top : 50px;
+	  display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #scroll{
@@ -94,3 +106,18 @@ body {
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
 		margin: auto;
 	}
+#Board{
+	margin-right:10px;
+	margin-left:170px;
+	width: 300px;
+	height:37px;
+	text-align: center;
+	border-radius: 5px;
+	border: 1px solid lightgray
+}
+
+.searchtitle{
+
+}
+
+ 

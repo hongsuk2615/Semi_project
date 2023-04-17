@@ -150,40 +150,39 @@
 
 					</div>
 					<div id="books-wrapper">
-						<div id="book-1">
-							<div class="book-img">
-								<img src="resources/IMG/책이미지.jfif" alt="">
+						<div id="books-title" onclick="location.href='<%=request.getContextPath()%>/bookstore.do'">중고책방</div>
+						<div id="books-body">
+							<div id="book-1">
+								<div class="book-img">
+									<img src="resources/IMG/책이미지.png" alt="">
+								</div>
+								<div class="book-text">
+									<div>판매글을 작성해보세요</div>
+								</div>
 							</div>
-							<div class="book-text">
-								<div>책제목1</div>
-								<div>책가격1</div>
+							<div id="book-2">
+								<div class="book-img">
+									<img src="resources/IMG/책이미지.png" alt="">
+								</div>
+								<div class="book-text">
+									<div>판매글을 작성해보세요</div>
+								</div>
 							</div>
-						</div>
-						<div id="book-2">
-							<div class="book-img">
-								<img src="resources/IMG/책이미지.jfif" alt="">
+							<div id="book-3">
+								<div class="book-img">
+									<img src="resources/IMG/책이미지.png" alt="">
+								</div>
+								<div class="book-text">
+									<div>판매글을 작성해보세요</div>
+								</div>
 							</div>
-							<div class="book-text">
-								<div>책제목2</div>
-								<div>책가격2</div>
-							</div>
-						</div>
-						<div id="book-3">
-							<div class="book-img">
-								<img src="resources/IMG/책이미지.jfif" alt="">
-							</div>
-							<div class="book-text">
-								<div>책제목3</div>
-								<div>책가격3</div>
-							</div>
-						</div>
-						<div id="book-4">
-							<div class="book-img">
-								<img src="resources/IMG/책이미지.jfif" alt="">
-							</div>
-							<div class="book-text">
-								<div>책제목4</div>
-								<div>책가격4</div>
+							<div id="book-4">
+								<div class="book-img">
+									<img src="resources/IMG/책이미지.png" alt="">
+								</div>
+								<div class="book-text">
+									<div>판매글을 작성해보세요</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -241,7 +240,7 @@
 	                        for(let i = 0; i < 6 ; i++){
 	                            if(result[Object.keys(result)[0]][i] != null){
 	                                $('#board-'+num+' tbody').append('<tr>'+
-	                                                                '<td>' + result[Object.keys(result)[0]][i].title + '</td>'+
+	                                                                '<td><p>' + result[Object.keys(result)[0]][i].title + '</p></td>'+
 	                                                          '</tr>');
 	                                $('#board-'+num+' tbody>tr').eq(i).click(function(){
 	                                    location.href = "<%=request.getContextPath()%>/contentDetail.bo?bNo="+result[Object.keys(result)[0]][i].boardNo;
@@ -269,6 +268,36 @@
 	        getBoardlist('건의사항',5);
 	        getBoardlist('공지사항',6);
 	 });
+
+
+	</script>
+
+	<script>
+		function bookstore(){
+			$.ajax({
+				url : '<%=request.getContextPath()%>/mainBooklist.get',
+				type : 'get',
+				success : function(result){
+					console.log(result);
+					for(let i=0 ; i < 4 ; i++){
+						$('#book-'+(i+1)).html(
+							`<div class="book-img">
+								<img src="/Semi_project/\${result[i].titleImg}" alt="">
+							</div>
+							<div class="book-text">
+								<div>\${result[i].bookName}</div>
+								<div>\${result[i].price}</div>
+							</div>`
+						)
+						$('#book-'+(i+1)).click(function(){
+							location.href = "/Semi_project/bookdetail.do?bkno="+result[i].bookNo;
+						})
+					}
+				}
+			})
+			
+		}
+		bookstore();
 
 
 	</script>

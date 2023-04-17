@@ -77,16 +77,22 @@ public class BookSellSearchController extends HttpServlet {
 		String publisher = request.getParameter("publisher");
 		String datetime = request.getParameter("datetime");
 		String contents = request.getParameter("contents");
+		int listPrice = Integer.parseInt(request.getParameter("listPrice"));
 		
 		Book book = new Book();
 		book.setBookName(title);
 		book.setAuthor(author);
 		book.setPublisher(publisher);
+		book.setListPrice(listPrice); 
 		
 		request.setAttribute("thumbnail",thumbnail);
+		request.setAttribute("title", title);
+		request.setAttribute("author", author);
+		request.setAttribute("publisher", publisher);
 		request.setAttribute("book", book);
 		request.setAttribute("datetime", datetime);
 		request.setAttribute("contents", contents);
+		request.setAttribute("listPrice", listPrice); 
 		
 		request.getRequestDispatcher("views/book/bookSell.jsp").forward(request, response);
 		

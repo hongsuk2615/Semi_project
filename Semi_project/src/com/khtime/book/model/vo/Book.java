@@ -18,6 +18,8 @@ public class Book {
 	private String publicationDate;
 	private Date enrollDate;
 	private String apiImg;
+	private String content;
+	private int listPrice;
 	
 	private String titleImg;
 	
@@ -153,13 +155,30 @@ public class Book {
 		this.apiImg = apiImg;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getListPrice() {
+		return listPrice;
+	}
+
+	public void setListPrice(int listPrice) {
+		this.listPrice = listPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [bookNo=" + bookNo + ", seller=" + seller + ", bookName=" + bookName + ", price=" + price
 				+ ", author=" + author + ", publisher=" + publisher + ", isNoted=" + isNoted + ", condition="
 				+ condition + ", isDirect=" + isDirect + ", location=" + location + ", isSoldout=" + isSoldout
 				+ ", status=" + status + ", publicationDate=" + publicationDate + ", enrollDate=" + enrollDate
-				+ ", apiImg=" + apiImg + ", titleImg=" + titleImg + "]";
+				+ ", apiImg=" + apiImg + ", content=" + content + ", listPrice=" + listPrice + ", titleImg=" + titleImg
+				+ "]";
 	}
 	
 	

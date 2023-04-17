@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.common.model.vo.*, com.khtime.board.model.vo.Board"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.khtime.common.model.vo.*, com.khtime.board.model.vo.Board , java.util.ArrayList , com.khtime.book.model.vo.Book"
     pageEncoding="UTF-8"%>
 <%
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
@@ -9,6 +9,8 @@
 	int maxPage = pi.getMaxPage(); 
 	
 	String contextPath = request.getContextPath();
+	ArrayList<Book> bList = (ArrayList<Book>)request.getAttribute("bList");
+	int length = 0;
 %>  
 <!DOCTYPE html>
 <html lang="en">
@@ -28,11 +30,14 @@
             <div id="book-btn">
                 <button id="book-home-btn" style="color: white;"onclick="location.href = '<%=contextPath%>/bookstore.do'">
                     <img src="resources/IMG/home.png" id="book-home-btn-img">
-                    홈
+                    Home
                 </button>
                 <button id="book-sell-btn" style="color: white;">
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
                     판매하기
+                </button>
+                <button type="button" id="book-modify-btn">
+                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
                 </button>
             </div>
         </div>
@@ -40,7 +45,7 @@
             <div id="book-search">
                 <div id="book-search-input">
                     <img src="resources/IMG/glass.png" id="glass">
-                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getParameter("title") == null ? "" : request.getParameter("title") %>">
+                    <input name="bookname" id="bookname" type="text" placeholder="검색한 책 이름" style="width: 300px;  height: 28px;" value="<%=request.getAttribute("bookname") == null ? "" : request.getAttribute("bookname") %>">
                     <button type="button" id="search-btn">검색</button>
                 </div>
             </div>
@@ -48,10 +53,10 @@
                 <div id="book-thumbnail">
                     <div id="book-img0"></div>
                     <div class="book-text"> 
-                    	<div id="book-title0"></div>
-                        <div id="book-author0"></div>
-                        <div id="book-publisher0"></div>
-                        <div id="book-datetime0"></div>
+                    	<p>제목 :<div id="book-title0"></div></p>
+                        <div id="book-author0"></div><br>
+                        <div id="book-publisher0"></div><br>
+                        <div id="book-datetime0"></div><br>
                         <div id="book-contents0"></div>
                     </div>
                 </div>
@@ -60,58 +65,23 @@
             <hr><hr>
             
 			<div id="book-body-content2">
-				<div class="book-sell-img">
-					<div class="book-sell-inf">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;"><h1>100,000원</h1></div>
-				</div>
-				<div class="book-sell-img">
-					<div class="book-sell-inf">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;"><h1>100,000원</h1></div>
-				</div>
-				<div class="book-sell-img">
-					<div class="book-sell-inf">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-						<img src="resources/IMG/책이미지.jfif" style="width: 200px; height:300px;">
-					</div>
-					<div style="color: red;"><h1>100,000원</h1></div>
-				</div>			
+			<% if(bList.size() > 6) {
+	                	length = 6;
+	                }else {
+	                	length = bList.size();
+	                }
+                %>
+				<% for(int i = 0; i < length; i++) { %>
+					<div class="book-sell-img" data-bkno="<%=bList.get(i).getBookNo()%>">
+                		<div class="book-sell-inf<%= i %>">
+	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
+	                    </div>
+	                    <div class="book-detail-text">
+	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                    </div>
+                	</div>
+                    <% } %>
 			</div>
-            <!-- <div id="book-body-content2">
-                <div id="book-inf4">
-                    <div id="book-img4"></div>
-                    <div class="book-text">
-                        <div id="book-title4"></div>
-                        <div id="book-author4"></div>
-                    </div>
-                </div>
-                <div id="book-inf5">
-                    <div id="book-img5"></div>
-                    <div class="book-text">
-                        <div id="book-title5"></div>
-                        <div id="book-author5"></div>
-                    </div>
-                </div>
-                <div id="book-inf6">
-                    <div id="book-img6"></div>
-                    <div class="book-text">
-                        <div id="book-title6"></div>
-                        <div id="book-author6"></div>
-                    </div>
-                </div>
-                <div id="book-inf7">
-                    <div id="book-img7"></div>
-                    <div class="book-text">
-                        <div id="book-title7"></div>
-                        <div id="book-author7"></div>
-                    </div>
-                </div> -->
-            </div>
         </div>
         
         <div id="book-footer">
@@ -124,7 +94,7 @@
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title")%>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -134,13 +104,7 @@
 				<% if(currentPage != maxPage) { %>
 					<button type="button" id="nextPage">&gt;</button>
 				<% } %>
-				
-                <!-- <button id="prevPage">&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button id="nextPage">&gt;</button> -->
+			
             </div>
 
         </div>
@@ -157,30 +121,29 @@
                 })
     
                 .done(function (res){
-                    <% for(int i = 0; i < 8; i++) { %>
-	                    $("#book-img<%= i %>").empty();
-	                    $("#book-title<%= i %>").empty();
-	                    $("#book-author<%= i %>").empty();
-	                    <% } %>
-	                    <% for(int i = 0; i < 8; i++) { %>
-                        $("#book-img<%= i %>").append( "<img src='" +res.documents[<%= i %>].thumbnail + "'/>");
-                        $("#book-title<%= i %>").append(res.documents[<%= i %>].title);
-                        $("#book-author<%= i %>").append(res.documents[<%= i %>].authors);
-                        $("#book-publisher<%= i %>").append(res.documents[<%= i %>].publisher);
-                        $("#book-datetime<%= i %>").append(res.documents[<%= i %>].datetime.substring(0,10));
-                        $("#book-contents<%= i %>").append(res.documents[<%= i %>].contents);
-                        let bookdata<%=i%> = {
-                        		thumbnail : res.documents[<%= i %>].thumbnail,
-                        		title : res.documents[<%= i %>].title,
-                        		author : res.documents[<%= i %>].authors,
-                        		publisher : res.documents[<%= i %>].publisher,
-                        		datetime : res.documents[<%= i %>].datetime,
-                        		contents : res.documents[<%= i %>].contents
+                    <%-- <% for(int i = 0; i < 8; i++) { %> --%>
+	                    $("#book-img0").empty();
+	                    $("#book-title0").empty();
+	                    $("#book-author0").empty();
+	                    <%-- <% } %> --%>
+	                    <%-- <% for(int i = 0; i < 8; i++) { %> --%>
+                        $("#book-img0").append( "<img src='" +res.documents[0].thumbnail + "'/>");
+                        $("#book-title0").append(res.documents[0].title);
+                        $("#book-author0").append(res.documents[0].authors);
+                        $("#book-publisher0").append(res.documents[0].publisher);
+                        $("#book-datetime0").append(res.documents[0].datetime.substring(0,10));
+                        $("#book-contents0").append(res.documents[0].contents);
+                        let bookdata0 = {
+                        		thumbnail : res.documents[0].thumbnail,
+                        		title : res.documents[0].title,
+                        		author : res.documents[0].authors,
+                        		publisher : res.documents[0].publisher,
+                        		datetime : res.documents[0].datetime,
+                        		contents : res.documents[0].contents
                         };
                         
-                        <%-- function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksearchdetail.do", bookdata<%=i%>)};
-                        $("#book-inf"+<%=i%>).click(bookdetailPost<%=i%>); --%>
-                  <% } %>
+                        <%-- function bookdetailPost() {sendPost("<%= request.getContextPath() %>/bookdetail.do", bookdata0)};
+                        $(".book-sell-img").click(bookdetailPost()); --%>
                 });
             }
             $("#search-btn").click(getBooks);
@@ -198,7 +161,7 @@
        			currPage++;
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
@@ -206,11 +169,11 @@
            		currPage--;
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
-           <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
+           <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
            
@@ -222,8 +185,24 @@
 		document.getElementById("book-sell-btn-img").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/booksell.do"
 		})
+		
+		document.getElementById("search-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
+   		})
+   		
+   		$('.book-sell-img').each(function(index,item){
+			    let bkno = $(item).attr('data-bkno');
+			    $(item).click(function(){
+			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
+			    });
+		});
+		
+		document.getElementById("book-modify-btn").addEventListener("click",function(){
+        	location.href = "<%= request.getContextPath() %>/bookselllist.do";
+   		 })
     </script>
-
+	
+	
     </div>
 </body>
 </html>

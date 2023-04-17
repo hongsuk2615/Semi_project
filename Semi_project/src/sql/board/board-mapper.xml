@@ -248,6 +248,7 @@
 		FROM BOARD
 		WHERE RECOMMEND_COUNT > ?
 		AND TO_CHAR(ENROLL_DATE,'YYYY') = ?
+		AND STATUS = 'Y'
 	</entry>
 
 	<entry key="replyCountUp">
