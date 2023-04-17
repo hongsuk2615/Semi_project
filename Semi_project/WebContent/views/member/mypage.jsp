@@ -84,7 +84,7 @@
 						<a class="openBtn3">닉네임변경</a>
 						<a class="openBtn4">프로필사진변경</a>
 						<a id="messageboxBtn">쪽지함</a>
-					    <a id="user-boards">게시글관리</a>
+					    <a id="user-boards">게시판관리</a>
 					</div>
 
 					<div id="infouse"
@@ -462,7 +462,7 @@
   		}) 
   		
   		 document.getElementById("user-boards").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/myWriting.bo?bType=1";
+        location.href = "<%= request.getContextPath() %>/reqBoard.me";
 	    })
   	</script>
 
