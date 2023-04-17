@@ -8,8 +8,6 @@
 		LEFT JOIN USER_PROFILE_IMG ON (REF_USERID = USER_NO)
 		WHERE USER_ID = ?
 		AND USER_PWD = ?
-		
-		
 	</entry>
 	
 	<entry key = "insertMember">
@@ -182,6 +180,6 @@
 		SELECT *
 		FROM MEMBER
 		WHERE EMAIL = ?
-
+	</entry>
 	
 </properties>
