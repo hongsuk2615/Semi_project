@@ -11,46 +11,59 @@
 
     <title>khTime 번역기</title>
 </head>
+<style>
+	
+
+</style>
 
 
 <body>
-
-<textarea id="send_text" class="form-control" name="content" cols="60" rows="7" placeholder="한글"></textarea>
-<button id="jsonConvertStringSend" type="button"> 번역하기 </button>
-<textarea id="result_text" class="form-control" name="content" cols="60" rows="7" placeholder="영어" readonly></textarea>
+	<div>
+	<select id="national">
+	    <option id="ko" value="ko,en">한국어 -> 영어</option>
+	    <option id="en" value="en,ko">영어 -> 한국어</option>
+	</select>
+	</div>
+	<div id="box1">
+	<textarea id="send_text" class="form-control" name="content" cols="60" rows="7"></textarea>
+	<button id="jsonConvertStringSend" type="button"> 번역하기 </button>
+	<textarea id="result_text" class="form-control" name="content" cols="60" rows="7" readonly></textarea>
+	</div>
 
 </body>
 
 
 <script>
      //번역을 위해서 button 이벤트를 위해서 사용하는 것
+     
     $('#jsonConvertStringSend').click(function () {
         //번역할 object를 생성 
-        var test = {
-            "original_str": $("#send_text").val()    
-        };
+        var test = $("#send_text").val();
         jsonSend(test);
     });
     
     function jsonSend(test) {
-        $.ajax({
-            type: "POST",
-            url: "<%= request.getContextPath()%>/translator.bo",
-            data: test, //json을 보내는 방법
-            success: function (data) { //서블렛을 통한 결과 값을 받을 수 있습니다.
-                console.log(data);
-                //alert(data);
+    	let selector = $('select').val();
+    		$.ajax({
+                type: "POST",
+                url: "<%= request.getContextPath()%>/translator.bo",
+                data: {"original_str" : test, 
+                		"selector" : selector}, //json을 보내는 방법
+                success: function (data) { //서블렛을 통한 결과 값을 받을 수 있습니다.
+                    console.log(data);
+                    //alert(data);
 
-                //string의 값을 object 형식으로 변환합니다.
-                var resulut_obj = JSON.parse(data);
-                
-                //결과값을 textarea에 넣기 위해서
-                $("#result_text").val(resulut_obj.message.result.translatedText);
-            },
-            error: function (e) {
-                console.log(e);
-                alert('실패했습니다.');
-            }
-        });
+                    //string의 값을 object 형식으로 변환합니다.
+                    var resulut_obj = JSON.parse(data);
+                    
+                    //결과값을 textarea에 넣기 위해서
+                    $("#result_text").val(resulut_obj.message.result.translatedText);
+                },
+                error: function (e) {
+                    console.log(e);
+                    alert('실패했습니다.');
+                }
+            });
+    	
     }
 </script>

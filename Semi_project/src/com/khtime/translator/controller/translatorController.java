@@ -26,21 +26,23 @@ public class translatorController extends HttpServlet {
     }
 
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("NMTTestServlet doPost 메소드가 실행되었습니다.");
+    System.out.println("NMTTestServlet doPost 메소드가 실행되었습니다!.");
     request.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=utf-8");
-
+    String[] selector = request.getParameter("selector").split(",");
+    String lang1 = selector[0];
+    String lang2 = selector[1];
     //번역할 text 값을 받아 옵니다 
     String original_str = (String)request.getParameter("original_str");
 
     //결과값 보내기 위한것 
     PrintWriter out = response.getWriter();
-    out.print((String)nmtReturnRseult(original_str));
+    out.print((String)nmtReturnRseult(original_str, lang1, lang2));
     
 }
 
 // nmtReturnResult의 함수를 통해서 한글 - > 영어로 번역
-public String nmtReturnRseult(String original_str){
+public String nmtReturnRseult(String original_str, String lang1, String lang2){
     
     //애플리케이션 클라이언트 아이디값";
     String clientId = "jFSZOlYGV39ZsmWDKOQI";
@@ -59,7 +61,7 @@ public String nmtReturnRseult(String original_str){
         con.setRequestProperty("X-Naver-Client-Id", clientId);
         con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
         // post request
-        String postParams = "source=ko&target=en&text=" + text;
+        String postParams = "source="+lang1+"&target="+lang2+"&text=" + text;
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
         wr.writeBytes(postParams);
@@ -87,5 +89,15 @@ public String nmtReturnRseult(String original_str){
     
     return resultString;
 }
+
+
+
+
+
+
+
+
+
+
 
 }
