@@ -73,12 +73,6 @@ public class BookSearchDetailController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String thumbnail = request.getParameter("thumbnail");
-		String title = request.getParameter("title");
-		String author = request.getParameter("author");
-		String publisher = request.getParameter("publisher");
-		String datetime = request.getParameter("datetime");
-		String contents = request.getParameter("contents");
 		
 		int listCount; // 현재 게시판의 총 개시글 갯수
 		int currentPage; // 현제 페이지(사용자가 요청한페이지)
@@ -92,7 +86,7 @@ public class BookSearchDetailController extends HttpServlet {
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		pageLimit= 4;
-		boardLimit = 8;
+		boardLimit = 6;
 		maxPage = (int) Math.ceil(((double) listCount / boardLimit));
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit -1;
@@ -109,7 +103,7 @@ public class BookSearchDetailController extends HttpServlet {
 		String bookname = request.getParameter("title");
 		request.setAttribute("bookname", bookname);
 		
-		ArrayList<Book> bList = new BookService().selectBook(bookname);
+		ArrayList<Book> bList = new BookService().selectBook(bookname , pi);
 		request.setAttribute("bList", bList);
 		System.out.println(bList);
 		

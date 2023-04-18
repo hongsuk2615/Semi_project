@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" href="resources/CSS/banner.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -28,7 +29,7 @@
 <body>
 
 	<div id="wrapper">
-
+		
 		<%@ include file="header.jsp"%>
 		<div id="body">
 			<div id="banner-wrapper">
@@ -149,6 +150,7 @@
 						</table>
 
 					</div>
+					
 					<div id="books-wrapper">
 						<div id="books-title" onclick="location.href='<%=request.getContextPath()%>/bookstore.do'">중고책방</div>
 						<div id="books-body">
@@ -272,6 +274,9 @@
 
 
 	</script>
+	
+
+	
 
 	<script>
 		function bookstore(){

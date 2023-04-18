@@ -42,8 +42,18 @@
     </style>
 </head>
 <body>
+	<script>
+      const msg = "<%= request.getSession().getAttribute("alertMsg") %>";     
+      if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
+         alert(msg);
+         // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
+         // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
+         <% request.getSession().removeAttribute("alertMsg");%>       
+      }
+   	</script>
+   	
 	<div id="wrapper">
-		<%@ include file="../common/header.jsp"%>
+		<%@ include file="../common/header.jsp" %>
 		<div id="body">
 			<div id="body-wrapper">
 				<div id="body-left">

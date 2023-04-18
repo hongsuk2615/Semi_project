@@ -15,7 +15,7 @@
     overflow: hidden;
     width: 370px;
 }
-#body p {
+#body table p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

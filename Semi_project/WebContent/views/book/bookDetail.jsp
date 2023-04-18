@@ -41,7 +41,12 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1 style="margin-left: 40px;"><%= book.getBookName() %></h1>
+                <h1 style="margin-left: 40px; display: flex; align-items: center;"><% if(book.getIsSoldout().equals("Y"))  {  %>
+                	<s style="text-decoration-color: gray;"><%= book.getBookName() %></s><img src="resources/IMG/soldout.png" style="width:60px; height: 60px; margin-left: 20px;">
+                <% } else { %>
+                	<%= book.getBookName() %>
+                <% } %>
+                </h1>
                 <div id="book-inf">
                 	<img src="<%= book.getApiImg() == null ? "resources/IMG/임시책.png" : book.getApiImg() %>" style="width: 180px; height: 280px;">
                     <p>저자 : <%= book.getAuthor() %></p>
