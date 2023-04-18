@@ -76,3 +76,20 @@ body {
       -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 	}
+
+#boardrequest2{
+	 border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: #00bfff;
+    text-align: center;
+    color: white;
+    height : 30px;
+    width : 50px;
+    
+ 
+}
+
+#reason{
+	  resize: none;
+}
+	

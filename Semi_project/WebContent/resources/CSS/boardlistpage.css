@@ -53,9 +53,6 @@
     display: flex;
      
 }
-#boardrequest{
-	
-}
 
 #margin{
 	
@@ -116,8 +113,23 @@ body {
 	border: 1px solid lightgray
 }
 
-.searchtitle{
-
+#boardrequest{
+ border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: #00bfff;
+    text-align: center;
+    color: white;
+    height : 40px;
+    width : 110px;
 }
 
+#boardSearch{
+	 border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: #00bfff;
+    text-align: center;
+    color: white;
+    height : 40px;
+    width : 70px;
+}
  

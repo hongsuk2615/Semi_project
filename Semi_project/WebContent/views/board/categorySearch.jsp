@@ -52,8 +52,8 @@
             <div id="content">
                     <div id="margin">
                         <div><input type="text" name="name" placeholder="게시판 검색" id="Board"></div>
-                        <div><button type="button"  onclick="searchBoard();" class="btn btn-primary"style="margin-right:20px">검색</button></div>
-                         <div><button type="button" id="boardrequest" class="btn btn-primary">게시판 생성 요청</button></div>
+                        <div><button type="button"  onclick="searchBoard();" id="boardSearch"style="margin-right:20px">검색</button></div>
+                         <div><button type="button" id="boardrequest" >게시판 생성 요청</button></div>
                          <br>
                     </div>
                 <form id="boardmake">
@@ -136,7 +136,7 @@
 		</script>
                     
 
-
+	<%@ include file="../common/MessageModal.jsp"%>
 
 
 </body>

@@ -27,14 +27,15 @@
                				$('#msgul').append(msg);
                					}		     
                					setTimeout(function(){
-               					 	$('#msgul').fadeOut();
+               					  	$('#msgul').fadeOut(); 
                					
                					},3000)
                			}
                			});
                		} 
-               	 /* setInterval(1000);	  */
-               	messageModal();     
+                setInterval(messageModal ,6000); 
+               	messageModal()
+               	    
                 </script>
 
 </body>

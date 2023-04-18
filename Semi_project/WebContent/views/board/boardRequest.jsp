@@ -53,7 +53,7 @@
                   <div><textarea id="reason"></textarea></div> 
                 </div> 
                     <br>
-                    <button type="button" id="boardrequest" onclick="boardReq();" class="btn btn-primary">제출</button>
+                    <button type="button" id="boardrequest2" onclick="boardReq();">제출</button>
                   </form>
           
         </div>
@@ -86,7 +86,7 @@
 						</script>
 
 
-
+					<%@ include file="../common/MessageModal.jsp"%>
 
 
 </body>

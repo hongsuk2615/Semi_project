@@ -75,7 +75,7 @@
 		JOIN MEMBER M ON (M.USER_NO = S.SENDER)
 		WHERE S.RECEIVER = ?
 		AND IS_READ ='N'
-		
+		AND S.SEND_DATE >= SYSDATE - INTERVAL '1' MINUTE 
 		 
 	</entry>
 </properties>

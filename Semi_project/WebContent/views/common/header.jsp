@@ -70,8 +70,8 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                			}
                			});
                		}
-              /*  	 setInterval(,1000); */	 
-               		friendCount();
+               	 setInterval(friendCount,60000); 	 
+               	friendCount()	
               </script>
 				<script>
 
@@ -89,8 +89,9 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                 			}
                 			});
                 		} 
-                	/* setInterval(,1000);	 */
-                	messageCount();      
+                	 setInterval(messageCount,60000);	
+                	 messageCount();
+                	   
                 	</script>
 
 				<button id="mypage-btn"></button>
