@@ -166,7 +166,7 @@
         );
     }
 </script>
-  		
+<%@include file="translator.jsp" %>		
   		
   		
   		

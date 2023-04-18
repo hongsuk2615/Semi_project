@@ -7,30 +7,312 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>khTime 번역기</title>
 </head>
 <style>
+	.contextmenu {
+  display: none;
+  position: absolute;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 5px;
+  list-style: none;
+  box-shadow:
+    0 15px 35px rgba(50,50,90,0.1),
+    0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  z-index: 999999;
+}
+
+.contextmenu li {
+  border-left: 3px solid transparent;
+  transition: ease .2s;
+}
+
+.contextmenu li a {
+  display: block;
+  padding: 10px;
+  color: #B0BEC5;
+  text-decoration: none;
+  transition: ease .2s;
+}
+
+.contextmenu li:hover {
+  background: #CE93D8;
+  border-left: 3px solid #9C27B0;
+}
+
+.contextmenu li:hover a {
+  color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+div {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+/* 모달 */
+.transmodal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* 모달 닫기 버튼 */
+.transmodal .transcloseBtn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background-color : #87ceeb00;
+    border: none;
+    font-size: 24px;
+}
+
+
+
+
+/* 공통 모달창 css */
+.transBox {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    border-radius: 16px;
+    background-color : #87ceeb47;
+    z-index : 1000;
+}
+.transBox .header{
+    width: 100%;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.transBox .tbody{
+    width: 100%;
+    height: 485px;
+    padding: 20px 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+#send_text, #result_text {
+	background-color : white;
+	 margin-bottom : 12px;
+}
+
+
+#jsonConvertStringSend{
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 12px 0;
+    background-color: #b0bec5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+p {
+	font-size : 22px;
 	
+}
+
+textarea{
+	
+
+	border: solid 1px #1e90ff3d;
+	border-radius: 5px;
+
+}
+.ui-draggable{
+	z-index : -9;
+}
+
+
+select {
+  { ... }
+  width: 150px;
+  height: 25px;
+  background-size: 20px;
+  padding: 5px 30px 5px 10px;
+  border-radius: 4px;
+  outline: 0 none;
+}
+select option {
+  background: black;
+  color: #fff;
+  padding: 3px 0;
+}
 
 </style>
 
 
 <body>
-	<div>
-	<select id="national">
-	    <option id="ko" value="ko,en">한국어 -> 영어</option>
-	    <option id="en" value="en,ko">영어 -> 한국어</option>
-	</select>
-	</div>
-	<div id="box1">
-	<textarea id="send_text" class="form-control" name="content" cols="60" rows="7"></textarea>
-	<button id="jsonConvertStringSend" type="button"> 번역하기 </button>
-	<textarea id="result_text" class="form-control" name="content" cols="60" rows="7" readonly></textarea>
-	</div>
 
+
+	<ul class="contextmenu">
+  	<li><a href="#" class="transopenBtn">khTime 번역기</a></li>
+	</ul>
+	
+	
+	
+	<div class="transmodal hidden">
+            <div class="transBox">
+				<button class="transcloseBtn">X</button>
+				<div class="header">
+					<p>khTime 번역기</p>
+				</div>
+				<div class="tbody" style="overflow: auto;">
+                    
+				<div class="translatorBody">
+				<select id="national">
+				    <option id="ko" value="ko,en">한국어 -> 영어</option>
+				    <option id="en" value="en,ko">영어 -> 한국어</option>
+				</select>
+				
+				</div>
+				<div id="box1">
+				<textarea id="send_text" class="form-control" name="content" cols="80" rows="9"></textarea>
+				<textarea id="result_text" class="form-control" name="content" cols="80" rows="9" readonly></textarea>
+				<div>
+				
+				</div>
+				
+				</div>
+                
+				</div>
+				<div class="footer">
+				
+				</div>
+				
+            </div>
+        </div>
+	
 </body>
+
+
+
+<!-- 우클릭 메뉴 스크립트 -->
+<script>
+$(document).ready(function(){
+	  //Show contextmenu:
+	  $(document).contextmenu(function(e){
+	    //Get window size:
+	    var winWidth = $(document).width();
+	    var winHeight = $(document).height();
+	    //Get pointer position:
+	    var posX = e.pageX;
+	    var posY = e.pageY;
+	    //Get contextmenu size:
+	    var menuWidth = $(".contextmenu").width();
+	    var menuHeight = $(".contextmenu").height();
+	    //Security margin:
+	    var secMargin = 10;
+	    //Prevent page overflow:
+	    if(posX + menuWidth + secMargin >= winWidth
+	    && posY + menuHeight + secMargin >= winHeight){
+	      //Case 1: right-bottom overflow:
+	      posLeft = posX - menuWidth - secMargin + "px";
+	      posTop = posY - menuHeight - secMargin + "px";
+	    }
+	    else if(posX + menuWidth + secMargin >= winWidth){
+	      //Case 2: right overflow:
+	      posLeft = posX - menuWidth - secMargin + "px";
+	      posTop = posY + secMargin + "px";
+	    }
+	    else if(posY + menuHeight + secMargin >= winHeight){
+	      //Case 3: bottom overflow:
+	      posLeft = posX + secMargin + "px";
+	      posTop = posY - menuHeight - secMargin + "px";
+	    }
+	    else {
+	      //Case 4: default values:
+	      posLeft = posX + secMargin + "px";
+	      posTop = posY + secMargin + "px";
+	    };
+	    //Display contextmenu:
+	    $(".contextmenu").css({
+	      "left": posLeft,
+	      "top": posTop
+	    }).show();
+	    //Prevent browser default contextmenu.
+	    return false;
+	  });
+	  //Hide contextmenu:
+	  $(document).click(function(){
+	    $(".contextmenu").hide();
+	  });
+	});
+
+</script>
+
+<script>
+	
+	$('.transmodal').draggable({
+	    handle: ".transBox"
+	  });
+
+</script>
+
+
+
+
+
+<script>
+
+const open = () => {
+    document.querySelector(".transmodal").classList.remove("hidden");
+    getDday();
+}
+const close = () => {
+	console.log('cdlose')
+    document.querySelector(".transmodal").classList.add("hidden");
+}
+document.querySelector(".transopenBtn").addEventListener("click", open); 
+document.querySelector(".transcloseBtn").addEventListener("click", close);
+
+
+
+
+</script>
+
+
+
+
+
+
+
 
 
 <script>
