@@ -58,16 +58,19 @@ public class SearchDao {
 				rset = pstmt.executeQuery();
 				while(rset.next()) {
 					Board b = new Board(
-								rset.getInt("BOARD_NO"),
-								rset.getString("TITLE"),
-								rset.getString("CONTENT"),
-								rset.getString("WRITER"),
-								rset.getString("IS_QUESTION"),
-								rset.getString("IS_ANONIMOUS"),
-								rset.getInt("RECOMMEND_COUNT"),
-								rset.getDate("ENROLL_DATE"),
-								rset.getInt("REPLY_COUNT")
-							);
+							rset.getInt("BOARD_NO"),
+							rset.getString("TITLE"),
+							rset.getString("CONTENT"),
+							rset.getInt("CATEGORY_NO"),
+							rset.getString("WRITER"),
+							rset.getString("IS_QUESTION"),
+							rset.getString("IS_ANONIMOUS"),
+							rset.getInt("RECOMMEND_COUNT"),
+							rset.getInt("REPLY_COUNT"),
+							rset.getString("ENROLL_DATE")
+						);
+						b.setUserProfile(rset.getString("USERPROFILE"));
+						b.setScrapCount(rset.getInt("SCRAP_COUNT"));
 					
 					searchList.add(b);
 				}		

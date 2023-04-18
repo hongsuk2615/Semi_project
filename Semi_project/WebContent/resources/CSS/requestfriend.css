@@ -45,7 +45,7 @@
     display: flex;
     justify-content: center;
 }
-#friends, #friendsSend, #friendsReq {
+#friends, #friendsSend, #friendsReq ,#just {
     border: 2px solid cornflowerblue;
     border-radius: 5px;
     padding: 10px;
@@ -53,10 +53,12 @@
 }
 
 
-#friendsReq{
-    display: flex;
+#friendsReq, #just{
+     display: flex;
     justify-content: space-between;
     align-items: center;
+   	flex-direction : column;
+    
 }
 #friendsSend{
     display: flex;
@@ -96,3 +98,8 @@
     text-align: center;
     color: white;
 }
+
+.reqFriendList{
+	margin : 8px 0px;
+}
+

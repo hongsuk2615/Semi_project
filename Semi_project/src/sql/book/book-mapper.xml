@@ -52,11 +52,13 @@
                SELECT BOOK_NO ,
 			   BOOK_NAME ,
 			   PRICE ,
-			   FILE_PATH || CHANGE_NAME AS TITLEIMG
+			   FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+			   IS_SOLDOUT
 			FROM BOOK B
 			LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
 			WHERE B.STATUS = 'Y'
 			AND FILE_LEVEL = 1
+			ORDER BY UPLOAD_DATE DESC
             ) A
          )
       WHERE RNUM BETWEEN ? AND ?
@@ -72,7 +74,8 @@
 	<entry key="selectThumbnail">
 		SELECT ORIGIN_NAME ,
 			   CHANGE_NAME ,
-			   FILE_PATH
+			   FILE_PATH ,
+			   FILE_NO
 		FROM BOOK_ATTACHMENT
 		WHERE BOOK_NO = ?
 		AND STATUS = 'Y'
@@ -81,7 +84,9 @@
 	<entry key="selectBookList">
 		SELECT FILE_PATH || CHANGE_NAME AS TITLEIMG ,
 			   PRICE ,
-			   BOOK_NO
+			   BOOK_NO ,
+			   IS_SOLDOUT ,
+			   BOOK_NAME
 		FROM BOOK B
 		LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
 		WHERE B.BOOK_NAME = ?
@@ -96,7 +101,8 @@
             		SELECT	FILE_PATH || CHANGE_NAME AS TITLEIMG ,
 				 	B.PRICE ,
 				 	B.BOOK_NAME ,
-				 	B.BOOK_NO
+				 	B.BOOK_NO ,
+				 	B.IS_SOLDOUT
 					FROM BOOK B
 					LEFT OUTER JOIN BOOK_ATTACHMENT BA ON (B.BOOK_NO = BA.BOOK_NO)
 					WHERE B.SELLER = ?
@@ -105,5 +111,53 @@
 				 ) A
 			)
 		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectBookAttachment">
+		SELECT *
+		FROM BOOK_ATTACHMENT
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="updateBook">
+		UPDATE BOOK
+		SET CONTENT = ? ,
+			PRICE = ? ,
+			IS_NOTED = ? ,
+			CONDITION = ? ,
+			IS_DIRECT = ?
+		WHERE BOOK_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateBookAttachment">
+		UPDATE BOOK_ATTACHMENT
+		SET ORIGIN_NAME = ? ,
+			CHANGE_NAME = ? ,
+			FILE_PATH = ?
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<entry key="insertBookAttachment">
+		INSERT INTO BOOK_ATTACHMENT(
+									FILE_NO ,
+									BOOK_NO ,
+									ORIGIN_NAME ,
+									CHANGE_NAME ,
+									FILE_PATH ,
+									FILE_LEVEL
+		)
+		VALUES(SEQ_BKNO.NEXTVAL , ? , ? , ? ,? , ?)
+	</entry>
+	
+	<entry key="updateSoldout">
+		UPDATE BOOK
+		SET IS_SOLDOUT = 'Y'
+		WHERE BOOK_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="bookDelete">
+		UPDATE BOOK
+		SET STATUS = 'N'
+		WHERE BOOK_NO = ?
 	</entry>
 </properties>

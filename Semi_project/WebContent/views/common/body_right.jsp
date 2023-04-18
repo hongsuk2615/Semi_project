@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
     <title>Document</title>
 </head>
 <body>
@@ -714,8 +715,6 @@
         </script>
         <script> //애니메이션 테스트
         $(window).scroll(function(){
-          console.log(document.getElementsByTagName('body')[0].scrollHeight-$(window).scrollTop());
-
             if($(window).scrollTop() > 290 && $('#banner-wrapper').length > 0 ){
                 $('#body-right').css('transform','translateY('+($(window).scrollTop()-285)+'px)');
             }else if($(window).scrollTop() > 57 && $('#banner-wrapper').length == 0 ){

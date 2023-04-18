@@ -16,6 +16,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/header.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="resources/JS/studyTime.js"></script>
+	<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <title>Document</title>
 </head>
 <body>
@@ -30,28 +33,37 @@
             </div>
             <div id="navbar">
                 <div id="boardsearch">게시판</div>
-                <div id="friendlist">친구목록</div>
+                <div id="friendlist">친구목록
+                <div id="friendcount1">
+                <div id="friendcount"></div>
+                </div>
+                </div>
                 <div id="bookstore">중고책방</div>
                 <div id="todolist">To Do List</div>
                 <% if(loginUser != null && loginUser.getAuthority()==0) { %>
                 <div id="management">관리</div>
                 <% } %>
+               
+
+                
             </div>
             <div id="header-right">
                 <% if(loginUser == null){%>
                     <button id="login-btn">로그인</button>
                     <button id="enrollment-btn">회원가입</button>
                 <% } else { %>
-                	<button id="message-btn"></button><!-- $('#msgcount').text(''); -->
-                    <div id="msgcount"></div>
-                    <script>
+                	<div id="message-btn"><!-- $('#msgcount').text(''); -->
+                    	<div id="msgcount1"></div>   
+                    </div>           
+                   <script>
                 	 function friendCount(){
                		$.ajax({
                			url : "<%= request.getContextPath()%>/friendplus.do",
                			success : function(result){
                				if(result > 0){
-               					console.log(result);
-               				$('#friendlist').text("친구목록 + "+result).css("color","blue");
+               					$("#friendcount1").css('display','flex');
+               				
+               				$('#friendcount').text("+"+result);
                				}
                			}
                			});
@@ -60,19 +72,21 @@
                		friendCount();
               </script>
                 	<script>
-                 	 function messageCount(){
+
+                	 function messageCount(){
                 		$.ajax({
                 			url : "<%= request.getContextPath()%>/msgplus.do",
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
-                				$('#msgcount').text("+"+result).css("color","green");
+                				$('#msgcount1').text("+"+result) .css('display','flex') ;
                 				}else{
-                					$('#msgcount').text('');
+                					 $('#msgcount1').text('').css('display', 'none');
+                					
                 				}
                 			}
                 			});
-                		}
+                		} 
                 	/* setInterval(,1000);	 */
                 	messageCount();      
                 	</script>
@@ -138,5 +152,23 @@
   		$('#msgcount').text('vdvddvdvv');
 		} */	   
   		</script>
+  		
+  		
+  		<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'ko'
+              , includedLanguages: 'en,ja,ko,zh-CN,zh-TW'
+              , layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // none or HORIZONTAL, SIMPLE
+            }
+          , 'google_translate_element'
+        );
+    }
+</script>
+  		
+  		
+  		
+  		
 </body>
 </html>

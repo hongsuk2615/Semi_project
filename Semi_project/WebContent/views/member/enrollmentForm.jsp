@@ -15,28 +15,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
     <style>
-      .input-form {
-      max-width: 680px;
-      margin-top: 80px;
-      padding: 32px;
-      background: #fff;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-    }
-        body {
-       width:100%;
-       height:100%;
-       margin: 0;
-        padding-top: 80px;
-        padding-bottom: 40px;
-        font-family: "Nanum Gothic", arial, helvetica, sans-serif;
-        background-repeat: no-repeat;
-        background:linear-gradient(to bottom right, white, #6BA8D1);
-   }
+   
        /*   * {
         border: 1px solid rgba(128, 128, 128, 0.568);
          } */
@@ -53,10 +32,7 @@
             width: 100%;
             min-width: 1180px;
         }
-         #btn btn-primary{
-      		height: 20px;
-     		align-items: center;     
-    }
+      
     </style>
 </head>
 
@@ -74,7 +50,7 @@
       <div class="input-form col-md-12 mx-auto"  style="display:flex; justify-content: center;">
         <div id="enrollment-wrapper">
             <div>
-                <img src="resources/IMG/로고이미지.png" style="width: 100px; height: 100px;">
+                <img src="resources/IMG/로고이미지.png" style="width: 100px; height: 100px;" id="home-logo">
             </div>
             <div>
                 <b style="font-size: xx-large;">KH TIME에 오신걸 환영합니다.</b>
@@ -100,7 +76,7 @@
                         <div>
                             <img id="titleImg" width="150" height="150">
                         </div><br>
-                        <div id="file-area" style="border: 1px solid black">
+                        <div id="file-area" style="border: 1px solid lightgray">
                            <input type="file" id="file1" name="file" onchange="loadImg(this, 1);"> 
                         </div>
                     </div><br>
@@ -121,7 +97,7 @@
                         아이디 <br>
                         <input placeholder="특수문자 제외  영문 , 숫자 5~12글자로 작성하세요. " type="text" name="userId" id="userId"
                             required>
-                        <button type="button" class="btn btn-primary" onclick="idCheck();" >중복확인</button>
+                        <button type="button" onclick="idCheck();" id="idcheck" >중복확인</button>
                         <br><br>
                         <div style="width: 200px; height: 15px;"></div><br>
 
@@ -148,7 +124,7 @@
 
                         이메일 <br>
                         <input placeholder="이메일 형식에 맞게 입력하세요" type="email" name="email" id="email">
-                        <button type="button" class="btn btn-primary" onclick="emailCheck();" >중복확인</button>
+                        <button type="button" onclick="emailCheck();" id="emailcheck">중복확인</button>
                         <br><br>
                         <div style="width: 200px ;height: 15px;"></div><br>
 
@@ -299,7 +275,7 @@
 					 let inputId = document.getElementById("userId").value;
 					 
 					   let regExp = /^[a-zA-Z][a-zA-Z0-9]{4,11}$/;	            
-					 console.log(inputId);
+					
 					 // 비동기 요청 보내기
 					  $.ajax({
 						 url : "<%= request.getContextPath()%>/idCheck.me",
@@ -340,6 +316,8 @@
 				 function emailCheck(){
 					 // 아이디를 입력하는 input요소 얻어오기
 					 let emailval = document.getElementById("email").value;
+					 let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+					 console.log(emailval);
 					 // 비동기 요청 보내기
 					  $.ajax({
 						 url : "<%= request.getContextPath()%>/idCheck.me",
@@ -348,6 +326,8 @@
 						 success : function(result){
 							 if(result == true){
 							alert("이미 존재하는 이메일 입니다.");
+							 }else if(!regExp.test(emailval)){
+								 alert("유효한 이메일을 입력하세요.");
 							 }else{
 								 alert("사용가능한 이메일 입니다.");
 							 }
@@ -367,7 +347,7 @@
 			            let userPwd2 = document.getElementById("userPwd2");
 			            let userName = document.getElementById("userName");
 			            let nickname = document.getElementById("nickname");
-			            let email = document.getElementById("email");
+			           /*  let email = document.getElementById("email"); */
 				      	let checkbox1 = document.getElementById('check_1');
 				      	let checkbox2 = document.getElementById('check_2');
 			            
@@ -411,12 +391,12 @@
 			                return false;
 			            } 
 			            
-			            regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			         /*    regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			            if(!regExp.test(email.value)){
 			                alert("유효한 이메일을 입력해주세요");
 			                email.select();
 			                return false;
-			            }
+			            } */
 						
 			      	  // 2. checked 속성을 체크합니다.
 			  		    if(document.getElementById("check_1").checked && document.getElementById("check_2").checked) {
@@ -453,6 +433,11 @@
 		                }
 		            })
 		            
+		            
+	  				  document.getElementById("home-logo").addEventListener("click",function(){
+	      				  location.href = "<%= request.getContextPath() %>";
+	  					  })
+			            
 			</script>
 
 </body>
