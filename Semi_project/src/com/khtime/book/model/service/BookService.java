@@ -62,11 +62,11 @@ public class BookService {
 		return batList;
 	}
 	
-	public ArrayList<Book> selectBook(String bookname) {
+	public ArrayList<Book> selectBook(String bookname, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Book> bList = new BookDao().selectBook(conn, bookname);
+		ArrayList<Book> bList = new BookDao().selectBook(conn, bookname , pi);
 		
 		close(conn);
 		

@@ -34,13 +34,16 @@
         <div id="book-navbar">
             <div id="book-btn">
                 <button id="book-home-btn">
-                    <img src="resources/IMG/home.png" id="book-home-btn-img">Home
+                    <img src="resources/IMG/home.png" id="book-home-btn-img">
+                    Home
                 </button>
                 <button type="button" id="book-sell-btn">
-                    <img src="resources/IMG/pencil.png" id="book-sell-btn-img">판매하기
+                    <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
+                    판매하기
                 </button>
                 <button type="button" id="book-modify-btn">
-                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
+                    <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">
+                    내 판매목록
                 </button>
             </div>
         </div>
@@ -61,13 +64,18 @@
 	                }
                 %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " style="<%= bList.get(i).getIsSoldout().equals("Y") ? "background: #a9a9a980; border-radius: 16px;" : "" %>">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
                 		<div class="book-img">
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
-	                        style="width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
+	                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
 	                    </div>
 	                    <div class="book-text">
-	                        <div class="book-title"><%= bList.get(i).getBookName() %></div><br>
+	                        <div class="book-title" style="text-align: center;"><% if(bList.get(i).getIsSoldout().equals("Y")) { %>
+	                        		<s style="text-decoration-color: gray;"><%= bList.get(i).getBookName() %></s>
+	                        	<% } else { %>
+	                        		<%= bList.get(i).getBookName() %>
+	                        	<% } %>
+	                        </div><br>
 	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
 	                    </div>
                 	</div>
@@ -81,14 +89,16 @@
         <div id="book-footer">
             <div id="book-page">
             	<% if(currentPage != 1) { %>
-					<button id=prevPage>&lt;</button>
+					<button id=prevPage>
+						<img src="resources/IMG/left.png">
+					</button>
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -96,7 +106,9 @@
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
-					<button type="button" id="nextPage">&gt;</button>
+					<button type="button" id="nextPage">
+						<img src="resources/IMG/right.png" style="background: none;">
+					</button>
 				<% } %>
             
             </div>
@@ -134,9 +146,7 @@
    	        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;
    	   		 }) 
            } 
-       })
-		   
-	  
+      	}) 
      })
 	    
 	</script>
@@ -166,6 +176,11 @@
 		});
    	
         	
+    </script>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    	AOS.init();
     </script>
 </body>
 </html>

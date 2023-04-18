@@ -46,6 +46,10 @@
         	display: flex;
     		justify-content: space-evenly;
         }
+        
+        .img > img {
+        	border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -73,28 +77,28 @@
             </div>
             <div id="book-body-content1">
                 <div id="book-inf0">
-                    <div id="book-img0"></div>
+                    <div id="book-img0" class="img"></div>
                     <div class="book-text"> 
                         <div id="book-title0"></div>
                         <div id="book-author0"></div>
                     </div>
                 </div>
                 <div id="book-inf1">
-                    <div id="book-img1"></div>
+                    <div id="book-img1" class="img"></div>
                     <div class="book-text">
                         <div id="book-title1"></div>
                         <div id="book-author1"></div>
                     </div>
                 </div>
                 <div id="book-inf2">
-                    <div id="book-img2"></div>
+                    <div id="book-img2" class="img"></div>
                     <div class="book-text">
                         <div id="book-title2"></div>
                         <div id="book-author2"></div>
                     </div>
                 </div>
                 <div id="book-inf3">
-                    <div id="book-img3"></div>
+                    <div id="book-img3" class="img"></div>
                     <div class="book-text">
                         <div id="book-title3"></div>
                         <div id="book-author3"></div>
@@ -106,28 +110,28 @@
 
             <div id="book-body-content2">
                 <div id="book-inf4">
-                    <div id="book-img4"></div>
+                    <div id="book-img4" class="img"></div>
                     <div class="book-text">
                         <div id="book-title4"></div>
                         <div id="book-author4"></div>
                     </div>
                 </div>
                 <div id="book-inf5">
-                    <div id="book-img5"></div>
+                    <div id="book-img5" class="img"></div>
                     <div class="book-text">
                         <div id="book-title5"></div>
                         <div id="book-author5"></div>
                     </div>
                 </div>
                 <div id="book-inf6">
-                    <div id="book-img6"></div>
+                    <div id="book-img6" class="img"></div>
                     <div class="book-text">
                         <div id="book-title6"></div>
                         <div id="book-author6"></div>
                     </div>
                 </div>
                 <div id="book-inf7">
-                    <div id="book-img7"></div>
+                    <div id="book-img7" class="img"></div>
                     <div class="book-text">
                         <div id="book-title7"></div>
                         <div id="book-author7"></div>
@@ -139,14 +143,16 @@
         <div id="book-footer">
              <div id="book-page">
 	             <% if(currentPage != 1) { %>
-					<button id=prevPage>&lt;</button>
+					<button id=prevPage>
+						<img src="resources/IMG/left.png">
+					</button>
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
+						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
@@ -154,7 +160,9 @@
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
-					<button type="button" id="nextPage">&gt;</button>
+					<button type="button" id="nextPage">
+						<img src="resources/IMG/right.png">
+					</button>
 				<% } %>
 				
                 <!-- <button id="prevPage">&lt;</button>

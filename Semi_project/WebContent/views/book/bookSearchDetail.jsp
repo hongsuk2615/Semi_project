@@ -8,6 +8,7 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage(); 
 	
+	String bookname = (String)request.getAttribute("bookname");
 	String contextPath = request.getContextPath();
 	ArrayList<Book> bList = (ArrayList<Book>)request.getAttribute("bList");
 	int length = 0;
@@ -20,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSearchDetail</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_search_detail.css">
 </head>
@@ -36,7 +38,7 @@
                     <img src="resources/IMG/pencil.png" id="book-sell-btn-img">
                     판매하기
                 </button>
-                <button type="button" id="book-modify-btn">
+                <button type="button" id="book-modify-btn" style="color: white;">
                     <img src="resources/IMG/수정하기.png" id="book-modify-btn-img">내 판매목록
                 </button>
             </div>
@@ -77,7 +79,7 @@
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %> 원</div>
 	                    </div>
                 	</div>
                     <% } %>
@@ -86,27 +88,15 @@
         
         <div id="book-footer">
              <div id="book-page">
-	             <% if(currentPage != 1) { %>
-					<button id=prevPage>&lt;</button>
-				<% } %>
-				
-				<% for(int i = startPage; i <= endPage; i++ ) { %>
+					<button id=prevPage>
+						<img src="resources/IMG/left.png">
+					</button>
 					
-					<% if(i != currentPage) { %>
-						<%-- <button ><%= i %></button> --%>
-						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; "><%= i %></button>
-					<% } else { %>
-						<button disabled><%=i %></button>
-					<% } %>
-					
-				<% } %>
-				
-				<% if(currentPage != maxPage) { %>
-					<button type="button" id="nextPage">&gt;</button>
-				<% } %>
-			
+					<input id="page-num" type="number" value="1">
+					<button type="button" id="nextPage">
+						<img src="resources/IMG/right.png">
+					</button>
             </div>
-
         </div>
     
     <script>
@@ -125,6 +115,9 @@
 	                    $("#book-img0").empty();
 	                    $("#book-title0").empty();
 	                    $("#book-author0").empty();
+	                    $("#book-publisher0").empty();
+	                    $("#book-datetime0").empty();
+	                    $("#book-contents0").empty();
 	                    <%-- <% } %> --%>
 	                    <%-- <% for(int i = 0; i < 8; i++) { %> --%>
                         $("#book-img0").append( "<img src='" +res.documents[0].thumbnail + "'/>");
@@ -159,20 +152,33 @@
            
            	$("#nextPage").click(function(){
        			currPage++;
+       			$('#page-num').val(currPage);
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+       			booklistAjax();
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
+           	
            	$("#prevPage").click(function(){
-           		currPage--;
+           		if(currPage > 1){
+           			currPage--;
+           		}
+           		$('#page-num').val(currPage);
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
+           			booklistAjax();
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
+           	$('#page-num').change(function(){
+           		if($('#page-num').val() <1 ){
+           			$('#page-num').val(currPage);
+           		}
+           		currPage = $('#page-num').val();
+           		booklistAjax();
+           	})
+           	
            <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
@@ -202,6 +208,34 @@
    		 })
     </script>
 	
+	<script>
+	console.log('<%=bookname%>');
+	function booklistAjax(){
+		$.ajax({
+			url : "<%= request.getContextPath() %>/bookajax.do",
+			data : {
+				bookname : '<%= bookname %>',
+				currentPage : currPage 
+			},
+			method : 'post',
+			success : function(list){
+				$('#book-body-content2').html('');
+				for(let i = 0 ; i < list.length ; i++){
+				$('#book-body-content2').append(`
+						<div class="book-sell-img" data-bkno="\${list[i].bookNo}">
+                		<div class="book-sell-inf\${i}">
+	                        <img src="<%= request.getContextPath() %>\${list[i].titleImg}" style="width: 180px; height: 280px;">
+	                    </div>
+	                    <div class="book-detail-text">
+	                        <div class="book-price" style="color: red;" >\${list[i].price}</div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                    </div>
+                	</div>
+				`);
+				}
+			}
+		})
+	}
+	</script>
 	
     </div>
     
