@@ -1,3 +1,11 @@
+  @font-face {
+    font-family: "semi_font";
+    src: url("../Fonts/SB\ 어그로\ L.ttf") format("truetype");
+    font-weight: normal;
+  }
+* {
+    font-family: 'semi_font';
+}
    .input-form {
       max-width: 680px;
       margin-top: 80px;
@@ -16,7 +24,6 @@
        margin: 0;
         padding-top: 80px;
         padding-bottom: 40px;
-        font-family: "Nanum Gothic", arial, helvetica, sans-serif;
         background-repeat: no-repeat;
         background:linear-gradient(to bottom right, white, #6BA8D1);
    }

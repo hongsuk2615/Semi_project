@@ -13,7 +13,7 @@
 	<div id="modal-alert" class="modal-mainBox"> 
 		<div class="modal-background">
 			<div class="modal-container">
-				<p id="modal-content"></p>
+				<p id="modal-contents"></p>
 				<button id="modal-button"><span>확인</span></button>
 			</div>
 		</div>

@@ -14,7 +14,7 @@
 		})
 		
 		function khalert(a){
-			document.getElementById('modal-content').innerHTML = a;
+			document.getElementById('modal-contents').innerHTML = a;
 			document.getElementById('modal-alert').style.display = 'flex';
 		}
 		
@@ -34,7 +34,7 @@
 		    }
 		})
 		
-		function khconfirm(a, callback){
+		function khconfirm(a, yesbtn, nobtn){
 		  
 		
 			document.getElementById('modal-confirm-content').innerHTML = a;
@@ -42,9 +42,14 @@
 			
 			function eventHandler(){
 				document.getElementById('modal-confirm').style.display = 'none';
-				callback();
-			}	
+				yesbtn();
+			}
+			function eventCancelHandler(){
+				document.getElementById('modal-confirm').style.display = 'none';
+				nobtn();
+			}		
 			document.getElementById("modal-yes-button").addEventListener('click',eventHandler);
+			document.getElementById("modal-no-button").addEventListener('click',eventCancelHandler);
 			
 			document.getElementById('modal-confirm').addEventListener("click", e => {
 	   			const evTarget = e.target
