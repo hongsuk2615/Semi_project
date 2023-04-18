@@ -141,8 +141,8 @@
                 <hr>
     
                 <div id="book-img-upload">
-                    <input type="file" name="upfiles1">
-                    <input type="file" name="upfiles2"> <br>
+                    <input type="file" name="upfiles1" required>
+                    <input type="file" name="upfiles2"><br>
                     <div id="book-next4">
                         <button type="button" id="next4">다음</button>
                     </div>
@@ -210,15 +210,6 @@
         $("#next4").click(function(){
             $("#book-trade").fadeIn(1500).css("display" , "flex");
             $("#book-board-upload").fadeIn(1500).css("display" , "flex");
-        })
-        
-        $("#upload").click(function(){
-        	if( $(".location").val() == "") {
-        		khalert("지역을 입력 해 주세요!");
-        	} else {
-        		khalert("게시글 작성 성공!");
-        	}
-        	
         })
         
         document.getElementById('book-name-search').addEventListener('keydown', function(event) {

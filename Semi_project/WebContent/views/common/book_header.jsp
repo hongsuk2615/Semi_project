@@ -3,6 +3,7 @@
 <%@ page import="com.khtime.member.model.vo.Member"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,10 @@
 <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
 </head>
 <body>
+	<% if( alertMsg != null && !alertMsg.equals("")) { %>
+		<script> khalert("<%= alertMsg %>")</script>
+		<% request.getSession().setAttribute("alertMsg",""); %>
+	<% } %>
   <div id="book-header">
             <div id="book-header-content">
                 <div id="home-logo">
@@ -40,8 +45,6 @@
         location.href = "<%= request.getContextPath() %>/mainPage.do";
     })
     
-    
-    
    	<% if(loginUser == null) {%> 
         document.getElementById("login-btn").addEventListener("click",function(){
           location.href = "<%= request.getContextPath() %>/login.me";
@@ -60,6 +63,11 @@
 	   	})
 	<% } %>
    	
+    </script>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    	AOS.init();
     </script>
        <%@ include file="../common/khalertmodal.jsp" %>
 	

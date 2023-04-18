@@ -144,7 +144,7 @@
 							   <div class="inputBox" style="display: flex; justify-content: space-around;">
 							   		<% for(int i = 0; i < bList.size(); i++ ) { %>
 					                    <div class="book-status-img">
-					                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:400px; height:400px;">
+					                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:400px; height:460px;">
 					                    </div>
 				                    <% } %>
 							   </div>			
