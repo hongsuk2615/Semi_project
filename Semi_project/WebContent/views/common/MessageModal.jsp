@@ -33,7 +33,7 @@
                			}
                			});
                		} 
-                setInterval(messageModal ,6000); 
+                setInterval(messageModal ,60000); 
                	messageModal()
                	    
                 </script>
