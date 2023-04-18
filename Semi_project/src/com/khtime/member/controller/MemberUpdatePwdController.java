@@ -46,13 +46,14 @@ public class MemberUpdatePwdController extends HttpServlet {
 			
 			Member m = new MemberService().updateMyPwd(updatePwd,userPwd,userId);
 			
-			HttpSession session = request.getSession();
 			
 			if(m == null) {
-				session.setAttribute("alertMsg", "가입한 비밀번호와 일치하지않습니다.");		
+				request.getSession().setAttribute("alertMsg", "가입한 비밀번호와 일치하지않습니다.");	
+				System.out.println("널");
 			}else {			
-				session.setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
-				session.setAttribute("loginUser", m);
+				request.getSession().setAttribute("alertMsg", "성공적으로 비밀번호가 변경되었습니다.");
+				request.getSession().setAttribute("loginUser", m);
+				System.out.println("널아님");
 			}
 			response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}

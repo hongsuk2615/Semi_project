@@ -31,20 +31,19 @@
 	a, button{
 	 cursor:pointer;
 	}
+	
+	a:hover{
+	 color:skyblue;
+	}
+	
+	.openBtn:hover, .openBtn1:hover, .openBtn2:hover{
+	 background-color:skyblue;
+	 color:#0d64e6;
+	 
+	}
 </style>
 
 <body>
-	 <script>
-      const msg = "<%= request.getSession().getAttribute("alertMsg") %>";
-      
-      if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
-         khalert(msg);
-         // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
-         // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
-         <% request.getSession().removeAttribute("alertMsg");%>
-         
-      }
-   	</script>
 
 	<div id="wrapper">
 
@@ -327,11 +326,11 @@
 					style="position: relative; text-align: center;">
 					※ 닉네임을 설정하면 <span class="redline">30일간 변경할 수 없습니다.</span><br>
 				</div>
-				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
-					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly; border-radius:12px" onclick="return validateNickName();">
+			</div>
+			<button type="submit" class="closeBtn3" id="fullBlueBtn3"
+					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly; border:transparent; border-radius:0px 0px 12px 12px;" onclick="return validateNickName();">
 					닉네임 변경
 				</button>
-			</div>
 		</form>
 		<script>
 		function validateNickName(){
@@ -385,10 +384,7 @@
 
     
 	<script> <!-- 로그아웃 버튼 스크립트-->
-        function btn(){
-        khalert('로그아웃 성공');
-        // location.href = ""; 로그아웃버튼클릭 후 이동할 페이지
-        }   
+        
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
