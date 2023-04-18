@@ -186,9 +186,9 @@
         			document.cookie = 'time=0';
         			$('#targetText').html(makeTime(sec));
         		}else if(sec == 0){
-        			alert('목표시간이 0입니다.');
+        			khalert('목표시간이 0입니다.');
         		}else{
-        			alert('기존 목표시간이 설정돼있습니다.');
+        			khalert('기존 목표시간이 설정돼있습니다.');
         		}
         		
         	})
@@ -280,7 +280,7 @@
             }
             
             if(get_cookie('targetTime')==""){
-    			alert('목표시간을 설정해 주세요.');
+    			khalert('목표시간을 설정해 주세요.');
     			location.href="<%=request.getContextPath()%>/study.me";
     		}
             

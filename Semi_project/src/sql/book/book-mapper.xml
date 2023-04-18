@@ -82,15 +82,21 @@
 	</entry>
 	
 	<entry key="selectBookList">
-		SELECT FILE_PATH || CHANGE_NAME AS TITLEIMG ,
-			   PRICE ,
-			   BOOK_NO ,
-			   IS_SOLDOUT ,
-			   BOOK_NAME
-		FROM BOOK B
-		LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
-		WHERE B.BOOK_NAME = ?
-		AND B.STATUS = 'Y'
+	SELECT *    
+      	FROM( SELECT ROWNUM RNUM , 
+      			A.*
+            FROM(SELECT FILE_PATH || CHANGE_NAME AS TITLEIMG ,
+					    PRICE ,
+					    BOOK_NO ,
+					    IS_SOLDOUT ,
+					    BOOK_NAME
+				  FROM BOOK B
+				  LEFT OUTER JOIN BOOK_ATTACHMENT USING (BOOK_NO)
+				 WHERE B.BOOK_NAME = ?
+				   AND B.STATUS = 'Y'
+				   AND FILE_LEVEL = 1
+				   ) A )			
+		WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
 	<entry key="selectBookSellList">

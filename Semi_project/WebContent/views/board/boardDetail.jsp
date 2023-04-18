@@ -133,7 +133,6 @@
 						$("#isQuestion").val("");
 						$("#isAnonimous").val("");
 						}
-						location.href='<%= request.getContextPath() %>/boardDetail.bo?cNo=<%=cNo%>';
 						
 					if(data == 0) khalert("작성실패");
 					if(data < 0) khalert("전송방식 잘못됨");
@@ -276,19 +275,27 @@
 							});
 						}
 						
+						function removeLoadingImg(){
+							$('.loadingbox').each(function(index,item){
+				        		   item.remove();
+						});
+						}
 
 					     window.onscroll = function(e) {
 					         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { 
-					           setTimeout(loadBoard, 500); 
+					        	 if($('.loadingbox').length == 0){
+					        	$("#content-area").append("<li class='loadingbox'><img src='<%=request.getContextPath()%>/resources/IMG/loadingGif.gif' width='100' height='100'></li>");
+					        	 }
+					        	setTimeout(loadBoard, 500);
+					            setTimeout(removeLoadingImg, 500);
+					           
 					         }
 					       }
-								     
 								    
 								</script>
                             
                             
                     </div>
-                   
                     </div>
     
                 </div>

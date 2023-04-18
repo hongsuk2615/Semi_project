@@ -22,6 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSell</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
         /* * {
@@ -60,6 +61,7 @@
                 <div id="book-sell">
                     <div id="book-sell-header">
                         <img src="resources/IMG/glass.png" id="glass">
+                        <input type="hidden">
                         <input type="text" id="book-name-search" placeholder="도서 제목을 검색하세요"  style="width: 300px;  height: 28px;" value="<%=request.getParameter("title") == null ? "" : request.getParameter("title") %>">
                         <button type="button" id="search-btn">검색</button>
                     </div>
@@ -117,12 +119,22 @@
                 <div id="book-status">
                     <div id="book-status-check">
                         <h1>책 상태</h1>
-                        <input type="radio" name="condition" value="3" checked> 상
-                        <input type="radio" name="condition" value="2"> 중
-                        <input type="radio" name="condition" value="1"> 하
+                        <label>
+	                        <input type="radio" name="condition" value="3" checked> 상                    
+                        </label>
+                        <label>
+	                        <input type="radio" name="condition" value="2"> 중
+                        </label>
+                        <label>
+	                        <input type="radio" name="condition" value="1"> 하
+                        </label>
                         <h1>필기흔적</h1>
-                        <input type="radio" name="isNoted" value="Y" checked> 있음
-                        <input type="radio" name="isNoted" value="N"> 없음
+                        <label>
+	                        <input type="radio" name="isNoted" value="Y" checked> 있음
+                        </label>
+                        <label>
+	                        <input type="radio" name="isNoted" value="N"> 없음
+                        </label>
                     </div>
                 </div>
     
@@ -141,9 +153,15 @@
                 <div id="book-trade">
                     <div>
                         <h1>거래 방법</h1>
-                        <input type="radio" name="isDirect" value="Y" checked> 직거래
-                        <input type="radio" name="isDirect" value="N"> 택배
-                        <input type="radio" name="isDirect" value="B"> 둘다
+                        <label>
+	                        <input type="radio" name="isDirect" value="Y" checked> 직거래
+                        </label>
+                        <label>
+	                        <input type="radio" name="isDirect" value="N"> 택배
+                        </label>
+                        <label>
+	                        <input type="radio" name="isDirect" value="B"> 둘다
+                        </label>
                         <p>지역 : <input type="text" name="location" class="location" required></p> 
                     </div>
                 </div>
@@ -165,7 +183,7 @@
     		if( $("#book-name-search").val() !== ""){
     			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
     		} else {
-    			alert("도서를 검색해 주세요.");
+    			khalert("도서를 검색해 주세요.");
     		}
     	})
     	
@@ -180,7 +198,7 @@
                 $("#book-content").fadeIn(1500).css("display" , "flex");
                 
             } else {
-                alert("가격을 입력해 주세요!");
+                khalert("가격을 입력해 주세요!");
             }
         });
 
@@ -196,12 +214,21 @@
         
         $("#upload").click(function(){
         	if( $(".location").val() == "") {
-        		alert("지역을 입력 해 주세요!");
+        		khalert("지역을 입력 해 주세요!");
         	} else {
-        		alert("게시글 작성 성공!");
+        		khalert("게시글 작성 성공!");
         	}
         	
         })
+        
+        document.getElementById('book-name-search').addEventListener('keydown', function(event) {
+        	  if (event.keyCode === 13) {
+        	    event.preventDefault();
+        	    $("#search-btn").click();
+        	  };
+        	}, true);
+        
+        
     })
     </script>
     
@@ -230,6 +257,6 @@
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
     </script>
-    
+ 
 </body>
 </html>

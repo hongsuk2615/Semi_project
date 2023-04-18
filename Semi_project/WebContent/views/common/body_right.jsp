@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="resources/CSS/body.css">
      <link rel="stylesheet" href="resources/CSS/dDay.css">
      <link rel="stylesheet" href="resources/CSS/base.css">
+     <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset = "UTF-8"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -215,7 +216,6 @@
         </div>
         <script >
         function insertDday(){
-        	console.log("저장버튼클릭");
         	
         	$.ajax({
         		url : '<%=request.getContextPath()%>/ddayInsert.bo',
@@ -224,11 +224,10 @@
         		},
         		success : function(result){
         			if(result){
-        				console.log(result);
-        				alert("저장 성공");
+        				khalert("저장 성공");
         				
         			}else{
-        				alert("저장 실패");
+        				khalert("저장 실패");
         			}
         			
         		},
@@ -347,10 +346,10 @@
     		success : function(result){
     			if(result){
     				console.log(result);
-    				alert("저장 성공");
+    				khalert("저장 성공");
     				
     			}else{
-    				alert("저장 실패");
+    				khalert("저장 실패");
     			}
     			
     		},
@@ -513,11 +512,11 @@
                 data :{dDayNo},
                 success : function(result){
                     if(result){
-                        alert("삭제성공");
+                        khalert("삭제성공");
                         getDday();
                         close2();
                     }else{
-                        alert("삭제실패");
+                        khalert("삭제실패");
                         getDday();
                     }
                 },
@@ -655,12 +654,12 @@
 					userId : "<%=userId%>"
 				}, 
 				success : function(result){
-					switch(result){
-					case '0' : alert("아이디나 비번이 맞지 않습니다!"); location.href="<%= request.getContextPath()%>/login.me"; break;
-					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : alert("밴된 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '3' : alert("승인되지않은 아이디입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
-					case '4' : alert("탈퇴한 유저입니다!"); $("#loginId").val(""); $("#loginPwd").val(""); break;
+					if(result == 0){
+						$("#loginId").val(""); 
+						$("#loginPwd").val("");
+						location.href="<%= request.getContextPath()%>/login.me?n=n"
+					}else{
+					location.href="<%= request.getContextPath()%>"
 					}
 				}, error : function(){
 					console.log("ajax통신실패")
@@ -727,5 +726,9 @@
 
 
         </script>
+         <%@ include file="../common/khalertmodal.jsp" %>
+	
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 </html>

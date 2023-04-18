@@ -201,7 +201,7 @@ a {
 								 }
 							 }else{
 								 
-                                alert("없는 아이디이거나 본인 아이디이거나 이미 친구입니다.");
+                                khalert("없는 아이디이거나 본인 아이디이거나 이미 친구입니다.");
 							 }
 							 
 						 }	 
@@ -218,13 +218,12 @@ a {
 							 data : {senderUserNo},
 							 method : "post",
 							 success : function(result){
-							console.log(result);
 								 if(result>0){
-										alert("친구가 됐습니다");
+										khalert("친구가 됐습니다");
 										location.reload();
 									 
 								 }else{
-										alert("친구가 안됐습니다.");
+										khalert("친구가 안됐습니다.");
 								 }
 							 }
 							 });	 
@@ -244,15 +243,15 @@ a {
 								console.log(result);
 									 if(result>0){
 										 	if($(e).attr('class') == "deny"){
-											alert("친구 신청을 거절했습니다.");
+											khalert("친구 신청을 거절했습니다.");
 											location.reload();
 										 	}
 										 	else{
-										 		alert("친구를 삭제했습니다.");
+										 		khalert("친구를 삭제했습니다.");
 										 		location.reload();
 										 	}
 									 }else{
-											alert("친구요청 거절을 실패했습니다.");
+											khalert("친구요청 거절을 실패했습니다.");
 									 }
 								 }
 								 });	 
