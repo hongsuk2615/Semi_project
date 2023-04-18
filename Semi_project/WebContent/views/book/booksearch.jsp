@@ -229,7 +229,7 @@
                } 
            })
             
-            $("#book-footer button ").click(getBooks);
+            $("#book-footer button").click(getBooks);
            
            	$("#nextPage").click(function(){
        			currPage++;
