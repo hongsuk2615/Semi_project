@@ -31,6 +31,7 @@
 	<div id="wrapper">
 		
 		<%@ include file="header.jsp"%>
+		
 		<div id="body">
 			<div id="banner-wrapper">
 				  <div class="swiper">
@@ -192,33 +193,14 @@
 				</div>
 
 				<%@ include file="body_right.jsp"%>
-				<div id="msgModal"></div>
+			
 			</div>
 		</div>
 
 		<div id="footer"></div>
 	</div>
-		 
-				 <script>
-			
+	<%@ include file="MessageModal.jsp"%>	 
 				
-               	  function messageModal(){
-               		$.ajax({
-               			url : "<%=request.getContextPath()%>/msgModal.do",
-               			success : function(result){
-               				console.log(result);
-               				let msg = "";
-               					for(let m of result){
-               						msg += `\${m.userName} <br> \${m.content}<br>`;
-               					}		               				               				
-               				
-               				$('#msgModal').html(msg);
-               			}
-               			});
-               		} 
-               	 /* setInterval(1000);	  */
-               	messageModal();     
-                </script>
 			
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>

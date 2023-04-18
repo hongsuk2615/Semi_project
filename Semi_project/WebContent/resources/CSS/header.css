@@ -165,7 +165,9 @@
 	height: 60%;
 }
 #msgModal{
-	position: absolute;
-/* 	display:none */
+position: absolute;
+ right: 0px;
+  bottom: 0px;
 }
+
 
