@@ -14,7 +14,7 @@
 		})
 		
 		function khalert(a){
-			document.getElementById('modal-content').innerHTML = a;
+			document.getElementById('modal-contents').innerHTML = a;
 			document.getElementById('modal-alert').style.display = 'flex';
 		}
 		
