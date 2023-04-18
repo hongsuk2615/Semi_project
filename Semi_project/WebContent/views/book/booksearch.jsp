@@ -217,7 +217,7 @@
       		
            $("#search-btn").click(function(){
                 if( $("#bookname").val() == "") { 
-               	alert("도서 제목을 검색 해 주세요.");
+               	khalert("도서 제목을 검색 해 주세요.");
                } 
            })
             
@@ -280,5 +280,6 @@
     </script>
 
     </div>
+    
 </body>
 </html>

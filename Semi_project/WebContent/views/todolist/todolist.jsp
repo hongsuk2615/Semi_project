@@ -110,10 +110,10 @@
                     data :{toDoListNo},
                     success : function(result){
                         if(result){
-                            alert("삭제성공");
+                            khalert("삭제성공");
                             getTodolist();
                         }else{
-                            alert("삭제실패");
+                            khalert("삭제실패");
                             getTodolist();
                         }
                     },
@@ -212,15 +212,26 @@
                 success : function(result){
                     console.log(result);
                     if(result){
-                        alert('추가 성공');
+                        khalert('추가 성공');
                         getTodolist();
                     }else{
-                        alert('추가 실패');
+                        khalert('추가 실패');
                     }
                 },
                 error : function(){
                     console.log('todolist 추가 ajax요청 실패')
-                }
+                },
+				beforeSend : function(){
+					if(content == ''){
+						khalert("내용을 입력해주세요!");
+						$('#modal-tdl-text>input').focus();
+						return false;
+					}else if($("#content").html() == ''){
+						khalert("내용을 입력해주세요!");
+						$("#content").focus();
+						return false;
+					}
+				}
 
 
             })

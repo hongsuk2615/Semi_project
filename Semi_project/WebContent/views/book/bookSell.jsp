@@ -22,6 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSell</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
         /* * {
@@ -165,7 +166,7 @@
     		if( $("#book-name-search").val() !== ""){
     			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
     		} else {
-    			alert("도서를 검색해 주세요.");
+    			khalert("도서를 검색해 주세요.");
     		}
     	})
     	
@@ -230,6 +231,6 @@
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
     </script>
-    
+ 
 </body>
 </html>

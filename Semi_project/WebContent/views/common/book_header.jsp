@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/CSS/book_header.css">
+<link rel="stylesheet" href="resources/CSS/khalertmodal.css">
 </head>
 <body>
   <div id="book-header">
@@ -59,5 +60,9 @@
 	<% } %>
    	
     </script>
+       <%@ include file="../common/khalertmodal.jsp" %>
+	
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 </html>
