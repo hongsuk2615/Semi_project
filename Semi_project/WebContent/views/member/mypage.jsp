@@ -38,7 +38,7 @@
       const msg = "<%= request.getSession().getAttribute("alertMsg") %>";
       
       if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
-         alert(msg);
+         khalert(msg);
          // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
          // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
          <% request.getSession().removeAttribute("alertMsg");%>
@@ -150,14 +150,14 @@
 		 			function validatePwd(){
 		 				let regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
 			             if(!regExp.test(updatePwd.value)){
-			                alert("유효한 비밀번호를 입력해주세요");
+			                khalert("유효한 비밀번호를 입력해주세요");
 			                updatePwd.value = "";
 			                updatePwd.select();
 			                return false;
 			            } 
 		 				
 		 				if($("input[name='updatePwd']").val() != $("input[name='checkPwd']").val()) {
-		 					alert("비밀번호가 일치하지 않습니다.");						
+		 					khalert("비밀번호가 일치하지 않습니다.");						
 		 					return false;	
 		 				} 
 		 			}
@@ -206,7 +206,7 @@
 			    return true;
 			  }
 			  else {
-			    alert('이메일 형식이 다릅니다.');
+			    khalert('이메일 형식이 다릅니다.');
 			    return false;
 			  }
 		}
@@ -343,7 +343,7 @@
 			    return true;
 			  }
 			  else {
-			    alert('닉네임 형식이 다릅니다.');
+			    khalert('닉네임 형식이 다릅니다.');
 			    return false;
 			  }
 		}
@@ -386,7 +386,7 @@
     
 	<script> <!-- 로그아웃 버튼 스크립트-->
         function btn(){
-        alert('로그아웃 성공');
+        khalert('로그아웃 성공');
         // location.href = ""; 로그아웃버튼클릭 후 이동할 페이지
         }   
         

@@ -15,9 +15,9 @@ import java.util.Properties;
 import com.khtime.board.model.vo.Board;
 import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.board.model.vo.Category;
-import com.khtime.common.CommonMethod;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 
 
@@ -591,7 +591,7 @@ public class BoardDao {
 			return result;
 		}
 	   
-	   public int updateContent(Connection conn, Board b) {
+	   public int updateContent(Connection conn, Board b, Member loginUser) {
 		   
 			int result = 0;
 			PreparedStatement pstmt = null;
@@ -606,7 +606,11 @@ public class BoardDao {
 				pstmt.setString(4, b.getIsQuestion());
 				pstmt.setString(5, b.getIsAnonimous());
 				pstmt.setInt(6, b.getBoardNo());
-				pstmt.setInt(7,Integer.valueOf(b.getWriter()));
+				pstmt.setInt(7, loginUser.getUserNo());
+				pstmt.setString(8, b.getIsQuestion());
+				pstmt.setInt(9, loginUser.getAuthority());
+				pstmt.setInt(10, loginUser.getUserNo());
+				pstmt.setInt(11, b.getBoardNo());
 				
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {

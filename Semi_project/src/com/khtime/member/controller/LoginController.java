@@ -39,6 +39,9 @@ public class LoginController extends HttpServlet {
 				request.setAttribute(cookie.getName(), cookie.getValue());
 			}
 		}
+		if(request.getParameter("n") != null) {
+			request.getSession().setAttribute("alertMsg", "아이디나 비번이 맞지 않습니다!");
+		}
 		request.getRequestDispatcher("views/member/loginForm.jsp").forward(request, response);
 	}
 
@@ -58,12 +61,20 @@ public class LoginController extends HttpServlet {
 		int result = (loginUser == null) ? 0 : loginUser.getStatus().equals("N") ? 4 : loginUser.getAvailable().equals("N") ? 3 : 
 			loginUser.getIsBanned().equals("Y") ? 2 : 1;
 		
+		String alertMsg = "";
+		switch(result) {
+		case 0 : alertMsg = "아이디나 비번이 맞지 않습니다!";break;
+		case 2 : alertMsg = "밴된 유저입니다!";break;
+		case 3 : alertMsg = "승인되지않은 아이디입니다!";break;
+		case 4 : alertMsg = "탈퇴한 유저입니다!";break;
+		}
+		
 		// 1: 로그인 성공
 		// 2: 밴인 유저
 		// 3: 승인되지 않은 유저
 		// 4: 탈퇴한 유저
 		// 0: 아이디, 비번 틀림
-		
+		request.getSession().setAttribute("alertMsg", alertMsg);
 		// 로그인 & 화이트리스트
 		if (result == 1) {
 			request.getSession().setAttribute("loginUser", loginUser);

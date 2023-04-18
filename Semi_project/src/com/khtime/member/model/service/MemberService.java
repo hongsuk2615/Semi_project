@@ -69,7 +69,7 @@ public class MemberService {
 
 		if (result) {
 
-			int random = (int) (Math.random() * 5 + 10);
+			int random = (int) (Math.random() * 5 + 10); // 10~15
 			String newPwd = CommonMethod.getRamdomPassword(random); // 랜덤 임시비밀번호 생성
 			String encPwd = CommonMethod.getSHA512(newPwd); // 임시비밀번호 암호화
 			result = new MemberDao().updatePwd(conn, userId, encPwd); // 임시비밀번호 DB commit

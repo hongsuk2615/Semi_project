@@ -71,7 +71,7 @@ public class ContentUpdateController extends HttpServlet {
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
 
-			int userNo = ((Member) request.getSession().getAttribute("loginUser")).getUserNo();
+			Member loginUser = ((Member) request.getSession().getAttribute("loginUser"));
 			int bNo = Integer.parseInt(multi.getParameter("bNo"));
 			int cNo = Integer.parseInt(multi.getParameter("cNo"));
 			String title = multi.getParameter("title");
@@ -81,7 +81,6 @@ public class ContentUpdateController extends HttpServlet {
 			String deleteImg = multi.getParameter("deleteImg");
 		
 			Board b = new Board();
-			b.setWriter(String.valueOf(userNo));
 			b.setBoardNo(bNo);
 			b.setCategoryNo(cNo);
 			b.setTitle(title);
@@ -102,7 +101,7 @@ public class ContentUpdateController extends HttpServlet {
 				
 			}
 			
-			result = new BoardService().updateContent(b, list, deleteImg);
+			result = new BoardService().updateContent(b, list, deleteImg, loginUser);
 			response.setContentType("text/html; charset=UTF-8");
 			
 			if (result <= 0 && at != null) {

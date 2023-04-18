@@ -9,7 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/CSS/book_header.css">
+<link rel="stylesheet" href="resources/CSS/khalertmodal.css">
 </head>
 <body>
   <div id="book-header">
@@ -17,8 +19,8 @@
                 <div id="home-logo">
                     <img src="resources/IMG/로고이미지.png" alt="로고이미지">
                 </div>
-                <div id="book-logo">
-                    <img src="resources/IMG/book.png" alt="" style="height: 120px; width: 160px;">중고 책방
+                <div id="book-logo" style="font-weight: 1000;">
+                    <img src="resources/IMG/책방로고.png" alt="" style="height: 90px; width: 120px;">중고 책방
                 </div>
                 <div id="book-header-right">
                     <% if(loginUser == null){%>
@@ -59,5 +61,9 @@
 	<% } %>
    	
     </script>
+       <%@ include file="../common/khalertmodal.jsp" %>
+	
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 </body>
 </html>
