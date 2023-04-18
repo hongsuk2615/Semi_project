@@ -210,3 +210,8 @@
 	border-radius: 5px;
 	box-shadow: 5px 5px 5px gray;
 }
+
+.book-img {
+	background: transparent;
+	border-radius: 16px;
+}

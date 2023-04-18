@@ -64,7 +64,7 @@
 	                }
                 %>
                 	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> ">
+                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
                 		<div class="book-img">
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
 	                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
@@ -176,6 +176,11 @@
 		});
    	
         	
+    </script>
+    
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    	AOS.init();
     </script>
 </body>
 </html>

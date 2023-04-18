@@ -28,6 +28,7 @@
             display: flex;
             justify-content: center;
     		align-items: center;
+    		border-radius: 16px;
         }
         .book-text {
         	width: 200px;
@@ -38,6 +39,10 @@
     		flex-direction: column;
     		text-align: center;
         }
+        img:hover {
+        	cursor: pointer;
+        }
+        
     </style>
 </head>
 <body>
@@ -139,7 +144,7 @@
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					
 					<% if(i != currentPage) { %>
-						<%-- <button ><%= i %></button> --%>
+
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
@@ -211,19 +216,20 @@
        			currPage++;
        		/* 	let a = "btn"+currPage; */
        			
-       			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+       			location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
+           	
            	$("#prevPage").click(function(){
            		currPage--;
            		/* 	let a = "btn"+currPage; */
            			
-           			location.href = '<%=contextPath%>/booksearchdetail.do?bookname=<%= request.getParameter("title") %>&currentPage='+currPage;
+           			location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
            			<%-- $(a).click("#btn<%= currentPage %>"); --%>
            			/* getBooks(); */
        		});
-           <% if ( request.getParameter("title") != "" && currentPage != 1  ) { %>
+           <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
            

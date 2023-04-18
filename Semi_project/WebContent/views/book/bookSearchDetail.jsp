@@ -21,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSearchDetail</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_search_detail.css">
 </head>
@@ -78,7 +79,7 @@
 	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %></div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                        <div class="book-price" style="color: red;" ><%= bList.get(i).getPrice() %> 원</div>
 	                    </div>
                 	</div>
                     <% } %>
@@ -158,6 +159,7 @@
        			<%-- $(a).click("#btn<%= currentPage %>"); --%>
        			/* getBooks(); */
        		});
+           	
            	$("#prevPage").click(function(){
            		if(currPage > 1){
            			currPage--;
