@@ -92,7 +92,7 @@
 						<strong>이용안내</strong> 
 						<a href="/askpage.jsp">문의하기</a> 
 						<a href="">공지사항</a> 
-						<a href="views/member/termsOfUseForm.jsp">서비스약관</a> 
+						<a id="termsOfUse">서비스약관</a> 
 						<a href="">개인정보 처리방침</a> 
 						<a href="">청소년 보호정책</a>
 					</div>
@@ -146,9 +146,17 @@
 			
 			<script>
 		 			function validatePwd(){
+		 				let regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
+			             if(!regExp.test(updatePwd.value)){
+			                alert("유효한 비밀번호를 입력해주세요");
+			                updatePwd.value = "";
+			                updatePwd.select();
+			                return false;
+			            } 
+		 				
 		 				if($("input[name='updatePwd']").val() != $("input[name='checkPwd']").val()) {
 		 					alert("비밀번호가 일치하지 않습니다.");						
-		 					return false;
+		 					return false;	
 		 				} 
 		 			}
 		 	</script>
@@ -464,6 +472,10 @@
   		 document.getElementById("user-boards").addEventListener("click",function(){
         location.href = "<%= request.getContextPath() %>/reqBoard.me";
 	    })
+	    
+	    document.getElementById("termsOfUse").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/TermsOfUseController.me";
+  		}) 
   	</script>
 
 
