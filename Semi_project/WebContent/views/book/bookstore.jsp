@@ -19,11 +19,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
-    <style>
-       /*  * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
@@ -62,27 +57,28 @@
 	                }else {
 	                	length = bList.size();
 	                }
-                %>
-                	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
-                		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
-	                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
-	                    </div>
-	                    <div class="book-text">
-	                        <div class="book-title" style="text-align: center;"><% if(bList.get(i).getIsSoldout().equals("Y")) { %>
-	                        		<s style="text-decoration-color: gray;"><%= bList.get(i).getBookName() %></s>
-	                        	<% } else { %>
-	                        		<%= bList.get(i).getBookName() %>
-	                        	<% } %>
-	                        </div><br>
-	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
-	                    </div>
-                	</div>
-                    <% } %>
+                %> <% if(length == 0) { %>
+                		<h1>조회된 판매 목록이 없습니다.</h1>
+                	<% } else { %>
+	                	<% for(int i = 0; i < length; i++) { %>
+		                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
+		                		<div class="book-img">
+			                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
+			                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
+			                    </div>
+			                    <div class="book-text">
+			                        <div class="book-title" style="text-align: center;"><% if(bList.get(i).getIsSoldout().equals("Y")) { %>
+			                        		<s style="text-decoration-color: gray;"><%= bList.get(i).getBookName() %></s>
+			                        	<% } else { %>
+			                        		<%= bList.get(i).getBookName() %>
+			                        	<% } %>
+			                        </div><br>
+			                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
+			                    </div>
+		                	</div>
+	                    <% } %>
+	            	<% } %>
                 </div>
-
-            <hr><hr>
             
         </div>
     </div>
@@ -95,7 +91,6 @@
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
-					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
@@ -110,12 +105,8 @@
 						<img src="resources/IMG/right.png" style="background: none;">
 					</button>
 				<% } %>
-            
             </div>
         </div>
-        
-        
-
     </div>
     
     <script>
@@ -175,7 +166,17 @@
 			    });
 		});
    	
-        	
+   		
+	        $('#bookname').keyup(function () {
+	            if (window.event.keyCode == 13) {
+	            	if( $("#bookname").val() == "") {
+	            	alert("도서 제목을 검색 해 주세요.");
+	            }else{
+	               location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
+	            }
+	       	 }
+	        });
+   		 
     </script>
     
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
