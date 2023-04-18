@@ -69,7 +69,7 @@
 
 .portlet .portlet-footer {
     padding: 10px 15px;
-    background: #8dbaf2;
+    background: #42A5F5;
 }
 
 .portlet .portlet-footer ul {
@@ -130,7 +130,7 @@
 .portlet-dark-blue,
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
-    border-color: #42A5F5;
+    border:2px solid #42A5F5;
 }
 
 .portlet-default>.portlet-heading,

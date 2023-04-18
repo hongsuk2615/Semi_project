@@ -27,6 +27,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="resources/JS/bootstrap.js"></script>
+<style>
+	hr{
+		border-top:1px solid #77a9de;
+	}
+</style>
 <title>실시간 채팅 페이지</title>  
 </head>
 <body>
@@ -64,7 +69,7 @@
 									style="overflow-y: scroll; width: 1118px; height: 600px;">
 									<div class="row">
 										<div class="col-lg-12">
-											<p class="text-center text-muted small" id="sysdate"></p>
+											<p class="text-center text-muted small" id="sysdate" style="font-size: 20px;"></p>
 										</div>
 									</div>
 									<div class="row">
@@ -80,8 +85,9 @@
 									<div class="row">
 										<div class="form-group col-xs-4">
 											<!-- 로그인한 유저의 NICKNAME 출력 -->
-											<h4 style="height: 40px; background-color: #8dbaf2;">로그인한 유저닉네임 :<%=loginUser.getNickName() %></h4>
+											<h4 style="height:10px; color:white; "><%=loginUser.getNickName() %></h4>
 											<input type="hidden" value="<%=loginUser.getNickName() %>" id="sender">
+											<input type="hidden" value="<%=loginUser.getUserProfile() %>" id="profileImg">
 											<!-- <input type="hidden" id="sendTime"> -->
 										</div>
 									</div>
@@ -108,7 +114,7 @@
 	
 	<script> // 아이디값 sysdate에 오늘날짜값 넣어주는 스크립트 
 	    let today = new Date();
-		document.getElementById('sysdate').innerHTML = today.getFullYear()+'.'+today.getMonth()+'.' + today.getDate();
+		document.getElementById('sysdate').innerHTML = today.getFullYear()+'.'+(today.getMonth()+1)+'.' + today.getDate();
 	</script> 
 	
 	<script>
@@ -131,10 +137,11 @@
 			
 			if(msg[0] == "<%=loginUser.getNickName()%>" && msg[1] != ' '){ 
 				console.log('내가보낸거');
-				$('#chatting-box').append(`<div class="media">
+				$('#chatting-box').append(`<div class="media" style="color:#42A5F5">
+						<a class="pull-left" href="#"><img class="media-object img-circle" src="<%=request.getContextPath()%>`+msg[3]+`"></a>
 						<div class="media-body">
 						<h4 class="media-heading" id="nickName">
-							\${msg[0]} <span class="small pull-right" id="sendTime">\${msg[2]}</span>
+							\${msg[0]} <span class="small pull-right" id="sendTime" style="color:#42A5F5;">\${msg[2]}</span>
 						</h4>
 					</div>
 					<p>\${msg[1]}</p>
@@ -143,6 +150,7 @@
 			} else if(msg[1] != ' '){
 				console.log('받은거');
 				$('#chatting-box').append(`<div class="media">
+						<a class="pull-left" href="#"><img class="media-object img-circle" src="<%=request.getContextPath()%>`+msg[3]+`"></a>
 						<div class="media-body">
 						<h4 class="media-heading" id="nickName">
 							\${msg[0]} <span class="small pull-right" id="sendTime">\${msg[2]}</span>
@@ -158,7 +166,7 @@
 			// 보내는사람닉네임,메세지내용,보낸시간
 			var nowDate = new Date(); 
 			
-			socket.send($("#sender").val()+","+$("#msg").val()+","+nowDate.toLocaleTimeString()); //"유저닉네임,채팅친내용,보낸시간"
+			socket.send($("#sender").val()+","+$("#msg").val()+","+nowDate.toLocaleTimeString()+","+$('#profileImg').val()); //"유저닉네임,채팅친내용,보낸시간"
 			
 		}; 
 		
