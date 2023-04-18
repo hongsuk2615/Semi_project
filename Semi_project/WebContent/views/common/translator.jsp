@@ -72,6 +72,7 @@
     background-color : #87ceeb00;
     border: none;
     font-size: 24px;
+    color:white;
 }
 
 
@@ -83,7 +84,7 @@
     width: 400px;
     height: 420px;
     border-radius: 16px;
-    background-color : yellowgreen;
+    background-color : navy;
     
 }
 .transBox .transheader{
@@ -117,6 +118,7 @@
 #transName {
 	font-size : 22px;
 	padding-top: 22px;
+	color: white;
 	
 }
 
