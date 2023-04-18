@@ -198,7 +198,7 @@
                 $("#book-content").fadeIn(1500).css("display" , "flex");
                 
             } else {
-                alert("가격을 입력해 주세요!");
+                khalert("가격을 입력해 주세요!");
             }
         });
 
@@ -214,9 +214,9 @@
         
         $("#upload").click(function(){
         	if( $(".location").val() == "") {
-        		alert("지역을 입력 해 주세요!");
+        		khalert("지역을 입력 해 주세요!");
         	} else {
-        		alert("게시글 작성 성공!");
+        		khalert("게시글 작성 성공!");
         	}
         	
         })
