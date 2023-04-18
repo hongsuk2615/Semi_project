@@ -155,7 +155,6 @@
 				success : function(data){
 					
 					if(data > 0) {
-						khalert("수정성공");
 						location.href='<%= request.getContextPath() %>/contentDetail.bo?bNo=<%=b.getBoardNo()%>';
 						}
 					if(data == 0) khalert("수정실패");

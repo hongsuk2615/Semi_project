@@ -140,7 +140,7 @@
 	   
 	   	$("#search-btn").click(function(){
             if( $("#bookname").val() === "") { 
-           	alert("도서 제목을 검색 해 주세요.");
+           	khalert("도서 제목을 검색 해 주세요.");
            } else {
         	   document.getElementById("search-btn").addEventListener("click",function(){
    	        	location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;

@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <link rel="stylesheet" href="resources/CSS/header.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script src="resources/JS/studyTime.js"></script>
@@ -22,8 +23,10 @@
     <title>Document</title>
 </head>
 <body>
+<%@ include file="khalertmodal.jsp" %>
+ <script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-		<script> alert("<%= alertMsg %>")</script>
+		<script> khalert("<%= alertMsg %>")</script>
 		<% request.getSession().setAttribute("alertMsg",""); %>
 	<% } %>
     <div id="header">
@@ -152,23 +155,7 @@
   		$('#msgcount').text('vdvddvdvv');
 		} */	   
   		</script>
-  		
-  		
-  		<script>
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-            {
-                pageLanguage: 'ko'
-              , includedLanguages: 'en,ja,ko,zh-CN,zh-TW'
-              , layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL // none or HORIZONTAL, SIMPLE
-            }
-          , 'google_translate_element'
-        );
-    }
-</script>
-  		
-  		
-  		
+  		 
   		
 </body>
 </html>
