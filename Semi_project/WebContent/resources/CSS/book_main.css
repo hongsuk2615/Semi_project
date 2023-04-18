@@ -206,6 +206,10 @@
 	flex-direction: column;
 }
 
+.book-wrap:hover {
+	transform : translate(-50px, -50px);
+}
+
 #prevPage, #nextPage {
 	background-color: transparent;
 	width: 30px;

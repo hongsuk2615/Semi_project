@@ -112,7 +112,7 @@ public class BookInsertController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");
 				response.sendRedirect(request.getContextPath()+"/bookstore.do");
 			} else {
-				request.setAttribute("errorMsg", "사진 게시판 업로드 실패!");
+				request.setAttribute("errorMsg", "게시판 업로드 실패!");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			} 
 		} 

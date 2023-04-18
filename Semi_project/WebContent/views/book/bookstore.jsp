@@ -19,11 +19,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
-    <style>
-       /*  * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
@@ -81,8 +76,6 @@
                 	</div>
                     <% } %>
                 </div>
-
-            <hr><hr>
             
         </div>
     </div>
@@ -95,7 +88,6 @@
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
-					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
@@ -110,12 +102,8 @@
 						<img src="resources/IMG/right.png" style="background: none;">
 					</button>
 				<% } %>
-            
             </div>
         </div>
-        
-        
-
     </div>
     
     <script>
@@ -175,7 +163,17 @@
 			    });
 		});
    	
-        	
+   		
+	        $('#bookname').keyup(function () {
+	            if (window.event.keyCode == 13) {
+	            	if( $("#bookname").val() == "") {
+	            	alert("도서 제목을 검색 해 주세요.");
+	            }else{
+	               location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
+	            }
+	       	 }
+	        });
+   		 
     </script>
     
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

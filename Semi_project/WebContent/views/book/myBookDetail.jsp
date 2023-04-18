@@ -63,9 +63,6 @@
                     <h1>판매 정보</h1>
                 </div>
                 <div>
-                    <p style="color: blue;">판매자 ID : <%= seller %></p>
-                </div>
-                <div>
                     <p>게시일 : <%= book.getEnrollDate() %></p>
                 </div>
             </div>
