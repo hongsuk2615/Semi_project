@@ -164,5 +164,8 @@
 #approveEnroll, #reportedBoards, #boardReq, #userManagement{
 	height: 60%;
 }
-
+#msgModal{
+	position: absolute;
+/* 	display:none */
+}
 

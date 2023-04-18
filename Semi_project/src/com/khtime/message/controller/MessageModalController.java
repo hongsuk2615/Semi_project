@@ -19,7 +19,7 @@ import com.khtime.message.model.vo.Message;
 /**
  * Servlet implementation class MessageModalController
  */
-@WebServlet("/MessageModalController")
+@WebServlet("/msgModal.do")
 public class MessageModalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,8 +36,8 @@ public class MessageModalController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-		String loginUserName = ((Member)request.getSession().getAttribute("loginUser")).getUserName();
 		ArrayList<Message> result = new  MessageService().MessageModal(loginUserNo);
+		System.out.println(result);
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());
