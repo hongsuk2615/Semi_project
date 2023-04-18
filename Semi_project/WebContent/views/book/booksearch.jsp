@@ -75,7 +75,7 @@
                     <button type="button" id="search-btn">검색</button>
                 </div>
             </div>
-            <div id="book-body-content1">
+            <div id="book-body-content1" data-aos="fade-left" data-aos-duration="1500">
                 <div id="book-inf0">
                     <div id="book-img0" class="img"></div>
                     <div class="book-text"> 
@@ -108,7 +108,7 @@
 
             <hr><hr>
 
-            <div id="book-body-content2">
+            <div id="book-body-content2" data-aos="fade-left" data-aos-duration="1500">
                 <div id="book-inf4">
                     <div id="book-img4" class="img"></div>
                     <div class="book-text">
@@ -149,14 +149,12 @@
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
-					
 					<% if(i != currentPage) { %>
 						<%-- <button ><%= i %></button> --%>
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
-					
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
@@ -164,15 +162,7 @@
 						<img src="resources/IMG/right.png">
 					</button>
 				<% } %>
-				
-                <!-- <button id="prevPage">&lt;</button>
-                <button id="book-page-btn1">1</button>
-                <button id="book-page-btn2">2</button>
-                <button id="book-page-btn3">3</button>
-                <button id="book-page-btn4">4</button>
-                <button id="nextPage">&gt;</button> -->
             </div>
-
         </div>
     
     <script>
@@ -225,11 +215,11 @@
       		
            $("#search-btn").click(function(){
                 if( $("#bookname").val() == "") { 
-               	alert("도서 제목을 검색 해 주세요.");
+               	khalert("도서 제목을 검색 해 주세요.");
                } 
            })
             
-            $("#book-footer button ").click(getBooks);
+            $("#book-footer button").click(getBooks);
            
            	$("#nextPage").click(function(){
        			currPage++;
@@ -286,7 +276,20 @@
     }
    
     </script>
+    
+    <script>
+	    $('#bookname').keyup(function () {
+	        if (window.event.keyCode == 13) {
+	        	if( $("#bookname").val() == "") {
+	        	alert("도서 제목을 검색 해 주세요.");
+	        }else{
+	           location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
+	        }
+	   	 }
+	    });
+    </script>
 
     </div>
+    
 </body>
 </html>

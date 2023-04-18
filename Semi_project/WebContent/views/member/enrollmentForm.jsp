@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/CSS/enrollment.css">
     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	 <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
 	 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
@@ -40,7 +41,7 @@
     <% if(alertMsg != null){ %>
     	
     	<script>
-    		alert("<%= alertMsg %>");
+    		khalert("<%= alertMsg %>");
     	</script>
     	<% session.removeAttribute("alertMsg");%>
     	
@@ -320,24 +321,24 @@
 						 success : function(result){
 							 console.log(result);
 							 if(result.isId){
-							 	alert("이미 존재하거나 회원 탈퇴한 아이디입니다.");
+							 	khalert("이미 존재하거나 회원 탈퇴한 아이디입니다.");
 							 	document.getElementById("userId").focus();
 							 }else if(!regExp.test(inputId)){
-								 alert("유효한 아이디를 입력해주세요");
+								 khalert("유효한 아이디를 입력해주세요");
 								 inputId = "";
 								 document.getElementById("userId").focus();
 					             return false;
 							 }else{
 								 
-								 if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-									 //아이디값 수정할수 없게 막기
+								 khconfirm("사용가능한 아이디 입니다. 사용하시겠습니까?", function(){
+									//아이디값 수정할수 없게 막기
 									 document.getElementById("userId").readOnly = true;
 									 //회원가입 버튼 활성화
 									 document.getElementById("idEnrollment").disabled = false;
-								 }else{
+								 }, function(){
 									 document.getElementById("userId").value = "";
 									 document.getElementById("userId").focus();
-								 }
+								 	});
 							 }
 							 
 						 },
@@ -362,15 +363,16 @@
 						 data : {email : emailval},
 						 success : function(result){
 							 if(result == true){
-							alert("이미 존재하는 이메일 입니다.");
+							khalert("이미 존재하는 이메일 입니다.");
 							 }else if(!regExp.test(emailval)){
-								 alert("유효한 이메일을 입력하세요.");
+								 khalert("유효한 이메일을 입력하세요.");
 							 }else{
 								 confirm("사용가능한 이메일 입니다 사용하시겠습니까?");
 								if(confirm){
 								 $("#sendCode").show();
 								 $('#checkCode').click(checkCode);
 								}
+								 khalert("사용가능한 이메일 입니다.");
 							 }
 						 },
 						 error : function(){
@@ -409,7 +411,7 @@
 			            //    영문자(대소문자), 숫자, 특수문자로 이루어진 총 8~15글자
 			            let regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
 			             if(!regExp.test(userPwd1.value)){
-			                alert("유효한 비밀번호를 입력해주세요");
+			                khalert("유효한 비밀번호를 입력해주세요");
 			                userPwd1.value = "";
 			                userPwd1.select();
 			                return false;
@@ -418,7 +420,7 @@
 			            
 			            // 3) 비밀번호 일치확인
 			            if(userPwd1.value !== userPwd2.value){
-			                alert("동일한 비밀번호를 입력해주세요.");
+			                khalert("동일한 비밀번호를 입력해주세요.");
 			                userPwd2.value = "";
 			                uesrPwd2.select();
 			                return false;
@@ -427,7 +429,7 @@
 			            //    한글(결합)로만 2글자이상
 			            regExp = /^[가-힣]{2,}$/;
 			            if(!regExp.test(userName.value)){
-			                alert("유효한 이름을 입력해주세요");
+			                khalert("유효한 이름을 입력해주세요");
 			                userName.select();
 			                return false;
 			            } 
@@ -443,7 +445,7 @@
 			  		    if(document.getElementById("check_1").checked && document.getElementById("check_2").checked) {
 			  		    	return true;	    	
 						}else{
-							alert("필수 항목에 동의해주세요")	
+							khalert("필수 항목에 동의해주세요")	
 							return false;
 						}
 						}
@@ -480,6 +482,10 @@
 	  					  })
 			            
 			</script>
+			 <%@ include file="../common/khalertmodal.jsp" %>
+	
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 
 </body>
 

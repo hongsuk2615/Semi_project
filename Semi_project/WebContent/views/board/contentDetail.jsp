@@ -8,7 +8,7 @@
 	String cName = (String) request.getAttribute("cName");
 	int recommendcheck = (int) request.getAttribute("recommendcheck");
 	int scrapcheck  = (int) request.getAttribute("scrapcheck"); 
-%>     
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,22 +82,23 @@
                                             <div class="stringDate"> <span class="spanDate"></span> </div>
                                         </div>
                                         </div>
-                                    <div id="content-header-right"> <!-- 관리자일 경우 삭제가능하게 만들기 -->
-                                        <%if( loginUser != null &&loginUser.getAuthority() == 0 ||
+                                    <div id="content-header-right">
+                                        <%if(loginUser != null &&loginUser.getAuthority() == 0 ||
                                         		loginUser != null && loginUser.getNickName().equals(b.getWriter())){ %>
                                         	<button id="updateBoard" class="btnsetting"><span>수정</span></button>
                                         	<button id="deleteBoard" class="btnsetting"><span>삭제</span></button>
                                         	<script>
                                         	 document.getElementById("deleteBoard").addEventListener("click",function(){
-                                        		 if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                        		 if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                       	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
-                                      	    	}else if(confirm("정말 삭제하시겠습니까?")){ 
-                                     	        	location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
-                                        		 }
-                                     	    })
-                                        			
+                                      	    	}else{
+                                      	    		khconfirm("정말 삭제하시겠습니까?", function(){
+                                      	    			location.href = "<%=request.getContextPath() %>/delete.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>&aC=<%=attachmentList.size()%>&isQ=<%=b.getIsQuestion()%>";
+                                      	    		});
+                                      	    		}
+                                        		 })
                                      	    document.getElementById("updateBoard").addEventListener("click",function(){
-                                     	    	if($('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
+                                     	    	if(<%=loginUser.getAuthority()%> !=0 && $('.replycheck').length != 0 && "<%=b.getIsQuestion()%>" == "Y"){
                                      	    		khalert("질문글은 댓글이 있을 경우 수정 및 삭제가 불가능합니다!")
                                      	    	}else{
                                      	    		location.href = "<%= request.getContextPath() %>/update.bo?bNo=<%=b.getBoardNo()%>&cNo=<%=b.getCategoryNo()%>";
@@ -110,16 +111,16 @@
                                         	
                                         	<script>
                                         	document.getElementById("reportBoard").addEventListener("click",function(){
-                                        		if(confirm("정말 신고하시겠습니까?")){ 
-                                    	  	    $.ajax({
+                                      			khconfirm("정말 신고하시겠습니까?", function(){
+                                      				$.ajax({
                                     					url : "<%= request.getContextPath() %>/report.bo",
                                     					data : {bNo : <%= b.getBoardNo() %>},
                                     					success : function(data){
-                                    						if(data > 0) khalert("신고 성공!");
+                                    						if(data > 0) khalert("신고되었습니다.");
                                     						if(data < 0) khalert("이미 신고된 글입니다!");
                                     						}
                                     				});
-                                        		}
+                                      			});
                                       	    })
                                       	    
                                         	
@@ -166,9 +167,8 @@
                             </div>
 
                             <!-- 댓글 -->
-                            
                          <ul id="comments-area">
-                        <img src="<%=request.getContextPath()%>/resources/IMG/edit.png" alt="" width="200" height="200">
+                        <li class="loadingbox" style="height:50px;"><img src="<%=request.getContextPath()%>/resources/IMG/loadingGif.gif" alt="" width="100" height="100"></li>
                         </ul>
                          
                     <!-- 댓글달기 -->
@@ -406,7 +406,6 @@
 					data : {bNo : <%= b.getBoardNo() %>},
 					success : function(data){
 						if(data > 0) {
-							khalert("공감 성공!");
 							$("#recommendbox").html(data);
 							$('.board-detail-commend .recommendImg').attr('src','<%=request.getContextPath()%>/resources/IMG/like2.png');
 						}
@@ -425,13 +424,10 @@
 						if(data > 0) {
 							$("#scrapbox").html(data);
 							$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star1.png');
-							khalert("스크랩 성공!");
 						}
 						if(data == 0) khalert("본인이 작성한 글은 스크랩이 불가능합니다!");
 						if(data < 0){
-							if(confirm("스크랩을 취소하시겠습니까?")){
-								deleteScrap();
-							}
+							khconfirm("스크랩을 취소하시겠습니까?", deleteScrap);
 						}
 						}
 				});
@@ -445,9 +441,9 @@
 						},
 					success : function(data){
 						if(data >= 0) {
-							khalert("스크랩 취소 성공!");
 						$("#scrapbox").html(data);
 						$('.scrapImg').attr('src','<%=request.getContextPath()%>/resources/IMG/star.png');
+						khalert("스크랩 취소되었습니다.");
 							}
 						}
 				});
@@ -455,30 +451,34 @@
   	    
   	     
   	   /* 댓글 삭제, 추천, 신고  */
+  	   
+  	   
   	    function deleteclick(id){
 			 let rNo = id.substr(9);
-			 $.ajax({
-					url : "<%= request.getContextPath() %>/delete.re",
-					data : {
-						bNo : <%= b.getBoardNo() %>,
-						rNo : rNo
-						},
-					success : function(data){
-						if(data > 0) {
-							khalert("삭제 성공!");
-							selectReplyList();
-							selectReplyCount();
-						}else{
-							khalert("삭제 실패!");
-						}
-					},
-					beforeSend : function(){
-						if(!confirm("정말 삭제하시겠습니까?")){
-							return false;
-						}
-					}
-				});
+			 khconfirm("댓글 삭제하시겠습니까?", function(){
+				 deleteReply(rNo);
+			 });
+			 
 		 }
+  	   
+  	   	function deleteReply(rNo){
+  	   	 $.ajax({
+				url : "<%= request.getContextPath() %>/delete.re",
+				data : {
+					bNo : <%= b.getBoardNo() %>,
+					rNo : rNo
+					},
+				success : function(data){
+					if(data > 0) {
+						selectReplyList();
+						selectReplyCount();
+						khalert("삭제되었습니다.");
+					}else{
+						khalert("삭제 실패!");
+					}
+				}
+			});
+  	   	}
 		 
 		 function recommendclick(id){
 			 let rNo = id.substr(12);
@@ -490,7 +490,6 @@
 						},
 					success : function(data){
 						if(data > 0) {
-							khalert("공감 성공!");
 							selectReplyList();
 						}
 						if(data == 0) khalert("본인이 작성한 댓글은 공감이 불가능합니다!");
@@ -501,22 +500,23 @@
 		 
 		 function reportclick(id){
 			 let rNo = id.substr(9);
+			 khconfirm("댓글을 신고하시겠습니까?", function(){
+				 reportReply(rNo);
+			 });
+			 
+		 }
+		 
+		 function reportReply(rNo){
 		  	    $.ajax({
 						url : "<%= request.getContextPath() %>/report.re",
 						data : {bNo : <%= b.getBoardNo() %>,
 								rNo : rNo
 								},
 						success : function(data){
-							if(data > 0) khalert("신고 성공!");
+							if(data > 0) khalert("신고되었습니다.");
 							if(data == 0) khalert("본인이 작성한 댓글은 신고 불가능합니다!");
 							if(data < 0) khalert("이미 신고된 글입니다!");
-							},
-						beforeSend : function(){
-							if(!confirm("정말 신고하시겠습니까?")){
-								return false;
 							}
-						}
-								
 					});
 	  	     }
 	  	    

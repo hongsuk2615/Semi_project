@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="resources/CSS/boardmakerequest.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>KH_TIME 메인페이지</title>
 </head>
 <style>
@@ -26,18 +24,14 @@
         display: inline-block;
         box-sizing: border-box;
     }
-
     a {
         text-decoration: none;
         color: black;
     }
-
     #wrapper {
         width: 100%;
         min-width: 1180px;
-     
     }
-   
 </style>
 
 <body>
@@ -75,19 +69,15 @@
 								
 								let bt = document.getElementById("boardtitle").value;
 								let rsn = document.getElementById("reason").value;
-								console.log(bt);
-								console.log(rsn);
 								$.ajax({
-									
 									url : "<%= request.getContextPath()%>/boardreq.me",
 									data : {boardtitle : bt , reason : rsn},
 									method : "post",
 									success :function(result){
-										console.log(result);
 												 if(result > 0){		
-													 alert("성공적으로 요청 했습니다.");
+													 khalert("성공적으로 요청 했습니다.");
 												 }else{
-													 alert("성공적으로 요청하지 못했습니다.");	
+													 khalert("성공적으로 요청하지 못했습니다.");	
 												 }
 												 
 											 }	 

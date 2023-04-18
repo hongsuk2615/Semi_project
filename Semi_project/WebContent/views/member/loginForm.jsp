@@ -19,6 +19,9 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+ <%@ include file="../common/khalertmodal.jsp" %>
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
 			<script> khalert("<%= alertMsg %>")</script>
 			<% request.getSession().setAttribute("alertMsg",""); %>
@@ -68,14 +71,15 @@
 					userId : "<%=userId%>"
 				}, 
 				success : function(result){
-					switch(result){
-					case '0' : khalert("아이디나 비번이 맞지 않습니다!");  $("#loginId").val(""); $("#loginPwd").val("");break;
-					case '1' : location.href="<%= request.getContextPath()%>"; break;
-					case '2' : khalert("밴된 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '3' : khalert("승인되지않은 아이디입니다!"); location.href="<%= request.getContextPath()%>"; break;
-					case '4' : khalert("탈퇴한 유저입니다!"); location.href="<%= request.getContextPath()%>"; break;
 					
+					if(result == 0){
+						$("#loginId").val(""); 
+						$("#loginPwd").val("");
+						location.href="<%= request.getContextPath()%>/login.me?n=n"
+					}else{
+					location.href="<%= request.getContextPath()%>"
 					}
+					
 				}, error : function(){
 					console.log("ajax통신실패")
 				},
@@ -103,9 +107,7 @@
     
     </script>
     	
-	
- <%@ include file="../common/khalertmodal.jsp" %>
-<script type="text/javascript" src="resources/JS/homelogo.js"></script>
-<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
+	<script type="text/javascript" src="resources/JS/homelogo.js"></script>
+
 </body>
 </html>

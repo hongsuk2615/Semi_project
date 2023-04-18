@@ -13,59 +13,51 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="resources/CSS/header.css">
-<title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
+    <link rel="stylesheet" href="resources/CSS/header.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="resources/JS/studyTime.js"></script>
+	<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <title>Document</title>
 </head>
 <body>
-	<%
-		if (alertMsg != null && !alertMsg.equals("")) {
-	%>
-	<script> alert("<%=alertMsg%>")</script>
-	<%
-		request.getSession().setAttribute("alertMsg", "");
-	%>
-	<%
-		}
-	%>
-	<div id="header">
-		<div id="header-content">
-			<div id="home-logo">
-				<img src="<%=request.getContextPath()%>/resources/IMG/로고이미지.png"
-					alt="로고이미지">
-			</div>
-			<div id="navbar">
-				<div id="boardsearch">게시판</div>
-				<div id="friendlist">
-					친구목록
-					<div id="friendcount1">
-						<div id="friendcount"></div>
-					</div>
-				</div>
-				<div id="bookstore">중고책방</div>
-				<div id="todolist">To Do List</div>
-				<%
-					if (loginUser != null && loginUser.getAuthority() == 0) {
-				%>
-				<div id="management">관리</div>
-				<%
-					}
-				%>
-			</div>
-			<div id="header-right">
-				<%
-					if (loginUser == null) {
-				%>
-				<button id="login-btn">로그인</button>
-				<button id="enrollment-btn">회원가입</button>
-				<%
-					} else {
-				%>
-				<div id="message-btn">
-					<div id="msgcount1"></div>
-				</div>
-			<script>
-			
+<%@ include file="khalertmodal.jsp" %>
+ <script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
+	<% if( alertMsg != null && !alertMsg.equals("")) { %>
+		<script> khalert("<%= alertMsg %>")</script>
+		<% request.getSession().setAttribute("alertMsg",""); %>
+	<% } %>
+    <div id="header">
+        <div id="header-content">
+            <div id="home-logo">
+                <img src="<%= request.getContextPath()%>/resources/IMG/로고이미지.png" alt="로고이미지">
+            </div>
+            <div id="navbar">
+                <div id="boardsearch">게시판</div>
+                <div id="friendlist">친구목록
+                <div id="friendcount1">
+                <div id="friendcount"></div>
+                </div>
+                </div>
+                <div id="bookstore">중고책방</div>
+                <div id="todolist">To Do List</div>
+                <% if(loginUser != null && loginUser.getAuthority()==0) { %>
+                <div id="management">관리</div>
+                <% } %>
+               
+
+                
+            </div>
+            <div id="header-right">
+                <% if(loginUser == null){%>
+                    <button id="login-btn">로그인</button>
+                    <button id="enrollment-btn">회원가입</button>
+                <% } else { %>
+                	<div id="message-btn"><!-- $('#msgcount').text(''); -->
+                    	<div id="msgcount1"></div>   
+                    </div>           
+                   <script>
                 	 function friendCount(){
                		$.ajax({
                			url : "<%=request.getContextPath()%>/friendplus.do",
@@ -157,11 +149,17 @@ String alertMsg = (String) session.getAttribute("alertMsg");
    		 })
    		 
    		   document.getElementById("message-btn").addEventListener("click",function(){
-      	 	location.href = "<%=request.getContextPath()%>/msgbox.me";
-						})
-		
-	</script>
-	
+      	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
+  		}) 
+ 		/* 
+  		function msgcheck(){
+  		$('#msgcount').text('vdvddvdvv');
+		} */	   
+  		</script>
+  		
+  		<%@ include file="translator.jsp" %>
+  		 
+  		
 </body>
 
 </html>

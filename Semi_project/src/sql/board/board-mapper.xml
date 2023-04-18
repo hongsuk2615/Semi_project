@@ -271,7 +271,10 @@
 		IS_QUESTION = ?,
 		IS_ANONIMOUS = ?
 		WHERE BOARD_NO = ?
-		AND WRITER = ?
+		AND ( WRITER = ? AND ? = 'N'
+		OR ? = 0
+		OR WRITER = ? AND 0 = (SELECT REPLY_COUNT FROM BOARD WHERE BOARD_NO = ?)
+		)
 	</entry>
 
 	<entry key="categoryTitle">

@@ -13,8 +13,18 @@
 	<div id="modal-alert" class="modal-mainBox"> 
 		<div class="modal-background">
 			<div class="modal-container">
-				<p id="modal-content"></p>
+				<p id="modal-contents"></p>
 				<button id="modal-button"><span>확인</span></button>
+			</div>
+		</div>
+	</div>
+	
+	<div id="modal-confirm" class="modal-mainBox"> 
+		<div class="modal-background">
+			<div class="modal-container">
+				<p id="modal-confirm-content"></p>
+				<button class="confirmbtn" id="modal-yes-button" value=""><span>확인</span></button>
+				<button class="confirmbtn" id="modal-no-button"><span>취소</span></button>
 			</div>
 		</div>
 	</div>

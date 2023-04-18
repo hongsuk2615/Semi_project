@@ -11,6 +11,7 @@ import com.khtime.board.model.vo.BoardAttachment;
 import com.khtime.board.model.vo.Category;
 import com.khtime.common.JDBCTemplate;
 import com.khtime.common.model.vo.PageInfo;
+import com.khtime.member.model.vo.Member;
 
 
 
@@ -137,13 +138,13 @@ public class BoardService {
 	}
 	
 
-	public int updateContent(Board b, ArrayList<BoardAttachment> list, String deleteImg) {
+	public int updateContent(Board b, ArrayList<BoardAttachment> list, String deleteImg, Member loginUser) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result1 = new BoardDao().updateContent(conn, b);
+		int result1 = new BoardDao().updateContent(conn, b, loginUser);
 		int result2 = deleteImg.equals("") ? 1 : new BoardDao().updateAttachment(conn, deleteImg);
 		int result3 = list.isEmpty() ? 1 : new BoardDao().insertAttachment(conn, list, b);
-		
+		System.out.println(result1+""+result2+""+result3);
 		if(result1*result2*result3 > 0 ) {
 			JDBCTemplate.commit(conn);
 		}else {

@@ -11,11 +11,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/header.css">
+     <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <title>Document</title>
 </head>
 <body>
+ <%@ include file="../common/khalertmodal.jsp" %>
+ <script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-		<script> alert("<%= alertMsg %>")</script>
+		<script> khalert("<%= alertMsg %>")</script>
 		<% session.removeAttribute("alertMsg"); %>
 	<% } %>
     <div id="header">
