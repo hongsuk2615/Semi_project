@@ -293,15 +293,15 @@
 					             return false;
 							 }else{
 								 
-								 if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
-									 //아이디값 수정할수 없게 막기
+								 khconfirm("사용가능한 아이디 입니다. 사용하시겠습니까?", function(){
+									//아이디값 수정할수 없게 막기
 									 document.getElementById("userId").readOnly = true;
 									 //회원가입 버튼 활성화
 									 document.getElementById("idEnrollment").disabled = false;
-								 }else{
+								 }, function(){
 									 document.getElementById("userId").value = "";
 									 document.getElementById("userId").focus();
-								 }
+								 	});
 							 }
 							 
 						 },
