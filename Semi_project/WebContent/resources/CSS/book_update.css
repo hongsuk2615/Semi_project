@@ -7,7 +7,6 @@
     background: white;
     flex-direction: column;
     border-radius: 16px;
-    
 }
 
 #book-inf {
@@ -17,14 +16,17 @@
     margin-left: 30px;
 }
 
+#book-inf * {
+	margin: 10px 0px;
+}
+
 #book-detail-status {
 	background: white;
 	width: 100%;
 	border-radius: 16px;
 }
 
-#book-detail-status> * {
-	margin-left: 30px;
+#book-detail-status * {
 	border: none;
 }
 
@@ -72,7 +74,6 @@
 
 #back-btn:hover ,
 .send-message:hover ,
-.d-Img:hover ,
 #modify-btn:hover ,
 #delete-btn:hover ,
 #soldout-btn:hover {
@@ -128,10 +129,6 @@
 	display: flex;
 }
 
-.detail-Img {
-	display: flex;
-}
-
 #btn-div {
 	display: flex;
 	justify-content: flex-end;
@@ -142,3 +139,6 @@
 	margin : 0px 10px;
 }
 
+.d-Img {
+	display: flex;
+}
