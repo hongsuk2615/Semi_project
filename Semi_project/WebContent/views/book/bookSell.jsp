@@ -22,6 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSell</title>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
         /* * {
@@ -182,7 +183,7 @@
     		if( $("#book-name-search").val() !== ""){
     			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
     		} else {
-    			alert("도서를 검색해 주세요.");
+    			khalert("도서를 검색해 주세요.");
     		}
     	})
     	
@@ -197,7 +198,7 @@
                 $("#book-content").fadeIn(1500).css("display" , "flex");
                 
             } else {
-                alert("가격을 입력해 주세요!");
+                khalert("가격을 입력해 주세요!");
             }
         });
 
@@ -213,9 +214,9 @@
         
         $("#upload").click(function(){
         	if( $(".location").val() == "") {
-        		alert("지역을 입력 해 주세요!");
+        		khalert("지역을 입력 해 주세요!");
         	} else {
-        		alert("게시글 작성 성공!");
+        		khalert("게시글 작성 성공!");
         	}
         	
         })
@@ -256,6 +257,6 @@
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
     </script>
-    
+ 
 </body>
 </html>

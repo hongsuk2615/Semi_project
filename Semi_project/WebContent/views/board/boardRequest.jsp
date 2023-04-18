@@ -26,18 +26,14 @@
         display: inline-block;
         box-sizing: border-box;
     }
-
     a {
         text-decoration: none;
         color: black;
     }
-
     #wrapper {
         width: 100%;
         min-width: 1180px;
-     
     }
-   
 </style>
 
 <body>
@@ -75,19 +71,15 @@
 								
 								let bt = document.getElementById("boardtitle").value;
 								let rsn = document.getElementById("reason").value;
-								console.log(bt);
-								console.log(rsn);
 								$.ajax({
-									
 									url : "<%= request.getContextPath()%>/boardreq.me",
 									data : {boardtitle : bt , reason : rsn},
 									method : "post",
 									success :function(result){
-										console.log(result);
 												 if(result > 0){		
-													 alert("성공적으로 요청 했습니다.");
+													 khalert("성공적으로 요청 했습니다.");
 												 }else{
-													 alert("성공적으로 요청하지 못했습니다.");	
+													 khalert("성공적으로 요청하지 못했습니다.");	
 												 }
 												 
 											 }	 

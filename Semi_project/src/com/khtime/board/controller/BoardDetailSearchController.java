@@ -78,8 +78,8 @@ public class BoardDetailSearchController extends HttpServlet {
 				.parseInt(request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage"));
 		boardLimit = 10;
 		PageInfo pi = new PageInfo(currentPage, boardLimit);
-
-		 ArrayList<Board> searchList = new SearchService().searchList( pi, keyword);
+		System.out.println(keyword);
+		 ArrayList<Board> searchList = new SearchService().searchList(pi, keyword);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(searchList , response.getWriter());
