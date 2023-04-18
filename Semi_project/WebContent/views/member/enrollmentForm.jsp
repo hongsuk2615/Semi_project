@@ -298,10 +298,10 @@
 									 document.getElementById("userId").readOnly = true;
 									 //회원가입 버튼 활성화
 									 document.getElementById("idEnrollment").disabled = false;
-								 }
+								 }, function(){
 									 document.getElementById("userId").value = "";
 									 document.getElementById("userId").focus();
-								 }
+								 	});
 							 }
 							 
 						 },
