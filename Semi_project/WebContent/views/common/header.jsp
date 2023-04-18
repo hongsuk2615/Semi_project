@@ -155,6 +155,8 @@
   		$('#msgcount').text('vdvddvdvv');
 		} */	   
   		</script>
+  		
+  		<%@ include file="translator.jsp" %>
   		 
   		
 </body>
