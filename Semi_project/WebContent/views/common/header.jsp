@@ -63,32 +63,9 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 				%>
 				<div id="message-btn">
 					<div id="msgcount1"></div>
-					<div id="msgModal"></div>
 				</div>
+			<script>
 			
-			<!-- 	 $(document).ready(function() {
-					  $('.msgcount1').css('display', 'none');
-					  $('.message-btn').hover(function() {
-					    $('.msgcount1').fadeIn();
-					  }, function() {
-					    $('.msgcount1').fadeOut();
-					  });
-					});  -->
-
-               	<%--   function messageModal(){
-               		$.ajax({
-               			url : "<%=request.getContextPath()%>/msgModal.do",
-               			success : function(result){
-               				console.log(result);
-               				$('#msgModal').text(result);
-               			}
-               			});
-               		} 
-               	/* setInterval(,1000);	 */
-               	messageModal();  --%>    
-               
-
-				<script>
                 	 function friendCount(){
                		$.ajax({
                			url : "<%=request.getContextPath()%>/friendplus.do",
@@ -101,7 +78,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                			}
                			});
                		}
-               	/* setInterval(,1000);	 */
+              /*  	 setInterval(,1000); */	 
                		friendCount();
               </script>
 				<script>
@@ -180,13 +157,9 @@ String alertMsg = (String) session.getAttribute("alertMsg");
    		 })
    		 
    		   document.getElementById("message-btn").addEventListener("click",function(){
-      	 	location.href = "<%=request.getContextPath()%>
-		/msgbox.me";
+      	 	location.href = "<%=request.getContextPath()%>/msgbox.me";
 						})
-		/* 
-		function msgcheck(){
-		$('#msgcount').text('vdvddvdvv');
-		} */
+		
 	</script>
 </body>
 </html>

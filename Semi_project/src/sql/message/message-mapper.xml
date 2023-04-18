@@ -69,12 +69,13 @@
 		AND RECEIVER = ?
 	</entry> 
 	
-	<entry key="messageModal">
-		SELECT USER_NAME, CONTENT
-		FROM MEMBER
-		INNER JOIN MESSAGE ON MEMBER.USER_NO = MESSAGE.RECEIVER
-		WHERE MEMBER.USER_NO = ?;
+	<entry key="MessageModal">
+	 	SELECT M.USER_NAME , S.CONTENT
+		FROM MESSAGE S
+		JOIN MEMBER M ON (M.USER_NO = S.SENDER)
+		WHERE S.RECEIVER = ?
 		AND IS_READ ='N'
 		
+		 
 	</entry>
 </properties>

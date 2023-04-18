@@ -195,7 +195,7 @@ public class MessageDao {
 			while (rset.next()) {
 				Message m = new Message();
 				m.setContent(rset.getString("CONTENT"));
-				m.setSender(rset.getInt("SENDER"));
+				m.setUserName(rset.getString("USER_NAME"));
 				list.add(m);
 			}
 
