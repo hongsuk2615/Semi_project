@@ -50,28 +50,6 @@
 }
 
 
-
-
-
-
-
-
-
-div {
-    display: inline-block;
-    box-sizing: border-box;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-
-button {
-    cursor: pointer;
-}
-
 /* 모달 */
 .transmodal {
     position: fixed;
@@ -82,6 +60,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index : 1000;
 }
 
 
@@ -101,20 +80,20 @@ button {
 /* 공통 모달창 css */
 .transBox {
     position: absolute;
-    width: 600px;
-    height: 400px;
+    width: 400px;
+    height: 420px;
     border-radius: 16px;
-    background-color : #87ceeb47;
-    z-index : 1000;
+    background-color : yellowgreen;
+    
 }
-.transBox .header{
+.transBox .transheader{
     width: 100%;
     height: 44px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.transBox .tbody{
+.transBox .tbody1{
     width: 100%;
     height: 485px;
     padding: 20px 20px;
@@ -126,37 +105,25 @@ button {
 
 #send_text, #result_text {
 	background-color : white;
-	 margin-bottom : 12px;
-}
-
-
-#jsonConvertStringSend{
-    border: 1px solid transparent;
-    border-radius: 5px;
-    padding: 12px 0;
-    background-color: #b0bec5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10px;
-    margin-top: 2px;
-    cursor: pointer;
-}
-
-p {
-	font-size : 22px;
-	
-}
-
-textarea{
-	
-
-	border: solid 1px #1e90ff3d;
+	 margin-bottom : 4px;
+	 border: solid 1px #1e90ff3d;
 	border-radius: 5px;
-
+	resize : none;
 }
+
+
+
+
+#transName {
+	font-size : 22px;
+	padding-top: 22px;
+	
+}
+
+
 .ui-draggable{
-	z-index : -9;
+	width: 600px;
+	height : 450px;
 }
 
 
@@ -168,6 +135,7 @@ select {
   padding: 5px 30px 5px 10px;
   border-radius: 4px;
   outline: 0 none;
+  margin-bottom: 5px;
 }
 select option {
   background: black;
@@ -190,10 +158,10 @@ select option {
 	<div class="transmodal hidden">
             <div class="transBox">
 				<button class="transcloseBtn">X</button>
-				<div class="header">
-					<p>khTime 번역기</p>
+				<div class="transheader">
+					<p id="transName">KHTime 번역기</p>
 				</div>
-				<div class="tbody" style="overflow: auto;">
+				<div class="tbody1" style="overflow: auto;">
                     
 				<div class="translatorBody">
 				<select id="national">
@@ -203,23 +171,20 @@ select option {
 				
 				</div>
 				<div id="box1">
-				<textarea id="send_text" class="form-control" name="content" cols="80" rows="9"></textarea>
-				<textarea id="result_text" class="form-control" name="content" cols="80" rows="9" readonly></textarea>
-				<div>
-				
-				</div>
+				<textarea id="send_text" class="form-control" name="content" cols="37" rows="9" ></textarea>
+				<textarea id="result_text" class="form-control" name="content" cols="37" rows="9" readonly></textarea>
 				
 				</div>
                 
 				</div>
-				<div class="footer">
+				<div class="transfooter">
 				
 				</div>
 				
             </div>
         </div>
-	
 </body>
+
 
 
 
@@ -291,16 +256,16 @@ $(document).ready(function(){
 
 <script>
 
-const open = () => {
+const transopen = () => {
     document.querySelector(".transmodal").classList.remove("hidden");
     getDday();
 }
-const close = () => {
+const transclose = () => {
 	console.log('cdlose')
     document.querySelector(".transmodal").classList.add("hidden");
 }
-document.querySelector(".transopenBtn").addEventListener("click", open); 
-document.querySelector(".transcloseBtn").addEventListener("click", close);
+document.querySelector(".transopenBtn").addEventListener("click", transopen); 
+document.querySelector(".transcloseBtn").addEventListener("click", transclose);
 
 
 
@@ -318,11 +283,18 @@ document.querySelector(".transcloseBtn").addEventListener("click", close);
 <script>
      //번역을 위해서 button 이벤트를 위해서 사용하는 것
      
-    $('#jsonConvertStringSend').click(function () {
+     
+     $('#send_text').keyup(function () {
+    if (window.event.keyCode == 13) {
+    	var test = $("#send_text").val();
+        jsonSend(test);
+    }
+	});
+   /*  $('#jsonConvertStringSend').click(function () {
         //번역할 object를 생성 
         var test = $("#send_text").val();
         jsonSend(test);
-    });
+    }); */
     
     function jsonSend(test) {
     	let selector = $('select').val();
