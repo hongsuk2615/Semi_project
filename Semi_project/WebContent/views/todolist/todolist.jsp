@@ -214,6 +214,7 @@
                     if(result){
                         khalert('추가 성공');
                         getTodolist();
+                        $('#modal-tdl-text>input').val("");
                     }else{
                         khalert('추가 실패');
                     }
@@ -225,10 +226,6 @@
 					if(content == ''){
 						khalert("내용을 입력해주세요!");
 						$('#modal-tdl-text>input').focus();
-						return false;
-					}else if($("#content").html() == ''){
-						khalert("내용을 입력해주세요!");
-						$("#content").focus();
 						return false;
 					}
 				}
