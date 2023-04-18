@@ -57,24 +57,27 @@
 	                }else {
 	                	length = bList.size();
 	                }
-                %>
-                	<% for(int i = 0; i < length; i++) { %>
-                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
-                		<div class="book-img">
-	                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
-	                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
-	                    </div>
-	                    <div class="book-text">
-	                        <div class="book-title" style="text-align: center;"><% if(bList.get(i).getIsSoldout().equals("Y")) { %>
-	                        		<s style="text-decoration-color: gray;"><%= bList.get(i).getBookName() %></s>
-	                        	<% } else { %>
-	                        		<%= bList.get(i).getBookName() %>
-	                        	<% } %>
-	                        </div><br>
-	                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
-	                    </div>
-                	</div>
-                    <% } %>
+                %> <% if(length == 0) { %>
+                		<h1>조회된 판매 목록이 없습니다.</h1>
+                	<% } else { %>
+	                	<% for(int i = 0; i < length; i++) { %>
+		                	<div class="book-wrap" data-bkno="<%=bList.get(i).getBookNo()%> " data-aos="fade-left" data-aos-duration="1500">
+		                		<div class="book-img">
+			                        <img src="<%= request.getContextPath() %><%= bList.get(i).getTitleImg() %>" 
+			                        style="border-radius: 10px; width: 180px; height: 280px; <%= bList.get(i).getIsSoldout().equals("Y") ? "filter: contrast(0.1);" : "" %>  ">
+			                    </div>
+			                    <div class="book-text">
+			                        <div class="book-title" style="text-align: center;"><% if(bList.get(i).getIsSoldout().equals("Y")) { %>
+			                        		<s style="text-decoration-color: gray;"><%= bList.get(i).getBookName() %></s>
+			                        	<% } else { %>
+			                        		<%= bList.get(i).getBookName() %>
+			                        	<% } %>
+			                        </div><br>
+			                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
+			                    </div>
+		                	</div>
+	                    <% } %>
+	            	<% } %>
                 </div>
             
         </div>
