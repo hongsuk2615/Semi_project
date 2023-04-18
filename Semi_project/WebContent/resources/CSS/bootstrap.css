@@ -1214,7 +1214,7 @@ h6 .small,
 .h6 .small {
   font-weight: normal;
   line-height: 1;
-  color: #777;
+  color: black; 
 }
 h1,
 .h1,
@@ -5209,6 +5209,7 @@ a.thumbnail.active {
 }
 .media-object {
   display: block;
+  width:60px;
 }
 .media-object.img-thumbnail {
   max-width: none;
