@@ -75,6 +75,7 @@
 }
 #createContent div{
     width: 100%;
+    position: relative;
 }
 
 
@@ -157,11 +158,10 @@
 }
 #QuestionContent {
     position: absolute;
-    bottom: -15px;
+    bottom: 1px;
 }
 
 #file-area {
-    padding-top: 18px;
     padding-left : 3px;
 }
 

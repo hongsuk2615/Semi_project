@@ -455,25 +455,30 @@
   	   
   	    function deleteclick(id){
 			 let rNo = id.substr(9);
-			 $.ajax({
-					url : "<%= request.getContextPath() %>/delete.re",
-					data : {
-						bNo : <%= b.getBoardNo() %>,
-						rNo : rNo
-						},
-					success : function(data){
-						if(data > 0) {
-							selectReplyList();
-							selectReplyCount();
-						}else{
-							khalert("삭제 실패!");
-						}
-					},
-					beforeSend : function(){
-						khconfirm("댓글 삭제하시겠습니까?")
-					}
-				});
+			 khconfirm("댓글 삭제하시겠습니까?", function(){
+				 deleteReply(rNo);
+			 });
+			 
 		 }
+  	   
+  	   	function deleteReply(rNo){
+  	   	 $.ajax({
+				url : "<%= request.getContextPath() %>/delete.re",
+				data : {
+					bNo : <%= b.getBoardNo() %>,
+					rNo : rNo
+					},
+				success : function(data){
+					if(data > 0) {
+						selectReplyList();
+						selectReplyCount();
+						khalert("삭제되었습니다.");
+					}else{
+						khalert("삭제 실패!");
+					}
+				}
+			});
+  	   	}
 		 
 		 function recommendclick(id){
 			 let rNo = id.substr(12);
@@ -495,6 +500,13 @@
 		 
 		 function reportclick(id){
 			 let rNo = id.substr(9);
+			 khconfirm("댓글을 신고하시겠습니까?", function(){
+				 reportReply(rNo);
+			 });
+			 
+		 }
+		 
+		 function reportReply(rNo){
 		  	    $.ajax({
 						url : "<%= request.getContextPath() %>/report.re",
 						data : {bNo : <%= b.getBoardNo() %>,
@@ -504,13 +516,7 @@
 							if(data > 0) khalert("신고되었습니다.");
 							if(data == 0) khalert("본인이 작성한 댓글은 신고 불가능합니다!");
 							if(data < 0) khalert("이미 신고된 글입니다!");
-							},
-						beforeSend : function(){
-							khconfirm("정말 신고하시겠습니까?", function(){
-								return false;
-							})
-						}
-								
+							}
 					});
 	  	     }
 	  	    
