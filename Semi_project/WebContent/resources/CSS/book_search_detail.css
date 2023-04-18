@@ -5,6 +5,11 @@
             justify-content: center;
     		align-items: center;
         }
+        
+#book-body-content2 img {
+	border-radius: 16px;
+}
+
 .book-text {
         	/* width: 500px;
         	height:400px; */
@@ -13,6 +18,7 @@
     		align-items: center;
     		flex-direction: column;
     		text-align: center;
+    		margin-left: 20px;
         }
         
 #book-thumbnail {
@@ -75,14 +81,15 @@
 }
 
 #book-home-btn ,
-#book-sell-btn {
+#book-sell-btn ,
+#book-modify-btn {
     border: none;
     background: none;
-    /* display: flex; */
 }
 
 #book-home-btn-img ,
-#book-sell-btn-img {
+#book-sell-btn-img ,
+#book-modify-btn-img {
     width: 30px;
     height: 30px;
 }
@@ -93,12 +100,13 @@
 #book-page-btn1 ,
 #book-page-btn2 ,
 #book-page-btn3 ,
-#book-page-btn4 {
+#book-page-btn4 ,
+#boo-modify-btn {
    cursor: pointer;   
 }
 
 #book-btn {
-    width: 200px;
+    width: 300px;
     display: flex;
     justify-content: space-between;
 }
@@ -192,4 +200,32 @@
 
 .book-detail-text {
 	font-size: x-large;
+}
+
+#page-num {
+	width: 23px;
+	text-align: center;
+}
+
+#page-num::-webkit-outer-spin-button, #page-num::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#book-page img{
+	width : 100%;
+	height : 100%;
+}
+
+#book-page {
+	display: flex;
+	width: 150px;
+	justify-content: space-evenly;
+}
+#prevPage, #nextPage {
+	background-color: transparent;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border: none;
 }

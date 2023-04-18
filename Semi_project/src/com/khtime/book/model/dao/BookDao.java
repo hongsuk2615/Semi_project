@@ -168,6 +168,7 @@ public class BookDao {
 				b.setContent(rset.getString("CONTENT"));
 				b.setListPrice(rset.getInt("LIST_PRICE"));
 				b.setCondition(rset.getInt("CONDITION"));
+				b.setIsSoldout(rset.getString("IS_SOLDOUT"));
 				book.add(rset.getString("USER_ID"));
 				book.add(b);
 				
@@ -216,7 +217,7 @@ public class BookDao {
 		 return bList;
 	  }
 	  
-	  public ArrayList<Book> selectBook(Connection conn , String bookname) {
+	  public ArrayList<Book> selectBook(Connection conn , String bookname , PageInfo pi) {
 		  
 		  PreparedStatement pstmt = null;
 		  
@@ -229,7 +230,11 @@ public class BookDao {
 		  try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
 			pstmt.setString(1, bookname);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			

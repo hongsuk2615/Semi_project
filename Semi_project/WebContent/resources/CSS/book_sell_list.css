@@ -179,7 +179,6 @@
 	justify-content: space-evenly;
 	flex-direction: column;
 	margin-top: 30px;
-	height: 4000px;
 }
 
 .book-text {
@@ -210,4 +209,9 @@
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 5px 5px 5px gray;
+}
+
+.book-img {
+	background: transparent;
+	border-radius: 16px;
 }
