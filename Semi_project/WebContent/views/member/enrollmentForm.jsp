@@ -208,9 +208,9 @@
         	let code= '';
         	 function checkCode(){
 				 if($('#code').val()==code){
-					 alert('인증완료');
+					 khalert('인증완료');
 				 }else{
-					 alert('인증실패');
+					 khalert('인증실패');
 				 }
 			 }
         	
@@ -367,12 +367,11 @@
 							 }else if(!regExp.test(emailval)){
 								 khalert("유효한 이메일을 입력하세요.");
 							 }else{
-								 confirm("사용가능한 이메일 입니다 사용하시겠습니까?");
-								if(confirm){
-								 $("#sendCode").show();
-								 $('#checkCode').click(checkCode);
-								}
-								 khalert("사용가능한 이메일 입니다.");
+								khconfirm("사용가능한 이메일 입니다 사용하시겠습니까?",function(){
+										 $("#sendCode").show();
+										 $('#checkCode').click(checkCode);
+								});
+								 
 							 }
 						 },
 						 error : function(){

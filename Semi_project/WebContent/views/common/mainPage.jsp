@@ -198,8 +198,9 @@
 		</div>
 
 		<div id="footer"></div>
+		 
 	</div>
-	<%@ include file="MessageModal.jsp"%>	 
+	<%@ include file="MessageModal.jsp"%>	
 				
 			
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
