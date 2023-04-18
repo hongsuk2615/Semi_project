@@ -22,7 +22,7 @@
     		display:flex;
     		flex-direction:column;
     		justify-content:space-evenly;
-    	    border: 1px solid black;
+    	    border: 3px solid skyblue;
     	}
     	
     	#menu{
@@ -59,7 +59,7 @@
 				<div id="body-left">
 					<div id="board-wrapper">
 						<div id="board-detail">
-							<div id="category">게시판 관리</div>
+							<div id="category" style="border-raius:12px 12px 0px 0px;">게시판 관리</div>
 							<div id="content-wrapper">
 								<ul class="list">
 									<li style="width : 50px;">번호</li>
@@ -67,7 +67,10 @@
 									<li style="width : 100px;">승인상태</li>
 									<li style="width : 100px;">&nbsp;</li>
 								</ul>
-								<%for(int i = 0; i < list.size(); i++) { %>
+								<%if(list.size()==0){ %>
+									<ul class="list" style="padding:10px 150px;">요청한 게시판이 없습니다.</ul>
+								<% } else{ %>
+									<%for(int i = 0; i < list.size(); i++) { %>
 								<ul class="list">
 									<li style="width : 50px;"><%= i+1 %></li>
 									<li style="width : 300px; overflow:hidden;"><%=list.get(i).getCategoryName()%></li>
@@ -80,6 +83,8 @@
 									<%}%>
 								</ul>	
 								<% } %>
+								<% }%>
+								
 							</div>
 						</div>
 						<div class="paging-area"></div>
