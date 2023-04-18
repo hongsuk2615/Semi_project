@@ -16,7 +16,7 @@
 </head>
 <body>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
-		<script> alert("<%= alertMsg %>")</script>
+		<script> khalert("<%= alertMsg %>")</script>
 		<% request.getSession().setAttribute("alertMsg",""); %>
 	<% } %>
   <div id="book-header">
