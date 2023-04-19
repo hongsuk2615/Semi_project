@@ -296,14 +296,9 @@
         		processData : false,
         		contentType : false,
         		success : function(){
-        			window.location.href="/Semi_project/myPage.me"
-        		},
-        		error : function(){
-        			
+        			location.href="<%=request.getContextPath()%>/myPage.me";
         		}
         	})
-        		
-        	
         }
     </script>
    	
@@ -384,6 +379,7 @@
 	</div>
    
 	<script> <!-- 로그아웃 버튼 스크립트-->
+        
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })

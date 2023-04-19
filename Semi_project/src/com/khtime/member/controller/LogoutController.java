@@ -26,8 +26,14 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String msg ="로그아웃되었습니다.";
+		
+		if(request.getParameter("n") != null) {
+			msg = "탈퇴 성공. 그 동안 이용해주셔서 감사합니다.";
+		}
 		request.getSession().removeAttribute("loginUser");
-		request.getSession().setAttribute("alertMsg", "로그아웃 되었습니다.");
+		request.getSession().setAttribute("alertMsg",msg);
 		response.sendRedirect(request.getContextPath());
 	}
 

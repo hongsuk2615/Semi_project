@@ -52,8 +52,14 @@ public class FriendListController extends HttpServlet {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		int senderUserNo = Integer.parseInt(request.getParameter("senderUserNo"));
 		int result = new FriendService().friendaccept(loginUserNo,senderUserNo);
-		Gson gson = new Gson();
+		String msg = "";
+		if(result > 0) {
+			msg = "친구추가가 완료되었습니다.";
+		}else {
+			msg = "친구추가에 실패하였습니다.";
+		}
+		request.getSession().setAttribute("alertMsg", msg);
 		response.setContentType("application/json; charset=UTF-8");
-		gson.toJson(result,response.getWriter());
+		response.getWriter().print(result);
 }
 	}
