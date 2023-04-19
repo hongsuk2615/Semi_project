@@ -35,17 +35,11 @@ public class DeleteMemberController extends HttpServlet {
 		
 		int result =  new MemberService().deleteMember(userId);
 		
-		if(result > 0) {
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "탈퇴 성공. 그 동안 이용해주셔서 감사합니다.");
+		if(result < 0) {
+			request.getSession().setAttribute("alertMsg","회원탈퇴에 실패하였습니다");
+			response.sendRedirect(request.getContextPath());
 		}
-		else {			
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "탈퇴 실패.");
-		}
-
-		response.sendRedirect(request.getContextPath() + "/logout.me");
+		response.sendRedirect(request.getContextPath() + "/logout.me?n=n");
 	}
 		
 	

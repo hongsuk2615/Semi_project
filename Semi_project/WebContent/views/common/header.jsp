@@ -21,6 +21,7 @@
 	<script src="resources/JS/studyTime.js"></script>
 	<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <title>Document</title>
+
 </head>
 <body>
 <%@ include file="khalertmodal.jsp" %>
@@ -94,7 +95,7 @@
                 	messageCount();      
                 	</script>
                     
-                    <button id="mypage-btn"></button>
+                    <div id="mypage-btn"></div>
                 <% } %>
             </div>
         </div>

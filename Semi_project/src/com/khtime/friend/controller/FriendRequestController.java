@@ -39,10 +39,10 @@ public class FriendRequestController extends HttpServlet {
 		
 		if(result > 0) {
 			request.getSession().setAttribute("alertMsg", "친구요청을 보냈습니다.");
-			response.sendRedirect(request.getContextPath());	
+			response.sendRedirect(request.getContextPath()+"/friend.me");	
 		} else {
-			request.getSession().setAttribute("alertMsg", "친구요청을 보내지 못했습니다.");
-			response.sendRedirect(request.getContextPath());
+			request.getSession().setAttribute("alertMsg", "없는 아이디이거나 본인 아이디이거나 이미 친구입니다.");
+			response.sendRedirect(request.getContextPath()+"/friend.me");
 		}
 	}
 
