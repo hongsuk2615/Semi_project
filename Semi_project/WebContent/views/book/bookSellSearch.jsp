@@ -267,6 +267,6 @@
     }
    
     </script>
-
+	</div>
 </body>
 </html>

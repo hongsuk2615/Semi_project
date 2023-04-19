@@ -66,8 +66,8 @@
                    	<% } } %>
             		</div>
                	</div>
-        </div>
-    </div>
+        	</div>
+    	</div>
     
         <div id="book-footer">
             <div id="book-page">
@@ -124,10 +124,10 @@
    		 })
    		 
    		 $('.book-wrap').each(function(index,item){
-			    let bkno = $(item).attr('data-bkno');
-			    $(item).click(function(){
-			    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
-				});
+		    let bkno = $(item).attr('data-bkno');
+		    $(item).click(function(){
+		    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
+			});
 		 })
    	
     </script>

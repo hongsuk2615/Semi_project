@@ -155,15 +155,15 @@
 			    });
 		});
 
-	        $('#bookname').keyup(function () {
-	            if (window.event.keyCode == 13) {
-	            	if( $("#bookname").val() == "") {
-	            	alert("도서 제목을 검색 해 주세요.");
-	            } else {
-	               location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
-	            }
-	       	 	}
-	        });
+        $('#bookname').keyup(function () {
+            if (window.event.keyCode == 13) {
+            	if( $("#bookname").val() == "") {
+            		alert("도서 제목을 검색 해 주세요.");
+            	} else {
+            		location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
+            	}
+       	 	}
+        });
    		 
     </script>
     

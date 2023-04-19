@@ -41,7 +41,6 @@ public class BookDeleteController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
-		
 	}
 
 	/**

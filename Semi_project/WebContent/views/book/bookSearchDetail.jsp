@@ -235,6 +235,6 @@
 		})
 	}
 	</script>
-    
+	</div>
 </body>
 </html>

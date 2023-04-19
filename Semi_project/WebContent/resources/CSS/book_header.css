@@ -15,7 +15,6 @@
     background-image: url(../IMG/쪽지함.png);  
     background-size: contain;
     background-repeat: no-repeat;
-    cursor: pointer;
 }
 #mypage-btn{
     margin-left: 5px;
@@ -25,7 +24,11 @@
     background-image: url(../IMG/마이페이지.png);
     background-size: contain;
     background-repeat: no-repeat;
-    cursor: pointer;
+}
+
+#message-btn:hover , #mypage-btn:hover {
+	cursor: pointer;
+	border:3px solid white;
 }
 
 #book-header-right {
