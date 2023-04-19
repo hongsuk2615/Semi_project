@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-@WebFilter({"/dd"})
+@WebFilter("/ddd")
 public class LoginCheckFilter implements Filter {
 
     /**
