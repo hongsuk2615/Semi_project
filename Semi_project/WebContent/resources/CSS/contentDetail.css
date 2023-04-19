@@ -30,6 +30,9 @@
 #contentdiv ul {
     padding : 10px 40px;
 }
+#contentdiv div{
+	width: 100%;
+}
 
 .content-detail-comments{
     display: flex;
