@@ -48,7 +48,7 @@
 
 #header-right {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 155px;
 }
@@ -60,7 +60,7 @@
 }
 
 #message-btn:hover, #mypage-btn:hover{
-	border:3px solid skyblue;
+	border:3px solid white;
 	cursor:pointer;
 }
 
@@ -170,6 +170,11 @@
 }
 #approveEnroll, #reportedBoards, #boardReq, #userManagement{
 	height: 60%;
+}
+#msgModal{
+position: absolute;
+ right: 0px;
+  bottom: 0px;
 }
 
 

@@ -1,4 +1,4 @@
-package com.khtime.book.controller;
+package com.khtime.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.khtime.book.model.service.BookService;
-import com.khtime.book.model.vo.Book;
+import com.khtime.common.CommonMethod;
 
 /**
- * Servlet implementation class BookSoldoutController
+ * Servlet implementation class SendCodeController
  */
-@WebServlet("/bookdelete.do")
-public class BookDeleteController extends HttpServlet {
+@WebServlet("/SendCode.do")
+public class SendCodeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookDeleteController() {
+    public SendCodeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +28,23 @@ public class BookDeleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userEmail =request.getParameter("email");
+		int random = (int) (Math.random() * 5 + 7);
+		String code = CommonMethod.getRamdomPassword(random);
+		CommonMethod.sendNewCode(userEmail, code);
+		int result = 0;
 		
-		int bookNo = Integer.parseInt(request.getParameter("bkno"));
+		response.setContentType("text/html charset=UTF-8");
+	    response.getWriter().print(code);
 		
-		int book = new BookService().bookDelete(bookNo);
-		
-		request.setAttribute("book", book);
-		
-		if(book > 0) {
-			response.sendRedirect(request.getContextPath()+"/bookselllist.do");			
-		} else {
-			request.getRequestDispatcher("views/common/errorPage.jsp");
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
 		
 	}
 

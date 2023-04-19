@@ -52,21 +52,7 @@ public class BookInsertController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/book/thumb_upfiles/");
 
 			MultipartRequest multi = new MultipartRequest(request , savePath , maxSize, "UTF-8",
-					new MyFileRenamePolicy());
-			
-
-			String bookName = multi.getParameter("title");
-			String author = multi.getParameter("author");
-			String publisher = multi.getParameter("publisher");
-			int seller = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			String isNoted = multi.getParameter("isNoted");
-			int condition = Integer.parseInt(multi.getParameter("condition"));
-			String isDirect = multi.getParameter("isDirect");
-			String location = multi.getParameter("location");
-			int price = Integer.parseInt(multi.getParameter("price"));
-			int listPrice = Integer.parseInt(multi.getParameter("listPrice"));
-			System.out.println(author);
-			
+														  new MyFileRenamePolicy());
 			
 			Book book = new Book();
 			book.setBookName(multi.getParameter("title"));
@@ -85,7 +71,6 @@ public class BookInsertController extends HttpServlet {
 			
 			BookAttachment bat = null; 
 			
-			
 			ArrayList<BookAttachment> bList = new ArrayList<>();
 			
 			for(int i = 1; i <= 2; i++) {
@@ -103,8 +88,7 @@ public class BookInsertController extends HttpServlet {
 				}
 			}
 			
-			int result = new BookService().insertThumbnailBook(book, bList);
-			
+			int result = new BookService().insertThumbnailBook(book, bList);	
 			
 			if(result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 업로드 되었습니다.");

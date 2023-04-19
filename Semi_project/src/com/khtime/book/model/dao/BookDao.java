@@ -21,7 +21,6 @@ public class BookDao {
 	
 	private Properties prop = new Properties();
 	   
-	   
 	   public BookDao() {
 	      try {
 	         prop.loadFromXML(new FileInputStream( BookDao.class.getResource("/sql/book/book-mapper.xml").getPath()   ));
@@ -44,6 +43,7 @@ public class BookDao {
 		  String sql = prop.getProperty("insertThumbnailBook");
 		  
 		  try {
+			  
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, book.getSeller());
@@ -67,7 +67,6 @@ public class BookDao {
 		} finally {
 			close(pstmt);
 		}
-		  
 		  return result;
 	  }
 	  
@@ -138,7 +137,9 @@ public class BookDao {
 	  }
 	  
 	  public ArrayList<Object> selectBook(Connection conn ,int bkno) {
+		  
 		  ArrayList<Object> book = new ArrayList<Object>();
+		  
 		  PreparedStatement pstmt = null;
 		  
 		  String sql = prop.getProperty("selectBook");
@@ -288,7 +289,6 @@ public class BookDao {
 				
 				bList.add(book);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -296,14 +296,16 @@ public class BookDao {
 			close(pstmt);
 		}
 		return bList;
-		
 	}
-	
 
 	public ArrayList<Book> getMainBooks(Connection conn){
+		
 		ArrayList<Book> list = new ArrayList<Book>();
+		
 		PreparedStatement pstmt = null;
+		
 		ResultSet rset = null;
+		
 		String sql = prop.getProperty("selectThumbnailList");
 		
 		try {
@@ -320,7 +322,6 @@ public class BookDao {
 				list.add(book);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -367,7 +368,7 @@ public class BookDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		System.out.println();
+		
 		String sql = prop.getProperty("updateBook");
 		
 		try {
@@ -386,7 +387,6 @@ public class BookDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 	
@@ -462,10 +462,8 @@ public class BookDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-		}
-		
+		}	
 		return result;
-		
 	}
 	
 	public int bookDelete(Connection conn , int bookNo) {
@@ -488,8 +486,6 @@ public class BookDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
-		
 	}
 }

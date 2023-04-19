@@ -13,16 +13,17 @@ import static com.khtime.common.JDBCTemplate.*;
 public class BookService {
 	
 	public int insertThumbnailBook(Book book, ArrayList<BookAttachment> bList) {
+		
 		Connection conn = getConnection();
 		
 		int result1 = new BookDao().insertThumbnailBook(conn, book);
 		int result2 = new BookDao().insertAttachmentList(conn, bList);
+		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
-		
 		close(conn);
 		
 		return result1 * result2;
@@ -37,7 +38,6 @@ public class BookService {
 		close(conn);
 		
 		return bList;
-		
 	}
 	
 	public ArrayList<Object> selectBook(int bkno) {
@@ -82,12 +82,14 @@ public class BookService {
 		close(conn);
 		
 		return bList;
-		
 	}
 	
 	public ArrayList<Book> getMainBooks(){
+		
 		Connection conn = getConnection();
+		
 		ArrayList<Book> list = new BookDao().getMainBooks(conn);
+		
 		close(conn);
 		
 		return list;
@@ -114,12 +116,10 @@ public class BookService {
 		
 		for( BookAttachment bat : batList ) {
 			if(bat.getFileNo() != 0) {
-				System.out.println(bat.getFileNo());
 				result2 *= new BookDao().updateBookAttachment(conn, bat);
 			} else {
 				result2 *= new BookDao().insertBookAttachment(conn, bat);
 			}
-			System.out.println(result2);
 		}
 		
 		if( result1 > 0 && result2 > 0) {

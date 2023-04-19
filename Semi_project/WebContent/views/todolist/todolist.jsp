@@ -243,7 +243,7 @@
             document.getElementById('tdl-modal').style.visibility = 'hidden';
         })
     </script>  
-
+	<%@ include file="../common/MessageModal.jsp"%>
 
 </body>
 
