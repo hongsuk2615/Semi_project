@@ -65,7 +65,7 @@ public class BookUpdateFormController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/book/thumb_upfiles");
 
 			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8",
-					new MyFileRenamePolicy()); 
+														  new MyFileRenamePolicy()); 
 
 			int bookNo = Integer.parseInt(multi.getParameter("bkno"));
 			String content = multi.getParameter("content");
@@ -102,9 +102,6 @@ public class BookUpdateFormController extends HttpServlet {
 					new File(savePath + orgBat.getChangeName()).delete();
 
 				} else {
-					// 기존에 첨부파일 없는 경우
-					// Attachment 테이블에 정보를 insert
-					// REF_BNO에 현재 게시글 번호를 추가 시켜줌.
 					bat.setBookNo(bookNo);
 					bat.setFileLevel(1);
 				}
@@ -128,36 +125,24 @@ public class BookUpdateFormController extends HttpServlet {
 					new File(savePath + orgBat.getChangeName()).delete();
 
 				} else {
-					// 기존에 첨부파일 없는 경우
-					// Attachment 테이블에 정보를 insert
-					// REF_BNO에 현재 게시글 번호를 추가 시켜줌.
 					bat.setBookNo(bookNo);
 					bat.setFileLevel(2);
 				}
 				batList.add(bat);
 			}
-
-			// 하나의 트랜잭션으로 board에 update문과 Attachment테이블의 insert, update 동시에 처리 해 주기.
+			
 			int result = new BookService().updateBook(book, batList);
-			// 항상 board에 update문은 반드시 실행 시켜줘야함.
-			// case 1: 새로운 첨부파일이 애초에 없는 경우(x) -> insert (X), update (X)
-			// case 2: 새로운 첨부파일이 있는 경우(o), 기존에도 첨부파일이 있던 경우 (o) -> update(o) , insert(x)
-			// case 3: 새로운 첨부파일이 있는 경우(o), 기존에는 첨부파일이 없던 경우 (x) -> update(x) , insert(o)
-
-			// 수정 성공 시 : 상세조회 페이지로 redirect
+			
 			if (result > 0) {
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정 되었습니다.");
 				response.sendRedirect(request.getContextPath() + "/mybookdetail.do?bkno=" + bookNo);
-			} else { // 수정 실패 시 : errorPage
+			} else {
 				request.setAttribute("errorMsg", "게시글 수정에 실패 했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
-
 		} else {
 			request.setAttribute("errorMsg", "전송방식이 잘못 되었습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-
 	}
-
 }

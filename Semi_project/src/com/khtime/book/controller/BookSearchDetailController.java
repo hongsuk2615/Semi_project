@@ -33,13 +33,13 @@ public class BookSearchDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int listCount; // 현재 게시판의 총 개시글 갯수
-		int currentPage; // 현제 페이지(사용자가 요청한페이지)
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-		int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-		int startPage; // 페이지 하단에 보여질 페이징바의 시작수
-		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
 		
 		listCount = 50;
 		
@@ -50,21 +50,19 @@ public class BookSearchDetailController extends HttpServlet {
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit -1;
 		
-		 if(endPage > maxPage) {
-			 endPage = maxPage;
-		 }
-		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		 
 		 request.setAttribute("pi", pi);
 		
-		  String bookname = request.getParameter("title");
+		 String bookname = request.getParameter("title");
 		  
-		  request.setAttribute("bookname", bookname);
+		 request.setAttribute("bookname", bookname);
 		
 		 request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
-		 
 		
 	}
 
@@ -74,13 +72,13 @@ public class BookSearchDetailController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		int listCount; // 현재 게시판의 총 개시글 갯수
-		int currentPage; // 현제 페이지(사용자가 요청한페이지)
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-		int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-		int startPage; // 페이지 하단에 보여질 페이징바의 시작수
-		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage; 
 		
 		listCount = 50;
 		
@@ -91,24 +89,22 @@ public class BookSearchDetailController extends HttpServlet {
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit -1;
 		
-		 if(endPage > maxPage) {
-			 endPage = maxPage;
-		 }
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
 		
 		
-		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		 
-		 request.setAttribute("pi", pi);
+		request.setAttribute("pi", pi);
 		 
 		String bookname = request.getParameter("title");
 		request.setAttribute("bookname", bookname);
 		
 		ArrayList<Book> bList = new BookService().selectBook(bookname , pi);
 		request.setAttribute("bList", bList);
-		System.out.println(bList);
 		
 		request.getRequestDispatcher("views/book/bookSearchDetail.jsp").forward(request, response);
-//		response.sendRedirect(request.getContextPath()+"/booksearchdetail.do?bookname="+title);
 	}
 
 }

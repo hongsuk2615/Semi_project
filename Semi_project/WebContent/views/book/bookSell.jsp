@@ -10,8 +10,6 @@
 	String author = (String)request.getAttribute("author");
 	String publisher = (String)request.getAttribute("publisher");
 	int listPrice = (Integer)request.getAttribute("listPrice") == null ? 0 :(Integer)request.getAttribute("listPrice") ;
-	System.out.println(book);
-	
 	String contextPath = request.getContextPath();
 
 %>
@@ -22,25 +20,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookSell</title>
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-        /* * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    #book-sell,
-    #book-inf1,
-    #book-thumbnail {
-    	width: 100%;
-    }
+	    #book-sell,
+	    #book-inf1,
+	    #book-thumbnail {
+	    	width: 100%;
+	    }
     </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
     <link rel="stylesheet" href="resources/CSS/book_sell.css">
-    <script>
-    
-    
-    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -99,7 +89,7 @@
                         <input type="number" id="price" name="price" placeholder="가격을 입력하세요." >
                     </div>
                     <div id="book-next2">
-                            <button type="button" id="next2">다음</button>
+                    	<button type="button" id="next2">다음</button>
                     </div>
                 </div>
                 
@@ -149,7 +139,7 @@
                 </div>
                 
                 <hr>
-    
+
                 <div id="book-trade">
                     <div>
                         <h1>거래 방법</h1>
@@ -177,8 +167,8 @@
     <br> <br>
     
     <script>
+    
     $(function() {
-
     	$("#next").click(function(){
     		if( $("#book-name-search").val() !== ""){
     			$("#book-thumbnail").fadeIn(1500).css("display" , "flex");
@@ -193,10 +183,8 @@
        
         $("#next2").click(function(){
             var p = $("#price").val();
-
             if( p !== "" ) {
                 $("#book-content").fadeIn(1500).css("display" , "flex");
-                
             } else {
                 khalert("가격을 입력해 주세요!");
             }
@@ -217,25 +205,27 @@
         	    event.preventDefault();
         	    $("#search-btn").click();
         	  };
-        	}, true);
-        
-        
+        }, true);
     })
+    
     </script>
     
 	<script>
+	
 		const autoResizeTextarea = (e) => {
 		  let textarea = document.querySelector('.textarea');
 
 		  if (textarea) {
 		    textarea.style.height = 'auto';
-		    let height = textarea.scrollHeight; // 높이
+		    let height = textarea.scrollHeight;
 		    textarea.style.height = `${height + 8}px`;
 		  }
 		};
+		
 	</script>
 	    
     <script>
+    
     	document.getElementById("search-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksellsearch.do?bookname="+document.getElementById("book-name-search").value;
    		 })
@@ -247,6 +237,7 @@
    		 document.getElementById("book-modify-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
+   		 
     </script>
  
 </body>

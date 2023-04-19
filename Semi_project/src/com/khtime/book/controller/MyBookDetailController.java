@@ -39,7 +39,6 @@ public class MyBookDetailController extends HttpServlet {
 		if(book.size()>1) {
 			request.setAttribute("seller", (String)book.get(0));
 			request.setAttribute("book", (Book)book.get(1));
-			System.out.println(book);
 		}else {
 			request.setAttribute("seller", "");
 			request.setAttribute("book", "");
@@ -49,9 +48,7 @@ public class MyBookDetailController extends HttpServlet {
 		
 		request.setAttribute("bList", bList);
 		
-		
 		request.getRequestDispatcher("views/book/myBookDetail.jsp").forward(request, response);
-		
 	}
 
 	/**

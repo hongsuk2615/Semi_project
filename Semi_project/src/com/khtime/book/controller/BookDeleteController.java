@@ -41,15 +41,12 @@ public class BookDeleteController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		
 	}
 

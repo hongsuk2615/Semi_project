@@ -13,11 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <style>
-        /* * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
     <link rel="stylesheet" href="resources/CSS/book_detail.css">
@@ -41,7 +36,7 @@
         </div>
         <div id="book-body">
             <div id="book-title">
-                <h1 style="margin-left: 40px; display: flex; align-items: center;"><% if(book.getIsSoldout().equals("Y"))  {  %>
+                <h1 style="margin-left: 40px; display: flex; align-items: center;"><% if(book.getIsSoldout().equals("Y")) {  %>
                 	<s style="text-decoration-color: gray;"><%= book.getBookName() %></s><img src="resources/IMG/soldout.png" style="width:60px; height: 60px; margin-left: 20px;">
                 <% } else { %>
                 	<%= book.getBookName() %>
@@ -84,7 +79,7 @@
                     <button class="d-Img" style="background:none">
                     	<% for(int i = 0; i < bList.size(); i++ ) { %>
 	                    <div class="book-status-img">
-	                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
+	                    	<img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
 	                    </div>
                     	<% } %>
                     </button>
@@ -118,7 +113,7 @@
             </div>
         </div>
         
-        <form action="<%= request.getContextPath() %>/sendMsg.me" method="post"> <!-- 쪽지 모달  -->
+        <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
 				<input type="hidden" name="opponentNo" id="sellerNo" value="">
 				<div class="msg-modal hidden">
 				   <div class="Msgbg"></div>
@@ -131,7 +126,7 @@
 								    <h4 class="inputLabel">쪽지보내기</h4>            
 									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
 							   </div>
-						   <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
+						       <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 						   </div>
 				   </div>
 			   </div>
@@ -157,19 +152,20 @@
 	
 	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
 		function mykeydown() { 
-			if(window.event.keyCode==13) //enter 일 경우
+			if(window.event.keyCode==13)
 			{
 				sendServer();
 			}
 		 }
-		</script>
-		<script> <!--쪽지보내기모달 닫는 스크맆트-->
+	</script>
+		
+	<script>
+		
 		  const openMsg = () => {
 			  document.querySelector(".msg-modal").classList.remove("hidden");
-			  
 		  }
+		  
 		  const closeMsg = () => {
-			  console.log('cdlose')
 			  document.querySelector(".msg-modal").classList.add("hidden");
 		  }
 		  
@@ -177,27 +173,27 @@
 		  document.querySelector(".Msgbg").addEventListener("click", closeMsg);
 		  $('.send-message').click(function(){
 			openMsg();
-		  $('#sellerNo').val($(this).attr('data-userNo'));
+		  	$('#sellerNo').val($(this).attr('data-userNo'));
 		  });
 		  
-	  </script>
+	 </script>
 	  
-	  <script> <!-- 이미지모달 스크맆트-->
+	 <script>
+	 
 		  const openImg = () => {
 			  document.querySelector(".img-modal").classList.remove("hidden");
-			  
 		  }
+		  
 		  const closeImg = () => {
-			  console.log('cdlose')
 			  document.querySelector(".img-modal").classList.add("hidden");
 		  }
 		 
 		  document.querySelector(".Imgbg").addEventListener("click", closeImg);
 		  $('.d-Img').click(function(){
 			openImg();
-			/* $('#sellerNo').val($(this).attr('data-userNo')); */
 		  });
-	  </script>
+		  
+	 </script>
     
     <script>
     
@@ -210,12 +206,13 @@
 		})
 		 
 		document.getElementById("back-btn").addEventListener("click",function(){
-    	location.href = "<%= request.getContextPath() %>/bookstore.do";
+    		location.href = "<%= request.getContextPath() %>/bookstore.do";
 		}) 
 		
 		document.getElementById("book-modify-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
-   		 })
+   		})
+   		
     </script>
 </body>
 </html>

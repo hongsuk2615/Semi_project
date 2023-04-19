@@ -41,7 +41,6 @@ public class BookSoldoutController extends HttpServlet {
 		} else {
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
-		
 	}
 
 	/**
@@ -49,8 +48,5 @@ public class BookSoldoutController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 	}
-
 }

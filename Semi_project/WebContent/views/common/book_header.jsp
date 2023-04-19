@@ -15,11 +15,15 @@
 <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
 </head>
 <body>
+	<%@ include file="../common/khalertmodal.jsp" %>
+
+<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
 	<% if( alertMsg != null && !alertMsg.equals("")) { %>
 		<script> khalert("<%= alertMsg %>")</script>
 		<% request.getSession().setAttribute("alertMsg",""); %>
 	<% } %>
-  <div id="book-header">
+
+ <div id="book-header">
             <div id="book-header-content">
                 <div id="home-logo">
                     <img src="resources/IMG/로고이미지.png" alt="로고이미지">
@@ -37,7 +41,7 @@
                 	<% } %>
                 </div>
             </div>
-        </div>
+ </div>
         
     <script>
     
@@ -66,12 +70,10 @@
     </script>
     
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
     <script>
     	AOS.init();
     </script>
-       <%@ include file="../common/khalertmodal.jsp" %>
-	
-
-<script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
+       
 </body>
 </html>
