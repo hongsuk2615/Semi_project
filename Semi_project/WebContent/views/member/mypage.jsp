@@ -75,7 +75,7 @@
 						<div style="display: flex; justify-content: space-between;">
 							<div id="userInfo">
 							<span id="loginuser-id">아이디 : <%=loginUser.getUserId() %></span><br>
-							<span id="loginuser-name&nickname">이름 :     <%=loginUser.getUserName() %></span><br>
+							<span id="loginuser-name&nickname">이름 : <%=loginUser.getUserName() %></span><br>
 							<span>닉네임 : <%=loginUser.getNickName() %></span><br>
 							<span id="loginuser-class">강의실 : <%=loginUser.getUserClass() %></span>
 							</div>
