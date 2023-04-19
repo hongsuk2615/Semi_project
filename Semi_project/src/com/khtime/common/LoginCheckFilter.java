@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-@WebFilter({"/myPage.me","/deleteMember.me","/updateEmail.me","/updateNickName.me","/updatePwd.me","/PrivacyPolicyController.me","/deteleReqBoard.me","/reqBoard.me","/TeenagerPolicyController.me","/TermsOfUseController.me","/chatting.do","/msgbox.me","/sendMsg.me","/booksell.do","/bookselllist.do","/bookdelete.do","/bookinsert.do","/booksellsearch.do","/booksoldout.do","/bookupdateform.do","/mybookdetail.do","/study.me","/friend.me","/boardreq.me","/board.me","/todolist.me"})
+@WebFilter({"/myPage.me","/deleteMember.me","/updateEmail.me","/updateNickName.me","/updatePwd.me","/PrivacyPolicyController.me","/deteleReqBoard.me","/reqBoard.me","/TeenagerPolicyController.me","/TermsOfUseController.me","/chatting.do","/msgbox.me","/sendMsg.me","/booksell.do","/bookselllist.do","/bookdelete.do","/bookinsert.do","/booksellsearch.do","/booksoldout.do","/bookupdateform.do","/mybookdetail.do","/study.me","/friend.me","/boardreq.me","/board.me","/todolist.me","/boardDetail.bo","/delete.bo","/contentDetail.bo","/insert.bo","/recommend.bo","/content.re","/report.bo","/scrap.bo","/deletescrap.bo","/update.bo","/delete.re","/insert.re","/recommend.re","/report.re","/select.re","/myComments.bo","/myScrap.bo","/myWriting.bo"})
 public class LoginCheckFilter implements Filter {
 
     /**

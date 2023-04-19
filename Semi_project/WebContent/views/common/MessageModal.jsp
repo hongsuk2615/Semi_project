@@ -28,8 +28,9 @@
                						</div> <br> <div style="color : #676363; font-size : 13px" >\${m.content}<br></div></li>`;
                						
                				$('#msgul').append(msg);
-               				$('#msgul').fadeIn();
-               					}		     
+               				
+               					}		
+               					$('#msgul').fadeIn();
                					setTimeout(function(){
                					  	$('#msgul').fadeOut();  
                					
@@ -37,8 +38,9 @@
                			}
                			});
                		} 
+               	 messageModal();
                  setInterval(messageModal ,7000);  
-               	messageModal()
+               	
                	    
                 </script>
 	<%} %>
