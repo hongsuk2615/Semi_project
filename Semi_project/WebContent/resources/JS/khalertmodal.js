@@ -16,7 +16,14 @@
 		function khalert(a){
 			document.getElementById('modal-contents').innerHTML = a;
 			document.getElementById('modal-alert').style.display = 'flex';
+			$('#modal-button').focus();
 		}
+		
+		$('#modal-button').keyup(function () {
+                if (window.event.keyCode == 13) {
+                    document.getElementById('modal-alert').style.display = 'none';
+                }
+            });
 		
 		/* confirm */
 		
@@ -61,6 +68,8 @@
 		
 			document.getElementById("modal-no-button").removeEventListener('click',eventHandler);
 		}
+		
+		
 		
 		
 	

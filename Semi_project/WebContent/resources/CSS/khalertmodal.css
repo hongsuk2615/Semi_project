@@ -47,6 +47,7 @@
     bottom: 10px;
     width: 50px;
     height: 25px;
+    outline : transparent;
 }
 
 #modal-button span{
