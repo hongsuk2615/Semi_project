@@ -477,7 +477,7 @@
         <div class="modal2 hidden">
             <div class="bg2"></div>
             <div class="modalBox">
-				<button id="prevBtn" class="closeBtn4"></button>
+				<button id="prevBtn" class="closeBtn4"><</button>
                 <button id="deleteBtn" class="deleteBtn">삭제</button>
 				<div class="header">
 					<p>디데이 수정</p>
