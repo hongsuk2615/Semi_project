@@ -53,6 +53,7 @@ a {
 <body>
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp"%>
+	
 	</div>
 	<div id="body">
 		
@@ -64,7 +65,7 @@ a {
 						<input placeholder="아이디로 친구요청을 보내세요!" type="text" name="userId"
 							id="userId" required>
 					</div>
-					<button type="button" class="btn btn-primary" onclick="idCheck2();">친구요청</button>
+					<button type="button" class="friendRequest" onclick="idCheck2();">친구요청</button>
 					<br>
 				</div>
 				<br>
@@ -242,8 +243,10 @@ a {
 							 }
 				 
         </script>
+        <%@ include file="../common/MessageModal.jsp"%>
+				
+				
 
-<!-- if($(e).attr('class') == "deny"){  -->
 </body>
 
 </html>

@@ -123,9 +123,22 @@ label{
     color: white;
 	 border: 1px solid lightgray;
 }   
-    
-    
-    
+
+#sendCode{
+	background-color: cornflowerblue;
+    border-radius: 15px;
+    color: white;
+	 border: 1px solid lightgray;
+	 display :none;
+} 
+
+#checkCode{
+	background-color: cornflowerblue;
+    border-radius: 15px;
+    color: white;
+	 border: 1px solid lightgray;
+	
+}   
     
     
     
