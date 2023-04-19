@@ -69,4 +69,22 @@
 		AND RECEIVER = ?
 	</entry> 
 	
+	<entry key="MessageModal">
+	 	SELECT M.USER_NAME , S.CONTENT
+		FROM MESSAGE S
+		JOIN MEMBER M ON (M.USER_NO = S.SENDER)
+		WHERE S.RECEIVER = ?
+		AND IS_READ ='N'
+		AND S.SEND_DATE >= SYSDATE - INTERVAL '1' MINUTE 
+		AND IS_ALARM = 'N' 
+		 
+	</entry>
+	<entry key="updateIsAlarm">
+		UPDATE MESSAGE 
+		   SET IS_ALARM = 'Y'
+		 WHERE RECEIVER = ?
+		   AND IS_READ ='N'
+	 	   AND SEND_DATE >= SYSDATE - INTERVAL '1' MINUTE 
+		   AND IS_ALARM = 'N' 	 
+	</entry>
 </properties>
