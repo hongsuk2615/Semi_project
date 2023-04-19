@@ -59,7 +59,8 @@
                             <div id="createContent">
                          		<form enctype="multipart/form-data">
     								<div><input type="text" id="title" name="title" placeholder="제목을 입력해주세요!" value="<%=b.getTitle()%>"></div>
-      							    <div id="contentdiv"><textarea id="content" name="content" placeholder="내용을 입력해주세요!" maxlength="500"><%= b.getContent() %></textarea>
+      							    <div id="contentdiv">
+      							    <%@include file="textEditor.jsp" %><div id="content" contenteditable="true"><%= b.getContent() %></div>
 										<div id="QuestionContent" class="divhidden" ><div><span>#주의 질문글입니다!</span></div></div>
 									</div>
 									<div id="file-area">
@@ -136,7 +137,7 @@
 				formData.append("bNo", <%=b.getBoardNo()%>);
 				formData.append("cNo", <%=b.getCategoryNo()%>);
 				formData.append("title", $("#title").val());
-				formData.append("content",$("#content").val().replace(/(\n|\r\n)/g, '<br>'));
+				formData.append("content",$("#content").html()+'');
 				formData.append("isQuestion", $("#isQuestion").prop('checked') ? 'Y' : 'N');
 				formData.append("isAnonimous", $("#isAnonimous").prop('checked') ? 'Y' : 'N');
 				formData.append("deleteImg", deleteImg);
