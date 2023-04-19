@@ -37,8 +37,6 @@ public class MessageModalController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		ArrayList<Message> result = new  MessageService().MessageModal(loginUserNo);
-		System.out.println("result: " + result);
-		System.out.println("resultsize : " + result.size());
 		if(result.size()>0) {
 			new MessageService().updateIsAlarm(loginUserNo);
 		}

@@ -158,7 +158,6 @@ a {
 			   </div>
 		   </div>
 	 </form>
-	</div>
 	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
 		function mykeydown() { 
 			if(window.event.keyCode==13) //enter 일 경우
