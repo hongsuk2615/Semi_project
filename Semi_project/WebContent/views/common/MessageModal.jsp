@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%if(loginUser != null){ %>
 	<div id="msgModal">
 		<ul id="msgul"></ul>
 	</div>
@@ -40,6 +41,6 @@
                	messageModal()
                	    
                 </script>
-
+	<%} %>
 </body>
 </html>
