@@ -74,13 +74,13 @@
 									data : {boardtitle : bt , reason : rsn},
 									method : "post",
 									success :function(result){
-												 if(result > 0){		
-													 khalert("성공적으로 요청 했습니다.");
-												 }else{
-													 khalert("성공적으로 요청하지 못했습니다.");	
-												 }
-												 
-											 }	 
+												if(result > 0){
+													location.href = '<%= request.getContextPath() %>/reqBoard.me';
+												}else{
+													location.href = '<%= request.getContextPath() %>/boardreq.me';
+												}
+											 
+											}	 
 										 });
 									 }		
 						</script>
