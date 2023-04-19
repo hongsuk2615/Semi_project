@@ -39,7 +39,7 @@
     </style>
 
     <body>
-        <div id="wrapper">
+        <div id="wrapper" style="padding-top: 0px;">
             <%@ include file="management_header.jsp" %>
 
                 <div id="body">
