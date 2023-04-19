@@ -18,6 +18,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         
     <title>Document</title>
+ 
 </head>
 <body>
     <div id="body-right">
@@ -61,7 +62,7 @@
                 <div id="loginuser-name"><%=loginUser.getUserName() %></div>
                 <div id="loginuser-id"><%=loginUser.getUserId() %></div>
                 <div id="loginuser-btn">
-                    <button id="mypagebtn">마이페이지</button>
+                    <button id="mypagebtn" class="hoverList">마이페이지</button>
                     <button id="logoutbtn">로그아웃</button>
                 </div>
             
@@ -71,22 +72,22 @@
         </div>
         <% if(loginUser != null) {%>
         <div id="user-list">
-            <div>
+            <div class="hoverList">
                 <img src="<%=request.getContextPath()%>/resources/IMG/free-icon-billboard-773665.png" alt="" width="20" height="20">
                 <div id="user-boards">내가 쓴글</div>
             </div>
-            <div>
+            <div class="hoverList">
                 <img src="<%=request.getContextPath()%>/resources/IMG/replyimg.png" alt="" width="20" height="20">
                 <div id="user-replys">내가 쓴 댓글</div>
             </div>
-            <div>
+            <div class="hoverList">
                 <img src="<%=request.getContextPath()%>/resources/IMG/scrapimg.png" alt="" width="20" height="20">
                 <div id="user-scraps">스크랩한 글</div>
             </div>
         </div>
   
         <div id="additional-functions">
-            <div>
+            <div class="hoverList">
                 <img src="<%=request.getContextPath()%>/resources/IMG/free-icon-live-chat-5603000.png" alt="" width="20" height="20">
                 <div id="realtime-chat">실시간 채팅</div>
             </div>
@@ -94,7 +95,7 @@
                 <img src="<%=request.getContextPath()%>/resources/IMG/free-icon-letter-d-5069823.png" alt="" width="20" height="20">
                 <div id="d-day">d-day알림</div>
             </div>
-            <div>
+            <div class="hoverList">
                 <img src="<%=request.getContextPath()%>/resources/IMG/stopwatch.png" alt="" width="20" height="20">
                 <div id="check-study-time">공부량 체크</div>
             </div>

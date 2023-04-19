@@ -28,6 +28,19 @@
 <title>KH_TIME 메인페이지</title>
 </head>
 <style>
+	a, button{
+	 cursor:pointer;
+	}
+	
+	a:hover{
+	 color:skyblue;
+	}
+	
+	.openBtn:hover, .openBtn1:hover, .openBtn2:hover{
+	 background-color:skyblue;
+	 color:#0d64e6;
+	 
+	}
 </style>
 
 <body>
@@ -50,7 +63,7 @@
 						</div>
 						<br>
 						<br>
-						<div style="width: 100px; height: 100px;">
+						<div style=" width: 100px; height: 100px;">
 							<label for="profile">
 								<div style=" width:100px;">
 									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
@@ -60,13 +73,14 @@
 						</div>
 						<br><br>
 						<div id="userInfo">
-						<span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
-						<span id="loginuser-name&nickname"><%=loginUser.getUserName() %>/<%=loginUser.getNickName() %></span><br>
-						<span id="loginuser-class"><%=loginUser.getUserClass() %></span>
+						<span id="loginuser-id">아이디 : <%=loginUser.getUserId() %></span><br>
+						<span id="loginuser-name&nickname">이름 :     <%=loginUser.getUserName() %></span><br>
+						<span>닉네임 : <%=loginUser.getNickName() %></span><br>
+						<span id="loginuser-class">강의실 : <%=loginUser.getUserClass() %></span>
 						</div>
-						<button id="logoutbtn" style="position: relative; left: 65%;"onclick="javascript:btn()" >로그아웃</button>
+						<button id="logoutbtn" style="position: relative;left: 68%;bottom: 5%;"onclick="javascript:btn()">로그아웃</button>
 					</div>
-
+					
 					<div id="community"
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
@@ -79,11 +93,10 @@
 					<div id="infouse"
 						style="display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>이용안내</strong> 
-						<a href="<%=request.getContextPath()%>/askpage.jsp">문의하기</a> 
-						<a href="">공지사항</a> 
+						<a id="noticeBoard">공지사항</a> 
 						<a id="termsOfUse">서비스약관</a> 
-						<a href="">개인정보 처리방침</a> 
-						<a href="">청소년 보호정책</a>
+						<a id="privacyPolicy">개인정보 처리방침</a> 
+						<a id="teenagerPolicy">청소년 보호정책</a>
 					</div>
 
 					<div id="etc" style="height: 150px;">
@@ -159,12 +172,12 @@
 	<div class="modal1 hidden">
 		<div class="bg1"></div>
 		
-		<div class="modalBox">
+		<div class="modalBox" style="height:auto;">
 			<div class="header">
 				<h2>이메일 변경</h2>
 			</div>
 			<form action="<%= request.getContextPath() %>/updateEmail.me" method="post">
-			<div class="addDdayBody">
+			<div class="addDdayBody" style="height:auto;">
 				<div class="inputBox">
 					<h3 class="inputLabel">이메일</h3>
 					<input type="text" name="updateEmail" id="email" placeholder="ex)abc@naver.com" class="inputField" required/><br>
@@ -173,12 +186,12 @@
 					<h3 class="inputLabel">계정 비밀번호</h3>
 					<input type="password" name="userPwd" placeholder="사용자 비밀번호 입력" class="inputField" required/>
 				</div>
-				<div id="emailnotice" style="position: relative; top: 170px;">
+				<div id="emailnotice" style="position: relative; ">
 					<span>※ 반드시 본인의 이메일을 입력해주세요.</span><br> <span>※ 계정 분실 시
 						아이디/비밀번호 찾기,개인정보 관련 주요 고지사항 안내 등에 사용 됩니다.</span>
 				</div>
 			</div>
-			<button type="submit" class="closeBtn1" id="fullBlueBtn" onclick="return validateEmail();">이메일 변경</button>
+			<button style="border:transparent;" type="submit" class="closeBtn1" id="fullBlueBtn" onclick="return validateEmail();">이메일 변경</button>
 			</form>
 		</div>
 		
@@ -206,11 +219,11 @@
 
 	<div class="modal4 hidden">
 		<div class="bg4"></div>
-		<div class="modalBox" style="height:430px;">
+		<div class="modalBox" style="height:430px; display: flex; flex-direction: column;">
 			<div class="header">
 				<h2>프로필사진 변경</h2>
 			</div>
-				<div class="addDdayBody">
+				<div class="addDdayBody" style="display: flex; justify-content: space-between; flex-direction: column; padding:0;">
 					<div class="inputBox">
 						<div id="enrollimg">
                             이미지나 사진을 등록해주세요.<br><br>
@@ -222,7 +235,7 @@
                             </div>
                         </div>
 				  </div>
-				<button type="button" class="closeBtn4" id="fullBlueBtn4" onclick="changeProfileImg();">변경하기</button>			
+				<button style="border:transparent;" type="button" class="closeBtn4" id="fullBlueBtn4" onclick="changeProfileImg();">변경하기</button>			
 			</div>
    		 </div>
    	</div>
@@ -272,6 +285,7 @@
         }
     }
         function changeProfileImg(){
+  
         	let form = new FormData();
         	form.append("profileImg",$('#file1')[0].files[0]);
         	
@@ -295,12 +309,11 @@
 	<div class="modal3 hidden">
 		<div class="bg3"></div>
 		<div class="modalBox" style="height: 300px;">
-
 			<div class="header">
 				<h2>닉네임 변경</h2>
 			</div>
 		<form action="<%= request.getContextPath() %>/updateNickName.me" method="post">
-			<div class="addDdayBody">
+			<div class="addDdayBody" style="height:auto;">
 				<div class="inputBox">
 					<h3 class="inputLabel">닉네임</h3>
 					<input type="text" id="nickName" name="updateNickName" placeholder="특수문자 제외 2자~ 8자" class="inputField" /><br>
@@ -309,11 +322,11 @@
 					style="position: relative; text-align: center;">
 					※ 닉네임을 설정하면 <span class="redline">30일간 변경할 수 없습니다.</span><br>
 				</div>
-				<button type="submit" class="closeBtn3" id="fullBlueBtn3"
-					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly;" onclick="return validateNickName();">
+			</div>
+			<button type="submit" class="closeBtn3" id="fullBlueBtn3"
+					style="width: 100%; height: 60px; display: flex; justify-content: space-evenly; border:transparent; border-radius:0px 0px 12px 12px;" onclick="return validateNickName();">
 					닉네임 변경
 				</button>
-			</div>
 		</form>
 		<script>
 		function validateNickName(){
@@ -328,6 +341,7 @@
 			    khalert('닉네임 형식이 다릅니다.');
 			    return false;
 			  }
+			  window.location.href="/Semi_project/myPage.me" 
 		}
 		</script>
 		</div>
@@ -342,7 +356,7 @@
 			<div class="header">
 				<h2>회원탈퇴</h2>
 			</div>
-			<div class="addDdayBody">
+			<div class="addDdayBody" style="display:flex; justify-content:center;">
 				<div id="emailnotice"
 					style="position: relative; text-align: center;">
 					<p style="text-align: center;">그 동안 KH TIME을 이용해주셔서 감사합니다.</p>
@@ -363,9 +377,7 @@
 			});
 		</script>
 	</div>
-
-
-    
+   
 	<script> <!-- 로그아웃 버튼 스크립트-->
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
@@ -444,7 +456,7 @@
     document.querySelector(".bg4").addEventListener("click", close4);
 	</script>
 	
-	<script>  <!-- 쪽지함jsp, 내게시글,댓글로 이동시키는 스크맆트-->
+	<script>  <!-- 쪽지함jsp, 요청게시판관리, 개인이용정책 등등으로 이동시키는 스크맆트-->
   		document.getElementById("messageboxBtn").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/msgbox.me";
   		}) 
@@ -456,6 +468,18 @@
 	    document.getElementById("termsOfUse").addEventListener("click",function(){
       	 	location.href = "<%= request.getContextPath() %>/TermsOfUseController.me";
   		}) 
+  		
+  		document.getElementById("privacyPolicy").addEventListener("click",function(){
+      	 	location.href = "<%= request.getContextPath() %>/PrivacyPolicyController.me";
+  		}) 
+  		
+  		document.getElementById("noticeBoard").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/boardDetail.bo?cNo=5";
+	    })
+	    
+	    document.getElementById("teenagerPolicy").addEventListener("click",function(){
+        location.href = "<%= request.getContextPath() %>/TeenagerPolicyController.me";
+	    })
   	</script>
 
 
