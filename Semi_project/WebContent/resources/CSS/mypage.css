@@ -30,6 +30,13 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+.openBtn, .openBtn1, .openBtn2{
+	background-color: cornflowerblue;
+    border-radius: 15px;
+    color: white;
+    border: 1px solid transparent;
+    height: 25px;
+}
 
 .modal .closeBtn {
 

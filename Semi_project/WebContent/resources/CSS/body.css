@@ -339,3 +339,9 @@
   border-radius: 15px;
   color: white;
 } 
+
+ .hoverList:hover, .openBtn:hover{
+     	cursor:pointer;
+     	background-color:#42A5F5;
+     	color:white;
+    }

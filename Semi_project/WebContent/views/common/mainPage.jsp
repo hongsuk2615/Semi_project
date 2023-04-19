@@ -24,6 +24,17 @@
 	/* border: 1px solid rgba(128, 128, 128, 0.568);  */
 	
 }
+
+thead:hover{
+	cursor:pointer;
+}
+
+td>p:hover{
+	color:#42A5F5;
+	cursor:pointer;
+}
+
+
 </style>
 
 <body>

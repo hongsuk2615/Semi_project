@@ -22,7 +22,9 @@
     		display:flex;
     		flex-direction:column;
     		justify-content:space-evenly;
-    	    border: 1px solid black;
+    	    border: 3px solid skyblue;
+    	    border-radius: 0px 0px 20px 20px;
+  	        background: aliceblue;
     	}
     	
     	#menu{
@@ -35,7 +37,9 @@
     	.list{
     		display:flex;
     		justify-content: space-between;
-    	    border: 1px solid black;
+    	    border-left: 3px solid #42A5F5;
+   			border-bottom: 3px solid #42A5F5;
+   			border-right: 3px solid #42A5F5;
     	    padding : 0px 10px;
     	}
     
@@ -59,17 +63,20 @@
 				<div id="body-left">
 					<div id="board-wrapper">
 						<div id="board-detail">
-							<div id="category">게시판 관리</div>
+							<div id="category" style="border-raius:12px 12px 0px 0px;">게시판 관리</div>
 							<div id="content-wrapper">
-								<ul class="list">
-									<li style="width : 50px;">번호</li>
+								<ul class="list" style="font-size: 23px;border-radius: 5px 5px 0px 0px; background-color: #42A5F5;color: white;border: none;">
+									<li style="width : 70px;">번호</li>
 									<li style="width : 300px;">게시판이름</li>
 									<li style="width : 100px;">승인상태</li>
 									<li style="width : 100px;">&nbsp;</li>
 								</ul>
-								<%for(int i = 0; i < list.size(); i++) { %>
+								<%if(list.size()==0){ %>
+									<br><div class="list" style="justify-content:center; border: none; color: #499d9f;"><h1>요청한 게시판이 없어요.</h1></div>
+								<% } else{ %>
+									<%for(int i = 0; i < list.size(); i++) { %>
 								<ul class="list">
-									<li style="width : 50px;"><%= i+1 %></li>
+									<li style="width : 70px;"><%= i+1 %></li>
 									<li style="width : 300px; overflow:hidden;"><%=list.get(i).getCategoryName()%></li>
 									<% if(list.get(i).getAvailable().equals("Y")){%>
 									<li style="width : 100px;">승인</li>
@@ -80,6 +87,8 @@
 									<%}%>
 								</ul>	
 								<% } %>
+								<% }%>
+								
 							</div>
 						</div>
 						<div class="paging-area"></div>
