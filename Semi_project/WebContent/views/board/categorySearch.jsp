@@ -74,7 +74,7 @@
 							for (Category c : list) {
 						%>
 						<div>
-							<div id="categoryName<%=c.getCategoryNo() %>" onclick="moveboarddetail(this.id);" class="moveboard">
+							<div style="padding : 8px" id="categoryName<%=c.getCategoryNo() %>" onclick="moveboarddetail(this.id);" class="moveboard">
 							<%=c.getCategoryName()%> 게시판
 							</div>
 							</div>
@@ -108,14 +108,14 @@
 				success :function(result){
 									$("#boardlist").hide();
 									$("#searchresult").show();
-									$('#searchresult').html(searchBoard+"   검색결과");
+									$('#searchresult').html("'" +searchBoard+"'"+"   검색결과");
 							 if(result.length == 0){		
 									$('#keyword').html("조회된 게시판은 존재하지 않습니다.");
 							 }else{
 								 $('#keyword').html('');
 								 $(result).each(function(index , item){
 									 console.log(item);
-									 $('#keyword').append(`<div id="category\${index}">\${item.categoryName}</div>`);
+									 $('#keyword').append(`<div id="category\${index}" style="text-align: center; padding : 8px;  border-radius: 5px;">\${item.categoryName} 게시판</div>`);
 									 $('#category'+index).click(function(){
 										 location.href="<%=request.getContextPath() %>/boardDetail.bo?cNo="+item.categoryNo;
 									 })

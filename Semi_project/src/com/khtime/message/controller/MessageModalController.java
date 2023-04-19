@@ -37,7 +37,11 @@ public class MessageModalController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
 		ArrayList<Message> result = new  MessageService().MessageModal(loginUserNo);
-		System.out.println(result);
+		System.out.println("result: " + result);
+		System.out.println("resultsize : " + result.size());
+		if(result.size()>0) {
+			new MessageService().updateIsAlarm(loginUserNo);
+		}
 		Gson gson = new Gson();
 		response.setContentType("application/json; charset=UTF-8");
 		gson.toJson(result,response.getWriter());

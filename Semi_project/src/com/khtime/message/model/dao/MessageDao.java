@@ -208,5 +208,23 @@ public class MessageDao {
 
 		return list;
 	}
+	
+	public int updateIsAlarm(Connection conn,int loginUserNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateIsAlarm");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUserNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
 

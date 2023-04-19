@@ -83,4 +83,14 @@ public class MessageService {
 		return result ;
 		
 	}
+	public void updateIsAlarm(int loginUserNo) {
+		Connection conn = getConnection();
+		int result = new MessageDao().updateIsAlarm(conn, loginUserNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+	}
 }

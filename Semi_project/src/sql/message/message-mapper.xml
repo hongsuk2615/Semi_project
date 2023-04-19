@@ -76,6 +76,15 @@
 		WHERE S.RECEIVER = ?
 		AND IS_READ ='N'
 		AND S.SEND_DATE >= SYSDATE - INTERVAL '1' MINUTE 
+		AND IS_ALARM = 'N' 
 		 
+	</entry>
+	<entry key="updateIsAlarm">
+		UPDATE MESSAGE 
+		   SET IS_ALARM = 'Y'
+		 WHERE RECEIVER = ?
+		   AND IS_READ ='N'
+	 	   AND SEND_DATE >= SYSDATE - INTERVAL '1' MINUTE 
+		   AND IS_ALARM = 'N' 	 
 	</entry>
 </properties>
