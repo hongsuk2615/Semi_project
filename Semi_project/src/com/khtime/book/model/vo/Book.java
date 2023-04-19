@@ -20,7 +20,6 @@ public class Book {
 	private String apiImg;
 	private String content;
 	private int listPrice;
-	
 	private String titleImg;
 	
 	public Book() {
@@ -179,7 +178,5 @@ public class Book {
 				+ ", status=" + status + ", publicationDate=" + publicationDate + ", enrollDate=" + enrollDate
 				+ ", apiImg=" + apiImg + ", content=" + content + ", listPrice=" + listPrice + ", titleImg=" + titleImg
 				+ "]";
-	}
-	
-	
+	}	
 }

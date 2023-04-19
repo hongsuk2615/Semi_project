@@ -166,6 +166,7 @@
         </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
         $(document).ready(function(){
         	function getBooks(){
@@ -177,9 +178,6 @@
                 })
     
                 .done(function (res){
-                	console.log(res);
-                	console.log(res.length);
-                	
                     <% for(int i = 0; i < 8; i++) { %>
 	                    $("#book-img<%= i %>").empty();
 	                    $("#book-title<%= i %>").empty();
@@ -203,15 +201,12 @@
                         function bookdetailPost<%=i%>(){sendPost("<%= request.getContextPath() %>/booksearchdetail.do", bookdata<%=i%>)};
                         $("#book-inf"+<%=i%>).click(bookdetailPost<%=i%>);
                         
-                        
                   <% } %>
                 });
             }
             $("#search-btn").click(function(){
-            	
             	location.href="<%=request.getContextPath()%>/booksearch.do?bookname="+document.getElementById('bookname').value;
             });
-           
       		
            $("#search-btn").click(function(){
                 if( $("#bookname").val() == "") { 
@@ -223,30 +218,25 @@
            
            	$("#nextPage").click(function(){
        			currPage++;
-       		/* 	let a = "btn"+currPage; */
-       			
        			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-       			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-       			/* getBooks(); */
        		});
+           	
            	$("#prevPage").click(function(){
            		currPage--;
-           		/* 	let a = "btn"+currPage; */
-           			
-           			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-           			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-           			/* getBooks(); */
+           		location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        		});
+           	
            <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
-           
          
            getBooks();
-        }); 
+        });
+        
     </script>
     
     <script>
+    
     	document.getElementById("book-home-btn").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/bookstore.do";
 		 })
@@ -254,22 +244,22 @@
 		 document.getElementById("book-sell-btn").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/booksell.do";
 		 })
+		 
     </script>
     
     <script>
+    
     function sendPost(url, params) {
         var form = document.createElement('form');
         form.setAttribute('method', 'post'); //POST 메서드 적용
         form.setAttribute('action', url);	// 데이터를 전송할 url
         document.charset = "utf-8";
-        for ( var key in params) {	// key, value로 이루어진 객체 params
+        for ( var key in params ) {	// key, value로 이루어진 객체 params
             var hiddenField = document.createElement('input');
             hiddenField.setAttribute('type', 'hidden'); //값 입력
             hiddenField.setAttribute('name', key);
             hiddenField.setAttribute('value', params[key]);
             form.appendChild(hiddenField);
-            console.log(key);
-            console.log(params[key]);
         }
         document.body.appendChild(form);
         form.submit();	// 전송~
@@ -279,17 +269,15 @@
     
     <script>
 	    $('#bookname').keyup(function () {
-	        if (window.event.keyCode == 13) {
+	       if (window.event.keyCode == 13) {
 	        	if( $("#bookname").val() == "") {
 	        	alert("도서 제목을 검색 해 주세요.");
 	        }else{
 	           location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
 	        }
-	   	 }
+	   	   }
 	    });
     </script>
-
-    </div>
-    
+   </div>
 </body>
 </html>

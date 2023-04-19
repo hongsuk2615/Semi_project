@@ -39,7 +39,6 @@ public class BookDetailController extends HttpServlet {
 		if(book.size()>1) {
 			request.setAttribute("seller", (String)book.get(0));
 			request.setAttribute("book", (Book)book.get(1));
-			System.out.println(book);
 		}else {
 			request.setAttribute("seller", "");
 			request.setAttribute("book", "");
@@ -47,7 +46,6 @@ public class BookDetailController extends HttpServlet {
 		ArrayList<BookAttachment> bList = new BookService().selectThumbnail(bkno);
 		
 		request.setAttribute("bList", bList);
-		
 		
 		request.getRequestDispatcher("views/book/bookDetail.jsp").forward(request, response);
 		
