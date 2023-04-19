@@ -31,17 +31,6 @@
 </style>
 
 <body>
-	 <script>
-      const msg = "<%= request.getSession().getAttribute("alertMsg") %>";
-      
-      if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
-         khalert(msg);
-         // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
-         // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
-         <% request.getSession().removeAttribute("alertMsg");%>
-         
-      }
-   	</script>
 
 	<div id="wrapper">
 
@@ -90,7 +79,7 @@
 					<div id="infouse"
 						style="display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>이용안내</strong> 
-						<a href="/askpage.jsp">문의하기</a> 
+						<a href="<%=request.getContextPath()%>/askpage.jsp">문의하기</a> 
 						<a href="">공지사항</a> 
 						<a id="termsOfUse">서비스약관</a> 
 						<a href="">개인정보 처리방침</a> 
@@ -293,14 +282,9 @@
         		processData : false,
         		contentType : false,
         		success : function(){
-        			
-        		},
-        		error : function(){
-        			
+        			location.href="<%=request.getContextPath()%>";
         		}
         	})
-        		
-        	
         }
     </script>
    	
@@ -383,10 +367,6 @@
 
     
 	<script> <!-- 로그아웃 버튼 스크립트-->
-        function btn(){
-        khalert('로그아웃 성공');
-        // location.href = ""; 로그아웃버튼클릭 후 이동할 페이지
-        }   
         
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";

@@ -164,14 +164,14 @@ public class MemberService {
 		return result;
 	}
 
-	public Member updateNickName(String updateNickName,  String userId) {
+	public Member updateNickName(String updateNickName,  String userId, String userPwd) {
 		Connection conn = getConnection();
 		Member m = null;
 		int result = new MemberDao().updateNickName(conn, updateNickName, userId);
 		
 		if (result > 0) {
 		commit(conn);
-		m = new MemberDao().loginMember(conn, userId, updateNickName);
+		m = new MemberDao().loginMember(conn, userId, userPwd);
 		}else {
 			rollback(conn);
 			}

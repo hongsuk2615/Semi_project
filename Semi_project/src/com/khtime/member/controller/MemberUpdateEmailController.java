@@ -41,12 +41,11 @@ public class MemberUpdateEmailController extends HttpServlet {
 		String updateEmail = request.getParameter("updateEmail");
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getUserId();
 		String userPwd = request.getParameter("userPwd");
-		
+		HttpSession session = request.getSession();
 		int checkpwd = new MemberService().checkPwd(userId, userPwd);
 		
 		if(checkpwd > 0) {
 			Member m = new MemberService().updateEmail(updateEmail,userId, userPwd);
-			HttpSession session = request.getSession();
 			if(m != null) {
 				session.setAttribute("alertMsg", "성공적으로 이메일이 변경되었습니다.");
 				session.setAttribute("loginUser", m);
@@ -55,7 +54,6 @@ public class MemberUpdateEmailController extends HttpServlet {
 			}
 		}
 		else {			
-			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "가입한 비밀번호와 일치하지않습니다.");
 		}
 
