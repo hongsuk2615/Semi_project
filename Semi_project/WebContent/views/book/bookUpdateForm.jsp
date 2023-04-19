@@ -13,11 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <style>
-        /* * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
     <link rel="stylesheet" href="resources/CSS/book_update.css">
@@ -46,10 +41,10 @@
                     <p><%= book.getPublisher() %></p>
                     <p><%= book.getPublicationDate() %></p>
                     <div class="listPrice">
-                    	<input type="number" name="price" value="<%= book.getPrice() %>">
+                    	가격 : <input type="number" name="price" value="<%= book.getPrice() %>">
                     </div>
-                    <textarea name="content" style="resize: none; width: 250px; height: 100px;">
-                    	<%= book.getContent() %>
+                    판매 내용  <textarea name="content" style="resize: none; width: 250px; height: 100px;">
+                    <%= book.getContent() %>
                     </textarea>
                 </div>
                 
@@ -73,8 +68,8 @@
 
             <div id="book-status">
                 <div id="book-detail-status">
-                    <h1>도서 이미지</h1>
-                    <div class="d-Img" style="background:none">
+                    <h1 style="margin-left: 30px;">도서 이미지</h1>
+                    <div class="d-Img" style="background: none; margin-left: 30px;">
                     	<% for(int i = 0; i < batList.size(); i++ ) { %>
 	                    <div class="book-status-img">
 		                    <div class="book-title-img">
@@ -85,16 +80,16 @@
 		                    </div>
 	                    </div>
                     	<% } %>
-               			<input type="file" name="upfiles1" style="width: 230px;" required>
-                    	<input type="file" name="upfiles2" style="width: 230px;">
-                    </div>
+                    </div> <br>
+           			<input type="file" name="upfiles1" style="width: 230px; margin-left: 30px;" >
+                  	<input type="file" name="upfiles2" style="width: 230px; margin-left: 10px;">
                     
-                    <h1>필기 여부</h1>
-                    있음 <input type="radio" name="isNoted" value="Y" <%= book.getIsNoted().equals("Y") ? "checked" : "" %>>
-                    없음 <input type="radio" name="isNoted" value="N" <%= book.getIsNoted().equals("N") ? "checked" : "" %>>
+                    <h1 style="margin-left: 30px;">필기 여부</h1>
+                    <input type="radio" name="isNoted" value="Y" <%= book.getIsNoted().equals("Y") ? "checked" : "" %> style="margin-left: 30px;">있음
+                    <input type="radio" name="isNoted" value="N" <%= book.getIsNoted().equals("N") ? "checked" : "" %>>없음
                     
-                    <h1>책 상태</h1>
-                    <input type="radio" name="condition" value="3" <%= book.getCondition() == 3 ? "checked" : "" %>> 상
+                    <h1 style="margin-left: 30px;">책 상태</h1>
+                    <input type="radio" name="condition" value="3" <%= book.getCondition() == 3 ? "checked" : "" %> style="margin-left: 30px;"> 상
                     <input type="radio" name="condition" value="2" <%= book.getCondition() == 2 ? "checked" : "" %>> 중
                     <input type="radio" name="condition" value="1" <%= book.getCondition() == 1 ? "checked" : "" %>> 하
                 </div>
@@ -105,9 +100,9 @@
             <div id="book-trade">
                 <div>
                     <h1>거래 방법</h1>
-                    <input type="radio" name="isDirect" value="Y" <%= book.getIsDirect() == "Y" ? "checked" : "" %>> 직거래
-                    <input type="radio" name="isDirect" value="N" <%= book.getIsDirect() == "N" ? "checked" : "" %>> 택배
-                    <input type="radio" name="isDirect" value="B" <%= book.getIsDirect() == "B" ? "checked" : "" %>> 둘다
+                    <input type="radio" name="isDirect" value="Y" <%= book.getIsDirect().equals("Y") ? "checked" : "" %>> 직거래
+                    <input type="radio" name="isDirect" value="N" <%= book.getIsDirect().equals("N") ? "checked" : "" %>> 택배
+                    <input type="radio" name="isDirect" value="B" <%= book.getIsDirect().equals("B") ? "checked" : "" %>> 둘다
                     <h1>지역</h1>
                     <p>지역 : <input type="text" name="location" class="location" value="<%= book.getLocation() %>"></p>
                 </div>
@@ -131,10 +126,6 @@
 		document.getElementById("book-home-btn").addEventListener("click",function(){
     		location.href = "<%= request.getContextPath() %>/bookstore.do";
 		})
-		 
-		<%-- document.getElementById("back-btn").addEventListener("click",function(){
-    		location.href = "<%= request.getContextPath() %>/bookselllist.do";
-		})  --%>
 		
     </script>
 </body>

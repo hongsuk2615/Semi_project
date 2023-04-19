@@ -1,0 +1,70 @@
+#msgModal{
+	width: 200px;
+   min-height: 200px;
+    position: fixed;
+    bottom: 4px;
+    right: 27px;
+    z-index: 5; 
+    border-radius: 15px;
+    display:flex;
+   flex-direction: column-reverse;
+	
+}
+
+ #msgul{
+	list-style-type : none;
+	padding : 0;
+	margin : 0;
+	
+}
+/*#msgul>li{
+	border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+	width: 200px;
+	 padding-bottom : 3px;
+	 
+}
+
+#msgul:after {
+	 content:"";
+	 position: absolute;
+	 right: 100px; 
+	 top: 100px;
+	 border-left: 20px solid transparent;
+	 border-right: 20px solid transparent; 
+	 border-top: 30px solid #22ac38;
+	    } */
+	    
+#msgul>li{
+  position: relative; /* 부모 요소를 기준으로 자식 요소를 배치하기 위해 */
+  border-radius: 5px;
+  border: 2px solid #42A5F5;
+  background-color: #ffffff75;
+  width: 200px;
+  padding : 10px;
+}
+#msgul>li:hover{
+	background-color: white;
+}
+#msgul>li>div{
+	margin : 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    
+	    
+	    
+	    
+	    

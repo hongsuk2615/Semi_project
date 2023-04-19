@@ -1,40 +1,36 @@
  img {
-            width: 220px;
-            height: 340px;
-            display: flex;
-            justify-content: center;
-    		align-items: center;
-        }
+        width: 220px;
+        height: 340px;
+        display: flex;
+        justify-content: center;
+   		align-items: center;
+}
         
 #book-body-content2 img {
 	border-radius: 16px;
 }
 
 .book-text {
-        	/* width: 500px;
-        	height:400px; */
-        	display: flex;
-            justify-content: space-around;
-    		align-items: center;
-    		flex-direction: column;
-    		text-align: center;
-    		margin-left: 20px;
-        }
+       	display: flex;
+        justify-content: space-around;
+   		align-items: center;
+   		flex-direction: column;
+   		text-align: center;
+   		margin-left: 20px;
+}
         
 #book-thumbnail {
-        	width: 600px;
-        	height: 400px;
-        	display: flex;
-            justify-content: space-around;
-    		align-items: center;
-    		
-        }
+       	width: 600px;
+       	height: 400px;
+       	display: flex;
+        justify-content: space-around;
+   		align-items: center;
+}
         
 #book-header {
     height: 120px;
     width: 100%;
     background-color: white;
-    /* position: fixed; */
     top: 0;
 }
 
@@ -101,7 +97,7 @@
 #book-page-btn2 ,
 #book-page-btn3 ,
 #book-page-btn4 ,
-#boo-modify-btn {
+#book-modify-btn{
    cursor: pointer;   
 }
 
@@ -136,7 +132,7 @@
     width: 100%;
     height: 50px;
     background-color:  rgb(57, 189, 235);
-    align-items: center; /* 세로 정렬 */
+    align-items: center;
     justify-content:center;
     display: flex;
 }
@@ -146,7 +142,7 @@
     height: 100%;
     align-items: center;
     display: flex;
-    justify-content: space-between; /* 가로 정렬 */
+    justify-content: space-between;
 }
 
 #book-body-content1 {
@@ -154,7 +150,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* margin-left: 100px; */
     justify-content: space-around;
 }
 
@@ -168,6 +163,15 @@
 	flex-direction: column;
 	align-items: center;
 }
+
+.book-sell-img:hover {
+	cursor: pointer;
+}
+
+.book-sell-inf img:hover {
+	box-shadow: 5px 5px 5px gray;
+}
+
 #book-search , 
 #book-search-input {
     height: 100px;

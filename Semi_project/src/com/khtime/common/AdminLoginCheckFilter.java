@@ -1,6 +1,7 @@
 package com.khtime.common;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -12,16 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.khtime.member.model.vo.Member;
+
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-@WebFilter({"/myPage.me","/deleteMember.me","/updateEmail.me","/updateNickName.me","/updatePwd.me","/PrivacyPolicyController.me","/deteleReqBoard.me","/reqBoard.me","/TeenagerPolicyController.me","/TermsOfUseController.me","/chatting.do","/msgbox.me","/sendMsg.me","/booksell.do","/bookselllist.do","/bookdelete.do","/bookinsert.do","/booksellsearch.do","/booksoldout.do","/bookupdateform.do","/mybookdetail.do","/study.me","/friend.me","/boardreq.me","/board.me","/todolist.me","/boardDetail.bo","/delete.bo","/contentDetail.bo","/insert.bo","/recommend.bo","/content.re","/report.bo","/scrap.bo","/deletescrap.bo","/update.bo","/delete.re","/insert.re","/recommend.re","/report.re","/select.re","/myComments.bo","/myScrap.bo","/myWriting.bo","/boDetail.","/best.bo","/boDetailSearch.do"})
-public class LoginCheckFilter implements Filter {
+@WebFilter({"/enrollManagement.do","/approveMakeBoard.do","/boardreq.do","/approveEnroll.do","/management.do","/reportedBoard.do","/reportedUsers.do","/banUser.do","/usermanagement.do","/whiteList.do"})
+public class AdminLoginCheckFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LoginCheckFilter() {
+    public AdminLoginCheckFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -41,6 +44,9 @@ public class LoginCheckFilter implements Filter {
 		if(session == null || session.getAttribute("loginUser") == null) {
 			session.setAttribute("alertMsg", "로그인후 이용하실수 있습니다.");
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login.me");
+		}else if(((Member)session.getAttribute("loginUser")).getAuthority() != 0){
+			session.setAttribute("alertMsg", "관리자가 아닙니다.");
+			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/mainPage.do");
 		}else {
 			chain.doFilter(request, response);
 		}

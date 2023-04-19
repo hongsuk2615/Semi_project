@@ -63,12 +63,12 @@
 		                        <div class="book-price">가격 : <%= bList.get(i).getIsSoldout().equals("Y") ? "판매 완료" : bList.get(i).getPrice() %></div>
 		                    </div>
 	                	</div>
-                    <% } } %>
+                   	<% } } %>
             		</div>
                	</div>
-            
-        </div>
-    </div>
+        	</div>
+    	</div>
+    
         <div id="book-footer">
             <div id="book-page">
             	<% if(currentPage != 1) { %>
@@ -92,41 +92,29 @@
 						<img src="resources/IMG/right.png">
 					</button>
 				<% } %>
-            
             </div>
         </div>
-        
-        
-
     </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
      $(function() {
     	 $("#nextPage").click(function(){
 				currPage++;
-			/* 	let a = "btn"+currPage; */
-				
 				location.href = '<%=contextPath%>/bookselllist.do?currentPage='+currPage;
-				<%-- $(a).click("#btn<%= currentPage %>"); --%>
-				/* getBooks(); */
 			});
+    	 
 	   	$("#prevPage").click(function(){
 	   		currPage--;
-	   		/* 	let a = "btn"+currPage; */
-			
 			location.href = '<%=contextPath%>/bookselllist.do?currentPage='+currPage;
-			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-			/* getBooks(); */
 	   	});
-	  
      })
 	    
 	</script>
 	   	
 	<script>   	
     	
-	
    		 document.getElementById("book-sell-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/booksell.do";
    		 })
@@ -135,18 +123,20 @@
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
    		 
-   		 
    		 $('.book-wrap').each(function(index,item){
-			    let bkno = $(item).attr('data-bkno');
-			    $(item).click(function(){
-			    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
-				});
+		    let bkno = $(item).attr('data-bkno');
+		    $(item).click(function(){
+		    	location.href = "<%= request.getContextPath() %>/mybookdetail.do?bkno="+bkno;
+			});
 		 })
    	
     </script>
+    
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
   <script>
     AOS.init();
   </script>
+  
 </body>
 </html>

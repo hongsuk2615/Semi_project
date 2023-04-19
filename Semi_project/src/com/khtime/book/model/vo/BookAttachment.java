@@ -87,6 +87,4 @@ public class BookAttachment {
 				+ ", changeName=" + changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate
 				+ ", fileLevel=" + fileLevel + ", status=" + status + "]";
 	}
-	
-	
 }

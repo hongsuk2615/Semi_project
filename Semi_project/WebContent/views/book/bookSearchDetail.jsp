@@ -56,8 +56,8 @@
                     <div id="book-img0"></div>
                     <div class="book-text"> 
                     	<p>제목 :<div id="book-title0"></div></p>
-                        <div id="book-author0"></div><br>
-                        <div id="book-publisher0"></div><br>
+                        저자 : <div id="book-author0"></div><br>
+                        출판사 :<div id="book-publisher0"></div><br>
                         <div id="book-datetime0"></div><br>
                         <div id="book-contents0"></div>
                     </div>
@@ -91,7 +91,6 @@
 					<button id=prevPage>
 						<img src="resources/IMG/left.png">
 					</button>
-					
 					<input id="page-num" type="number" value="1">
 					<button type="button" id="nextPage">
 						<img src="resources/IMG/right.png">
@@ -100,6 +99,7 @@
         </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
         $(document).ready(function(){
         	function getBooks(){
@@ -111,15 +111,12 @@
                 })
     
                 .done(function (res){
-                    <%-- <% for(int i = 0; i < 8; i++) { %> --%>
 	                    $("#book-img0").empty();
 	                    $("#book-title0").empty();
 	                    $("#book-author0").empty();
 	                    $("#book-publisher0").empty();
 	                    $("#book-datetime0").empty();
 	                    $("#book-contents0").empty();
-	                    <%-- <% } %> --%>
-	                    <%-- <% for(int i = 0; i < 8; i++) { %> --%>
                         $("#book-img0").append( "<img src='" +res.documents[0].thumbnail + "'/>");
                         $("#book-title0").append(res.documents[0].title);
                         $("#book-author0").append(res.documents[0].authors);
@@ -134,9 +131,6 @@
                         		datetime : res.documents[0].datetime,
                         		contents : res.documents[0].contents
                         };
-                        
-                        <%-- function bookdetailPost() {sendPost("<%= request.getContextPath() %>/bookdetail.do", bookdata0)};
-                        $(".book-sell-img").click(bookdetailPost()); --%>
                 });
             }
             $("#search-btn").click(getBooks);
@@ -153,11 +147,7 @@
            	$("#nextPage").click(function(){
        			currPage++;
        			$('#page-num').val(currPage);
-       		/* 	let a = "btn"+currPage; */
-       			
        			booklistAjax();
-       			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-       			/* getBooks(); */
        		});
            	
            	$("#prevPage").click(function(){
@@ -165,12 +155,9 @@
            			currPage--;
            		}
            		$('#page-num').val(currPage);
-           		/* 	let a = "btn"+currPage; */
-           			
            			booklistAjax();
-           			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-           			/* getBooks(); */
        		});
+           	
            	$('#page-num').change(function(){
            		if($('#page-num').val() <1 ){
            			$('#page-num').val(currPage);
@@ -188,6 +175,7 @@
     </script>
     
     <script>
+    
 		document.getElementById("book-sell-btn-img").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/booksell.do"
 		})
@@ -206,10 +194,21 @@
 		document.getElementById("book-modify-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
+   		 
+   		 $('#bookname').keyup(function () {
+	            if (window.event.keyCode == 13) {
+	            	if( $("#bookname").val() == "") {
+	            	alert("도서 제목을 검색 해 주세요.");
+	            }else{
+	               location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
+	            }
+	       	 }
+	     });
+		
     </script>
 	
 	<script>
-	console.log('<%=bookname%>');
+	
 	function booklistAjax(){
 		$.ajax({
 			url : "<%= request.getContextPath() %>/bookajax.do",
@@ -222,12 +221,12 @@
 				$('#book-body-content2').html('');
 				for(let i = 0 ; i < list.length ; i++){
 				$('#book-body-content2').append(`
-						<div class="book-sell-img" data-bkno="\${list[i].bookNo}">
+					<div class="book-sell-img" data-bkno="\${list[i].bookNo}">
                 		<div class="book-sell-inf\${i}">
 	                        <img src="<%= request.getContextPath() %>\${list[i].titleImg}" style="width: 180px; height: 280px;">
 	                    </div>
 	                    <div class="book-detail-text">
-	                        <div class="book-price" style="color: red;" >\${list[i].price}</div> <!-- *2 하면 되는데 그걸 모르겠음 -->
+	                        <div class="book-price" style="color: red;" >\${list[i].price}</div>
 	                    </div>
                 	</div>
 				`);
@@ -236,8 +235,6 @@
 		})
 	}
 	</script>
-	
-    </div>
-    
+	</div>
 </body>
 </html>
