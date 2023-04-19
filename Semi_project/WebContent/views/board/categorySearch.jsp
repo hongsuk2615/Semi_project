@@ -61,11 +61,12 @@
 
                     <br>
                     <div id="searchresult">'게시판 검색 결과'</div>
+                    <div id="scroll1">
                  
                         <div  id="keyword">
                      
                         </div>                               
-                   
+                   </div>
                     <div id="boardlist">
                     현재 존재하는 게시판입니다.
                    
@@ -108,6 +109,7 @@
 				success :function(result){
 									$("#boardlist").hide();
 									$("#searchresult").show();
+									$("#scroll1").show();
 									$('#searchresult').html("'" +searchBoard+"'"+"   검색결과");
 							 if(result.length == 0){		
 									$('#keyword').html("조회된 게시판은 존재하지 않습니다.");
