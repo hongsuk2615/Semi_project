@@ -96,7 +96,7 @@
 }
 .transBox .tbody1{
     width: 100%;
-    height: 485px;
+    height: 400px;
     padding: 20px 20px;
 }
 
@@ -125,7 +125,7 @@
 
 .ui-draggable{
 	width: 600px;
-	height : 450px;
+	height : 430px;
 }
 
 
