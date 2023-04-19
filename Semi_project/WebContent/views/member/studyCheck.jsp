@@ -254,6 +254,9 @@
 
         // start btn
         $("#startbtn").click(function(){
+            if(get_cookie('targetTime')==""){
+    			khalert('목표시간을 설정해 주세요.');
+    		}else{
 			if(get_cookie('time')==''){
 				document.cookie = 'time=0';
 			}else{
@@ -278,10 +281,6 @@
 	             document.getElementById("time").innerHTML = makeTime(time);
             }, 1000);
             }
-            
-            if(get_cookie('targetTime')==""){
-    			khalert('목표시간을 설정해 주세요.');
-    			location.href="<%=request.getContextPath()%>/study.me";
     		}
             
         });
