@@ -53,6 +53,7 @@ a {
 <body>
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp"%>
+	
 	</div>
 	<div id="body">
 		
@@ -64,7 +65,7 @@ a {
 						<input placeholder="아이디로 친구요청을 보내세요!" type="text" name="userId"
 							id="userId" required>
 					</div>
-					<button type="button" class="btn btn-primary" onclick="idCheck2();">친구요청</button>
+					<button type="button" class="friendRequest" onclick="idCheck2();">친구요청</button>
 					<br>
 				</div>
 				<br>
@@ -188,22 +189,17 @@ a {
 				 function idCheck2(){
 					 // 아이디를 입력하는 input요소 얻어오기
 					 let inputId = document.getElementById("userId").value;  
-				
 					  $.ajax({
 						 url : "<%=request.getContextPath()%>/friendReq.do",
 						 data : {userId : inputId},
 						 method : "post",
 						 success : function(result){
 				
-							 if(result){
-								 if(confirm("친구 요청 하시겠습니까?")){
+							 if(result > 0 ){
+								 khconfirm("친구 요청 하시겠습니까?", function(){
 									 location.href="<%=request.getContextPath()%>/friendReq.do?userId="+inputId;//친구요청 서블릿으로 연결
+								 })
 								 }
-							 }else{
-								 
-                                khalert("없는 아이디이거나 본인 아이디이거나 이미 친구입니다.");
-							 }
-							 
 						 }	 
 					 });
 				 }
@@ -218,48 +214,38 @@ a {
 							 data : {senderUserNo},
 							 method : "post",
 							 success : function(result){
-								 if(result>0){
-										khalert("친구가 됐습니다");
 										location.reload();
-									 
-								 }else{
-										khalert("친구가 안됐습니다.");
 								 }
-							 }
 							 });	 
 						 }
 					
 				 function deny(e){
-						if(confirm("친구목록에서 삭제 됩니다.")){
-						console.log(e);
-						console.log($(e).attr('data-userNo'));
-						let senderUserNo =  $(e).attr('data-userNo');
+					 let senderUserNo =  $(e).attr('data-userNo');
+					 if($(e).attr('class') == "deny"){
+					 khconfirm("친구요청을 거절하시겠습니까?",function(){
+						 funcDeny(senderUserNo)
+					 })}else{
+					 khconfirm("친구목록에서 삭제하시겠습니까?",function(){
+						 funcDeny(senderUserNo)
+					 })
+					 }
+				 }
+				 
+				 function funcDeny(senderUserNo){
 						  $.ajax({
-							  
 								 url : "<%=request.getContextPath()%>/frienddeny.me",
 								 data : {senderUserNo},
 								 method : "post",
 								 success : function(result){
-								console.log(result);
-									 if(result>0){
-										 	if($(e).attr('class') == "deny"){
-											khalert("친구 신청을 거절했습니다.");
 											location.reload();
-										 	}
-										 	else{
-										 		khalert("친구를 삭제했습니다.");
-										 		location.reload();
-										 	}
-									 }else{
-											khalert("친구요청 거절을 실패했습니다.");
-									 }
 								 }
 								 });	 
 							 }
-				 }
 				 
         </script>
-
+        <%@ include file="../common/MessageModal.jsp"%>
+				
+				
 
 </body>
 

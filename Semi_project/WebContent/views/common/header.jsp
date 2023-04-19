@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="com.khtime.member.model.vo.Member"%>
 <%@ page import="com.khtime.message.model.vo.Message"%>
-<% 
+<%
+	Member loginUser = (Member) session.getAttribute("loginUser");
+String alertMsg = (String) session.getAttribute("alertMsg");
+%>
 
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	String alertMsg = (String)session.getAttribute("alertMsg");
-%>  
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
@@ -21,6 +20,7 @@
 	<script src="resources/JS/studyTime.js"></script>
 	<script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <title>Document</title>
+
 </head>
 <body>
 <%@ include file="khalertmodal.jsp" %>
@@ -61,7 +61,7 @@
                    <script>
                 	 function friendCount(){
                		$.ajax({
-               			url : "<%= request.getContextPath()%>/friendplus.do",
+               			url : "<%=request.getContextPath()%>/friendplus.do",
                			success : function(result){
                				if(result > 0){
                					$("#friendcount1").css('display','flex');
@@ -71,14 +71,14 @@
                			}
                			});
                		}
-               	/* setInterval(,1000);	 */
-               		friendCount();
+               	 setInterval(friendCount,60000); 	 
+               	friendCount()	
               </script>
-                	<script>
+				<script>
 
                 	 function messageCount(){
                 		$.ajax({
-                			url : "<%= request.getContextPath()%>/msgplus.do",
+                			url : "<%=request.getContextPath()%>/msgplus.do",
                 			success : function(result){
                 				if(result > 0){
                 					console.log(result);
@@ -90,61 +90,64 @@
                 			}
                 			});
                 		} 
-                	/* setInterval(,1000);	 */
-                	messageCount();      
+                	 setInterval(messageCount,60000);	
+                	 messageCount();
+                	   
                 	</script>
                     
-                    <button id="mypage-btn"></button>
+                    <div id="mypage-btn"></div>
                 <% } %>
             </div>
         </div>
     </div>
 
-    <script>
+				
+
+	<script>
    
     		
   		document.getElementById("boardsearch").addEventListener("click",function(){
-      	 	location.href = "<%= request.getContextPath() %>/board.me";
+      	 	location.href = "<%=request.getContextPath()%>/board.me";
   		}) 
 	    document.getElementById("friendlist").addEventListener("click",function(){
-	        location.href = "<%= request.getContextPath() %>/friend.me";
+	        location.href = "<%=request.getContextPath()%>/friend.me";
 	    }) 
     
 	    document.getElementById("home-logo").addEventListener("click",function(){
-	        location.href = "<%= request.getContextPath() %>";
+	        location.href = "<%=request.getContextPath()%>";
 	    })
 	  
   		
-        <% if(loginUser == null) {%> 
+        <%if (loginUser == null) {%> 
         document.getElementById("login-btn").addEventListener("click",function(){
           
-          location.href = "<%= request.getContextPath() %>/login.me"; 
+          location.href = "<%=request.getContextPath()%>/login.me"; 
          
         })
 
         document.getElementById("enrollment-btn").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/enroll.me";
+            location.href = "<%=request.getContextPath()%>/enroll.me";
         })
-        <% } else if(loginUser.getAuthority() == 0) { %>
+        <%} else if (loginUser.getAuthority() == 0) {%>
             
             document.getElementById("management").addEventListener("click",function(){
-                location.href = "<%= request.getContextPath() %>/management.do";
+                location.href = "<%=request.getContextPath()%>/management.do";
             })
-        <% }else{ %>
+        <%} else {%>
 	        document.getElementById("mypage-btn").addEventListener("click",function(){
-	        location.href = "<%= request.getContextPath() %>/myPage.me";
+	        location.href = "<%=request.getContextPath()%>/myPage.me";
 	        })
-		<% } %>
+		<%}%>
 		document.getElementById("todolist").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/todolist.me";
+            location.href = "<%=request.getContextPath()%>/todolist.me";
         })
         
         document.getElementById("bookstore").addEventListener("click",function(){
-            location.href = "<%= request.getContextPath() %>/bookstore.do";
+            location.href = "<%=request.getContextPath()%>/bookstore.do";
         })
 	
         document.getElementById("mypage-btn").addEventListener("click",function(){
-        location.href = "<%= request.getContextPath() %>/myPage.me";
+        location.href = "<%=request.getContextPath()%>/myPage.me";
    		 })
    		 
    		   document.getElementById("message-btn").addEventListener("click",function(){
@@ -160,4 +163,5 @@
   		 
   		
 </body>
+
 </html>

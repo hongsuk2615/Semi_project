@@ -56,8 +56,9 @@ public class ChangeProfileImgAjaxController extends HttpServlet {
 		if(result > 0 ) {
 			loginUser.setUserProfile(img.getFilePath()+img.getChangeName());
 			request.getSession().setAttribute("loginUser", loginUser );
+			request.getSession().setAttribute("alertMsg", "프로필 사진이 변경되었습니다!");
 		}else {
-			
+			request.getSession().setAttribute("alertMsg", "프로필 사진이 변경에 실패하였습니다.");
 		}
 	}
 

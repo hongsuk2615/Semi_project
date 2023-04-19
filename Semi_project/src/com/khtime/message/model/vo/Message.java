@@ -5,6 +5,7 @@ import java.util.Date;
 public class Message {
 	private int messageNo;
 	private int sender;
+	private String userName;
 	private int receiver;
 	private String content;
 	private Date sendDate;
@@ -30,6 +31,16 @@ public class Message {
 		this.receiver = receiver;
 		this.content = content;
 		this.sendDate = sendDate;
+	}
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public int getMessageNo() {

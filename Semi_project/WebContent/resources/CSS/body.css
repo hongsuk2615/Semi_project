@@ -317,7 +317,7 @@
   
 #btn1 {
   position: absolute;
-  top: 140px;
+  top: 170px;
   left : 220px; 
   background-color: blanchedalmond;
   border-radius: 15px;
@@ -333,9 +333,15 @@
   
  #btn2 {
   position: absolute;
-  top: 180px;
+  top: 190px;
   left : 250px; 
   background-color: black;
   border-radius: 15px;
   color: white;
 } 
+
+ .hoverList:hover, .openBtn:hover{
+     	cursor:pointer;
+     	background-color:#42A5F5;
+     	color:white;
+    }

@@ -52,8 +52,8 @@
             <div id="content">
                     <div id="margin">
                         <div><input type="text" name="name" placeholder="게시판 검색" id="Board"></div>
-                        <div><button type="button"  onclick="searchBoard();" class="btn btn-primary"style="margin-right:20px">검색</button></div>
-                         <div><button type="button" id="boardrequest" class="btn btn-primary">게시판 생성 요청</button></div>
+                        <div><button type="button"  onclick="searchBoard();" id="boardSearch"style="margin-right:20px">검색</button></div>
+                         <div><button type="button" id="boardrequest" >게시판 생성 요청</button></div>
                          <br>
                     </div>
                 <form id="boardmake">
@@ -61,11 +61,12 @@
 
                     <br>
                     <div id="searchresult">'게시판 검색 결과'</div>
+                    <div id="scroll1">
                  
                         <div  id="keyword">
                      
                         </div>                               
-                   
+                   </div>
                     <div id="boardlist">
                     현재 존재하는 게시판입니다.
                    
@@ -74,7 +75,7 @@
 							for (Category c : list) {
 						%>
 						<div>
-							<div id="categoryName<%=c.getCategoryNo() %>" onclick="moveboarddetail(this.id);" class="moveboard">
+							<div style="padding : 8px" id="categoryName<%=c.getCategoryNo() %>" onclick="moveboarddetail(this.id);" class="moveboard">
 							<%=c.getCategoryName()%> 게시판
 							</div>
 							</div>
@@ -108,14 +109,15 @@
 				success :function(result){
 									$("#boardlist").hide();
 									$("#searchresult").show();
-									$('#searchresult').html(searchBoard+"   검색결과");
+									$("#scroll1").show();
+									$('#searchresult').html("'" +searchBoard+"'"+"   검색결과");
 							 if(result.length == 0){		
 									$('#keyword').html("조회된 게시판은 존재하지 않습니다.");
 							 }else{
 								 $('#keyword').html('');
 								 $(result).each(function(index , item){
 									 console.log(item);
-									 $('#keyword').append(`<div id="category\${index}">\${item.categoryName}</div>`);
+									 $('#keyword').append(`<div id="category\${index}" style="text-align: center; padding : 8px;  border-radius: 5px;">\${item.categoryName} 게시판</div>`);
 									 $('#category'+index).click(function(){
 										 location.href="<%=request.getContextPath() %>/boardDetail.bo?cNo="+item.categoryNo;
 									 })
@@ -136,7 +138,7 @@
 		</script>
                     
 
-
+	<%@ include file="../common/MessageModal.jsp"%>
 
 
 </body>

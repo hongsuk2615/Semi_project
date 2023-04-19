@@ -179,5 +179,52 @@ public class MessageDao {
 		return result;
 	}
 	
+	public ArrayList<Message> MessageModal(Connection conn, int loginUserNo) {
+		ArrayList<Message> list = new ArrayList<Message>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("MessageModal");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUserNo);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Message m = new Message();
+				m.setContent(rset.getString("CONTENT"));
+				m.setUserName(rset.getString("USER_NAME"));
+				list.add(m);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+	
+	public int updateIsAlarm(Connection conn,int loginUserNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateIsAlarm");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, loginUserNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
 

@@ -24,6 +24,17 @@
 	/* border: 1px solid rgba(128, 128, 128, 0.568);  */
 	
 }
+
+thead:hover{
+	cursor:pointer;
+}
+
+td>p:hover{
+	color:#42A5F5;
+	cursor:pointer;
+}
+
+
 </style>
 
 <body>
@@ -31,6 +42,7 @@
 	<div id="wrapper">
 		
 		<%@ include file="header.jsp"%>
+		
 		<div id="body">
 			<div id="banner-wrapper">
 				  <div class="swiper">
@@ -44,8 +56,10 @@
             <a href="https://www.iei.or.kr/edu/curriculumDetailView.kh?no=2">
             <img src="<%=request.getContextPath()%>/resources/IMG/mainbanner2.jpg"> 
           	</a>
+          		   <a href="https://www.iei.or.kr/edu/curriculumDetailView.kh?no=2">
           		<h1 id="main_image_text" style="font-size:40px">나도 '풀스텍 개발자'가 <br>될 수 있을까?<br><p style="font-size:10px">프론트엔트 & 백엔드</p></h1>
           		  <button id="btn1"  >자세히 보러가기</button>
+          		  	</a>
           	</div> 
           </div>
           <div class="swiper-slide">
@@ -53,9 +67,10 @@
             <a href="https://www.iei.or.kr/community/noticeView.kh?no=3530&cpage=1&classify=">
             <img src="<%=request.getContextPath()%>/resources/IMG/mainbannner3.jpg"> 
           	</a>
+          	<a href="https://www.iei.or.kr/community/noticeView.kh?no=3530&cpage=1&classify=">
           		<h1 id="main_image_text2" style="font-size:40px">시작부터 다른<br>차별화된 교육 솔루션<br><p style="font-size:15px"><br>기업이 원하는 인재, 왜 KH 수료생인가!</p></h1>
-          	
           		  <button id="btn2"  >자세히 보러가기</button>
+          		  </a>
           	</div>
           	</div>
           </div> 
@@ -192,11 +207,16 @@
 				</div>
 
 				<%@ include file="body_right.jsp"%>
+			
 			</div>
 		</div>
 
 		<div id="footer"></div>
+		 
 	</div>
+	<%@ include file="MessageModal.jsp"%>	
+				
+			
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script>
 	  var mySwiper = new Swiper('.swiper', {

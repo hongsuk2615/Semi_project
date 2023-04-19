@@ -53,7 +53,7 @@
                   <div><textarea id="reason"></textarea></div> 
                 </div> 
                     <br>
-                    <button type="button" id="boardrequest" onclick="boardReq();" class="btn btn-primary">제출</button>
+                    <button type="button" id="boardrequest2" onclick="boardReq();">제출</button>
                   </form>
           
         </div>
@@ -74,19 +74,19 @@
 									data : {boardtitle : bt , reason : rsn},
 									method : "post",
 									success :function(result){
-												 if(result > 0){		
-													 khalert("성공적으로 요청 했습니다.");
-												 }else{
-													 khalert("성공적으로 요청하지 못했습니다.");	
-												 }
-												 
-											 }	 
+												if(result > 0){
+													location.href = '<%= request.getContextPath() %>/reqBoard.me';
+												}else{
+													location.href = '<%= request.getContextPath() %>/boardreq.me';
+												}
+											 
+											}	 
 										 });
 									 }		
 						</script>
 
 
-
+					<%@ include file="../common/MessageModal.jsp"%>
 
 
 </body>
