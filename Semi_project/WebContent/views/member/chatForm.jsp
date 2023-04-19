@@ -93,7 +93,7 @@
 									</div>
 									<div class="row" style="height: 90px;">
 										<div class="form-group col-xs-10">
-											<textarea style="height: 80px;" id="msg" class="form-control"
+											<textarea style="resize:none; height: 80px;" id="msg" class="form-control"
 												placeholder="메세지를 입력하세요" maxlength="100"></textarea>
 										</div>
 										<div class="form-group col-xs-2">
@@ -120,7 +120,7 @@
 	<script>
 		// WebSocket 객체 연결 192.168.130.3 내아이피
 		// const socket = new WebSocket("ws://ip:port/<%=request.getContextPath()%>/chatting.do")
-		const socket = new WebSocket("ws://192.168.130.3:8080/<%=request.getContextPath()%>/chatting.do")
+		const socket = new WebSocket("ws://192.168.130.5:8080/<%=request.getContextPath()%>/chatting.do")
 		
 		socket.onopen = function(e){ //접속성공여부확인
 			console.log("접속 성공");

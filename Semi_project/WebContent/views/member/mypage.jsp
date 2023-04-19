@@ -73,13 +73,14 @@
 						</div>
 						<br><br>
 						<div id="userInfo">
-						<span id="loginuser-id"><%=loginUser.getUserId() %></span><br>
-						<span id="loginuser-name&nickname"><%=loginUser.getUserName() %>/<%=loginUser.getNickName() %></span><br>
-						<span id="loginuser-class"><%=loginUser.getUserClass() %></span>
+						<span id="loginuser-id">아이디 : <%=loginUser.getUserId() %></span><br>
+						<span id="loginuser-name&nickname">이름 :     <%=loginUser.getUserName() %></span><br>
+						<span>닉네임 : <%=loginUser.getNickName() %></span><br>
+						<span id="loginuser-class">강의실 : <%=loginUser.getUserClass() %></span>
 						</div>
-						<button id="logoutbtn" style="position: relative; left: 65%;"onclick="javascript:btn()">로그아웃</button>
+						<button id="logoutbtn" style="position: relative;left: 68%;bottom: 5%;"onclick="javascript:btn()">로그아웃</button>
 					</div>
-
+					
 					<div id="community"
 						style="height: 200px; display: flex; flex-direction: column; justify-content: space-between;">
 						<strong>커뮤니티</strong>
@@ -345,6 +346,7 @@
 			    khalert('닉네임 형식이 다릅니다.');
 			    return false;
 			  }
+			  window.location.href="/Semi_project/myPage.me" 
 		}
 		</script>
 		</div>
@@ -380,12 +382,8 @@
 			});
 		</script>
 	</div>
-
-
-    
+   
 	<script> <!-- 로그아웃 버튼 스크립트-->
-        
-        
         document.getElementById("logoutbtn").addEventListener("click",function(){
 	        location.href = "<%= request.getContextPath()%>/logout.me";
 	    })
