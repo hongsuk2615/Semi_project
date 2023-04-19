@@ -166,6 +166,7 @@
         </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
         $(document).ready(function(){
         	function getBooks(){
@@ -223,30 +224,25 @@
            
            	$("#nextPage").click(function(){
        			currPage++;
-       		/* 	let a = "btn"+currPage; */
-       			
        			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-       			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-       			/* getBooks(); */
        		});
+           	
            	$("#prevPage").click(function(){
            		currPage--;
-           		/* 	let a = "btn"+currPage; */
-           			
-           			location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-           			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-           			/* getBooks(); */
+           		location.href = '<%=contextPath%>/booksearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        		});
+           	
            <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
-           
          
            getBooks();
-        }); 
+        });
+        
     </script>
     
     <script>
+    
     	document.getElementById("book-home-btn").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/bookstore.do";
 		 })
@@ -254,6 +250,7 @@
 		 document.getElementById("book-sell-btn").addEventListener("click",function(){
     	location.href = "<%= request.getContextPath() %>/booksell.do";
 		 })
+		 
     </script>
     
     <script>
@@ -279,17 +276,15 @@
     
     <script>
 	    $('#bookname').keyup(function () {
-	        if (window.event.keyCode == 13) {
+	       if (window.event.keyCode == 13) {
 	        	if( $("#bookname").val() == "") {
 	        	alert("도서 제목을 검색 해 주세요.");
 	        }else{
 	           location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
 	        }
-	   	 }
+	   	   }
 	    });
     </script>
-
-    </div>
     
 </body>
 </html>

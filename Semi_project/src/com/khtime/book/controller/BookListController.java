@@ -31,19 +31,15 @@ public class BookListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int listCount; // 현재 게시판의 총 개시글 갯수
-		int currentPage; // 현제 페이지(사용자가 요청한페이지)
-		int pageLimit; // 페이지 하단에 보여질 페이징바의 페이지 최대 갯수
-		int boardLimit; // 한 페이지에 보여질 게시글의 최대 갯수
-		int maxPage; // 가장 마지막 페이지가 몇번 페이지인지 (총 페이지 수)
-		int startPage; // 페이지 하단에 보여질 페이징바의 시작수
-		int endPage; // 페이지 하단에 보여질 페이징바의 끝 수
-		
-		
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage; 
 		
 		listCount = 50;
-		
-		
 		
 		currentPage = Integer.parseInt(  request.getParameter("currentPage") == null ? "1" : request.getParameter("currentPage")  );
 		pageLimit= 4;
@@ -52,20 +48,15 @@ public class BookListController extends HttpServlet {
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit -1;
 		
-		 if(endPage > maxPage) {
+		if(endPage > maxPage) {
 			 endPage = maxPage;
-		 }
-		
+		}
 		
 		 PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		 
 		 request.setAttribute("pi", pi);
-
 		 
 		 request.getRequestDispatcher("views/book/booksearch.jsp").forward(request, response);
-		
-		
-		
 	}
 
 	/**

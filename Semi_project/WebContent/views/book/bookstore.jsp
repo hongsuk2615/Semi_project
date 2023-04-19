@@ -79,7 +79,6 @@
 	                    <% } %>
 	            	<% } %>
                 </div>
-            
         </div>
     </div>
         <div id="book-footer">
@@ -92,12 +91,10 @@
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
 					<% if(i != currentPage) { %>
-						<%-- <button ><%= i %></button> --%>
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/bookstore.do?&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
-					
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
@@ -110,23 +107,18 @@
     </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
+    
      $(function() {
     	 $("#nextPage").click(function(){
 				currPage++;
-			/* 	let a = "btn"+currPage; */
-				
 				location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
-				<%-- $(a).click("#btn<%= currentPage %>"); --%>
-				/* getBooks(); */
 			});
+    	 
 	   	$("#prevPage").click(function(){
 	   		currPage--;
-	   		/* 	let a = "btn"+currPage; */
-			
 			location.href = '<%=contextPath%>/bookstore.do?currentPage='+currPage;
-			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-			/* getBooks(); */
 	   	});
 	   
 	   	$("#search-btn").click(function(){
@@ -155,9 +147,6 @@
    		 document.getElementById("book-modify-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookselllist.do";
    		 })
-
-   		 
-   		 
    		 
    		 $('.book-wrap').each(function(index,item){
 			    let bkno = $(item).attr('data-bkno');
@@ -165,21 +154,21 @@
 			    	location.href = "<%= request.getContextPath() %>/bookdetail.do?bkno="+bkno;
 			    });
 		});
-   	
-   		
+
 	        $('#bookname').keyup(function () {
 	            if (window.event.keyCode == 13) {
 	            	if( $("#bookname").val() == "") {
 	            	alert("도서 제목을 검색 해 주세요.");
-	            }else{
+	            } else {
 	               location.href = "<%= request.getContextPath() %>/booksearch.do?bookname="+document.getElementById("bookname").value;             
 	            }
-	       	 }
+	       	 	}
 	        });
    		 
     </script>
     
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
     <script>
     	AOS.init();
     </script>

@@ -13,14 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bookMain</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <style>
-        /* * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-    } */
-    </style>
     <link rel="stylesheet" href="resources/CSS/base.css">
     <link rel="stylesheet" href="resources/CSS/book_main.css">
-    <link rel="stylesheet" href="resources/CSS/book_update.css">
+    <link rel="stylesheet" href="resources/CSS/my_book_detail.css">
 </head>
 <body>
     <div id="wrapper">
@@ -53,7 +48,6 @@
                     </div>
                     <p><%= book.getContent() == null ? "판매에 대한 정보가 없습니다." : book.getContent() %></p>
                 </div>
-                
             </div>
 
             <hr>
@@ -75,7 +69,7 @@
                     <button class="detail-Img" style="background:none">
                     	<% for(int i = 0; i < bList.size(); i++ ) { %>
 	                    <div class="book-status-img">
-	                    <img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
+	                    	<img src="<%= request.getContextPath() + bList.get(i).getFilePath() + bList.get(i).getChangeName() %>" style="width:230px; height:230px;">
 	                    </div>
                     	<% } %>
                     </button>
@@ -136,11 +130,8 @@
    		document.getElementById("delete-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookdelete.do?bkno=<%= book.getBookNo() %>";
    		 })
+   		 
     </script>
-    
-    <script>
-    	
-    
-    </script>
+
 </body>
 </html>

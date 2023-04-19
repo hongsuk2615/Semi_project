@@ -69,7 +69,6 @@ public class BookAjaxController extends HttpServlet {
 		 request.setAttribute("pi", pi);
 		 
 		String bookname = request.getParameter("bookname");
-		System.out.println(bookname);
 		ArrayList<Book> bList = new BookService().selectBook(bookname ,pi);
 		request.setAttribute("bList", bList);
 		response.setContentType("application/json; charset = UTF-8");

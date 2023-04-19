@@ -44,7 +44,7 @@
                     	가격 : <input type="number" name="price" value="<%= book.getPrice() %>">
                     </div>
                     판매 내용  <textarea name="content" style="resize: none; width: 250px; height: 100px;">
-                    	<%= book.getContent() %>
+                    <%= book.getContent() %>
                     </textarea>
                 </div>
                 
@@ -81,8 +81,8 @@
 	                    </div>
                     	<% } %>
                     </div> <br>
-           			<input type="file" name="upfiles1" style="width: 230px; margin-left: 30px" >
-                  	<input type="file" name="upfiles2" style="width: 230px;">
+           			<input type="file" name="upfiles1" style="width: 230px; margin-left: 30px;" >
+                  	<input type="file" name="upfiles2" style="width: 230px; margin-left: 10px;">
                     
                     <h1 style="margin-left: 30px;">필기 여부</h1>
                     <input type="radio" name="isNoted" value="Y" <%= book.getIsNoted().equals("Y") ? "checked" : "" %> style="margin-left: 30px;">있음
@@ -100,9 +100,9 @@
             <div id="book-trade">
                 <div>
                     <h1>거래 방법</h1>
-                    <input type="radio" name="isDirect" value="Y" <%= book.getIsDirect() == "Y" ? "checked" : "" %>> 직거래
-                    <input type="radio" name="isDirect" value="N" <%= book.getIsDirect() == "N" ? "checked" : "" %>> 택배
-                    <input type="radio" name="isDirect" value="B" <%= book.getIsDirect() == "B" ? "checked" : "" %>> 둘다
+                    <input type="radio" name="isDirect" value="Y" <%= book.getIsDirect().equals("Y") ? "checked" : "" %>> 직거래
+                    <input type="radio" name="isDirect" value="N" <%= book.getIsDirect().equals("N") ? "checked" : "" %>> 택배
+                    <input type="radio" name="isDirect" value="B" <%= book.getIsDirect().equals("B") ? "checked" : "" %>> 둘다
                     <h1>지역</h1>
                     <p>지역 : <input type="text" name="location" class="location" value="<%= book.getLocation() %>"></p>
                 </div>
@@ -126,10 +126,6 @@
 		document.getElementById("book-home-btn").addEventListener("click",function(){
     		location.href = "<%= request.getContextPath() %>/bookstore.do";
 		})
-		 
-		<%-- document.getElementById("back-btn").addEventListener("click",function(){
-    		location.href = "<%= request.getContextPath() %>/bookselllist.do";
-		})  --%>
 		
     </script>
 </body>

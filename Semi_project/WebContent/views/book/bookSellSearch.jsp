@@ -142,14 +142,11 @@
 				<% } %>
 				
 				<% for(int i = startPage; i <= endPage; i++ ) { %>
-					
 					<% if(i != currentPage) { %>
-
 						<button id="btn<%= currentPage %>" onclick="location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage=<%= i %>'; " style="border: none; background: none;"><%= i %></button>
 					<% } else { %>
 						<button disabled><%=i %></button>
 					<% } %>
-					
 				<% } %>
 				
 				<% if(currentPage != maxPage) { %>
@@ -159,10 +156,10 @@
 				<% } %>
 				
             </div>
-
         </div>
     
     <script>
+    
     let currPage = <%= currentPage %>;
         $(document).ready(function(){
         	function getBooks(){
@@ -214,21 +211,14 @@
            
            	$("#nextPage").click(function(){
        			currPage++;
-       		/* 	let a = "btn"+currPage; */
-       			
        			location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-       			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-       			/* getBooks(); */
        		});
            	
            	$("#prevPage").click(function(){
            		currPage--;
-           		/* 	let a = "btn"+currPage; */
-           			
-           			location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
-           			<%-- $(a).click("#btn<%= currentPage %>"); --%>
-           			/* getBooks(); */
+           		location.href = '<%=contextPath%>/booksellsearch.do?bookname=<%= request.getAttribute("bookname") %>&currentPage='+currPage;
        		});
+           	
            <% if ( request.getAttribute("bookname") != "" && currentPage != 1  ) { %>
            		getBooks();
            <% } %>
@@ -245,16 +235,19 @@
     </script>
     
     <script>
+    
 		document.getElementById("book-sell-btn-img").addEventListener("click",function(){
-    	location.href = "<%= request.getContextPath() %>/booksell.do"
+    		location.href = "<%= request.getContextPath() %>/booksell.do"
 		})
 		
 		document.getElementById("book-home-btn").addEventListener("click",function(){
         	location.href = "<%= request.getContextPath() %>/bookstore.do";
    		 })
+   		 
     </script>
     
     <script>
+    
     function sendPost(url, params) {
         var form = document.createElement('form');
         form.setAttribute('method', 'post'); //POST 메서드 적용
@@ -270,11 +263,10 @@
             console.log(params[key]);
         }
         document.body.appendChild(form);
-        form.submit();	// 전송~
+        form.submit();	// 전송
     }
    
     </script>
 
-    </div>
 </body>
 </html>
