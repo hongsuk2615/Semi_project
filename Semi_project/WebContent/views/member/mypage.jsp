@@ -296,7 +296,7 @@
         		processData : false,
         		contentType : false,
         		success : function(){
-        			location.href="<%=request.getContextPath()%>";
+        			location.href="<%=request.getContextPath()%>/myPage.me";
         		}
         	})
         }
