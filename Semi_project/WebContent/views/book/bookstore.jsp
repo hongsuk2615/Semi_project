@@ -183,5 +183,6 @@
     <script>
     	AOS.init();
     </script>
+    <%@ include file="../common/MessageModal.jsp"%>
 </body>
 </html>

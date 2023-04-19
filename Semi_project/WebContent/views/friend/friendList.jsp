@@ -53,6 +53,7 @@ a {
 <body>
 	<div id="wrapper">
 		<%@ include file="../common/header.jsp"%>
+	
 	</div>
 	<div id="body">
 		
@@ -64,7 +65,7 @@ a {
 						<input placeholder="아이디로 친구요청을 보내세요!" type="text" name="userId"
 							id="userId" required>
 					</div>
-					<button type="button" class="btn btn-primary" onclick="idCheck2();">친구요청</button>
+					<button type="button" class="friendRequest" onclick="idCheck2();">친구요청</button>
 					<br>
 				</div>
 				<br>
@@ -157,7 +158,6 @@ a {
 			   </div>
 		   </div>
 	 </form>
-	</div>
 	<script> <!-- 쪽지보내기모달 textarea 엔터키 감지스크맆트 -->
 		function mykeydown() { 
 			if(window.event.keyCode==13) //enter 일 경우
@@ -242,8 +242,10 @@ a {
 							 }
 				 
         </script>
+        <%@ include file="../common/MessageModal.jsp"%>
+				
+				
 
-<!-- if($(e).attr('class') == "deny"){  -->
 </body>
 
 </html>

@@ -14,6 +14,13 @@
      <link rel="stylesheet" href="resources/CSS/khalertmodal.css">
     <title>Document</title>
 </head>
+<style>
+#wrapper{
+	min-height : 100vh;
+	padding-top : 150px;
+}
+
+</style>
 <body>
  <%@ include file="../common/khalertmodal.jsp" %>
  <script type="text/javascript" src="resources/JS/khalertmodal.js"></script>
