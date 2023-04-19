@@ -54,17 +54,6 @@ public class BookInsertController extends HttpServlet {
 			MultipartRequest multi = new MultipartRequest(request , savePath , maxSize, "UTF-8",
 														  new MyFileRenamePolicy());
 			
-			String bookName = multi.getParameter("title");
-			String author = multi.getParameter("author");
-			String publisher = multi.getParameter("publisher");
-			int seller = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();
-			String isNoted = multi.getParameter("isNoted");
-			int condition = Integer.parseInt(multi.getParameter("condition"));
-			String isDirect = multi.getParameter("isDirect");
-			String location = multi.getParameter("location");
-			int price = Integer.parseInt(multi.getParameter("price"));
-			int listPrice = Integer.parseInt(multi.getParameter("listPrice"));
-			
 			Book book = new Book();
 			book.setBookName(multi.getParameter("title"));
 			book.setAuthor(multi.getParameter("author"));
