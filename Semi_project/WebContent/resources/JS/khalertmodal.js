@@ -13,8 +13,8 @@
 		    }
 		})
 		
-		function khalert(a){
-			document.getElementById('modal-contents').innerHTML = a;
+		function khalert(text){
+			document.getElementById('modal-contents').innerHTML = text;
 			document.getElementById('modal-alert').style.display = 'flex';
 			$('#modal-button').focus();
 		}
@@ -41,10 +41,10 @@
 		    }
 		})
 		
-		function khconfirm(a, yesbtn, nobtn){
+		function khconfirm(text, yesbtn, nobtn){
 		  
 		
-			document.getElementById('modal-confirm-content').innerHTML = a;
+			document.getElementById('modal-confirm-content').innerHTML = text;
 			document.getElementById('modal-confirm').style.display = 'flex';
 			
 			function eventHandler(){
