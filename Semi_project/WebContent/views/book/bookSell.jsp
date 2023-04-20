@@ -186,7 +186,7 @@
             if( p !== "" ) {
                 $("#book-content").fadeIn(1500).css("display" , "flex");
             } else {
-                khalert("가격을 입력해 주세요!");
+                khalert("가격을 입력해 주세요!(숫자만)");
             }
         });
 

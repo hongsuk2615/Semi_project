@@ -132,7 +132,7 @@
 						
 						 <input placeholder="인증코드를 입력하세요. " type="text" name="code" id="code"
                             required>
-                            <button type="button" id="checkCode" >코드확인</button>
+                            <button type="button" id="checkCode" onclick=" checkCode();">코드확인</button>
                         <br><br>
                         
                         반이름 &nbsp&nbsp
@@ -195,7 +195,7 @@
 					</div>
                     <br><br>
                     <div id="enrollbutton">
-                        <div> <button type="submit" class="btn btn-primary"  onclick="return validate();" value="회원가입" >회원가입</button></div> 
+                        <div> <button type="submit" class="btn btn-primary" id="btn-btn-primary"  onclick="return validate();" value="회원가입" >회원가입</button></div> 
                         <div> <button type="button" class="btn btn-primary" onClick="window.location.reload()" >취소</button></div>               
                     </div>
                 </form>
@@ -211,8 +211,20 @@
 					 khalert('인증완료');
 				 }else{
 					 khalert('인증실패');
+					 code.value = "";
+		             document.getElementById("code").focus();
+		             return false;
 				 }
 			 }
+        	 
+        	 $("#btn-btn-primary").click(function(){
+        		 if($("#code").val() != code ) {
+        			 khalert('회원가입 코드를 다시 확인 해 주세요.');
+					 code.value = "";
+		             document.getElementById("code").focus();
+		             return false;
+        		 }
+        	 })
         	
         	 document.getElementById("sendCode").addEventListener('click',function(){
         		 

@@ -56,9 +56,9 @@
                                     <label for="banned">밴 유저</label>
                                     <input type="checkbox" value="Y" id="reported" name="filter">
                                     <label for="reported">신고 당한 유저</label>
-                                    <input type="radio" value="1" name="authority" id="student" checked>
+                                    <input type="radio" value="2" name="authority" id="student" checked>
                                     <label for="student">학생</label>
-                                    <input type="radio" value="2" name="authority" id="teacher">
+                                    <input type="radio" value="1" name="authority" id="teacher">
                                     <label for="teacher">강사</label>
                                 </div>
                                 <table id="resultBoard">
