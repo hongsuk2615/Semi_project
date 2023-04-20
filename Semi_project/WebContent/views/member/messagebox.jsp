@@ -37,24 +37,13 @@
 </style>
 
 <body>
- 	<script>
-      const msg = "<%= request.getSession().getAttribute("alertMsg") %>";
-      
-      if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
-         khalert(msg);
-         // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
-         // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
-         <% request.getSession().removeAttribute("alertMsg");%>
-         
-      }
-   	</script>
     <div id="wrapper">
     <!-- 네비영역 헤더-->
 		<%@ include file="../common/header.jsp"%>
         <div id="body">
             <div id="content" style="background-color:white;">
                 <div id="content1">
-                    <div id="messagebox3" class="title-text"> 쪽지함</div>
+                    <div id="messagebox3" class="title-text">쪽지함</div>
                     <div id="messagecheck">
                     <script>
                     let opponents = [];
@@ -65,10 +54,8 @@
                         </script>
                         <div class ="opponents opponents1" onclick="checkmsg(this);" data-userNo=<%=m.getUserNo() %>>
                         <div class="date">
-                            <div class="opponent-name" ><%= m.getNickName() %></div>
-                            
-                            <div class="msgdate"><%= contents.get(m.getUserNo()).get(0).get(2)
-                            %></div>
+                            <div class="opponent-name" ><%= m.getNickName() %></div>    
+                            <div class="msgdate"><%= contents.get(m.getUserNo()).get(0).get(2)%></div>
                         </div>
                         <div class="text"><%= contents.get(m.getUserNo()).get(0).get(1) %></div>
                         </div>
@@ -92,7 +79,7 @@
                     </div>
                 	<%} %>
                 	
-                 <!-- 주고받은 메세지가 있을 경우 div -->
+                 	<!-- 주고받은 메세지가 있을 경우 div -->
                 	<% for(Member m : list) {%>
                     <div class="messagesend" style="display : none">
                     	
@@ -135,30 +122,31 @@
             <div id="footer">
 
             </div>
-            
-            
-      <!-- 쪽지보내기 모달창 -->
-     <form action="<%= request.getContextPath() %>/sendMsg.me" method="post">
-     <input type="hidden" name="opponentNo" value="">
-	 <div class="msg-modal hidden">
-		<div class="Msgbg"></div>
-		<div class="msg-modalBox">
-			<div class="header">
-				<h2>쪽지보내기</h2>
-			</div>
-				<div class="sendMsgBody">
-					<div class="inputBox">	
-						<h4 class="inputLabel">쪽지보내기</h4>            
-              			<textarea style="height: 130px;  resize:none;" name="content" placeholder="공백포함 최대60자" class="inputField" required /></textarea><br>
-				  </div>
-				<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
-				</div>
-		</div>
-	</div>
-	</form>
-	
 
-    <script> <!--쪽지보내기모달 닫는 스크맆트-->
+
+		<!-- 쪽지보내기 모달창 -->
+		<form action="<%=request.getContextPath()%>/sendMsg.me" method="post">
+			<input type="hidden" name="opponentNo" value="">
+			<div class="msg-modal hidden">
+				<div class="Msgbg"></div>
+				<div class="msg-modalBox">
+					<div class="header">
+						<h2>쪽지보내기</h2>
+					</div>
+					<div class="sendMsgBody">
+						<div class="inputBox">
+							<h4 class="inputLabel">쪽지보내기</h4>
+							<textarea style="height: 130px; resize: none;" name="content" placeholder="공백포함 최대60자" class="inputField" required /></textarea>
+							<br>
+						</div>
+						<button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+		<script> <!--쪽지보내기모달 닫는 스크맆트-->
       const open = () => {
           document.querySelector(".msg-modal").classList.remove("hidden");
           

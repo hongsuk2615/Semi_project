@@ -109,8 +109,8 @@
 	<script>
 		// WebSocket 객체 연결 192.168.130.3 내아이피
 		// const socket = new WebSocket("ws://ip:port/<%=request.getContextPath()%>/chatting.do")
-		const socket = new WebSocket("ws://192.168.130.8:8080/<%=request.getContextPath()%>/chatting.do");
-		
+		const socket = new WebSocket("ws://192.168.130.5:8080/<%=request.getContextPath()%>/chatting.do")
+	
 		socket.onopen = function(e){ //접속성공여부확인
 			console.log("접속 성공");
 			console.log(e);
