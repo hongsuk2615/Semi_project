@@ -35,17 +35,6 @@
 <title>실시간 채팅 페이지</title>  
 </head>
 <body>
-	<script>
-      const msg = "<%=request.getSession().getAttribute("alertMsg")%>";
-      
-      if(msg != "null") { // "성공적으로 로그인이 되었습니다" / "null"
-         khalert(msg);
-         // 알람창을 띄워준 후 session에 담긴 메세지는 지워줘야함
-         // 안그러면 menubar.jsp가 로딩될때마다 매번 alert함수가 실행됨
-         <%request.getSession().removeAttribute("alertMsg");%>
-         
-      }
-   	</script>
 	<div id="wrapper">
 		<!-- 네비영역 헤더-->
 		<%@ include file="../common/header.jsp"%>
@@ -120,7 +109,7 @@
 	<script>
 		// WebSocket 객체 연결 192.168.130.3 내아이피
 		// const socket = new WebSocket("ws://ip:port/<%=request.getContextPath()%>/chatting.do")
-		const socket = new WebSocket("ws://192.168.130.5:8080/<%=request.getContextPath()%>/chatting.do")
+		const socket = new WebSocket("ws://192.168.130.8:8080/<%=request.getContextPath()%>/chatting.do");
 		
 		socket.onopen = function(e){ //접속성공여부확인
 			console.log("접속 성공");
