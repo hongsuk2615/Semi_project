@@ -63,22 +63,24 @@
 						</div>
 						<br>
 						<br>
-						<div style=" width: 100px; height: 100px;">
+						<div style=" width: 100px; ">
 							<label for="profile">
-								<div style=" width:100px;">
+								<div style=" width:100px;height: 100px;">
 									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
 								</div>
 							</label><!--  <input type="file" name="profile" id="profile"
 								style="display: none;" onchange="readURL(this);"> -->
 						</div>
 						<br><br>
-						<div id="userInfo">
-						<span id="loginuser-id">아이디 : <%=loginUser.getUserId() %></span><br>
-						<span id="loginuser-name&nickname">이름 :     <%=loginUser.getUserName() %></span><br>
-						<span>닉네임 : <%=loginUser.getNickName() %></span><br>
-						<span id="loginuser-class">강의실 : <%=loginUser.getUserClass() %></span>
+						<div style="display: flex; justify-content: space-between;">
+							<div id="userInfo">
+							<span id="loginuser-id">아이디 : <%=loginUser.getUserId() %></span><br>
+							<span id="loginuser-name&nickname">이름 : <%=loginUser.getUserName() %></span><br>
+							<span>닉네임 : <%=loginUser.getNickName() %></span><br>
+							<span id="loginuser-class">강의실 : <%=loginUser.getUserClass() %></span>
+							</div>
+							<button id="logoutbtn" style="margin-top: 40px;"onclick="javascript:btn()">로그아웃</button>
 						</div>
-						<button id="logoutbtn" style="position: relative;left: 68%;bottom: 5%;"onclick="javascript:btn()">로그아웃</button>
 					</div>
 					
 					<div id="community"
@@ -122,7 +124,7 @@
 			<div class="header">
 				<h2>비밀번호 변경</h2>
 			</div>
-			<form action="<%= request.getContextPath() %>/updatePwd.me" method="post"> 
+			<form action="<%= request.getContextPath() %>/updatePwd.me" method="post" onSubmit="return validatePwd();"> 
 				<div class="addDdayBody">
 					<div class="inputBox">
 						<h4 class="inputLabel">새 비밀번호</h4>
@@ -142,21 +144,19 @@
 						경우 관련법에 따라 <span class="redline">법적 책임을 지게 될 수 있습니다.</span>
 					</div>
 				</div>
-				<button type="submit" class="closeBtn" id="fullBlueBtn1"
-					onclick="return validatePwd();">비밀번호 변경</button>			
+				<button type="submit" class="closeBtn" id="fullBlueBtn1" onclick="return validatePwd();" >비밀번호 변경</button>			
 			</form>
 			
+			<!-- 비밀번호 유효성검사 정규식 -->
 			<script>
 		 			function validatePwd(){
 		 				let regExp = /^[a-z0-9!@#$%^]{8,15}$/i;
-			             if(!regExp.test(updatePwd.value)){
+		 				console.log($("input[name='updatePwd']").val());
+		 				console.log(regExp.test($("input[name='updatePwd']").val()));
+			             if(!regExp.test($("input[name='updatePwd']").val())){
 			                khalert("유효한 비밀번호를 입력해주세요");
-			                updatePwd.value = "";
-			                updatePwd.select();
 			                return false;
-			            } 
-		 				
-		 				if($("input[name='updatePwd']").val() != $("input[name='checkPwd']").val()) {
+			            }else if($("input[name='updatePwd']").val() != $("input[name='checkPwd']").val()) {
 		 					khalert("비밀번호가 일치하지 않습니다.");						
 		 					return false;	
 		 				} 
@@ -202,7 +202,7 @@
 
 			  var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			  // 검증에 사용할 정규식 변수 regExp에 저장
-			  if (regExp.test(emailVal)) {
+			  if(regExp.test(emailVal)) {
 			    return true;
 			  }
 			  else {
