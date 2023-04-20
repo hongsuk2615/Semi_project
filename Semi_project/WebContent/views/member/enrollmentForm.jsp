@@ -16,10 +16,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Document</title>
     <style>
-   
-       /*   * {
-        border: 1px solid rgba(128, 128, 128, 0.568);
-         } */
+
         div {
             display: inline-block;
             box-sizing: border-box;
@@ -33,6 +30,11 @@
             width: 100%;
             min-width: 1180px;
         }
+      
+      #home-logo:hover,
+      #titleImg:hover {
+      	cursor: pointer;
+      }
       
     </style>
 </head>

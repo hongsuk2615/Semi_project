@@ -232,6 +232,7 @@
     width: 130px;
     height: 130px;
     margin: 0;
+    border-radius: 130px;
 }
 #loginuser-profile>div {
     width: 100%;

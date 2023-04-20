@@ -48,7 +48,7 @@
                     <p>출판사 : <%= book.getPublisher() %></p>
                     <p>출판일 : <%= book.getPublicationDate() == null ? "책에 대한 정보가 없습니다." : book.getPublicationDate() %></p>
                     <div class="listPrice">
-	                    <p style="font-size: x-large; color: red; font-weight: 1000;">가격 : <%= book.getPrice() %> 원</p> <p><strike><%= book.getListPrice() %> 원</strike></p>
+	                    <p style="font-size: x-large; color: red; font-weight: 1000;">가격 : <%= book.getIsSoldout().equals("Y") ? "판매완료" : book.getPrice() + "원" %></p><s><%= book.getIsSoldout().equals("Y") ? "" : book.getListPrice() + "원" %></s>  
                     </div>
                     <p><%= book.getContent() == null ? "책에 대한 정보가 없습니다." : book.getContent() %></p>
                 </div>
@@ -66,9 +66,11 @@
                 <div>
                     <p>게시일 : <%= book.getEnrollDate() %></p>
                 </div>
-                <div>
-                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지.png" style="width: 27px; height: 27px;"></button>
-                </div>
+				<% if( loginUser !=null && loginUser.getUserNo() != book.getSeller() ) { %>
+	                <div>
+	                    <button class="send-message" data-userNo="<%=book.getSeller() %>" >판매자에게 쪽지 보내기.<img src="<%= request.getContextPath() %>/resources/IMG/쪽지.png" style="width: 27px; height: 27px;"></button>
+	                </div>
+	            <% } %>
             </div>
 
             <hr>
@@ -124,7 +126,7 @@
 						   <div class="sendMsgBody">
 							   <div class="inputBox">
 								    <h4 class="inputLabel">쪽지보내기</h4>            
-									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="textarea" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
+									<input onkeydown='mykeydown()' style="height: 130px; white-space: pre;" maxlength="70" type="text" name="content" placeholder="공백포함 최대60자" class="inputField" required /><br>
 							   </div>
 						       <button type="submit" class="closeBtn" id="fullBlueBtn4">보내기</button>			
 						   </div>

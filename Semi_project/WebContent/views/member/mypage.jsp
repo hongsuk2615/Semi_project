@@ -66,7 +66,7 @@
 						<div style=" width: 100px; ">
 							<label for="profile">
 								<div style=" width:100px;height: 100px;">
-									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%;">
+									<img src="<%=request.getContextPath()%><%=loginUser.getUserProfile()%>" alt="로그인유저프사" style="width:100%; height:100%; border-radius: 50px;">
 								</div>
 							</label><!--  <input type="file" name="profile" id="profile"
 								style="display: none;" onchange="readURL(this);"> -->
