@@ -35,7 +35,6 @@
 <title>실시간 채팅 페이지</title>  
 </head>
 <body>
-
 	<div id="wrapper">
 		<!-- 네비영역 헤더-->
 		<%@ include file="../common/header.jsp"%>
