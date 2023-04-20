@@ -30,7 +30,7 @@
 #modal-footer{
     height: 100px;
     width: 100%;
-    border-top: 1px solid rgb(151, 151, 151);
+    border-top: 3px dashed rgb(154 161 161);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -62,6 +62,10 @@
 #ban-deny-btn{
     background-color: orangered;
     color: white;
+}
+#ban-deny-btn:hover,#unban-approve-btn:hover, #exit-btn:hover{
+    cursor: pointer;
+    filter: brightness(1.2);
 }
 #unban-approve-btn{
     background-color: rgb(57, 189, 235);
