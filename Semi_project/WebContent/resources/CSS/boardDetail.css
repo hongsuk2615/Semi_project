@@ -64,6 +64,7 @@
     border-radius: 10px;
     background: skyblue;
     color : white;
+    cursor : pointer;
 }
 
 #createContent, #createContentbox{
