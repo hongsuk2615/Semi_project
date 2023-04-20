@@ -417,13 +417,13 @@
                             }				
                         });
                     
-                        document.getElementById("ban-deny-btn").innerHTML = "승인";
+                        document.getElementById("ban-deny-btn").innerHTML = "거부";
                         document.getElementById("ban-deny-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=Y";
-                        });
-                        document.getElementById("unban-approve-btn").innerHTML = "거부";
-                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
                             location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=N";
+                        });
+                        document.getElementById("unban-approve-btn").innerHTML = "승인";
+                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
+                            location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=Y";
                         });
                     }
                 }
@@ -476,13 +476,13 @@
                                     <div class="modal-body-right">\${Object.keys(result)[0]}</div>
                                 </div>`;
 
-                                document.getElementById("ban-deny-btn").innerHTML = "승인";
+                                document.getElementById("ban-deny-btn").innerHTML = "거부";
                                 document.getElementById("ban-deny-btn").addEventListener('click',function(){
-                                    location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=Y";
-                                });
-                                document.getElementById("unban-approve-btn").innerHTML = "거부";
-                                document.getElementById("unban-approve-btn").addEventListener('click',function(){
                                     location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=N";
+                                });
+                                document.getElementById("unban-approve-btn").innerHTML = "승인";
+                                document.getElementById("unban-approve-btn").addEventListener('click',function(){
+                                    location.href="<%=request.getContextPath()%>/approveMakeBoard.do?cName="+categoryName+"&approve=Y";
                                 });    
                                 
                             },

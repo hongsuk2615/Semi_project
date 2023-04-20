@@ -14,3 +14,9 @@
 #resultBoard{
     min-width: 650px;
 }
+
+
+#board-wrapper td:hover, #board-wrapper th:hover{
+    cursor: pointer;
+    filter : brightness(1.1);
+}

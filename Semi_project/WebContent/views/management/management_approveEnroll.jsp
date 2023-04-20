@@ -136,13 +136,13 @@ a {
                             }				
                         });
                     
-                        document.getElementById("ban-deny-btn").innerHTML = "승인";
+                        document.getElementById("ban-deny-btn").innerHTML = "거부";
                         document.getElementById("ban-deny-btn").addEventListener('click',function(){
-                            location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=Y";
-                        });
-                        document.getElementById("unban-approve-btn").innerHTML = "거부";
-                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
                             location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=N";
+                        });
+                        document.getElementById("unban-approve-btn").innerHTML = "승인";
+                        document.getElementById("unban-approve-btn").addEventListener('click',function(){
+                            location.href="<%=request.getContextPath()%>/approveEnroll.do?userId="+userId+"&approve=Y";
                         });
                     }
                 }

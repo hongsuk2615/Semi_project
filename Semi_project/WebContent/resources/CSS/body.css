@@ -56,6 +56,9 @@
     border-radius: 5px;
     padding: 7px;
     font-weight: bold;
+    cursor:pointer;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 #books-body{
     width: 100%;
@@ -78,6 +81,11 @@
 }
 #books-wrapper>div>div{
     border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+#books-wrapper>div>div:hover{
+	filter: brightness(0.9);
 }
 .book-img{
     width: 100%;

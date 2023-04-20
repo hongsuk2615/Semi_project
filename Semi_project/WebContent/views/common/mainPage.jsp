@@ -311,7 +311,7 @@ td>p:hover{
 							</div>
 							<div class="book-text">
 								<div>\${result[i].bookName}</div>
-								<div>\${result[i].price}</div>
+								<div style="color : rgb(117, 116, 116); font-size : 14px">\${result[i].price}원</div>
 							</div>`
 						)
 						$('#book-'+(i+1)).click(function(){
