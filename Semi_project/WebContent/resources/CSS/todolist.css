@@ -74,6 +74,7 @@
     border-top-left-radius: 10px;
     height: 45px;
     text-align : center;
+    padding : 10px;
     font-size: 27px;
     background-color: #0091EA;
     color: white;
@@ -179,4 +180,10 @@
     height: 60px;
     background-image: url(../IMG/delete.png);
     background-size: contain;
+}
+button, input[type='radio'], input[type='button'],#tdl-btn-add,.delete-btn{
+	cursor:pointer
+}
+button:hover, input[type='radio']:hover, input[type='button']:hover,#tdl-btn-add:hover,.delete-btn:hover{
+	filter : brightness(1.1);
 }
