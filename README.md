@@ -1,4 +1,4 @@
-![디데이gif](https://github.com/hongsuk2615/Semi_project/assets/117423689/b0c44b80-2cd1-4dc9-93a9-bf9b7e262c79)# Semi_project
+# Semi_project
 
 <h1>KHTIME프로젝트</h1>
 
