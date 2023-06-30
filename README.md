@@ -1,6 +1,7 @@
 # Semi_project
 
 <h1>KHTIME프로젝트</h1>
+
 ![로고이미지](https://github.com/hongsuk2615/Semi_project/assets/117423274/789b81d6-8efd-4ae3-8a52-bec223a5c9fb)
 
 <b> 학원사람이 소통을 할수 있도록하는 커뮤니티 사이트 </b>
