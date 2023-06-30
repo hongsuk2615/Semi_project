@@ -223,13 +223,67 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>메인 페이지</summary>
 <div markdown="1">
-  
- 움짤
+  ![ezgif com-video-to-gif (13)](https://github.com/hongsuk2615/Semi_project/assets/117426079/652b013f-279d-41b6-a564-9177b4714193)
 
 </div>
 </details>
+
+<details>
+<summary>판매 페이지</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (14)](https://github.com/hongsuk2615/Semi_project/assets/117426079/78ffd85f-cac4-4c8a-97f4-7d3e7908b8c5)
+
+</div>
+</details>
+
+<details>
+<summary>내 판매목록 페이지</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (15)](https://github.com/hongsuk2615/Semi_project/assets/117426079/664f9e2e-dd54-4e87-8d99-3adbcefa04a5)
+
+</div>
+</details>
+
+<details>
+<summary>상세 페이지</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (16)](https://github.com/hongsuk2615/Semi_project/assets/117426079/49a5348a-5e72-4077-a895-f784ce3d99f4)
+
+</div>
+</details>
+
+<details>
+<summary>수정 페이지</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (17)](https://github.com/hongsuk2615/Semi_project/assets/117426079/f13e7cc9-920b-4f6e-838f-8f774b1cc356)
+
+</div>
+</details>
+
+<details>
+<summary>판매완료 기능</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (18)](https://github.com/hongsuk2615/Semi_project/assets/117426079/aeb9177f-94f7-47ed-8fe4-5e71b0810a44)
+
+</div>
+</details>
+
+<details>
+<summary>삭제 기능</summary>
+<div markdown="1">
+  
+ ![ezgif com-video-to-gif (19)](https://github.com/hongsuk2615/Semi_project/assets/117426079/e948919e-44e2-4cf9-8b96-4d4d5145f293)
+
+</div>
+</details>
+
 
 <hr/>
 
