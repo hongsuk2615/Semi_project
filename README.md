@@ -24,13 +24,15 @@
 
 <h2>유사사이트 분석</h2>
 
-<img>
+<img src="https://github.com/hongsuk2615/Semi_project/assets/117423274/62f071b7-77a9-4c5d-8d17-f9c59aad5349">
+
 
 
 <br><br>
 <h2>유스케이스</h2>
 
-<img src="" width = "600" height="700">
+<img src="https://github.com/hongsuk2615/Semi_project/assets/117423274/bd6f5fa3-938e-4c0c-b705-8aebfdbb7c0f" width = "600" height="700">
+
 
 
 <br><br>
