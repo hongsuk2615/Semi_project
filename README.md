@@ -225,6 +225,7 @@
 <details>
 <summary>메인 페이지</summary>
 <div markdown="1">
+ 
   ![ezgif com-video-to-gif (13)](https://github.com/hongsuk2615/Semi_project/assets/117426079/652b013f-279d-41b6-a564-9177b4714193)
 
 </div>
