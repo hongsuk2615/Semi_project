@@ -50,6 +50,7 @@
 
  <h4>[메인페이지]</h4>
 
+![메인페이지](https://github.com/hongsuk2615/Semi_project/assets/117423274/dc68d98c-6124-454e-bf1b-b52b3511e999)
 
 
 <hr/>
@@ -109,10 +110,40 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>키워드로 검색</summary>
 <div markdown="1">
   
- 움짤
+![검색](https://github.com/hongsuk2615/Semi_project/assets/117423274/9fdd2d85-a8d6-421f-bd31-2fadaf7f1166)
+
+
+</div>
+</details>
+
+<details>
+<summary>글작성(에디터)</summary>
+<div markdown="1">
+  
+![에디터](https://github.com/hongsuk2615/Semi_project/assets/117423274/37a9586e-f191-40de-958c-9cd7f051bb60)
+
+
+</div>
+</details>
+
+<details>
+<summary>베스트/HOT게시판</summary>
+<div markdown="1">
+  
+![베스트게시판](https://github.com/hongsuk2615/Semi_project/assets/117423274/765020e4-4653-4e74-ad1f-a6677e410170)
+
+
+</div>
+</details>
+
+<details>
+<summary>내가쓴글, 댓글단 글 , 스크랩한 글 조회</summary>
+<div markdown="1">
+  
+![내가쓴글,댓글,스크랩](https://github.com/hongsuk2615/Semi_project/assets/117423274/fcc076dc-fdb4-4c98-b044-73c151fd35a4)
 
 </div>
 </details>
