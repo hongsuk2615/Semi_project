@@ -1,4 +1,4 @@
-# Semi_project
+![디데이gif](https://github.com/hongsuk2615/Semi_project/assets/117423689/b0c44b80-2cd1-4dc9-93a9-bf9b7e262c79)# Semi_project
 
 <h1>KHTIME프로젝트</h1>
 
@@ -183,10 +183,11 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>공부량체크 추가(시작, 중단, 종료)/랭킹</summary>
 <div markdown="1">
   
- 움짤
+![공부량체크gif](https://github.com/hongsuk2615/Semi_project/assets/117423689/5bc14ba8-a000-468d-b785-2a9ad2862f00)
+
 
 </div>
 </details>
@@ -198,10 +199,11 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>디데이 추가/수정/삭제</summary>
 <div markdown="1">
   
- 움짤
+ ![디데이gif](https://github.com/hongsuk2615/Semi_project/assets/117423689/91362d8d-0b7a-43c1-9aac-34242440c49a)
+
 
 </div>
 </details>
@@ -212,10 +214,11 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>번역기</summary>
 <div markdown="1">
   
- 움짤
+ ![번역기 gif](https://github.com/hongsuk2615/Semi_project/assets/117423689/d499fd99-7588-4b4a-a22e-8d41a8503253)
+
 
 </div>
 </details>
