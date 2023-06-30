@@ -48,13 +48,13 @@
 <br><br>
 <h2>주요기능</h2>
 
- <h4>[기능명 대제목]</h4>
+ <h4>[메인페이지]</h4>
 
 
 
 <hr/>
 
- <h4>[기능명 대제목]</h4>
+ <h4>[로그인/회원가입]</h4>
 
 
 <details>
@@ -67,6 +67,124 @@
 </details>
 
 <hr/>
+
+
+
+ <h4>[게시판]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+ <h4>[TO DO LIST]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+
+ <h4>[쪽지]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+ <h4>[공부량체크]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+
+ <h4>[D-Day]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+ <h4>[번역기]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+ <h4>[실시간 채팅]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+ <h4>[마이페이지]</h4>
+
+
+<details>
+<summary>기능</summary>
+<div markdown="1">
+  
+ 움짤
+
+</div>
+</details>
+
+<hr/>
+
+
 
 
 
