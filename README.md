@@ -123,10 +123,10 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>추가/삭제/우선순위별 정렬</summary>
 <div markdown="1">
   
- 움짤
+![TODOLIST](https://github.com/hongsuk2615/Semi_project/assets/117423274/5a0239df-6937-4feb-b120-72f96aeb760b)
 
 </div>
 </details>
