@@ -63,14 +63,40 @@
 
 
 <details>
-<summary>기능</summary>
+<summary>로그인</summary>
 <div markdown="1">
-  
- 움짤
+ 
+![로그인](https://github.com/hongsuk2615/Semi_project/assets/117423182/b5a2c6d3-4bdf-44f5-a1eb-c90dbd07f71b)
 
 </div>
 </details>
 
+<details>
+<summary>로그인 유지</summary>
+<div markdown="1">
+ 
+![로그인유지](https://github.com/hongsuk2615/Semi_project/assets/117423182/834e2d9e-5b6b-43a0-b8c8-00585c965a96)
+
+</div>
+</details>
+
+<details>
+<summary>아이디 찾기</summary>
+<div markdown="1">
+ 
+![아이디찾기](https://github.com/hongsuk2615/Semi_project/assets/117423182/7876f98d-2ec5-4f5f-8ea2-fc8225ca09dc)
+
+</div>
+</details>
+
+<details>
+<summary>비밀번호 찾기</summary>
+<div markdown="1">
+ 
+![비밀번호찾기](https://github.com/hongsuk2615/Semi_project/assets/117423182/34a4e868-b55e-4c07-bf4e-1d074f221028)
+
+</div>
+</details>
 <hr/>
 
 <h4>[관리자페이지]</h4>
@@ -152,6 +178,69 @@
 </div>
 </details>
 
+<details>
+<summary>글 수정</summary>
+<div markdown="1">
+  
+![글수정](https://github.com/hongsuk2615/Semi_project/assets/117423182/4b11eca4-0853-4ea0-8bb2-5ca988b29cbb)
+
+</div>
+</details>
+
+<details>
+<summary>글 삭제</summary>
+<div markdown="1">
+  
+![글삭제](https://github.com/hongsuk2615/Semi_project/assets/117423182/082a818a-2ee9-4dfb-ae95-5053c5dfc5a6)
+
+</div>
+</details>
+
+<details>
+<summary>글 공감 및 스크랩</summary>
+<div markdown="1">
+  
+![공감및스크랩](https://github.com/hongsuk2615/Semi_project/assets/117423182/632c449f-d874-4b03-95dc-7ad99d2d6286)
+
+</div>
+</details>
+
+<details>
+<summary>쪽지보내기</summary>
+<div markdown="1">
+  
+![쪽지보내기](https://github.com/hongsuk2615/Semi_project/assets/117423182/2bad85ad-9088-4a17-a6a4-145d4ba9f451)
+
+</div>
+</details>
+
+<details>
+<summary>댓글 삭제, 공감, </summary>
+<div markdown="1">
+  
+![삭제공감](https://github.com/hongsuk2615/Semi_project/assets/117423182/94a60a75-527f-41fc-b18e-a376cd241092)
+
+</div>
+</details>
+
+<details>
+<summary>댓글 작성 </summary>
+<div markdown="1">
+  
+![댓글](https://github.com/hongsuk2615/Semi_project/assets/117423182/0b611705-9b8d-4cf6-b7aa-f6320a5c2885)
+
+
+</div>
+</details>
+
+<details>
+<summary>무한스크롤 </summary>
+<div markdown="1">
+  
+![무한스크롤](https://github.com/hongsuk2615/Semi_project/assets/117423182/bc2349d6-8e41-4a47-a231-a049d8d4393a)
+
+</div>
+</details>
 <hr/>
 
  <h4>[TO DO LIST]</h4>
