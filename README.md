@@ -91,7 +91,7 @@
 </details>
 
 <details>
-<summary>사용자 관리</summary>
+<summary>사용자 관리(필터링/화이트리스트/밴)</summary>
 <div markdown="1">
  
 ![사용자 필터링,관리](https://github.com/hongsuk2615/Semi_project/assets/117423274/e85073b7-95c2-477f-85ca-23a523bc79b5)
