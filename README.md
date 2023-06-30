@@ -68,6 +68,31 @@
 
 <hr/>
 
+<h4>[관리자페이지]</h4>
+
+
+<details>
+<summary>회원가입 승인 / 신고유저 처리</summary>
+<div markdown="1">
+  
+![회원가입승인, 사용자 관리](https://github.com/hongsuk2615/Semi_project/assets/117423274/7716b2db-d401-444a-9e13-eac1f4e5776f)
+
+
+</div>
+</details>
+
+<details>
+<summary>게시판 카테고리 생성요청</summary>
+<div markdown="1">
+ 
+![게시판 카테고리 생성요청처리](https://github.com/hongsuk2615/Semi_project/assets/117423274/f3de8a23-319a-4834-885f-96e004832c27)
+
+</div>
+</details>
+
+
+<hr/>
+
 
 
  <h4>[게시판]</h4>
