@@ -82,10 +82,20 @@
 </details>
 
 <details>
-<summary>게시판 카테고리 생성요청</summary>
+<summary>게시판 카테고리 생성요청처리</summary>
 <div markdown="1">
  
 ![게시판 카테고리 생성요청처리](https://github.com/hongsuk2615/Semi_project/assets/117423274/f3de8a23-319a-4834-885f-96e004832c27)
+
+</div>
+</details>
+
+<details>
+<summary>사용자 관리</summary>
+<div markdown="1">
+ 
+![사용자 필터링,관리](https://github.com/hongsuk2615/Semi_project/assets/117423274/e85073b7-95c2-477f-85ca-23a523bc79b5)
+
 
 </div>
 </details>
