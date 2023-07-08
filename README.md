@@ -415,10 +415,56 @@
 
 <hr/>
 
+<details>
+<summary>회원가입</summary>
+<div markdown="1">
+  
 
 
+</div>
+</details>
+
+<details>
+<summary>친구목록</summary>
+<div markdown="1">
+  
 
 
+</div>
+</details>
+
+<details>
+<summary>게시판 생성 요청</summary>
+<div markdown="1">
+  
 
 
+</div>
+</details>
 
+<details>
+<summary>게시판 검색</summary>
+<div markdown="1">
+  
+
+
+</div>
+</details>
+
+<details>
+<summary>친구신청 알람 , 삭제 , 거절 , 수락</summary>
+<div markdown="1">
+  
+
+
+</div>
+</details>
+
+<details>
+<summary>메시지 알람 , 메시지 띄우기</summary>
+<div markdown="1">
+  
+
+
+</div>
+</details>
