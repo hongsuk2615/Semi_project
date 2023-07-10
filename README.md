@@ -418,25 +418,19 @@
 <details>
 <summary>회원가입</summary>
 <div markdown="1">
-  
+![ezgif-3-3468b117d7](https://github.com/hongsuk2615/Semi_project/assets/117425138/46c94ef8-d494-46ef-8a7c-cbef2c1abfce)
 
-
-</div>
-</details>
-
-<details>
-<summary>친구목록</summary>
-<div markdown="1">
-  
 
 
 </div>
 </details>
+
 
 <details>
 <summary>게시판 생성 요청</summary>
 <div markdown="1">
   
+![ezgif-3-30428283c6](https://github.com/hongsuk2615/Semi_project/assets/117425138/9f76d1e4-9905-420b-b74f-505c2f8977ee)
 
 
 </div>
@@ -446,15 +440,20 @@
 <summary>게시판 검색</summary>
 <div markdown="1">
   
+![ezgif-3-9a7f56281b](https://github.com/hongsuk2615/Semi_project/assets/117425138/125129e7-88f0-4226-8a86-4cbc33ec15f0)
 
 
 </div>
 </details>
 
 <details>
-<summary>친구신청 알람 , 삭제 , 거절 , 수락</summary>
+<summary>친구목록 , 친구신청 알람 , 삭제 , 거절 , 수락</summary>
 <div markdown="1">
   
+
+https://github.com/hongsuk2615/Semi_project/assets/117425138/03ad5900-e8ff-4aea-a403-e09da8c353a9
+
+
 
 
 </div>
@@ -464,6 +463,7 @@
 <summary>메시지 알람 , 메시지 띄우기</summary>
 <div markdown="1">
   
+![ezgif-3-7789180726](https://github.com/hongsuk2615/Semi_project/assets/117425138/d742b63e-196b-4c21-8195-67edbe66b03c)
 
 
 </div>
