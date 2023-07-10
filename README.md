@@ -418,6 +418,7 @@
 <details>
 <summary>회원가입</summary>
 <div markdown="1">
+ 
 ![ezgif-3-3468b117d7](https://github.com/hongsuk2615/Semi_project/assets/117425138/46c94ef8-d494-46ef-8a7c-cbef2c1abfce)
 
 
