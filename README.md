@@ -208,8 +208,10 @@
 <details>
 <summary>쪽지보내기</summary>
 <div markdown="1">
+
   
 ![쪽지보내기](https://github.com/hongsuk2615/Semi_project/assets/117423182/2bad85ad-9088-4a17-a6a4-145d4ba9f451)
+
 
 </div>
 </details>
