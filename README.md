@@ -267,7 +267,7 @@
 <summary>기능</summary>
 <div markdown="1">
  
-![message](https://github.com/hongsuk2615/Semi_project/assets/117968202/7c4b9f52-5917-4c15-b918-8aa15f5e29a4)
+https://github.com/hongsuk2615/Semi_project/assets/117968202/7c4b9f52-5917-4c15-b918-8aa15f5e29a4
   
 
 </div>
